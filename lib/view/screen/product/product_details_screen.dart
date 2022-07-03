@@ -81,7 +81,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
             automaticallyImplyLeading: false,
             elevation: 0,
-            backgroundColor: Provider.of<ThemeProvider>(context).darkTheme ? Colors.black : null,
+            backgroundColor: Provider.of<ThemeProvider>(context).darkTheme ? Colors.black : Theme.of(context).primaryColor,
           ),
 
 

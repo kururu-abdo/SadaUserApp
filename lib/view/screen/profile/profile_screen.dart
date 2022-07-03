@@ -142,7 +142,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           return Stack(clipBehavior: Clip.none,
             children: [
               Image.asset(Images.toolbar_background, fit: BoxFit.fill, height: 500,
-                color: Provider.of<ThemeProvider>(context).darkTheme ? Colors.black : null,),
+                color: Provider.of<ThemeProvider>(context).darkTheme ? Colors.black : Theme.of(context).primaryColor,),
 
               Container(padding: EdgeInsets.only(top: 35, left: 15),
                 child: Row(children: [
