@@ -28,7 +28,7 @@ class CustomExpandedAppBar extends StatelessWidget {
         // Background
         Image.asset(
           Images.more_page_header, height: 150, fit: BoxFit.fill, width: MediaQuery.of(context).size.width,
-          color: Provider.of<ThemeProvider>(context).darkTheme ? Colors.black : null,
+          color: Provider.of<ThemeProvider>(context).darkTheme ? Colors.black : Theme.of(context).primaryColor,
         ),
 
         Positioned(

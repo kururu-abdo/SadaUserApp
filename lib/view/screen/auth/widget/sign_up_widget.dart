@@ -147,7 +147,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
     }
   }
 
-  String _countryDialCode = "+880";
+  String _countryDialCode = "+966";
   @override
   void initState() {
     super.initState();

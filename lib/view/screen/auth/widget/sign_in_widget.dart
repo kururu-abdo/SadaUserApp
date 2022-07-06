@@ -63,7 +63,7 @@ class _SignInWidgetState extends State<SignInWidget> {
     if (_formKeyLogin.currentState.validate()) {
       _formKeyLogin.currentState.save();
 
-      String _email = _emailController.text.trim();
+      String _email =_countryDialCode.trim()+ _emailController.text.trim();
       String _password = _passwordController.text.trim();
 
       if (_email.isEmpty) {

@@ -23,7 +23,9 @@ class SettingsScreen extends StatelessWidget {
         Provider.of<SplashProvider>(context, listen: false).setFromSetting(false);
         return Future.value(true);
       },
-      child: CustomExpandedAppBar(title: getTranslated('settings', context),
+      child: CustomExpandedAppBar(
+        
+        title: getTranslated('settings', context),
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
 
             Padding(padding: EdgeInsets.only(top: Dimensions.PADDING_SIZE_LARGE,
