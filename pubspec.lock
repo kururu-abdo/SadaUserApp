@@ -1057,6 +1057,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.0"
+  responsive_framework:
+    dependency: "direct main"
+    description:
+      name: responsive_framework
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   rxdart:
     dependency: transitive
     description:
@@ -1300,6 +1307,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.6"
+  validate_ksa_number:
+    dependency: "direct main"
+    description:
+      name: validate_ksa_number
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   vector_math:
     dependency: transitive
     description:

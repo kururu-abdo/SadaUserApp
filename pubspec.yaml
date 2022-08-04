@@ -3,7 +3,7 @@ description: A new Flutter setup application for starting a project.
 
 publish_to: 'none'
 
-version: 1.0.1+4
+version: 1.0.1+5
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -54,6 +54,8 @@ dependencies:
   flutter_widget_from_html_core: ^0.8.5+3
   flutter_html_table: ^3.0.0-alpha.3
   fluttertoast: ^8.0.9
+  validate_ksa_number: ^1.0.0
+  responsive_framework: ^0.2.0
 
 
 

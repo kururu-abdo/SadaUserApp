@@ -58,7 +58,7 @@ class CustomTextField extends StatelessWidget {
         controller: controller,
         maxLines: maxLine ?? 1,
         textCapitalization: capitalization,
-        maxLength: isPhoneNumber ? 9 : null,
+        maxLength: isPhoneNumber ? 10 : null,
         focusNode: focusNode,
         keyboardType: textInputType ?? TextInputType.text,
         //keyboardType: TextInputType.number,

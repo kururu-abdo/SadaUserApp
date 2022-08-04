@@ -1,3 +1,4 @@
+
 import 'dart:developer';
 
 import 'package:country_code_picker/country_code.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_sixvalley_ecommerce/provider/splash_provider.dart';
 import 'package:flutter_sixvalley_ecommerce/utill/color_resources.dart';
 import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
 import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
+import 'package:flutter_sixvalley_ecommerce/utill/phone_utils.dart';
 import 'package:flutter_sixvalley_ecommerce/view/basewidget/button/custom_button.dart';
 import 'package:flutter_sixvalley_ecommerce/view/basewidget/textfield/custom_password_textfield.dart';
 import 'package:flutter_sixvalley_ecommerce/view/basewidget/textfield/custom_textfield.dart';
@@ -20,6 +22,7 @@ import 'package:flutter_sixvalley_ecommerce/view/screen/auth/widget/mobile_verif
 import 'package:flutter_sixvalley_ecommerce/view/screen/auth/widget/social_login_widget.dart';
 import 'package:flutter_sixvalley_ecommerce/view/screen/dashboard/dashboard_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:validate_ksa_number/validate_ksa_number.dart';
 
 import 'otp_verification_screen.dart';
 
@@ -62,13 +65,16 @@ class _SignInWidgetState extends State<SignInWidget> {
   void loginUser() async {
     if (_formKeyLogin.currentState.validate()) {
       _formKeyLogin.currentState.save();
-
-      String _email =_countryDialCode.trim()+ _emailController.text.trim();
+     var ksaValidate =KsaNumber();
+ String _email =_countryDialCode.trim()+
+                    
+                    PhoneNumberUtils.getPhoneNumberFromInputs( _emailController.text.trim())
+                    ;
       String _password = _passwordController.text.trim();
 
       if (_email.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('EMAIL_MUST_BE_REQUIRED', context)),
+          content: Text(getTranslated('PHONE_MUST_BE_REQUIRED', context)),
           backgroundColor: Colors.red,
         ));
       } else if (_password.isEmpty) {
@@ -76,10 +82,29 @@ class _SignInWidgetState extends State<SignInWidget> {
           content: Text(getTranslated('PASSWORD_MUST_BE_REQUIRED', context)),
           backgroundColor: Colors.red,
         ));
-      } else {
+      } 
+      
+            else if (!ksaValidate.isValidNumber(_email)) {
+                    log('is not valid Number');
+
+ try {
+   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(getTranslated('enter_valid_phone', context)),
+          backgroundColor: Colors.red,
+        ));
+ } catch (e) {
+                       log('$e');
+
+ }
+
+                     // showCustomSnackBar(getTranslated('enter_valid_email', context), context);
+                    }
+      
+      
+      else {
 
         if (Provider.of<AuthProvider>(context, listen: false).isRemember) {
-          Provider.of<AuthProvider>(context, listen: false).saveUserEmail(_email, _password);
+          Provider.of<AuthProvider>(context, listen: false).saveUserEmail(_emailController.text.trim(), _password);
         } else {
           Provider.of<AuthProvider>(context, listen: false).clearUserEmailAndPassword();
         }

@@ -239,7 +239,7 @@
   "please_enter_4_digit_code": "Please enter the 4 digit code send to",
   "mobile_verification": "Mobile verification",
   "mobile_number": "Mobile Number",
-  "number_hint": "123456789",
+  "number_hint": "5xxxxxxxx",
   "continue" :" Continue",
   "enter_phone_number" : "Enter phone number",
   "phone_number_already_exist": "Phone number already exist",
@@ -255,6 +255,8 @@
   "first_name_field_is_required": "First name field is required",
   "last_name_field_is_required": "Last name field is required",
   "enter_valid_email_address": "Enter valid email address",
+  "enter_valid_phone": "Enter valid Phone Number",
+
   "RUNNING" : "Running",
   "privacy_policy": "Privacy Policy",
   "no_internet_connection": "No Internet connection",

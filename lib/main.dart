@@ -33,6 +33,7 @@ import 'package:flutter_sixvalley_ecommerce/theme/light_theme.dart';
 import 'package:flutter_sixvalley_ecommerce/utill/app_constants.dart';
 import 'package:flutter_sixvalley_ecommerce/view/screen/splash/splash_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 import 'di_container.dart' as di;
 import 'helper/custom_delegate.dart';
@@ -107,6 +108,21 @@ class MyApp extends StatelessWidget {
       _locals.add(Locale(language.languageCode, language.countryCode));
     });
     return MaterialApp(
+
+builder: (context, child) => ResponsiveWrapper.builder(
+          child,
+          maxWidth: 1200,
+          minWidth: 480,
+          defaultScale: true,
+          breakpoints: [
+            ResponsiveBreakpoint.resize(480, name: MOBILE),
+            ResponsiveBreakpoint.autoScale(800, name: TABLET),
+            ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+          ],
+          background: Container(color: Color(0xFFF5F5F5))),
+
+
+
       title: AppConstants.APP_NAME,
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
