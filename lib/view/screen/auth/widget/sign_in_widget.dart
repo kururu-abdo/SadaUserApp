@@ -71,7 +71,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                     PhoneNumberUtils.getPhoneNumberFromInputs( _emailController.text.trim())
                     ;
       String _password = _passwordController.text.trim();
-
+print(_email.toString());
       if (_email.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(getTranslated('PHONE_MUST_BE_REQUIRED', context)),
@@ -109,7 +109,8 @@ class _SignInWidgetState extends State<SignInWidget> {
           Provider.of<AuthProvider>(context, listen: false).clearUserEmailAndPassword();
         }
 
-        loginBody.email =_countryDialCode.trim()+ _email;
+        loginBody.email = _email;
+      print(loginBody.email);
         loginBody.password = _password;
      
         await Provider.of<AuthProvider>(context, listen: false).login(loginBody, route);

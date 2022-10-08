@@ -26,7 +26,10 @@ class ProductWidget extends StatelessWidget {
         ));
       },
       child: Container(
-        height: MediaQuery.of(context).size.width/1.5,
+        height: 
+        MediaQuery.of(context).size.width/1.3  ,
+        
+        // MediaQuery.of(context).size.width/1.5,
         margin: EdgeInsets.all(5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
