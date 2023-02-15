@@ -90,7 +90,11 @@ class _MoreScreenState extends State<MoreScreen> {
             builder: (context, profile, child) {
               return Row(children: [
                 Padding(padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_LARGE),
-                  child: Image.asset(Images.logo_with_name_image, height: 35, color: ColorResources.WHITE),
+                  child: Image.asset(Images.logo_with_name_image,
+                   height: 50, 
+                  //  width: 300,
+                   color: ColorResources.WHITE
+                   ),
                 ),
                 Expanded(child: SizedBox.shrink()),
                 InkWell(

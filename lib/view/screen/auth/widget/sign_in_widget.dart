@@ -170,40 +170,59 @@ print(_email.toString());
             //     )),
 
   //for phone
-   Container(
-            margin: EdgeInsets.only(
-                left: Dimensions.MARGIN_SIZE_LARGE,
-                right: Dimensions.MARGIN_SIZE_LARGE,
-                bottom: Dimensions.MARGIN_SIZE_SMALL),
-            child: Row(
-              children: [
-                CodePickerWidget(
-                  onChanged: (CountryCode countryCode) {
-                    _countryDialCode = countryCode.dialCode;
-                  },
-                  initialSelection: _countryDialCode,
-                  favorite: [_countryDialCode],
-                  showDropDownButton: true,
-                  padding: EdgeInsets.zero,
-                  showFlagMain: true,
-                  textStyle: TextStyle(
-                      color: Theme.of(context).textTheme.headline1.color),
-                ),
-                Expanded(
-                    child: CustomTextField(
-                  hintText: getTranslated('ENTER_MOBILE_NUMBER', context),
-                  focusNode: _emailNode,
-                  nextNode: _passNode,
-                  controller: _emailController,
-                  
-                  isPhoneNumber: true,
-                  textInputAction: TextInputAction.next,
-                  textInputType: TextInputType.phone,
-                )),
-              ],
-            ),
-          ),
 
+
+  //  Container(
+  //           margin: EdgeInsets.only(
+  //               left: Dimensions.MARGIN_SIZE_LARGE,
+  //               right: Dimensions.MARGIN_SIZE_LARGE,
+  //               bottom: Dimensions.MARGIN_SIZE_SMALL),
+  //           child: Row(
+  //             children: [
+  //               // CodePickerWidget(
+  //               //   onChanged: (CountryCode countryCode) {
+  //               //     _countryDialCode = countryCode.dialCode;
+  //               //   },
+  //               //   initialSelection: _countryDialCode,
+  //               //   favorite: [_countryDialCode],
+  //               //   showDropDownButton: true,
+  //               //   padding: EdgeInsets.zero,
+  //               //   showFlagMain: true,
+  //               //   textStyle: TextStyle(
+  //               //       color: Theme.of(context).textTheme.headline1.color),
+  //               // ),
+  //               Expanded(
+  //                   child: Container(
+  //                                margin:
+  //               EdgeInsets.only(bottom: Dimensions.MARGIN_SIZE_DEFAULT),
+  //                     child: CustomTextField(
+  //                                     hintText: getTranslated('ENTER_MOBILE_NUMBER', context),
+  //                                     focusNode: _emailNode,
+  //                                     nextNode: _passNode,
+  //                                     controller: _emailController,
+                                      
+  //                                     isPhoneNumber: true,
+  //                                     textInputAction: TextInputAction.next,
+  //                                     textInputType: TextInputType.phone,
+  //                                   ),
+  //                   )),
+  //             ],
+  //           ),
+  //         ),
+Container(
+                                 margin:
+                EdgeInsets.only(bottom: Dimensions.MARGIN_SIZE_DEFAULT),
+                      child: CustomTextField(
+                                      hintText: getTranslated('ENTER_MOBILE_NUMBER', context),
+                                      focusNode: _emailNode,
+                                      nextNode: _passNode,
+                                      controller: _emailController,
+                                      
+                                      isPhoneNumber: true,
+                                      textInputAction: TextInputAction.next,
+                                      textInputType: TextInputType.phone,
+                                    ),
+                    ),
             Container(
                 margin:
                 EdgeInsets.only(bottom: Dimensions.MARGIN_SIZE_DEFAULT),

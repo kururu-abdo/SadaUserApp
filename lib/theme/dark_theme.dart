@@ -4,6 +4,7 @@ ThemeData dark = ThemeData(
   fontFamily: 'Cairo',
   primaryColor: Color(0xFFfaf274),
  cardColor:Colors.black,
+//  scaffoldBackgroundColor: Colors.black,
   brightness: Brightness.dark,
   highlightColor: Color(0xFF252525),
   hintColor: Color(0xFFc7c7c7),

@@ -90,28 +90,30 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _globalKey,
-      body: Provider.of<SplashProvider>(context).hasConnection ? Stack(
+      body: Provider.of<SplashProvider>(context).hasConnection ?
+       Stack(
         clipBehavior: Clip.none, children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            color:Colors.black
+          // Container(
+          //   width: MediaQuery.of(context).size.width,
+          //   height: MediaQuery.of(context).size.height,
+          //   color:Colors.black
             
-          //   Provider.of<ThemeProvider>(context).darkTheme ? Colors.black : ColorResources.getPrimary(context)
+          // //   Provider.of<ThemeProvider>(context).darkTheme ? Colors.black : ColorResources.getPrimary(context)
              
-             ,
-            child: CustomPaint(
-              painter: SplashPainter(),
-            ),
-          ),
+          //    ,
+          //   child: CustomPaint(
+          //     painter: SplashPainter(),
+          //   ),
+          // ),
           Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Image.asset(Images.logo_with_name_image, height: 250.0, fit: BoxFit.scaleDown,
-                  width: 250.0, 
+                Image.asset(Images.logo_with_name_image, height: 250.0, 
+                // fit: BoxFit.scaleDown,
+                  // width: 250.0, 
                   //color: Theme.of(context).cardColor,
-                  
+                  scale: 1.5,
                   ),
               ],
             ),

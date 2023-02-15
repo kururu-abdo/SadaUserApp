@@ -44,7 +44,7 @@
   "FIRST_NAME": "الاسم الاول",
   "LAST_NAME": "الكنية",
   "ENTER_YOUR_EMAIL": "أدخل بريدك الإلكتروني",
-  "ENTER_MOBILE_NUMBER": "أدخل رقم الهاتف المحمول",
+  "ENTER_MOBILE_NUMBER": " أدخل رقم الهاتف المحمول بدون 0",
   "ENTER_YOUR_PASSWORD": "ادخل رقمك السري",
   "PASSWORD": "كلمه السر",
   "RE_ENTER_PASSWORD": "إعادة إدخال كلمة المرور",

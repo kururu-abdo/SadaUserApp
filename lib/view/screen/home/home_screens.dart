@@ -119,10 +119,11 @@ class _HomePageState extends State<HomePage> {
                   SliverAppBar(
                     floating: true,
                     elevation: 0,
+                    toolbarHeight: 100,
                     centerTitle: false,
                     automaticallyImplyLeading: false,
                     backgroundColor: Theme.of(context).highlightColor,
-                    title: Image.asset(Images.logo_with_name_image, height: 35),
+                    title: Image.asset(Images.logo_with_name_image, height: 100 ,scale: 1.2,),
                     actions: [
                       Padding(
                         padding: const EdgeInsets.only(right: 12.0),
@@ -181,7 +182,11 @@ class _HomePageState extends State<HomePage> {
                                     width: 40,height: 40,decoration: BoxDecoration(color: Theme.of(context).primaryColor,
                                       borderRadius: BorderRadius.all(Radius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL))
                                   ),
-                                    child: Icon(Icons.search, color: Theme.of(context).cardColor, size: Dimensions.ICON_SIZE_SMALL),
+                                    child: Icon(Icons.search, color:Colors.black
+                                    
+                                    //  Theme.of(context).cardColor
+                                    
+                                    , size: Dimensions.ICON_SIZE_SMALL),
                                   ),
                             ]),
                           ),
@@ -194,10 +199,8 @@ class _HomePageState extends State<HomePage> {
                           Dimensions.PADDING_SIZE_SMALL, Dimensions.PADDING_SIZE_DEFAULT, Dimensions.PADDING_SIZE_SMALL  ),
                       child: Column(
                         children: [
-                          BannersView(),
-                          SizedBox(height: Dimensions.HOME_PAGE_PADDING),
 
-
+                       
 
                           // Category
                           Padding(
@@ -213,6 +216,10 @@ class _HomePageState extends State<HomePage> {
 
 
 
+
+   //brands view
+                          BannersView(),
+                          SizedBox(height: Dimensions.HOME_PAGE_PADDING),
 
 
                           // Mega Deal
@@ -438,6 +445,9 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   )
+                
+                
+                
                 ],
               ),
 

@@ -23,14 +23,19 @@ class AuthScreen extends StatelessWidget{
     PageController _pageController = PageController(initialPage: initialPage);
 
     return Scaffold(
+      backgroundColor:
+      // ColorResources.LIGHT_SKY_BLUE
+      
+      Color(0xFFeeeff3)
+      ,
       body: Stack(
         clipBehavior: Clip.none,
         children: [
 
-          Provider.of<ThemeProvider>(context).darkTheme ? SizedBox() 
-              : Image.asset(Images.background, fit: BoxFit.fill,
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width),
+          // Provider.of<ThemeProvider>(context).darkTheme ? SizedBox() 
+          //     : Image.asset(Images.background, fit: BoxFit.fill,
+          //     height: MediaQuery.of(context).size.height,
+          //     width: MediaQuery.of(context).size.width),
 
           Consumer<AuthProvider>(
             builder: (context, auth, child) => SafeArea(
@@ -38,7 +43,10 @@ class AuthScreen extends StatelessWidget{
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(height: Dimensions.topSpace),
-                  Image.asset(Images.logo_with_name_image, height: 150, width: 200),
+                  Image.asset(Images.logo_with_name_image, height: 200, 
+                  
+                  scale: 1.5,
+                  ),
 
 
                   Padding(

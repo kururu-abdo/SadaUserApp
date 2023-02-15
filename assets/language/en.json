@@ -241,7 +241,7 @@
   "mobile_number": "Mobile Number",
   "number_hint": "5xxxxxxxx",
   "continue" :" Continue",
-  "enter_phone_number" : "Enter phone number",
+  "enter_phone_number" : "Enter phone number(not start by 0)",
   "phone_number_already_exist": "Phone number already exist",
   "new_arrival": "New Arrivals",
   "top_product": "Top Products",

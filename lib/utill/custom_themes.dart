@@ -2,29 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
 
 const titilliumRegular = TextStyle(
-  fontFamily: 'Cairo',
+  fontFamily: 'Almarai',
   fontSize: Dimensions.FONT_SIZE_SMALL,
 );
 const titleRegular = TextStyle(
-  fontFamily: 'Cairo',
+  fontFamily: 'Almarai',
   fontWeight: FontWeight.w500,
   fontSize: Dimensions.FONT_SIZE_DEFAULT,
 
 );
 const titleHeader = TextStyle(
-  fontFamily: 'Cairo',
+  fontFamily: 'Almarai',
   fontWeight: FontWeight.w600,
   fontSize: Dimensions.FONT_SIZE_LARGE,
 
 );
 const titilliumSemiBold = TextStyle(
-  fontFamily: 'Cairo',
+  fontFamily: 'Almarai',
   fontSize: Dimensions.FONT_SIZE_SMALL,
   fontWeight: FontWeight.w600,
 );
 
 const titilliumBold = TextStyle(
-  fontFamily: 'Cairo',
+  fontFamily: 'Almarai',
   fontSize: Dimensions.FONT_SIZE_DEFAULT,
   fontWeight: FontWeight.w700,
 );
@@ -35,12 +35,12 @@ const titilliumItalic = TextStyle(
 );
 
 const robotoRegular = TextStyle(
-  fontFamily: 'Cairo',
+  fontFamily: 'Almarai',
   fontSize: Dimensions.FONT_SIZE_DEFAULT,
 );
 
 const robotoBold = TextStyle(
-  fontFamily: 'Cairo',
+  fontFamily: 'Almarai',
   fontSize: Dimensions.FONT_SIZE_DEFAULT,
   fontWeight: FontWeight.w700,
 );

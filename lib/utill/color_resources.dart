@@ -51,7 +51,10 @@ class ColorResources {
     return Provider.of<ThemeProvider>(context).darkTheme ? Color(0xFF517091) : Color(0xFF92C6FF);
   }
   static Color getChatIcon(BuildContext context) {
-    return Provider.of<ThemeProvider>(context).darkTheme ? Color(0xFFebebeb) : Color(0xFFD4D4D4);
+    return Provider.of<ThemeProvider>(context).darkTheme ? Color(0xFFebebeb) 
+    :
+    // Colors.black;
+     Color(0xFFD4D4D4);
   }
   static Color getLowGreen(BuildContext context) {
     return Provider.of<ThemeProvider>(context).darkTheme ? Color(0xFF7d8085) : Color(0xFFEFF6FE);

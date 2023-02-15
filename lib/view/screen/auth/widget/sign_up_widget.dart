@@ -15,6 +15,7 @@ import 'package:flutter_sixvalley_ecommerce/utill/phone_utils.dart';
 import 'package:flutter_sixvalley_ecommerce/view/basewidget/button/custom_button.dart';
 import 'package:flutter_sixvalley_ecommerce/view/basewidget/textfield/custom_password_textfield.dart';
 import 'package:flutter_sixvalley_ecommerce/view/basewidget/textfield/custom_textfield.dart';
+import 'package:flutter_sixvalley_ecommerce/view/basewidget/textfield/custom_textfield2.dart';
 import 'package:flutter_sixvalley_ecommerce/view/screen/auth/widget/social_login_widget.dart';
 import 'package:flutter_sixvalley_ecommerce/view/screen/dashboard/dashboard_screen.dart';
 import 'package:provider/provider.dart';
@@ -196,84 +197,142 @@ try {
           child: Column(
             children: [
               // for first and last name
-              Container(
-                margin: EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT, right: Dimensions.MARGIN_SIZE_DEFAULT),
-                child: Row(
-                  children: [
-                    Expanded(child: CustomTextField(
-                      hintText: getTranslated('FIRST_NAME', context),
-                      textInputType: TextInputType.name,
-                      focusNode: _fNameFocus,
-                      nextNode: _lNameFocus,
-                      isPhoneNumber: false,
-                      capitalization: TextCapitalization.words,
-                      controller: _firstNameController,)),
+              // Container(
+              //   margin: EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT, right: Dimensions.MARGIN_SIZE_DEFAULT),
+              //   child: Row(
+              //     children: [
+              //       Expanded(child: NormalTextField(
+              //         hintText: getTranslated('FIRST_NAME', context),
+              //         textInputType: TextInputType.name,
+              //         focusNode: _fNameFocus,
+              //         nextNode: _lNameFocus,
+              //         isPhoneNumber: false,
+              //         capitalization: TextCapitalization.words,
+              //         controller: _firstNameController,)),
+              //       SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
+
+
+              //       Expanded(child: NormalTextField(
+              //         hintText: getTranslated('LAST_NAME', context),
+              //         focusNode: _lNameFocus,
+              //         nextNode: _emailFocus,
+              //         capitalization: TextCapitalization.words,
+              //         controller: _lastNameController,)),
+              //     ],
+              //   ),
+              // ),
+
+
+
+
+
+
+
+Container(
+
+                                 margin:
+                EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
+                bottom: Dimensions.MARGIN_SIZE_DEFAULT,
+                    right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL),
+  child:   NormalTextField(
+                        hintText: getTranslated('FIRST_NAME', context),
+                        textInputType: TextInputType.name,
+                        focusNode: _fNameFocus,
+                        nextNode: _lNameFocus,
+                        isPhoneNumber: false,
+                        capitalization: TextCapitalization.words,
+                        controller: _firstNameController,),
+),
                     SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
 
 
-                    Expanded(child: CustomTextField(
-                      hintText: getTranslated('LAST_NAME', context),
-                      focusNode: _lNameFocus,
-                      nextNode: _emailFocus,
-                      capitalization: TextCapitalization.words,
-                      controller: _lastNameController,)),
-                  ],
-                ),
-              ),
-
-
-
-              Container(
-                margin: EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT, right: Dimensions.MARGIN_SIZE_DEFAULT,
-                    top: Dimensions.MARGIN_SIZE_SMALL),
-                child: CustomTextField(
-                  hintText: getTranslated('ENTER_YOUR_EMAIL', context),
-                  focusNode: _emailFocus,
-                  nextNode: _phoneFocus,
-                  textInputType: TextInputType.emailAddress,
-                  controller: _emailController,
-                ),
-              ),
-
-
-
-              Container(
-                margin: EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
+                    Container(
+                                 margin:
+                EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
+                bottom: Dimensions.MARGIN_SIZE_DEFAULT,
                     right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL),
-                child: Row(children: [
-                  CodePickerWidget(
-                    onChanged: (CountryCode countryCode) {
-                      _countryDialCode = countryCode.dialCode;
-                    },
-                    initialSelection: _countryDialCode,
-                    favorite: [_countryDialCode],
-                    showDropDownButton: true,
-                    padding: EdgeInsets.zero,
-                    showFlagMain: true,
-                    textStyle: TextStyle(color: Theme.of(context).textTheme.headline1.color),
-
-                  ),
+                      child: NormalTextField(
+                        hintText: getTranslated('LAST_NAME', context),
+                        focusNode: _lNameFocus,
+                        nextNode: _emailFocus,
+                        capitalization: TextCapitalization.words,
+                        controller: _lastNameController,),
+                    ),
 
 
 
-                  Expanded(child: CustomTextField(
-                    hintText: getTranslated('ENTER_MOBILE_NUMBER', context),
-                    controller: _phoneController,
-                    focusNode: _phoneFocus,
-                    nextNode: _passwordFocus,
-                    isPhoneNumber: true,
-                    textInputAction: TextInputAction.next,
-                    textInputType: TextInputType.phone,
-
-                  )),
-                ]),
-              ),
 
 
 
+
+
+              // Container(
+              //   margin: EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT, right: Dimensions.MARGIN_SIZE_DEFAULT,
+              //       top: Dimensions.MARGIN_SIZE_SMALL),
+              //   child: CustomTextField(
+              //     hintText: getTranslated('ENTER_YOUR_EMAIL', context),
+              //     focusNode: _emailFocus,
+              //     nextNode: _phoneFocus,
+              //     textInputType: TextInputType.emailAddress,
+              //     controller: _emailController,
+              //   ),
+              // ),
+
+
+
+              // Container(
+              //   margin: EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
+              //       right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL),
+              //   child: Row(children: [
+              //     CodePickerWidget(
+              //       onChanged: (CountryCode countryCode) {
+              //         _countryDialCode = countryCode.dialCode;
+              //       },
+              //       initialSelection: _countryDialCode,
+              //       favorite: [_countryDialCode],
+              //       showDropDownButton: true,
+              //       padding: EdgeInsets.zero,
+              //       showFlagMain: true,
+              //       textStyle: TextStyle(color: Theme.of(context).textTheme.headline1.color),
+
+              //     ),
+
+
+
+              //     Expanded(child: CustomTextField(
+              //       hintText: getTranslated('ENTER_MOBILE_NUMBER', context),
+              //       controller: _phoneController,
+              //       focusNode: _phoneFocus,
+              //       nextNode: _passwordFocus,
+              //       isPhoneNumber: true,
+              //       textInputAction: TextInputAction.next,
+              //       textInputType: TextInputType.phone,
+
+              //     )),
+              //   ]),
+              // ),
+
+
+Container(
+                                 margin:
+                EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
+                bottom: Dimensions.MARGIN_SIZE_DEFAULT,
+                    right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL),
+                      child: CustomTextField(
+                                      hintText: getTranslated('ENTER_MOBILE_NUMBER', context),
+                                      focusNode: _phoneFocus,
+                                      nextNode: _passwordFocus,
+                                      controller: _emailController,
+                                      
+                                      isPhoneNumber: true,
+                                      textInputAction: TextInputAction.next,
+                                      textInputType: TextInputType.phone,
+                                    ),
+                    ),
 
               Container(
                 margin: EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
+                bottom: Dimensions.MARGIN_SIZE_DEFAULT,
                     right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL),
                 child: CustomPasswordTextField(
                   hintTxt: getTranslated('PASSWORD', context),
@@ -288,6 +347,7 @@ try {
 
               Container(
                 margin: EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
+                bottom: Dimensions.MARGIN_SIZE_DEFAULT,
                     right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL),
                 child: CustomPasswordTextField(
                   hintTxt: getTranslated('RE_ENTER_PASSWORD', context),

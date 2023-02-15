@@ -21,7 +21,8 @@ class CustomButton extends StatelessWidget {
         height: 45,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: ColorResources.getChatIcon(context),
+          color:
+           ColorResources.getChatIcon(context),
             boxShadow: [
               BoxShadow(color: Colors.grey.withOpacity(0.2), spreadRadius: 1, blurRadius: 7, offset: Offset(0, 1)), // changes position of shadow
             ],

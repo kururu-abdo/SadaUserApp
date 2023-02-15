@@ -62,7 +62,9 @@ class _SocialLoginWidgetState extends State<SocialLoginWidget> {
         :Center(child: Text(getTranslated('social_login', context))):SizedBox(),
 
 
-        Container(color: Provider.of<ThemeProvider>(context).darkTheme ? Theme.of(context).canvasColor : Colors.transparent,
+        Container(
+          // color: Provider.of<ThemeProvider>(context).darkTheme ?
+          //  Theme.of(context).canvasColor : Colors.transparent,
           child: Row(mainAxisAlignment: MainAxisAlignment.center,
             children: [
              Provider.of<SplashProvider>(context,listen: false).configModel.socialLogin[0].status?
@@ -84,7 +86,8 @@ class _SocialLoginWidgetState extends State<SocialLoginWidget> {
                   }
 
                 },
-                child: Ink(color: Color(0xFF397AF3),
+                child: Ink(
+                  // color: Color(0xFF397AF3),
                   child: Padding(padding: EdgeInsets.all(6),
                     child: Card(child: Padding(padding: const EdgeInsets.all(8.0),
                         child: Wrap(crossAxisAlignment: WrapCrossAlignment.center,
@@ -119,7 +122,9 @@ class _SocialLoginWidgetState extends State<SocialLoginWidget> {
                     await Provider.of<AuthProvider>(context, listen: false).socialLogin(socialLogin, route);
                   }
                 },
-                child: Ink(color: Color(0xFF397AF3),
+                child: Ink(
+                  
+                  // color: Color(0xFF397AF3),
                   child: Padding(padding: EdgeInsets.all(6),
                     child: Card(child: Padding(padding: const EdgeInsets.all(8.0),
                         child: Wrap(crossAxisAlignment: WrapCrossAlignment.center,

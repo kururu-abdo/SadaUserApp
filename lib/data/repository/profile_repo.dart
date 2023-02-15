@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -34,6 +35,7 @@ class ProfileRepo {
   Future<ApiResponse> getUserInfo() async {
     try {
       final response = await dioClient.get(AppConstants.CUSTOMER_URI);
+      log(response.data.toString());
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));

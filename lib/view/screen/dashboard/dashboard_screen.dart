@@ -54,6 +54,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
       },
       child: Scaffold(
         key: _scaffoldKey,
+        // backgroundColor: Colors.transparent,
         bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: Theme.of(context).primaryColor,
           unselectedItemColor: Theme.of(context).textTheme.bodyText1.color,
@@ -80,7 +81,8 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   BottomNavigationBarItem _barItem(String icon, String label, int index) {
     return BottomNavigationBarItem(
       icon: Image.asset(icon, color: index == _pageIndex ?
-      Theme.of(context).primaryColor : Theme.of(context).textTheme.bodyText1.color.withOpacity(0.5),
+      Theme.of(context).primaryColor :
+       Theme.of(context).textTheme.bodyText1.color.withOpacity(0.5),
         height: 25, width: 25,
       ),
       label: label,

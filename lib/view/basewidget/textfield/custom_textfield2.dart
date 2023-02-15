@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
+import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
 
 extension EmailValidator on String {
   bool isValidEmail() {
@@ -10,7 +11,7 @@ extension EmailValidator on String {
   }
 }
 
-class CustomTextField extends StatelessWidget {
+class NormalTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final TextInputType textInputType;
@@ -25,7 +26,7 @@ class CustomTextField extends StatelessWidget {
   final TextCapitalization capitalization;
   final bool isBorder;
 
-  CustomTextField(
+  NormalTextField(
       {this.controller,
       this.hintText,
       this.textInputType,
@@ -46,8 +47,10 @@ class CustomTextField extends StatelessWidget {
     var isRtl = Directionality.of(context)==TextDirection.rtl;
     return Container(
       width: double.infinity,
-
       //  width: double.infinity,
+
+                //                  margin:
+                // EdgeInsets.only(bottom: Dimensions.MARGIN_SIZE_DEFAULT),
       decoration: BoxDecoration(
         color: Theme.of(context).highlightColor,
         borderRadius: BorderRadius.circular(6),
@@ -64,14 +67,7 @@ class CustomTextField extends StatelessWidget {
       //   ],
       // ),
       child: TextFormField(
-        textAlign: 
-        
-        // isBorder? TextAlign.center:
-        isRtl?TextAlign.end:
-        TextAlign.start
-        
-        ,
-      
+        textAlign: isBorder? TextAlign.center:TextAlign.start,
         controller: controller,
         maxLines: maxLine ?? 1,
         textCapitalization: capitalization,
@@ -99,7 +95,7 @@ class CustomTextField extends StatelessWidget {
 
         },
         decoration: InputDecoration(
-hintTextDirection: TextDirection.ltr,
+
           hintText: hintText ?? '',
           filled: fillColor != null,
           fillColor: fillColor,
@@ -112,40 +108,6 @@ hintTextDirection: TextDirection.ltr,
           border: InputBorder.none,
           floatingLabelBehavior: FloatingLabelBehavior.always,
 
-          prefixIcon:isRtl?null: Container(
-            padding: EdgeInsets.zero,
-            width: 30,
-            child: Center(
-              child: Text(
-                     '966',
-                  // showFlagMain: true,
-                      style: TextStyle(
-                          // color: Colors.black
-                          
-                   color:       Theme.of(context).textTheme.headline1.color ,
-                   fontWeight: FontWeight.bold
-                          
-                          ),
-                    ),
-            ),
-          ),
- suffixIcon:isRtl? Container(
-            padding: EdgeInsets.zero,
-            width: 30,
-            child: Center(
-              child: Text(
-                     '966',
-                  // showFlagMain: true,
-                      style: TextStyle(
-                          // color: Colors.black
-                          
-                   color:       Theme.of(context).textTheme.headline1.color ,
-                   fontWeight: FontWeight.bold
-                          
-                          ),
-                    ),
-            ),
-          ):null,
 
 //           prefix:  Flex(
 //           direction: Axis.horizontal,

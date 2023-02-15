@@ -55,6 +55,7 @@ class SearchWidget extends StatelessWidget {
                       isDense: true,
                       hintStyle: robotoRegular.copyWith(color: Theme.of(context).hintColor),
                       border: InputBorder.none,
+                      
                       //prefixIcon: Icon(Icons.search, color: ColorResources.getColombiaBlue(context), size: Dimensions.ICON_SIZE_DEFAULT),
                       suffixIcon: Provider.of<SearchProvider>(context).searchText.isNotEmpty ? IconButton(
                         icon: Icon(Icons.clear, color: Colors.black),
