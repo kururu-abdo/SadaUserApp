@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/response/product_model.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/banner_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/brand_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/category_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/splash_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/top_seller_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/images.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/product/brand_and_category_product_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/product/product_details_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/topSeller/top_seller_product_screen.dart';
+import 'package:eamar_user_app/data/model/response/product_model.dart';
+import 'package:eamar_user_app/provider/banner_provider.dart';
+import 'package:eamar_user_app/provider/brand_provider.dart';
+import 'package:eamar_user_app/provider/category_provider.dart';
+import 'package:eamar_user_app/provider/splash_provider.dart';
+import 'package:eamar_user_app/provider/top_seller_provider.dart';
+import 'package:eamar_user_app/utill/images.dart';
+import 'package:eamar_user_app/view/screen/product/brand_and_category_product_screen.dart';
+import 'package:eamar_user_app/view/screen/product/product_details_screen.dart';
+import 'package:eamar_user_app/view/screen/topSeller/top_seller_product_screen.dart';
 import 'package:provider/provider.dart';
 class FooterBannersView extends StatelessWidget {
   final int index;

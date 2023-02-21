@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/price_converter.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/featured_deal_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/splash_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/theme_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/color_resources.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/images.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/product/product_details_screen.dart';
+import 'package:eamar_user_app/helper/price_converter.dart';
+import 'package:eamar_user_app/provider/featured_deal_provider.dart';
+import 'package:eamar_user_app/provider/splash_provider.dart';
+import 'package:eamar_user_app/provider/theme_provider.dart';
+import 'package:eamar_user_app/utill/color_resources.dart';
+import 'package:eamar_user_app/utill/custom_themes.dart';
+import 'package:eamar_user_app/utill/dimensions.dart';
+import 'package:eamar_user_app/utill/images.dart';
+import 'package:eamar_user_app/view/screen/product/product_details_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 

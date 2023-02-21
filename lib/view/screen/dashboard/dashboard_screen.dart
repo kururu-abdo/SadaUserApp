@@ -1,13 +1,16 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/network_info.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/splash_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/chat/inbox_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/images.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/home/home_screens.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/more/more_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/notification/notification_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/order/order_screen.dart';
+import 'package:eamar_user_app/helper/network_info.dart';
+import 'package:eamar_user_app/provider/splash_provider.dart';
+import 'package:eamar_user_app/view/screen/chat/inbox_screen.dart';
+import 'package:eamar_user_app/localization/language_constrants.dart';
+import 'package:eamar_user_app/utill/images.dart';
+import 'package:eamar_user_app/view/screen/home/home_screens.dart';
+import 'package:eamar_user_app/view/screen/jobs/jobs_page.dart';
+import 'package:eamar_user_app/view/screen/more/more_screen.dart';
+import 'package:eamar_user_app/view/screen/notification/notification_screen.dart';
+import 'package:eamar_user_app/view/screen/order/order_screen.dart';
 import 'package:provider/provider.dart';
 
 class DashBoardScreen extends StatefulWidget {
@@ -29,12 +32,28 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     singleVendor = Provider.of<SplashProvider>(context, listen: false).configModel.businessMode == "single";
 
 
+
+
+log(singleVendor.toString());
     _screens = [
       HomePage(),
-      singleVendor?OrderScreen(isBacButtonExist: false): InboxScreen(isBackButtonExist: false) ,
+
+       singleVendor?OrderScreen(isBacButtonExist: false): InboxScreen(isBackButtonExist: false) ,
       singleVendor? NotificationScreen(isBacButtonExist: false): OrderScreen(isBacButtonExist: false),
+
+           JobsPage(isBacButtonExist: false),
+
       singleVendor? MoreScreen(): NotificationScreen(isBacButtonExist: false),
-      singleVendor?SizedBox(): MoreScreen(),
+      singleVendor?SizedBox(): MoreScreen()
+
+      // singleVendor?OrderScreen(isBacButtonExist: false): InboxScreen(isBackButtonExist: false) ,
+
+      // singleVendor?OrderScreen(isBacButtonExist: false): InboxScreen(isBackButtonExist: false) ,
+      // singleVendor?JobsPage(isBacButtonExist: false): JobsPage(isBackButtonExist: false) ,
+
+      // singleVendor? NotificationScreen(isBacButtonExist: false): OrderScreen(isBacButtonExist: false),
+      // singleVendor? MoreScreen(): NotificationScreen(isBacButtonExist: false),
+      // singleVendor?SizedBox(): MoreScreen(),
     ];
 
     NetworkInfo.checkConnectivity(context);
@@ -102,14 +121,20 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
     if(!isSingleVendor){
       _list.add(_barItem(Images.home_image, getTranslated('home', context), 0));
       _list.add(_barItem(Images.message_image, getTranslated('inbox', context), 1));
+
       _list.add(_barItem(Images.shopping_image, getTranslated('orders', context), 2));
-      _list.add(_barItem(Images.notification, getTranslated('notification', context), 3));
-      _list.add(_barItem(Images.more_image, getTranslated('more', context), 4));
+
+                  _list.add(_barItem('assets/images/office.png', getTranslated('jobs_txt', context), 3));
+
+      _list.add(_barItem(Images.notification, getTranslated('notification', context), 4));
+      _list.add(_barItem(Images.more_image, getTranslated('more', context),5));
     }else{
       _list.add(_barItem(Images.home_image, getTranslated('home', context), 0));
       _list.add(_barItem(Images.shopping_image, getTranslated('orders', context), 1));
-      _list.add(_barItem(Images.notification, getTranslated('notification', context), 2));
-      _list.add(_barItem(Images.more_image, getTranslated('more', context), 3));
+                  _list.add(_barItem('assets/images/office.png', getTranslated('jobs_txt', context), 2));
+
+      _list.add(_barItem(Images.notification, getTranslated('notification', context), 3));
+      _list.add(_barItem(Images.more_image, getTranslated('more', context), 4));
     }
 
     return _list;

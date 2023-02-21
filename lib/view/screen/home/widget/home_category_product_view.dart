@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/home_category_product_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-import 'package:flutter_sixvalley_ecommerce/view/basewidget/product_widget.dart';
-import 'package:flutter_sixvalley_ecommerce/view/basewidget/title_row.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/product/brand_and_category_product_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/product/product_details_screen.dart';
+import 'package:eamar_user_app/provider/home_category_product_provider.dart';
+import 'package:eamar_user_app/utill/dimensions.dart';
+import 'package:eamar_user_app/view/basewidget/product_widget.dart';
+import 'package:eamar_user_app/view/basewidget/title_row.dart';
+import 'package:eamar_user_app/view/screen/product/brand_and_category_product_screen.dart';
+import 'package:eamar_user_app/view/screen/product/product_details_screen.dart';
 import 'package:provider/provider.dart';
 
 class HomeCategoryProductView extends StatelessWidget {

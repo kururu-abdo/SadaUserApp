@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/category_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/splash_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/theme_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/top_seller_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/color_resources.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/images.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/topSeller/top_seller_product_screen.dart';
+import 'package:eamar_user_app/provider/category_provider.dart';
+import 'package:eamar_user_app/provider/splash_provider.dart';
+import 'package:eamar_user_app/provider/theme_provider.dart';
+import 'package:eamar_user_app/provider/top_seller_provider.dart';
+import 'package:eamar_user_app/utill/color_resources.dart';
+import 'package:eamar_user_app/utill/dimensions.dart';
+import 'package:eamar_user_app/utill/images.dart';
+import 'package:eamar_user_app/view/screen/topSeller/top_seller_product_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 

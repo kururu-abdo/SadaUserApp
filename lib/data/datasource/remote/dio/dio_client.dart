@@ -1,8 +1,9 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_sixvalley_ecommerce/data/datasource/remote/dio/logging_interceptor.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/app_constants.dart';
+import 'package:eamar_user_app/data/datasource/remote/dio/logging_interceptor.dart';
+import 'package:eamar_user_app/utill/app_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DioClient {
@@ -31,7 +32,7 @@ class DioClient {
       ..options.headers = {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer $token',
-        AppConstants.LANG_KEY : countryCode == 'US'? 'en':countryCode.toLowerCase(),
+        AppConstants.LANG_KEY : countryCode == 'US'? 'en':'ar',
 
       };
     dio.interceptors.add(loggingInterceptor);
@@ -82,6 +83,7 @@ class DioClient {
     ProgressCallback onSendProgress,
     ProgressCallback onReceiveProgress,
   }) async {
+    log(dio.options.headers.toString());
     try {
       var response = await dio.post(
         uri,
@@ -96,6 +98,7 @@ class DioClient {
     } on FormatException catch (_) {
       throw FormatException("Unable to process the data");
     } catch (e) {
+      log(e.toString());
       throw e;
     }
   }

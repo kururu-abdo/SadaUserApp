@@ -1,35 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/cart_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/localization_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/wallet_transaction_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/wishlist_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/chat/inbox_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/auth_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/profile_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/splash_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/theme_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/color_resources.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/images.dart';
-import 'package:flutter_sixvalley_ecommerce/view/basewidget/animated_custom_dialog.dart';
-import 'package:flutter_sixvalley_ecommerce/view/basewidget/guest_dialog.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/cart/cart_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/category/all_category_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/loyaltyPoint/loyalty_point_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/more/web_view_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/more/widget/html_view_Screen.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/more/widget/sign_out_confirmation_dialog.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/notification/notification_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/offer/offers_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/order/order_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/profile/address_list_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/profile/profile_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/setting/settings_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/support/support_ticket_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/wallet/wallet_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/wishlist/wishlist_screen.dart';
+import 'package:eamar_user_app/provider/cart_provider.dart';
+import 'package:eamar_user_app/provider/localization_provider.dart';
+import 'package:eamar_user_app/provider/wallet_transaction_provider.dart';
+import 'package:eamar_user_app/provider/wishlist_provider.dart';
+import 'package:eamar_user_app/view/screen/chat/inbox_screen.dart';
+import 'package:eamar_user_app/localization/language_constrants.dart';
+import 'package:eamar_user_app/provider/auth_provider.dart';
+import 'package:eamar_user_app/provider/profile_provider.dart';
+import 'package:eamar_user_app/provider/splash_provider.dart';
+import 'package:eamar_user_app/provider/theme_provider.dart';
+import 'package:eamar_user_app/utill/color_resources.dart';
+import 'package:eamar_user_app/utill/custom_themes.dart';
+import 'package:eamar_user_app/utill/dimensions.dart';
+import 'package:eamar_user_app/utill/images.dart';
+import 'package:eamar_user_app/view/basewidget/animated_custom_dialog.dart';
+import 'package:eamar_user_app/view/basewidget/guest_dialog.dart';
+import 'package:eamar_user_app/view/screen/cart/cart_screen.dart';
+import 'package:eamar_user_app/view/screen/category/all_category_screen.dart';
+import 'package:eamar_user_app/view/screen/jobs/jobs_page.dart';
+import 'package:eamar_user_app/view/screen/loyaltyPoint/loyalty_point_screen.dart';
+import 'package:eamar_user_app/view/screen/more/web_view_screen.dart';
+import 'package:eamar_user_app/view/screen/more/widget/html_view_Screen.dart';
+import 'package:eamar_user_app/view/screen/more/widget/sign_out_confirmation_dialog.dart';
+import 'package:eamar_user_app/view/screen/notification/notification_screen.dart';
+import 'package:eamar_user_app/view/screen/offer/offers_screen.dart';
+import 'package:eamar_user_app/view/screen/order/order_screen.dart';
+import 'package:eamar_user_app/view/screen/profile/address_list_screen.dart';
+import 'package:eamar_user_app/view/screen/profile/profile_screen.dart';
+import 'package:eamar_user_app/view/screen/setting/settings_screen.dart';
+import 'package:eamar_user_app/view/screen/support/support_ticket_screen.dart';
+import 'package:eamar_user_app/view/screen/wallet/wallet_screen.dart';
+import 'package:eamar_user_app/view/screen/wishlist/wishlist_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'faq_screen.dart';
@@ -198,8 +199,18 @@ class _MoreScreenState extends State<MoreScreen> {
                   TitleButton(image: Images.fast_delivery, title: getTranslated('address', context),
                       navigateTo: AddressListScreen()),
 
+
                   TitleButton(image: Images.more_filled_image, title: getTranslated('all_category', context),
-                      navigateTo: AllCategoryScreen()),
+                      navigateTo: AllCategoryScreen()
+                      
+                      
+                      ),
+
+                  TitleButton(image: Images.notification_filled, title: getTranslated('jobs_txt', context),
+                      navigateTo: JobsPage()),
+  TitleButton(image: Images.notification_filled, title: getTranslated('my_jobs_txt', context),
+                      navigateTo: NotificationScreen()),
+
 
                   TitleButton(image: Images.notification_filled, title: getTranslated('notification', context),
                       navigateTo: NotificationScreen()),

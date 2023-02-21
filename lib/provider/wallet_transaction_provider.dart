@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/response/base/api_response.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/response/loyalty_point_model.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/response/transaction_model.dart';
-import 'package:flutter_sixvalley_ecommerce/data/repository/wallet_transaction_repo.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/api_checker.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
+import 'package:eamar_user_app/data/model/response/base/api_response.dart';
+import 'package:eamar_user_app/data/model/response/loyalty_point_model.dart';
+import 'package:eamar_user_app/data/model/response/transaction_model.dart';
+import 'package:eamar_user_app/data/repository/wallet_transaction_repo.dart';
+import 'package:eamar_user_app/helper/api_checker.dart';
+import 'package:eamar_user_app/localization/language_constrants.dart';
 
 class WalletTransactionProvider extends ChangeNotifier {
   final WalletTransactionRepo transactionRepo;

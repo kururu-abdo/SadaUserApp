@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/response/order_details.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/price_converter.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/order_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/product_details_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/splash_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/color_resources.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/images.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/order/widget/refunded_status_bottom_sheet.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/product/review_dialog.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/product/widget/refund_request_bottom_sheet.dart';
+import 'package:eamar_user_app/data/model/response/order_details.dart';
+import 'package:eamar_user_app/helper/price_converter.dart';
+import 'package:eamar_user_app/localization/language_constrants.dart';
+import 'package:eamar_user_app/provider/order_provider.dart';
+import 'package:eamar_user_app/provider/product_details_provider.dart';
+import 'package:eamar_user_app/provider/splash_provider.dart';
+import 'package:eamar_user_app/utill/color_resources.dart';
+import 'package:eamar_user_app/utill/custom_themes.dart';
+import 'package:eamar_user_app/utill/dimensions.dart';
+import 'package:eamar_user_app/utill/images.dart';
+import 'package:eamar_user_app/view/screen/order/widget/refunded_status_bottom_sheet.dart';
+import 'package:eamar_user_app/view/screen/product/review_dialog.dart';
+import 'package:eamar_user_app/view/screen/product/widget/refund_request_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 
 class OrderDetailsWidget extends StatefulWidget {

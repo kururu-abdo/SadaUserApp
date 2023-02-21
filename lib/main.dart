@@ -1,37 +1,39 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/facebook_login_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/featured_deal_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/google_sign_in_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/home_category_product_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/location_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/top_seller_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/wallet_transaction_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/order/order_details_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/auth_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/brand_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/cart_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/category_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/chat_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/coupon_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/localization_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/notification_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/onboarding_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/order_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/profile_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/search_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/seller_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/splash_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/support_ticket_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/theme_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/wishlist_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/theme/dark_theme.dart';
-import 'package:flutter_sixvalley_ecommerce/theme/light_theme.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/app_constants.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/splash/splash_screen.dart';
+import 'package:eamar_user_app/provider/facebook_login_provider.dart';
+import 'package:eamar_user_app/provider/featured_deal_provider.dart';
+import 'package:eamar_user_app/provider/google_sign_in_provider.dart';
+import 'package:eamar_user_app/provider/home_category_product_provider.dart';
+import 'package:eamar_user_app/provider/jobs_provider.dart';
+import 'package:eamar_user_app/provider/location_provider.dart';
+import 'package:eamar_user_app/provider/top_seller_provider.dart';
+import 'package:eamar_user_app/provider/wallet_transaction_provider.dart';
+import 'package:eamar_user_app/view/screen/order/order_details_screen.dart';
+import 'package:eamar_user_app/provider/auth_provider.dart';
+import 'package:eamar_user_app/provider/brand_provider.dart';
+import 'package:eamar_user_app/provider/cart_provider.dart';
+import 'package:eamar_user_app/provider/category_provider.dart';
+import 'package:eamar_user_app/provider/chat_provider.dart';
+import 'package:eamar_user_app/provider/coupon_provider.dart';
+import 'package:eamar_user_app/provider/localization_provider.dart';
+import 'package:eamar_user_app/provider/notification_provider.dart';
+import 'package:eamar_user_app/provider/onboarding_provider.dart';
+import 'package:eamar_user_app/provider/order_provider.dart';
+import 'package:eamar_user_app/provider/profile_provider.dart';
+import 'package:eamar_user_app/provider/search_provider.dart';
+import 'package:eamar_user_app/provider/seller_provider.dart';
+import 'package:eamar_user_app/provider/splash_provider.dart';
+import 'package:eamar_user_app/provider/support_ticket_provider.dart';
+import 'package:eamar_user_app/provider/theme_provider.dart';
+import 'package:eamar_user_app/provider/wishlist_provider.dart';
+import 'package:eamar_user_app/theme/dark_theme.dart';
+import 'package:eamar_user_app/theme/light_theme.dart';
+import 'package:eamar_user_app/utill/app_constants.dart';
+import 'package:eamar_user_app/view/screen/splash/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
@@ -46,17 +48,45 @@ import 'provider/product_provider.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
+
+
+void handleBackgroundLinks(PendingDynamicLinkData, {
+  Function onError,
+   Function() onDone,
+  bool cancelOnError,}
+){
+
+
+}
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await di.init();
   final NotificationAppLaunchDetails notificationAppLaunchDetails =
   await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+
+
   int _orderID;
   if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
     _orderID = (notificationAppLaunchDetails.payload != null && notificationAppLaunchDetails.payload.isNotEmpty)
         ? int.parse(notificationAppLaunchDetails.payload) : null;
   }
+//   final PendingDynamicLinkData initialLink = await FirebaseDynamicLinks.instance.getInitialLink();
+
+// if (initialLink != null) {
+//   final Uri deepLink = initialLink.link;
+//    _orderID=   int.parse(deepLink.queryParameters['orderId']);
+
+//   // Example of using the dynamic link to push the user to a different screen
+//   // Navigator.pushNamed(context, deepLink.path);
+// }
+
+
+// FirebaseDynamicLinks.instance.onLink.listen(handleBackgroundLinks);
+
+
+
+
   await MyNotification.initialize(flutterLocalNotificationsPlugin);
   FirebaseMessaging.onBackgroundMessage(myBackgroundMessageHandler);
 
@@ -66,6 +96,8 @@ Future<void> main() async {
       ChangeNotifierProvider(create: (context) => di.sl<HomeCategoryProductProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<TopSellerProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<FlashDealProvider>()),
+            ChangeNotifierProvider(create: (context) => di.sl<JobsProvider>()),
+
       ChangeNotifierProvider(create: (context) => di.sl<FeaturedDealProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<BrandProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<ProductProvider>()),

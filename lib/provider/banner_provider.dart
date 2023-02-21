@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/response/banner_model.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/response/base/api_response.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/response/product_model.dart';
-import 'package:flutter_sixvalley_ecommerce/data/repository/banner_repo.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/api_checker.dart';
-import 'package:flutter_sixvalley_ecommerce/view/basewidget/show_custom_snakbar.dart';
+import 'package:eamar_user_app/data/model/response/banner_model.dart';
+import 'package:eamar_user_app/data/model/response/base/api_response.dart';
+import 'package:eamar_user_app/data/model/response/product_model.dart';
+import 'package:eamar_user_app/data/repository/banner_repo.dart';
+import 'package:eamar_user_app/helper/api_checker.dart';
+import 'package:eamar_user_app/view/basewidget/show_custom_snakbar.dart';
 
 class BannerProvider extends ChangeNotifier {
   final BannerRepo bannerRepo;

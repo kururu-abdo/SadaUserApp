@@ -370,5 +370,43 @@
   "point_converted_successfully": "Point Converted Successfully",
   "point_converted_failed": "Point Converted failed",
   "minimum_exchange_rate_is": "Minimum exchange rate is",
-  "insufficient_point": "Insufficient point"
+  "insufficient_point": "Insufficient point",
+
+
+
+
+
+
+
+
+  "jobs_txt":"Jobs" ,
+  "add_job_txt":"Add Job" ,
+  "search_job_txt":"Search a Job" ,
+  "delete_job_alert":"Do you want to delete this Job?",
+  "my_jobs_txt":"My Jobs"
+
+
+  ,
+  "choose_region_txt":"Choose a Region" ,
+  "choose_job_txt":"Choose a Job" ,
+  "choose_city_txt":"CHoose a city" ,
+  "this_field_required_txt":"This field required",
+  "search_txt":"Search",
+  "name":"Name",
+
+  "desc_txt":"Job short description...",
+  "add_job_btn_txt":"Add" 
+
+  ,
+
+
+  "name_field_required_txt":"Name required" ,
+  "email_field_required_txt":"Email required",
+  "phone_field_required_txt":"Phonce required",
+  "area_field_required_txt":"please choose region",
+  "city_field_required_txt":"Please choose City",
+  "job_field_required_txt":"Please choose Job",
+  "desc_field_required_txt":"Description required"
+  ,
+  "img_field_required_txt":"Please select an image"
 }

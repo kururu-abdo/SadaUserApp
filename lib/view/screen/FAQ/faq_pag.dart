@@ -1,7 +1,7 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/response/article_model.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/app_constants.dart';
+import 'package:eamar_user_app/data/model/response/article_model.dart';
+import 'package:eamar_user_app/utill/app_constants.dart';
 import 'dart:math' as math;
 
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/response/base/api_response.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/auth_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/profile_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/auth/auth_screen.dart';
+import 'package:eamar_user_app/data/model/response/base/api_response.dart';
+import 'package:eamar_user_app/provider/auth_provider.dart';
+import 'package:eamar_user_app/provider/profile_provider.dart';
+import 'package:eamar_user_app/view/screen/auth/auth_screen.dart';
 import 'package:provider/provider.dart';
 
 class ApiChecker {

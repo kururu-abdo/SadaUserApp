@@ -2,22 +2,22 @@ import 'dart:developer';
 
 import 'package:country_code_picker/country_code.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/body/register_model.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/email_checker.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/auth_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/profile_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/splash_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/color_resources.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/phone_utils.dart';
-import 'package:flutter_sixvalley_ecommerce/view/basewidget/button/custom_button.dart';
-import 'package:flutter_sixvalley_ecommerce/view/basewidget/textfield/custom_password_textfield.dart';
-import 'package:flutter_sixvalley_ecommerce/view/basewidget/textfield/custom_textfield.dart';
-import 'package:flutter_sixvalley_ecommerce/view/basewidget/textfield/custom_textfield2.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/auth/widget/social_login_widget.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/dashboard/dashboard_screen.dart';
+import 'package:eamar_user_app/data/model/body/register_model.dart';
+import 'package:eamar_user_app/helper/email_checker.dart';
+import 'package:eamar_user_app/localization/language_constrants.dart';
+import 'package:eamar_user_app/provider/auth_provider.dart';
+import 'package:eamar_user_app/provider/profile_provider.dart';
+import 'package:eamar_user_app/provider/splash_provider.dart';
+import 'package:eamar_user_app/utill/color_resources.dart';
+import 'package:eamar_user_app/utill/custom_themes.dart';
+import 'package:eamar_user_app/utill/dimensions.dart';
+import 'package:eamar_user_app/utill/phone_utils.dart';
+import 'package:eamar_user_app/view/basewidget/button/custom_button.dart';
+import 'package:eamar_user_app/view/basewidget/textfield/custom_password_textfield.dart';
+import 'package:eamar_user_app/view/basewidget/textfield/custom_textfield.dart';
+import 'package:eamar_user_app/view/basewidget/textfield/custom_textfield2.dart';
+import 'package:eamar_user_app/view/screen/auth/widget/social_login_widget.dart';
+import 'package:eamar_user_app/view/screen/dashboard/dashboard_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:validate_ksa_number/validate_ksa_number.dart';
 
@@ -153,7 +153,8 @@ try {
         Provider.of<AuthProvider>(context, listen: false).checkPhone(_phone,tempToken).then((value) async {
           if (value.isSuccess) {
             Provider.of<AuthProvider>(context, listen: false).updatePhone(_phone);
-            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => VerificationScreen(tempToken,_phone,'')), (route) => false);
+            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => 
+            VerificationScreen(tempToken,_phone,'')), (route) => false);
 
           }
         });
@@ -239,10 +240,15 @@ Container(
                         textInputType: TextInputType.name,
                         focusNode: _fNameFocus,
                         nextNode: _lNameFocus,
+                        
                         isPhoneNumber: false,
                         capitalization: TextCapitalization.words,
                         controller: _firstNameController,),
 ),
+                  
+                  
+                  
+                  
                     SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
 
 

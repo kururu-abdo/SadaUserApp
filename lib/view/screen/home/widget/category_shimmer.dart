@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/category_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/theme_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/color_resources.dart';
+import 'package:eamar_user_app/provider/category_provider.dart';
+import 'package:eamar_user_app/provider/theme_provider.dart';
+import 'package:eamar_user_app/utill/color_resources.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 class CategoryShimmer extends StatelessWidget {

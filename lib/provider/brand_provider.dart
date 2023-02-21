@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/response/base/api_response.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/response/brand_model.dart';
-import 'package:flutter_sixvalley_ecommerce/data/repository/brand_repo.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/api_checker.dart';
+import 'package:eamar_user_app/data/model/response/base/api_response.dart';
+import 'package:eamar_user_app/data/model/response/brand_model.dart';
+import 'package:eamar_user_app/data/repository/brand_repo.dart';
+import 'package:eamar_user_app/helper/api_checker.dart';
 
 class BrandProvider extends ChangeNotifier {
   final BrandRepo brandRepo;

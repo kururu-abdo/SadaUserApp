@@ -61,3 +61,62 @@ class _Clipper extends CustomClipper<Rect> {
   @override
   bool shouldReclip(CustomClipper<Rect> oldClipper) => true;
 }
+
+
+
+
+
+class RatingBarOneStar extends StatelessWidget {
+  final double rating;
+  final double size;
+
+  RatingBarOneStar({@required this.rating, this.size = 18});
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> _starList = [];
+
+    int realNumber = rating.floor();
+    int partNumber = ((rating - realNumber) * 10).ceil();
+
+    for (int i = 1; i <= 5; i++) {
+      if (i < realNumber) {
+        _starList.add(Icon(Icons.star, color: Colors.orange, size: size));
+      } else if (i == realNumber) {
+        _starList.add(SizedBox(
+          height: size,
+          width: size,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              Icon(Icons.star, color: Colors.orange, size: size),
+              ClipRect(
+                clipper: _Clipper(part: partNumber),
+                child: Icon(Icons.star_border, color: Colors.orange, size: size),
+              )
+            ],
+          ),
+        ));
+      } else {
+        _starList.add(Icon(Icons.star_border, color: Colors.orange, size: size));
+      }
+    }
+
+
+    return   Icon(Icons.star, color: Colors.orange, size: size);
+return Row(
+  mainAxisSize: MainAxisSize.min,
+   children: [
+              Icon(Icons.star, color: Colors.orange, size: size),
+              ClipRect(
+                clipper: _Clipper(part: partNumber),
+                child: Icon(Icons.star_border, color: Colors.orange, size: size),
+              )
+            ],
+);
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: _starList,
+    );
+  }
+}

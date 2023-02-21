@@ -1,7 +1,7 @@
-import 'package:flutter_sixvalley_ecommerce/data/model/response/language_model.dart';
+import 'package:eamar_user_app/data/model/response/language_model.dart';
 
 class AppConstants {
-  static const String APP_NAME = 'Sada';
+  static const String APP_NAME = 'Eamar';
   static const String BASE_URL = 'https://echoemaar.com';
   static const String USER_ID = 'userId';
   static const String NAME = 'name';
@@ -84,6 +84,17 @@ class AppConstants {
   static const String WALLET_TRANSACTION_URI = '/api/v1/customer/wallet/list?limit=10&offset=';
   static const String LOYALTY_POINT_URI = '/api/v1/customer/loyalty/list?limit=20&offset=';
   static const String LOYALTY_POINT_CONVERT_URI = '/api/v1/customer/loyalty/loyalty-exchange-currency';
+static const  String GET_JOBS="/api/v1/jobs/jobs_list";
+static const  String GET_JOBS_LIST="/api/v1/jobs/get_user_jobs";   //body=?lang=ar
+
+static const String SEARCH_JOBS="/api/v1/jobs/search_jobs";  //POST    {user_job_id : 1 , city_id : 2}
+
+static const String GET_REGIONS="/api/v1/places/get_regions";   //body=?lang=ar
+
+static const String GET_REGION_CITIES ="/api/v1/places/get_region_cities";  //PATH regionId   ?lang=ar
+static const String ADD_JOBS="/api/v1/jobs/register_job";
+
+
 
   //address
   static const String UPDATE_ADDRESS_URI = '/api/v1/customer/address/update/';

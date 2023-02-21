@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/order_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/profile_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/color_resources.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-import 'package:flutter_sixvalley_ecommerce/view/basewidget/no_internet_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/address/widget/address_list_screen.dart';
+import 'package:eamar_user_app/localization/language_constrants.dart';
+import 'package:eamar_user_app/provider/order_provider.dart';
+import 'package:eamar_user_app/provider/profile_provider.dart';
+import 'package:eamar_user_app/utill/color_resources.dart';
+import 'package:eamar_user_app/utill/dimensions.dart';
+import 'package:eamar_user_app/view/basewidget/no_internet_screen.dart';
+import 'package:eamar_user_app/view/screen/address/widget/address_list_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'add_new_address_screen.dart';

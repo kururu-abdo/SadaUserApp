@@ -1,4 +1,5 @@
-name: flutter_sixvalley_ecommerce
+name: eamar_user_app
+#eamar_user_app
 description: A new Flutter setup application for starting a project.
 
 publish_to: 'none'
@@ -60,6 +61,7 @@ dependencies:
   expandable: ^5.0.1
   flutter_survey: ^0.1.4
   flutter_speech: ^2.0.0
+  firebase_dynamic_links: ^4.3.11
 
 
 

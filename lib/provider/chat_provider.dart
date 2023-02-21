@@ -1,13 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/body/MessageBody.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/response/base/api_response.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/response/chat_info_model.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/response/chat_model.dart';
-import 'package:flutter_sixvalley_ecommerce/data/repository/chat_repo.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/api_checker.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/date_converter.dart';
+import 'package:eamar_user_app/data/model/body/MessageBody.dart';
+import 'package:eamar_user_app/data/model/response/base/api_response.dart';
+import 'package:eamar_user_app/data/model/response/chat_info_model.dart';
+import 'package:eamar_user_app/data/model/response/chat_model.dart';
+import 'package:eamar_user_app/data/repository/chat_repo.dart';
+import 'package:eamar_user_app/helper/api_checker.dart';
+import 'package:eamar_user_app/helper/date_converter.dart';
 
 class ChatProvider extends ChangeNotifier {
   final ChatRepo chatRepo;

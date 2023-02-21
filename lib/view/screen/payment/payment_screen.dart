@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/app_constants.dart';
-import 'package:flutter_sixvalley_ecommerce/view/basewidget/animated_custom_dialog.dart';
-import 'package:flutter_sixvalley_ecommerce/view/basewidget/custom_app_bar.dart';
-import 'package:flutter_sixvalley_ecommerce/view/basewidget/custom_loader.dart';
-import 'package:flutter_sixvalley_ecommerce/view/basewidget/my_dialog.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/dashboard/dashboard_screen.dart';
+import 'package:eamar_user_app/localization/language_constrants.dart';
+import 'package:eamar_user_app/utill/app_constants.dart';
+import 'package:eamar_user_app/view/basewidget/animated_custom_dialog.dart';
+import 'package:eamar_user_app/view/basewidget/custom_app_bar.dart';
+import 'package:eamar_user_app/view/basewidget/custom_loader.dart';
+import 'package:eamar_user_app/view/basewidget/my_dialog.dart';
+import 'package:eamar_user_app/view/screen/dashboard/dashboard_screen.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class PaymentScreen extends StatefulWidget {

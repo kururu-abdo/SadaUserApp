@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/theme_provider.dart';
+import 'package:eamar_user_app/provider/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 class ColorResources {

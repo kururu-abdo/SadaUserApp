@@ -367,5 +367,35 @@
   "point_converted_successfully": "تم تحويل النقطة بنجاح",
   "point_converted_failed": "فشل تحويل النقطة",
   "minimum_exchange_rate_is": "الحد الأدنى لسعر الصرف هو",
-  "insufficient_point": "نقطة غير كافية"
+  "insufficient_point": "نقطة غير كافية" ,
+
+
+  "jobs_txt":"المهن" ,
+  "add_job_txt":"اضافة مهنة" ,
+  "desc_txt":"اكتب وصف مختصر للمهنة",
+  "add_job_btn_txt":"اضافة",
+  "name":"الاسم",
+  
+
+  "search_job_txt":"بحث عن مهنة" ,
+  "search_txt":"بحث",
+  "delete_job_alert":"هل تريد حذف المهنة؟",
+  "my_jobs_txt":"المهن الخاصة بي" ,
+  "choose_region_txt":"اختر المنطقة" ,
+  "choose_job_txt":"اختر المهنة" ,
+  "choose_city_txt":"اختر المدينة" ,
+  "this_field_required_txt":"هذا الحقل مطلوب" ,
+
+
+  "name_field_required_txt":"الاسم  مطلوب" ,
+  "email_field_required_txt":"البريد  مطلوب",
+  "phone_field_required_txt":"رقم الهاتف  مطلوب",
+  "area_field_required_txt":"الرجاء اختيار المنطقة",
+  "city_field_required_txt":"الرجاء اختيار المدينة",
+  "job_field_required_txt":"الرجاء اختيار المهنة",
+  "desc_field_required_txt":"الوصف مطلوب" ,
+  "img_field_required_txt":"الرجاء اختيار صورة"
+
+
+
 }

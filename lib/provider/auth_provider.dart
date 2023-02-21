@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/body/login_model.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/body/register_model.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/response/base/api_response.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/response/base/error_response.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/response/response_model.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/response/social_login_model.dart';
-import 'package:flutter_sixvalley_ecommerce/data/repository/auth_repo.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/api_checker.dart';
+import 'package:eamar_user_app/data/model/body/login_model.dart';
+import 'package:eamar_user_app/data/model/body/register_model.dart';
+import 'package:eamar_user_app/data/model/response/base/api_response.dart';
+import 'package:eamar_user_app/data/model/response/base/error_response.dart';
+import 'package:eamar_user_app/data/model/response/response_model.dart';
+import 'package:eamar_user_app/data/model/response/social_login_model.dart';
+import 'package:eamar_user_app/data/repository/auth_repo.dart';
+import 'package:eamar_user_app/helper/api_checker.dart';
 
 class AuthProvider with ChangeNotifier {
   final AuthRepo authRepo;

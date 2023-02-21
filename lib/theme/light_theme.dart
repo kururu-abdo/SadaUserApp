@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/color_resources.dart';
+import 'package:eamar_user_app/utill/color_resources.dart';
 
 ThemeData light = ThemeData(
   fontFamily: 'Cairo',
@@ -7,7 +7,9 @@ ThemeData light = ThemeData(
     
     //  Color(0xFFf8ab1d)
      ,
-
+floatingActionButtonTheme: FloatingActionButtonThemeData(
+  backgroundColor: Color(0xFF8B8000)
+),
 
   cardColor:Colors.white,
   brightness: Brightness.light,

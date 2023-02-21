@@ -1,28 +1,36 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/response/product_model.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/price_converter.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/splash_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/color_resources.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/images.dart';
-import 'package:flutter_sixvalley_ecommerce/view/basewidget/rating_bar.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/product/product_details_screen.dart';
+import 'package:eamar_user_app/data/model/response/product_model.dart';
+import 'package:eamar_user_app/helper/price_converter.dart';
+import 'package:eamar_user_app/provider/splash_provider.dart';
+import 'package:eamar_user_app/utill/color_resources.dart';
+import 'package:eamar_user_app/utill/custom_themes.dart';
+import 'package:eamar_user_app/utill/dimensions.dart';
+import 'package:eamar_user_app/utill/images.dart';
+import 'package:eamar_user_app/view/basewidget/rating_bar.dart';
+import 'package:eamar_user_app/view/screen/product/product_details_screen.dart';
 import 'package:provider/provider.dart';
 
-class ProductWidget extends StatelessWidget {
+class ProductWidget extends StatefulWidget {
   final Product productModel;
   ProductWidget({@required this.productModel});
 
   @override
+  State<ProductWidget> createState() => _ProductWidgetState();
+}
+
+class _ProductWidgetState extends State<ProductWidget> {
+
+  @override
   Widget build(BuildContext context) {
-    String ratting = productModel.rating != null && productModel.rating.length != 0? productModel.rating[0].average : "0";
+    String ratting = widget.productModel.rating != null && widget.productModel.rating.length != 0? widget.productModel.rating[0].average : "0";
 
     return InkWell(
       onTap: () {
         Navigator.push(context, PageRouteBuilder(
           transitionDuration: Duration(milliseconds: 1000),
-          pageBuilder: (context, anim1, anim2) => ProductDetails(product: productModel),
+          pageBuilder: (context, anim1, anim2) => ProductDetails(product: widget.productModel),
         ));
       },
       child: Container(
@@ -50,7 +58,7 @@ class ProductWidget extends StatelessWidget {
                 child: FadeInImage.assetNetwork(
                   placeholder: Images.placeholder, fit: BoxFit.cover,
                   height: MediaQuery.of(context).size.width/2.45,
-                  image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls.productThumbnailUrl}/${productModel.thumbnail}',
+                  image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls.productThumbnailUrl}/${widget.productModel.thumbnail}',
                   imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder_1x1,
                       fit: BoxFit.cover,height: MediaQuery.of(context).size.width/2.45),
                 ),
@@ -67,7 +75,7 @@ class ProductWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(productModel.name ?? '', textAlign: TextAlign.center,
+                      Text(widget.productModel.name ?? '', textAlign: TextAlign.center,
                           style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL,
                           fontWeight: FontWeight.w400), maxLines: 2,
                           overflow: TextOverflow.ellipsis),
@@ -81,7 +89,7 @@ class ProductWidget extends StatelessWidget {
                             ),
 
 
-                        Text('(${productModel.reviewCount.toString() ?? 0})',
+                        Text('(${widget.productModel.reviewCount.toString() ?? 0})',
                             style: robotoRegular.copyWith(
                               fontSize: Dimensions.FONT_SIZE_SMALL,
                             )),
@@ -90,8 +98,8 @@ class ProductWidget extends StatelessWidget {
                       SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
 
-                        productModel.discount!= null && productModel.discount > 0 ?
-                        Text(PriceConverter.convertPrice(context, productModel.unitPrice),
+                        widget.productModel.discount!= null && widget.productModel.discount > 0 ?
+                        Text(PriceConverter.convertPrice(context, widget.productModel.unitPrice),
                         style: titleRegular.copyWith(
                           color: ColorResources.getRed(context),
                           decoration: TextDecoration.lineThrough,
@@ -103,8 +111,8 @@ class ProductWidget extends StatelessWidget {
 
 
                       Text(PriceConverter.convertPrice(context,
-                          productModel.unitPrice, discountType: productModel.discountType,
-                          discount: productModel.discount),
+                          widget.productModel.unitPrice, discountType: widget.productModel.discountType,
+                          discount: widget.productModel.discount),
                         style: titilliumSemiBold.copyWith(color: ColorResources.getPrimary(context)),
                       ),
 
@@ -119,7 +127,7 @@ class ProductWidget extends StatelessWidget {
 
           // Off
 
-          productModel.discount > 0 ?
+          widget.productModel.discount > 0 ?
           Positioned(top: 0, left: 0, child: Container(
               height: 20,
               padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
@@ -130,8 +138,8 @@ class ProductWidget extends StatelessWidget {
 
 
               child: Center(
-                child: Text(PriceConverter.percentageCalculation(context, productModel.unitPrice,
-                      productModel.discount, productModel.discountType),
+                child: Text(PriceConverter.percentageCalculation(context, widget.productModel.unitPrice,
+                      widget.productModel.discount, widget.productModel.discountType),
                   style: robotoRegular.copyWith(color: Theme.of(context).highlightColor,
                       fontSize: Dimensions.FONT_SIZE_SMALL),
                 ),
@@ -144,3 +152,4 @@ class ProductWidget extends StatelessWidget {
     );
   }
 }
+

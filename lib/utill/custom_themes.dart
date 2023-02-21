@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
+import 'package:eamar_user_app/utill/dimensions.dart';
 
 const titilliumRegular = TextStyle(
   fontFamily: 'Almarai',

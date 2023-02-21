@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/localization/language_constrants.dart';
+import 'package:eamar_user_app/localization/language_constrants.dart';
 
 class NetworkInfo {
   final Connectivity connectivity;

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/response/product_model.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/product_type.dart';
-import 'package:flutter_sixvalley_ecommerce/provider/product_provider.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
-import 'package:flutter_sixvalley_ecommerce/view/basewidget/product_shimmer.dart';
-import 'package:flutter_sixvalley_ecommerce/view/basewidget/product_widget.dart';
+import 'package:eamar_user_app/data/model/response/product_model.dart';
+import 'package:eamar_user_app/helper/product_type.dart';
+import 'package:eamar_user_app/provider/product_provider.dart';
+import 'package:eamar_user_app/utill/dimensions.dart';
+import 'package:eamar_user_app/view/basewidget/product_shimmer.dart';
+import 'package:eamar_user_app/view/basewidget/product_widget.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 
@@ -91,7 +91,8 @@ class ProductView extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               return ProductWidget(productModel: productList[index]);
             },
-          ) : SizedBox.shrink(): ProductShimmer(isHomePage: isHomePage ,isEnabled: prodProvider.firstLoading),
+          ) : SizedBox.shrink():
+           ProductShimmer(isHomePage: isHomePage ,isEnabled: prodProvider.firstLoading),
 
           prodProvider.filterIsLoading ? Center(child: Padding(
             padding: EdgeInsets.all(Dimensions.ICON_SIZE_EXTRA_SMALL),

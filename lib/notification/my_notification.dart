@@ -4,9 +4,9 @@ import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_sixvalley_ecommerce/view/screen/order/order_details_screen.dart';
-import 'package:flutter_sixvalley_ecommerce/main.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/app_constants.dart';
+import 'package:eamar_user_app/view/screen/order/order_details_screen.dart';
+import 'package:eamar_user_app/main.dart';
+import 'package:eamar_user_app/utill/app_constants.dart';
 import 'package:path_provider/path_provider.dart';
 
 class MyNotification {

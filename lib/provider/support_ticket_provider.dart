@@ -1,12 +1,12 @@
-import 'package:flutter_sixvalley_ecommerce/data/model/response/support_reply_model.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/api_checker.dart';
-import 'package:flutter_sixvalley_ecommerce/helper/date_converter.dart';
+import 'package:eamar_user_app/data/model/response/support_reply_model.dart';
+import 'package:eamar_user_app/helper/api_checker.dart';
+import 'package:eamar_user_app/helper/date_converter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/body/support_ticket_body.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/response/base/api_response.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/response/base/error_response.dart';
-import 'package:flutter_sixvalley_ecommerce/data/model/response/support_ticket_model.dart';
-import 'package:flutter_sixvalley_ecommerce/data/repository/support_ticket_repo.dart';
+import 'package:eamar_user_app/data/model/body/support_ticket_body.dart';
+import 'package:eamar_user_app/data/model/response/base/api_response.dart';
+import 'package:eamar_user_app/data/model/response/base/error_response.dart';
+import 'package:eamar_user_app/data/model/response/support_ticket_model.dart';
+import 'package:eamar_user_app/data/repository/support_ticket_repo.dart';
 
 class SupportTicketProvider extends ChangeNotifier {
   final SupportTicketRepo supportTicketRepo;

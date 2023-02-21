@@ -1,5 +1,5 @@
 
-import 'package:flutter_sixvalley_ecommerce/data/model/response/product_model.dart';
+import 'package:eamar_user_app/data/model/response/product_model.dart';
 
 class FeaturedDealModel {
   int id;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/custom_themes.dart';
+import 'package:eamar_user_app/utill/custom_themes.dart';
 
 extension EmailValidator on String {
   bool isValidEmail() {
@@ -112,24 +112,10 @@ hintTextDirection: TextDirection.ltr,
           border: InputBorder.none,
           floatingLabelBehavior: FloatingLabelBehavior.always,
 
-          prefixIcon:isRtl?null: Container(
-            padding: EdgeInsets.zero,
-            width: 30,
-            child: Center(
-              child: Text(
-                     '966',
-                  // showFlagMain: true,
-                      style: TextStyle(
-                          // color: Colors.black
-                          
-                   color:       Theme.of(context).textTheme.headline1.color ,
-                   fontWeight: FontWeight.bold
-                          
-                          ),
-                    ),
-            ),
-          ),
- suffixIcon:isRtl? Container(
+          prefixIcon:
+          isPhoneNumber?
+          
+          isRtl?null: Container(
             padding: EdgeInsets.zero,
             width: 30,
             child: Center(
@@ -146,7 +132,28 @@ hintTextDirection: TextDirection.ltr,
                     ),
             ),
           ):null,
-
+ suffixIcon:
+ isPhoneNumber?
+ isRtl? 
+ 
+ Container(
+            padding: EdgeInsets.zero,
+            width: 30,
+            child: Center(
+              child: Text(
+                     '966',
+                  // showFlagMain: true,
+                      style: TextStyle(
+                          // color: Colors.black
+                          
+                   color:       Theme.of(context).textTheme.headline1.color ,
+                   fontWeight: FontWeight.bold
+                          
+                          ),
+                    ),
+            ),
+          ):null
+:null
 //           prefix:  Flex(
 //           direction: Axis.horizontal,
 //           mainAxisSize: MainAxisSize.min,

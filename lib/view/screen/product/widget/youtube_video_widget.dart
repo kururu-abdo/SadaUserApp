@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sixvalley_ecommerce/utill/dimensions.dart';
+import 'package:eamar_user_app/utill/dimensions.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 class YoutubeVideoWidget extends StatelessWidget {
   final String url;
