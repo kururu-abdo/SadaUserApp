@@ -206,10 +206,11 @@ class _MoreScreenState extends State<MoreScreen> {
                       
                       ),
 
-                  TitleButton(image: Images.notification_filled, title: getTranslated('jobs_txt', context),
-                      navigateTo: JobsPage()),
-  TitleButton(image: Images.notification_filled, title: getTranslated('my_jobs_txt', context),
-                      navigateTo: NotificationScreen()),
+                  TitleButton(image: Images.jobs_icon, title: getTranslated('jobs_txt', context),
+                      navigateTo: JobsPage()
+                      
+                      ),
+ 
 
 
                   TitleButton(image: Images.notification_filled, title: getTranslated('notification', context),

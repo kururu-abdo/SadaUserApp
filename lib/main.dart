@@ -1,3 +1,4 @@
+import 'package:eamar_user_app/localization/language_constrants.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -155,7 +156,8 @@ builder: (context, child) => ResponsiveWrapper.builder(
 
 
 
-      title: AppConstants.APP_NAME,
+      title:getTranslated('app_name', context),
+      //  AppConstants.APP_NAME,
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       theme: Provider.of<ThemeProvider>(context).darkTheme ? dark : light,
