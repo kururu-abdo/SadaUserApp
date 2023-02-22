@@ -31,7 +31,9 @@ _filter()async{
         
          Provider.of<LocalizationProvider>(context, listen: false).locale.languageCode
         );
+        Navigator.of(context).pop();
   } catch (e) {
+     Navigator.of(context).pop();
   }
 }
 Future<void> _loadData(BuildContext context, bool reload) async {

@@ -252,9 +252,11 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>>
     if (_isOpen || close) {
       await _animationController.reverse();
       this._overlayEntry.remove();
-      setState(() {
+     if (mounted) {
+        setState(() {
         _isOpen = false;
       });
+     }
     } else {
       this._overlayEntry = this._createOverlayEntry();
       Overlay.of(context).insert(this._overlayEntry);

@@ -156,7 +156,7 @@ builder: (context, child) => ResponsiveWrapper.builder(
 
 
 
-      title:getTranslated('app_name', context),
+      title:AppConstants.APP_NAME,
       //  AppConstants.APP_NAME,
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,

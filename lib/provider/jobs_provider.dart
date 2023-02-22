@@ -131,6 +131,7 @@ Future<void> searchAJob( BuildContext context  , int city , int job,String lang,
   if (userJobs.length>0) {
      userJobs = [];
   }
+  log(job.toString());
   log(city.toString());
      _isJobsLoading=true;
      notifyListeners();
