@@ -30,12 +30,15 @@ class NotificationScreen extends StatelessWidget {
         Expanded(
           child: Consumer<NotificationProvider>(
             builder: (context, notification, child) {
-              return notification.notificationList != null ? notification.notificationList.length != 0 ? RefreshIndicator(
+              return notification.notificationList != null ? 
+              notification.notificationList.length != 0 ?
+               RefreshIndicator(
                 backgroundColor: Theme.of(context).primaryColor,
                 onRefresh: () async {
                   await Provider.of<NotificationProvider>(context, listen: false).initNotificationList(context);
                 },
-                child: ListView.builder(
+                child: 
+                ListView.builder(
                   itemCount: Provider.of<NotificationProvider>(context).notificationList.length,
                   padding: EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_SMALL),
                   itemBuilder: (context, index) {

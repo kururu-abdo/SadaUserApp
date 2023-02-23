@@ -137,23 +137,57 @@ Future<void> searchAJob( BuildContext context  , int city , int job,String lang,
      notifyListeners();
      
       ApiResponse apiResponse = await jobsRepo.searchAJobs(context, city , job  ,lang);
+      log('AFTER RESPONSE');
       if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-
+    
 if (job==null) {
-  var data=apiResponse.response.data as Map;
+   log('JOB NULL');
+  var data=apiResponse.response.data ;
 
-  for (var key in data.keys) {
+ if (data is Map) {
+    for (var key in (data as Map).keys) {
+      
   userJobs.add(UserJob.fromJson(data[key]));
   }
-}else{
+ }else {
+   Iterable data  =apiResponse.response.data;
+
+
+     var _jobs=  data.map((data)=>UserJob.fromJson(data)).toList();
+        userJobs.addAll(_jobs);
+
+log('message');
+      _isJobsLoading=false;
+     notifyListeners(); 
+     
+ }
+
+  log('message');
+      _isJobsLoading=false;
+     notifyListeners(); 
+}
+
+
+else{
+   log('JOB NOT NULL');
 
 Iterable data  =apiResponse.response.data;
-        var _jobs=  data.map((data)=>UserJob.fromJson(data)).toList();
+
+
+     var _jobs=  data.map((data)=>UserJob.fromJson(data)).toList();
         userJobs.addAll(_jobs);
+
+log('message');
+      _isJobsLoading=false;
+     notifyListeners(); 
+     
 }
        
-        _isJobsLoading = false;
       } else {
+ log('OUTSEIDE IF');
+        _isJobsLoading = false;
+        notifyListeners();
+
         ApiChecker.checkApi(context, apiResponse);
       }
       notifyListeners();
@@ -222,7 +256,7 @@ Iterable data= apiResponse.response.data;
 
         var _jobs=  data.map((data)=>Region.fromJson(data)).toList();
 
-        log('DATA    '+jobs.first.name);
+        
         regions.addAll(_jobs);
        
         _isRegionsLoading = false;

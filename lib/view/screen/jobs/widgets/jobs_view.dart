@@ -1,3 +1,4 @@
+import 'package:eamar_user_app/view/basewidget/no_internet_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/job_model.dart';
 import 'package:eamar_user_app/data/model/response/product_model.dart';
@@ -67,81 +68,23 @@ class JobsView extends StatelessWidget {
 
     return Consumer<JobsProvider>(
       builder: (context, JobsProvider, child) {
-        List jobList = [
-
-               {
-'name':'عبدالرحيم حسن' ,
-'address':"الخرطوم" ,
-'job':'سباك' ,
-'img':'assets/images/contact_us.png',
-'email':'abdo@gmail.com',
-'phone':'0534874525',
-'desc':'lorem lorem lotem lorem lorem lorem lorem lorem loerm lorem lorem lorem lorem lroe  des skdjf sd this des es more funnty videieo s in this channel so far'
-          },
-               {
-'name':'عبدالرحيم حسن' ,
-'address':"الخرطوم" ,
-'job':'سباك' ,
-'img':'assets/images/contact_us.png',
-'email':'abdo@gmail.com',
-'phone':'0534874525',
-'desc':'lorem lorem lotem lorem lorem lorem lorem lorem loerm lorem lorem lorem lorem lroe  des skdjf sd this des es more funnty videieo s in this channel so far'
-          }
-          ,
-
-               {
-'name':'عبدالرحيم حسن' ,
-'address':"الخرطوم" ,
-'job':'سباك' ,
-'img':'assets/images/contact_us.png',
-'email':'abdo@gmail.com',
-'phone':'0534874525',
-'desc':'lorem lorem lotem lorem lorem lorem lorem lorem loerm lorem lorem lorem lorem lroe  des skdjf sd this des es more funnty videieo s in this channel so far'
-          },
-          {
-'name':'عبدالرحيم حسن' ,
-'address':"الخرطوم" ,
-'job':'سباك' ,
-'img':'assets/images/contact_us.png',
-'email':'sdljflkjsdkfljsdfkjsdfsdfsdfsdkdsfj@gmail.com',
-'phone':'0534874525',
-'desc':'lorem lorem lotem lorem lorem lorem lorem lorem loerm lorem lorem lorem lorem lroe  des skdjf sd this des es more funnty videieo s in this channel so far'
-          }
-        ];
-        // if(productType == ProductType.LATEST_PRODUCT) {
-        //   productList = prodProvider.lProductList;
-        // }
-        // else if(productType == ProductType.FEATURED_PRODUCT) {
-        //   productList = prodProvider.featuredProductList;
-        // }else if(productType == ProductType.TOP_PRODUCT) {
-        //   productList = prodProvider.latestProductList;
-        // }else if(productType == ProductType.BEST_SELLING) {
-        //   productList = prodProvider.latestProductList;
-        // }else if(productType == ProductType.NEW_ARRIVAL) {
-        //   productList = prodProvider.latestProductList;
-        // }
-
-        // else if(productType == ProductType.SELLER_PRODUCT) {
-        //   productList = prodProvider.sellerProductList;
-        //   print('==========>Product List ==${prodProvider.firstLoading}====>${productList.length}');
-        // }
-
-        // print('========hello hello===>${productList.length}');
-
+       
         return Column(children: [
 
 
-          !JobsProvider.isJobsLoading ? 
-          
-          JobsProvider.jobs.length != 0 ?
+          JobsProvider.isJobsLoading ? 
+           JobShimmer(isHomePage: isJobsHome ,isEnabled: JobsProvider.isJobsLoading)
+            :
+          JobsProvider.userJobs.length > 0 ?
 
           ListView.builder(
-           itemCount: isJobsHome?
+           itemCount:
+            // isJobsHome?
            
-            JobsProvider.userJobs.length>4?
-            4:
-            JobsProvider.userJobs.length
-            :
+            // JobsProvider.userJobs.length>4?
+            // 4:
+            // JobsProvider.userJobs.length
+            // :
             JobsProvider.userJobs.length,
             itemBuilder: (BuildContext context, int index) {
               return  JobContainer( 
@@ -163,23 +106,13 @@ class JobsView extends StatelessWidget {
             shrinkWrap: true,
           )
 
-          //  StaggeredGridView.countBuilder(
-          //   itemCount: isHomePage? productList.length>4?
-          //   4:productList.length:productList.length,
-          //   crossAxisCount: 2,
-          //   padding: EdgeInsets.all(0),
-          //   physics: NeverScrollableScrollPhysics(),
-          //   shrinkWrap: true,
-          //   staggeredTileBuilder: (int index) => StaggeredTile.fit(1),
-          //   itemBuilder: (BuildContext context, int index) {
-          //     return ProductWidget(productModel: productList[index]);
-          //   },
-          // )
+         
           
-          
-           : SizedBox.shrink():
+           :  
+          // SizedBox.shrink() 
+           NoInternetOrDataScreen(isNoInternet: false)
           //  SizedBox.shrink()  
-            JobShimmer(isHomePage: false ,isEnabled: JobsProvider.isLoading)
+           
             
             ,
 
@@ -187,7 +120,7 @@ class JobsView extends StatelessWidget {
 
 
 
-          JobsProvider.filterIsLoading ?
+          JobsProvider.isJobsLoading ?
            Center(child: Padding(
             padding: EdgeInsets.all(Dimensions.ICON_SIZE_EXTRA_SMALL),
             child: CircularProgressIndicator(valueColor: 

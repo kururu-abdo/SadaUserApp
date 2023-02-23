@@ -50,13 +50,15 @@ child: Column(
   children: [
 
 Row(
-  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  mainAxisAlignment: MainAxisAlignment.spaceAround,
   crossAxisAlignment: CrossAxisAlignment.center,
+  mainAxisSize: MainAxisSize.min,
   children: [
 Container(
   height: 50,
+  width: 50,
   decoration: BoxDecoration(
-    shape: BoxShape.circle,
+    shape: BoxShape.circle,color: Colors.white
     // border: Border.all(
     //   width: 1.5,color: Theme.of(context).primaryColor
     // )
@@ -65,14 +67,14 @@ Container(
 
 
 ),
-SizedBox(width: 10,),
+SizedBox(width: 5,),
 Column(
   crossAxisAlignment: CrossAxisAlignment.start,
   children: [
       Container(height: 20, width: 50, color: Colors.white),
-
+SizedBox(height: 10,),
   Container(height: 20, width: 50, color: Colors.white),
-
+SizedBox(height: 10,),
 
   Container(height: 20, width: 80, color: Colors.white),
 
@@ -83,9 +85,9 @@ Column(
   ],
 ) ,
 
-SizedBox(width: 10,),
+SizedBox(height: 10,),
   Container(height: 60, width: 300, color: Colors.white),
-
+SizedBox(height: 10,),
 Row(
   mainAxisAlignment: MainAxisAlignment.spaceBetween,
 

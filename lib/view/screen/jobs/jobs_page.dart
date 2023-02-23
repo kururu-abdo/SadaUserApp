@@ -42,11 +42,11 @@ class _JobsPageState extends State<JobsPage> {
 
 
   Future<void> _loadData(BuildContext context, bool reload) async {
-    await Provider.of<JobsProvider>(context, listen: false).getJobs( context ,
-    Provider.of<LocalizationProvider>(context, listen: false).locale.languageCode
-    ,reload: reload
+    // await Provider.of<JobsProvider>(context, listen: false).getJobs( context ,
+    // Provider.of<LocalizationProvider>(context, listen: false).locale.languageCode
+    // ,reload: reload
     
-    );
+    // );
 
 await Provider.of<JobsProvider>(context, listen: false).getUserJobs( context ,
     Provider.of<LocalizationProvider>(context, listen: false).locale.languageCode
