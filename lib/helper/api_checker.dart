@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/base/api_response.dart';
 import 'package:eamar_user_app/provider/auth_provider.dart';
@@ -7,6 +9,8 @@ import 'package:provider/provider.dart';
 
 class ApiChecker {
   static void checkApi(BuildContext context, ApiResponse apiResponse) {
+    log('HERER');
+    log(apiResponse.response.toString());
     if(apiResponse.error is! String && apiResponse.error.errors[0].message == 'Unauthorized.') {
       Provider.of<ProfileProvider>(context,listen: false).clearHomeAddress();
       Provider.of<ProfileProvider>(context,listen: false).clearOfficeAddress();

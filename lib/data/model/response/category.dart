@@ -120,7 +120,7 @@ class SubCategory {
     _id = json['id'];
     _name = json['name'];
     _slug = json['slug'];
-    _icon = json['icon'];
+    _icon = json['icon']??"";
     _parentId = json['parent_id'];
     _position = json['position'];
     _createdAt = json['created_at'];
@@ -192,7 +192,7 @@ class SubSubCategory {
     _id = json['id'];
     _name = json['name'];
     _slug = json['slug'];
-    _icon = json['icon'];
+    _icon = json['icon']??'';
     _parentId = json['parent_id'];
     _position = json['position'];
     _createdAt = json['created_at'];

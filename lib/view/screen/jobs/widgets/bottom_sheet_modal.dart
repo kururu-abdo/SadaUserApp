@@ -70,7 +70,7 @@ void initState() {
                     child: new Container(
                       padding: EdgeInsets.all(20),
                         decoration: new BoxDecoration(
-                            color: Colors.white,
+                            color: Theme.of(context).highlightColor,
                             
                             borderRadius: new BorderRadius.only(
                                 topLeft: const Radius.circular(10.0),
@@ -88,7 +88,17 @@ CustomDropdown<int>(
                                  getTranslated('choose_job_txt' ,context),
                                   style: TextStyle(color: Colors.grey),
                                 ),
-                                leadingIcon: true,
+                                // leadingIcon: true,
+                                icon:    Icon(
+
+
+                    Icons.keyboard_arrow_down
+                    
+                    
+                    ,
+                  
+                  color: Theme.of(context).colorScheme.onPrimary,   ///TODO: change dopdown icon color
+                  ) ,
                                 onChange: (int value, int index)async {
                              
 
@@ -102,17 +112,19 @@ CustomDropdown<int>(
                                   // });
                                 },
                                 dropdownButtonStyle: DropdownButtonStyle(
-          width: double.infinity,
-                                  height: 59,
+                                   width: double.infinity,
+                                  height: 59,  padding: EdgeInsets.all(5),
                                   elevation: 0.0,
-                                  backgroundColor: Colors.white,
+                                  backgroundColor:  Theme.of(context).highlightColor ,
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   primaryColor: Theme.of(context).primaryColor,
+                                  
                                 ),
                                 dropdownStyle: DropdownStyle(
                                   borderRadius: BorderRadius.circular(6),
                                   elevation: 0.0,
                                   padding: EdgeInsets.all(5),
+                                
                                 ),
                                 items: [0]
                                     .map(
@@ -431,6 +443,7 @@ CustomDropdown<City>(
                                           getTranslated('search_txt', context) ,
                             
                                           style: TextStyle(
+                                            color: Theme.of(context).highlightColor,
                                             fontWeight: FontWeight.bold,
                                             fontSize: 20
                                           ),

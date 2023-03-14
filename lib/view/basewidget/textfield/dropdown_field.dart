@@ -31,6 +31,7 @@ class CustomDropdown<T> extends StatefulWidget   {
     this.dropdownButtonStyle = const DropdownButtonStyle(),
     this.icon,
     this.leadingIcon = false,
+    
     this.onChange,
   }) : super(key: key);
 
@@ -115,12 +116,17 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>>
         width: style.width,
         height: style.height,
         decoration: BoxDecoration(
+          // color: Colors.transparent,
            boxShadow: [
           BoxShadow(color: Colors.grey.withOpacity(0.2), 
-          spreadRadius: 1, blurRadius: 7, offset: Offset(0, 1)) // changes position of shadow
+          spreadRadius: 1, blurRadius: 7, offset: Offset(0, 1)) 
+          
+          // changes position of shadow
         ],
         ),
-        child: OutlinedButton(
+        child:
+        
+         OutlinedButton(
           style: OutlinedButton.styleFrom(
             padding: style.padding,
             backgroundColor:
@@ -128,7 +134,7 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>>
              style.backgroundColor,
             //  Theme.of(context).highlightColor,
             elevation: style.elevation,
-            primary: style.primaryColor,
+            foregroundColor: style.primaryColor,
             side: BorderSide.none,
             shape: RoundedRectangleBorder(
                 side: BorderSide(width: 5.0, color: Colors.blue),
@@ -152,7 +158,9 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>>
               if (widget.hideIcon)
                 RotationTransition(
                   turns: _rotateAnimation,
-                  child: widget.icon ??
+                  child:
+                  
+                  //  widget.icon ??
                   //  ImageIcon(AssetImage('assets/images/arrow_down.png'))
                   
                   
@@ -160,12 +168,12 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>>
                    Icon(
 
 
-                    Icons.keyboard_arrow_down_sharp 
+                    Icons.keyboard_arrow_down
                     
                     
                     ,
                   
-                  color: Theme.of(context).highlightColor,
+                  color: Theme.of(context).colorScheme.onPrimary,   ///TODO: change dopdown icon color
                   ) ,
                 
                 ),

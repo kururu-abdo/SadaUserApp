@@ -23,11 +23,11 @@ class AuthScreen extends StatelessWidget{
     PageController _pageController = PageController(initialPage: initialPage);
 
     return Scaffold(
-      backgroundColor:
+      // backgroundColor:
       // ColorResources.LIGHT_SKY_BLUE
       
-      Color(0xFFeeeff3)
-      ,
+      // Color(0xFFeeeff3)
+      // ,
       body: Stack(
         clipBehavior: Clip.none,
         children: [

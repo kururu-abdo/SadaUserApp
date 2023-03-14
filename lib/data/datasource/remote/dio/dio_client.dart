@@ -2,6 +2,9 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+import 'package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_store.dart';
+import 'package:eamar_user_app/data/datasource/remote/chache/app_path_provider.dart';
 import 'package:eamar_user_app/data/datasource/remote/dio/logging_interceptor.dart';
 import 'package:eamar_user_app/utill/app_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -36,6 +39,9 @@ class DioClient {
 
       };
     dio.interceptors.add(loggingInterceptor);
+    dio.interceptors.add(
+        DioCacheInterceptor(options: cacheOptions),
+      );
   }
 
   void updateHeader(String token, String countryCode) {
@@ -54,14 +60,20 @@ class DioClient {
   Future<Response> get(String uri, {
     Map<String, dynamic> queryParameters,
     Options options,
+        // CachePolicy policy=CachePolicy.refreshForceCache,
     CancelToken cancelToken,
     ProgressCallback onReceiveProgress,
   }) async {
+  Options _options;
+_options = cacheOptions.copyWith(
+  // policy: policy
+).toOptions();
+
     try {
       var response = await dio.get(
         uri,
         queryParameters: queryParameters,
-        options: options,
+        options: _options,
         cancelToken: cancelToken,
         onReceiveProgress: onReceiveProgress,
       );
@@ -76,7 +88,9 @@ class DioClient {
   }
 
   Future<Response> post(String uri, {
-    data,
+    data,      
+      // CachePolicy policy=CachePolicy.refreshForceCache,
+
     Map<String, dynamic> queryParameters,
     Options options,
     CancelToken cancelToken,
@@ -84,12 +98,17 @@ class DioClient {
     ProgressCallback onReceiveProgress,
   }) async {
     log(dio.options.headers.toString());
+        Options _options;
+_options = cacheOptions.copyWith(
+  // policy: policy
+).toOptions();
+
     try {
       var response = await dio.post(
         uri,
         data: data,
         queryParameters: queryParameters,
-        options: options,
+        options: _options,
         cancelToken: cancelToken,
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
@@ -151,3 +170,38 @@ class DioClient {
     }
   }
 }
+
+
+
+
+final cacheOptions =  CacheOptions(
+  // A default store is required for interceptor.
+  // store:  
+  
+  // // FileCacheStore()
+  // MemCacheStore(maxSize: 10485760, maxEntrySize: 1048576)
+            store: HiveCacheStore(AppPathProvider.path),
+  
+
+  // All subsequent fields are optional.
+  
+  // Default.
+  policy: CachePolicy.request,
+  // Returns a cached response on error but for statuses 401 & 403.
+  // Also allows to return a cached response on network errors (e.g. offline usage).
+  // Defaults to [null].
+  hitCacheOnErrorExcept: [401 , 403], //401, 403
+  // Overrides any HTTP directive to delete entry past this duration.
+  // Useful only when origin server has no cache config or custom behaviour is desired.
+  // Defaults to [null].
+  maxStale: const Duration(days: 7),
+  // Default. Allows 3 cache sets and ease cleanup.
+  priority: CachePriority.high,
+  // Default. Body and headers encryption with your own algorithm.
+  cipher: null,
+  // Default. Key builder to retrieve requests.
+  keyBuilder: CacheOptions.defaultCacheKeyBuilder,
+  // Default. Allows to cache POST requests.
+  // Overriding [keyBuilder] is strongly recommended when [true].
+  allowPostMethod: false,
+);

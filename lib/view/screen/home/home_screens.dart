@@ -67,7 +67,12 @@ class _HomePageState extends State<HomePage> {
      Provider.of<FeaturedDealProvider>(context, listen: false).getFeaturedDealList(reload, context);
      Provider.of<ProductProvider>(context, listen: false).getLProductList('1', context, reload: reload);
      Provider.of<ProductProvider>(context, listen: false).getRecommendedProduct(context);
-    await Provider.of<ProfileProvider>(context, listen: false).getUserInfo(context);
+
+
+     if ( Provider.of<AuthProvider>(context, listen: false).getUserType()!='visitor') {
+           await Provider.of<ProfileProvider>(context, listen: false).getUserInfo(context);
+
+     }
   }
 
   void passData(int index, String title) {
@@ -121,6 +126,8 @@ class _HomePageState extends State<HomePage> {
                   // App Bar
                   SliverAppBar(
                     floating: true,
+                      //  floating: true,
+                pinned: true ,
                     elevation: 0,
                     toolbarHeight: 100,
                     centerTitle: false,
@@ -400,7 +407,11 @@ class _HomePageState extends State<HomePage> {
                               child: Row(children: [
                                 Expanded(child: Text(prodProvider.title == 'xyz' ?
                                  getTranslated('new_arrival',context):prodProvider.title, style: titleHeader)),
-                                prodProvider.latestProductList != null ? PopupMenuButton(
+                                 
+                                prodProvider.latestProductList != null ? 
+                                
+                                
+                                PopupMenuButton(
                                   itemBuilder: (context) {
                                     return [
                                       PopupMenuItem(value: ProductType.NEW_ARRIVAL, child: Text(getTranslated('new_arrival',context)), textStyle: robotoRegular.copyWith(

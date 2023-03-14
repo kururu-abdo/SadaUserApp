@@ -409,5 +409,22 @@
   "job_field_required_txt":"Please choose Job",
   "desc_field_required_txt":"Description required"
   ,
-  "img_field_required_txt":"Please select an image"
+  "img_field_required_txt":"Please select an image" ,
+  
+
+  "search_by_budget":"Search By Budget" ,
+  "budget_txt":"Amount" ,
+  "category":"Category" ,
+  "show_result_txt":"Show Results" ,
+  "amount_filed_required":"Please Enter Your Budget" ,
+ "category_field_required":"Please Select a Category"
+ ,
+"show_txt":"show"
+,
+"filter_txt":"Filters"  ,
+
+
+
+"location_txt":"Location",
+"whatss_num":"Whatsapp Number"
 }

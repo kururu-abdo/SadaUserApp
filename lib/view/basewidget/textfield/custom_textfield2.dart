@@ -25,12 +25,14 @@ class NormalTextField extends StatelessWidget {
   final Color fillColor;
   final TextCapitalization capitalization;
   final bool isBorder;
-
+  final Widget suffixIcon;
+final bool  enabled;
   NormalTextField(
       {this.controller,
-      this.hintText,
+      this.hintText,this.enabled=true,
       this.textInputType,
       this.maxLine,
+      this.suffixIcon,
       this.focusNode,
       this.nextNode,
       this.textInputAction,
@@ -40,6 +42,7 @@ class NormalTextField extends StatelessWidget {
       this.capitalization = TextCapitalization.none,
       this.fillColor,
       this.isBorder = false,
+
       });
 
   @override
@@ -73,6 +76,8 @@ class NormalTextField extends StatelessWidget {
         textCapitalization: capitalization,
         maxLength: isPhoneNumber ? 10 : null,
         focusNode: focusNode,
+        
+        enabled: enabled,
         keyboardType: textInputType ?? TextInputType.text,
         //keyboardType: TextInputType.number,
         initialValue: null,
@@ -102,6 +107,7 @@ class NormalTextField extends StatelessWidget {
           contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 15),
           isDense: true,
           counterText: '',
+          suffixIcon: suffixIcon,
           focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),
           hintStyle: titilliumRegular.copyWith(color: Theme.of(context).hintColor),
           errorStyle: TextStyle(height: 1.5),

@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:eamar_user_app/data/datasource/remote/chache/app_path_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/helper/product_type.dart';
 import 'package:eamar_user_app/provider/auth_provider.dart';
@@ -30,7 +33,12 @@ import 'faq_and_review_screen.dart';
 
 class ProductDetails extends StatefulWidget {
   final Product product;
-  ProductDetails({@required this.product, });
+
+  final String id;
+  final String slug;
+    final String seller;
+
+  ProductDetails({@required this.product, this.id ,this.slug  , this.seller});
 
 
 
@@ -41,15 +49,37 @@ class ProductDetails extends StatefulWidget {
 class _ProductDetailsState extends State<ProductDetails> {
   _loadData( BuildContext context) async{
       Provider.of<ProductDetailsProvider>(context, listen: false).removePrevReview();
-      Provider.of<ProductDetailsProvider>(context, listen: false).initProduct(widget.product, context);
+      Provider.of<ProductDetailsProvider>(context, listen: false).initProduct(
+        widget.product==null?
+        widget.id:
+        widget.product,
+      widget.id!=null?widget.id:null,
+            widget.slug!=null?widget.slug:null,
+
+       context);
       Provider.of<ProductProvider>(context, listen: false).removePrevRelatedProduct();
-      Provider.of<ProductProvider>(context, listen: false).initRelatedProductList(widget.product.id.toString(), context);
-      Provider.of<ProductDetailsProvider>(context, listen: false).getCount(widget.product.id.toString(), context);
-      Provider.of<ProductDetailsProvider>(context, listen: false).getSharableLink(widget.product.slug.toString(), context);
+      Provider.of<ProductProvider>(context, listen: false).initRelatedProductList( widget.product==null?
+          widget.id:
+          widget.product.id.toString(), context);
+      Provider.of<ProductDetailsProvider>(context, listen: false).getCount( widget.product==null?
+          widget.id:
+          widget.product.id.toString(), context);
+      Provider.of<ProductDetailsProvider>(context, listen: false).getSharableLink(
+        widget.product==null?
+          widget.slug:
+          widget.product.slug.toString(), context);
       if(Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
-        Provider.of<WishListProvider>(context, listen: false).checkWishList(widget.product.id.toString(), context);
+      
+        Provider.of<WishListProvider>(context, listen: false).checkWishList(
+          widget.product==null?
+          widget.id:
+          widget.product.id.toString(), context);
       }
-      Provider.of<ProductProvider>(context, listen: false).initSellerProductList(widget.product.userId.toString(), 1, context);
+      Provider.of<ProductProvider>(context, listen: false).initSellerProductList(
+        
+             widget.product!=null?
+        
+        widget.product.userId.toString():widget.seller, 1, context);
 
 
 
@@ -221,5 +251,11 @@ class _ProductDetailsState extends State<ProductDetails> {
       },
     ):SizedBox();
   }
+
+
+
+
+
+
 }
 

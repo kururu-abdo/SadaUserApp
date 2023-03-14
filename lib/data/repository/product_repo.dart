@@ -76,6 +76,20 @@ class ProductRepo {
     }
   }
 
+  Future<ApiResponse> getProductsById(String id) async {
+ try {
+      final response = await dioClient.get(
+        AppConstants.GET_PRODUCTS_BY_ID+id);
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+
+
+  }
+
+
+
 
   Future<ApiResponse> getFeaturedProductList(String offset) async {
     try {
@@ -104,4 +118,19 @@ class ProductRepo {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
+
+
+
+Future<ApiResponse>  getProductsByBrandAndCategory(){
+
+}
+Future<ApiResponse>  getProoductsBySubCategory(){
+
+}
+
+
+Future<ApiResponse>  getProoductsBySubSubCategory(){
+
+}
+
 }

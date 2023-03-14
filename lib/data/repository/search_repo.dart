@@ -22,6 +22,27 @@ class SearchRepo {
     }
   }
 
+
+
+   Future<ApiResponse> filterByBudget(int category , num budget) async {
+    try {
+      final response = await dioClient.post(AppConstants.SEARCH_BUDGET
+      
+      ,
+
+      data: {
+        'buget':budget,
+        'catogry_id':category
+
+      }
+      );
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+  
+
   // for save home address
   Future<void> saveSearchAddress(String searchAddress) async {
     try {
@@ -34,6 +55,26 @@ class SearchRepo {
       throw e;
     }
   }
+
+
+   Future<ApiResponse> getCategories(int category , num budget) async {
+    try {
+      final response = await dioClient.post(AppConstants.SEARCH_BUDGET
+      
+      ,
+
+      data: {
+        'buget':budget,
+        'catogry_id':category
+
+      }
+      );
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+  
 
   List<String> getSearchAddress() {
     return sharedPreferences.getStringList(AppConstants.SEARCH_ADDRESS) ?? [];

@@ -1,5 +1,5 @@
 
-import 'package:eamar_user_app/view/screen/category/sub_categories_page.dart';
+import 'package:eamar_user_app/view/screen/product/all_product_by_category.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/category.dart';
 import 'package:eamar_user_app/localization/language_constrants.dart';
@@ -14,7 +14,15 @@ import 'package:eamar_user_app/view/basewidget/custom_app_bar.dart';
 import 'package:eamar_user_app/view/screen/product/brand_and_category_product_screen.dart';
 import 'package:provider/provider.dart';
 
-class AllCategoryScreen extends StatelessWidget {
+class SubSubCategoriesScreen extends StatelessWidget {
+
+final
+
+List<SubSubCategory> subCategories;
+final SubCategory subCategory;
+
+  const SubSubCategoriesScreen({Key key, this.subCategories, this.subCategory}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
 
@@ -24,7 +32,11 @@ class AllCategoryScreen extends StatelessWidget {
       body: Column(
         children: [
 
-          CustomAppBar(title: getTranslated('CATEGORY', context)),
+          CustomAppBar(title:subCategory.name
+          
+          // getTranslated('CATEGORY', context)
+          
+          ),
 
           Expanded(child: Consumer<CategoryProvider>(
             builder: (context, categoryProvider, child) {
@@ -32,34 +44,30 @@ class AllCategoryScreen extends StatelessWidget {
               return
               
               
-               categoryProvider.categoryList.length != 0 ? 
+               subCategories.length != 0 ? 
               GridView.builder(
             gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-  childAspectRatio: 8.0 / 9.0,
+                childAspectRatio: 4 / 4,
                 
                 
                 crossAxisSpacing: 20,
                 mainAxisSpacing: 20),
                 
-            itemCount: categoryProvider.categoryList.length,
+            itemCount: subCategories.length,
             itemBuilder: (BuildContext ctx, index) {
-              Category _category = categoryProvider.categoryList[index];
+              SubSubCategory _category  = subCategories[index];
+       
+              
               return  InkWell(
                         onTap: () {
-
-                          if (_category.subCategories.length!=0) {
-                            //go to  subcategories
-                            Navigator.of(context).push(
-                              MaterialPageRoute(builder: (_)=>SubCategoriesScreen(
-                                subCategories: _category.subCategories,
-                                category: _category,
-                              ))
-                            );
-                          }else {
-                            
-                          }
-                          Provider.of<CategoryProvider>(context, listen: false).changeSelectedIndex(index);
+Navigator.push(context, MaterialPageRoute(builder: (_) => AllProductsByCategory(
+                              isBrand: false,
+                              id: _category.id.toString(),
+                              name: _category.name,
+                            )));
+                        
+                          // Provider.of<CategoryProvider>(context, listen: false).changeSelectedIndex(index);
                         },
                         child: CategoryItem(
                           title: _category.name,
@@ -68,6 +76,12 @@ class AllCategoryScreen extends StatelessWidget {
                           // categoryProvider.categorySelectedIndex == index,
                         ),
                       );
+           
+
+                
+              
+
+           
             })
 
 
@@ -225,7 +239,8 @@ class AllCategoryScreen extends StatelessWidget {
             ),
             SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
             Flexible(child: Text(getTranslated('all', context), style: titilliumSemiBold.copyWith(
-                color: Theme.of(context).textTheme.bodyText1.color), maxLines: 2, overflow: TextOverflow.ellipsis,
+                color: Theme.of(context).textTheme.bodyText1.color), maxLines: 2, 
+                overflow: TextOverflow.ellipsis,
             )),
           ],
         ),
@@ -264,7 +279,9 @@ class AllCategoryScreen extends StatelessWidget {
             )));
           },
         ),
-      ));
+      )
+      
+      );
     }
     return _subSubCategories;
   }
@@ -277,7 +294,8 @@ class CategoryItem extends StatelessWidget {
   CategoryItem({@required this.title, @required this.icon, @required this.isSelected});
 
   Widget build(BuildContext context) {
-    return Card(
+
+     return Card(
   
     clipBehavior: Clip.antiAlias,
     child: Container(
@@ -302,7 +320,7 @@ class CategoryItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(title, maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: titilliumSemiBold.copyWith(
+                Text(title, maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: titilliumSemiBold.copyWith(
                 fontSize: Dimensions.FONT_SIZE_LARGE,
                 color: isSelected ? Theme.of(context).highlightColor : Theme.of(context).hintColor,
               )),
@@ -316,15 +334,13 @@ class CategoryItem extends StatelessWidget {
     ),
   );
   
-  
-  
     return Container(
       width: 100,
       height: 100,
       margin: EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL, horizontal: 2),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: isSelected ? ColorResources.getPrimary(context) : null,
+        // color: isSelected ? ColorResources.getPrimary(context) : null,
       ),
       child: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
@@ -332,12 +348,19 @@ class CategoryItem extends StatelessWidget {
             height: 50,
             width: 50,
             decoration: BoxDecoration(
-              border: Border.all(width: 2, color: isSelected ? Theme.of(context).highlightColor : Theme.of(context).hintColor),
+              border: Border.all(width: 2, color: isSelected ? 
+              Theme.of(context).highlightColor : Theme.of(context).hintColor),
               borderRadius: BorderRadius.circular(10),
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: FadeInImage.assetNetwork(
+              child: 
+              icon.startsWith('assets')?
+              
+                FadeInImage(image: AssetImage(icon), placeholder: AssetImage(Images.placeholder),
+
+                ):
+              FadeInImage.assetNetwork(
                 placeholder: Images.placeholder, fit: BoxFit.cover,
                 image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.categoryImageUrl}/$icon',
                 imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, fit: BoxFit.cover),
@@ -348,7 +371,11 @@ class CategoryItem extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
             child: Text(title, maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: titilliumSemiBold.copyWith(
               fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL,
-              color: isSelected ? Theme.of(context).highlightColor : Theme.of(context).hintColor,
+              color: 
+              // isSelected ? Theme.of(context).highlightColor : 
+              
+              
+              Theme.of(context).hintColor,
             )),
           ),
         ]),

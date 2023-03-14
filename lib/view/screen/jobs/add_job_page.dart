@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:eamar_user_app/utill/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/body/register_model.dart';
 import 'package:eamar_user_app/data/model/response/city.dart';
@@ -21,7 +22,11 @@ import 'package:eamar_user_app/view/basewidget/textfield/custom_textfield.dart';
 import 'package:eamar_user_app/view/basewidget/textfield/custom_textfield2.dart';
 import 'package:eamar_user_app/view/basewidget/textfield/dropdown_field.dart';
 import 'package:eamar_user_app/view/basewidget/textfield/teaxt_area.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:place_picker/entities/location_result.dart';
+import 'package:place_picker/place_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:validate_ksa_number/validate_ksa_number.dart';
 
@@ -60,10 +65,14 @@ var  _photoFocus =FocusNode();
 TextEditingController _emailController=TextEditingController();
 var  _emailFocus =FocusNode();
 
+TextEditingController _locationController=TextEditingController();
+var  _locationFocus =FocusNode();
+
 @override
 void initState() { 
   super.initState();
   _loadData(context, false);
+  _getCurrentLocation();
 }
 Future<void> _loadData(BuildContext context, bool reload) async {
 
@@ -84,6 +93,11 @@ await Provider.of<JobsProvider>(context, listen: false).getJobs( context ,
 
 
 
+ final Geolocator geolocator = Geolocator()
+ 
+ ;
+  LatLng _currentPosition;
+  String _currentAddress;
 
 
 
@@ -101,6 +115,51 @@ Job job;
 
 var  _jobFocus =FocusNode();
   XFile _image;
+
+ _getCurrentLocation() {
+    Geolocator
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+        .then((Position position) {
+      setState(() {
+        _currentPosition = LatLng(position.latitude, position.longitude);
+      });
+
+      _getAddressFromLatLng();
+    }).catchError((e) {
+      print(e);
+    });
+  }
+
+  _getAddressFromLatLng() async {
+    try {
+      List<Placemark> p = await 
+      
+      GeocodingPlatform.instance
+      
+      .placemarkFromCoordinates(
+          _currentPosition.latitude, _currentPosition.longitude);
+
+      Placemark place = p[0];
+
+      setState(() {
+        _currentAddress =
+            "${place.locality}, ${place.postalCode}, ${place.country}";
+      });
+      _locationController.text=_currentAddress;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+
+
+
+
+
+
+
+
+
 
  Future getImage() async {
       var image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -346,12 +405,50 @@ SizedBox(height: 10,),
                     bottom: Dimensions.MARGIN_SIZE_DEFAULT,
                         right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL),
                           child: NormalTextField(
-                            hintText: getTranslated('EMAIL', context),
+                            hintText: getTranslated('whatss_num', context),
                             // focusNode: _emailFocus,
                             // nextNode: _phoneFocus,
                             capitalization: TextCapitalization.words,
                             controller: _emailController,),
                         ),
+
+                          Container(
+                                     margin:
+                    EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
+                    bottom: Dimensions.MARGIN_SIZE_DEFAULT,
+                        right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL),
+                          child: GestureDetector(
+                            onTap: ()async{
+                              LocationResult result = await Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) =>
+            PlacePicker(AppConstants.GOOGLE_MAP_KEY??LatLng(45, 27),
+                        displayLocation: _currentPosition,
+                        )));
+                        _currentPosition=LatLng(result.latLng.latitude, result.latLng.longitude);
+                        setState(() {
+                          
+                        });
+_getAddressFromLatLng();
+                            },
+                            child: NormalTextField(
+                            
+                              hintText:  getTranslated('location_txt', context),
+                              suffixIcon: Icon(
+                                Icons.location_on,
+                                color: Theme.of(context).colorScheme.error,
+                              ),
+                              
+                              enabled: false,
+                              // focusNode: _emailFocus,
+                              // nextNode: _phoneFocus,
+                              capitalization: TextCapitalization.words,
+                              controller: _locationController,),
+                          ),
+                        ),
+
+
+
+
 Container(
                                      margin:
                     EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
@@ -803,6 +900,10 @@ await
                                              
                                              ),
                                        )
+
+
+
+
 ],
 
 

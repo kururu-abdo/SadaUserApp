@@ -30,7 +30,6 @@ class _AddressScreenState extends State<AddressScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     _isLoggedIn = Provider.of<AuthProvider>(context, listen: false).isLoggedIn();

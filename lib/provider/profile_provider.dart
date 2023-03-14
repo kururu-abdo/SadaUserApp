@@ -126,7 +126,10 @@ class ProfileProvider extends ChangeNotifier {
     ApiResponse apiResponse = await profileRepo.getUserInfo();
     if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
       _userInfoModel = UserInfoModel.fromJson(apiResponse.response.data);
-      userID = _userInfoModel.id.toString();
+      userID = _userInfoModel.id !=null? _userInfoModel.id.toString():'-1';
+
+
+
       _balance = _userInfoModel.walletBalance;
       print('===> nai keno==>${_userInfoModel.walletBalance}');
     } else {

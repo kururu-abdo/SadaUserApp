@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -44,12 +45,20 @@ class ProductDetailsProvider extends ChangeNotifier {
   String get errorText => _errorText;
   bool get hasConnection => _hasConnection;
 
-  Future<void> initProduct(Product product, BuildContext context) async {
+  Future<void> initProduct(Product product, String id, String slug, BuildContext context) async {
     _hasConnection = true;
     _variantIndex = 0;
-    ApiResponse reviewResponse = await productDetailsRepo.getReviews(product.id.toString());
+    ;
+
+    ApiResponse reviewResponse = await productDetailsRepo.getReviews(
+      product==null? id:
+      
+      product.id.toString());
     if (reviewResponse.response != null && reviewResponse.response.statusCode == 200) {
-        Provider.of<BannerProvider>(context,listen: false).getProductDetails(context, product.slug.toString());
+        Provider.of<BannerProvider>(context,listen: false).getProductDetails(context, 
+        product==null?slug:
+        
+        product.slug.toString());
       _reviewList = [];
       reviewResponse.response.data.forEach((reviewModel) => _reviewList.add(ReviewModel.fromJson(reviewModel)));
       _imageSliderIndex = 0;

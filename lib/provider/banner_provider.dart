@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/banner_model.dart';
 import 'package:eamar_user_app/data/model/response/base/api_response.dart';
@@ -26,6 +28,8 @@ class BannerProvider extends ChangeNotifier {
   Future<void> getBannerList(bool reload, BuildContext context) async {
     if (_mainBannerList == null || reload) {
       ApiResponse apiResponse = await bannerRepo.getBannerList();
+      log('Banner List');
+      log(apiResponse.response.toString());
       if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
         _mainBannerList = [];
         apiResponse.response.data.forEach((bannerModel) => _mainBannerList.add(BannerModel.fromJson(bannerModel)));

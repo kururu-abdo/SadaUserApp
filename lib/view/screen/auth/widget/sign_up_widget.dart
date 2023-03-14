@@ -159,6 +159,8 @@ try {
           }
         });
       }else{
+                      Provider.of<AuthProvider>(context, listen: false).setUserType('user');
+
         await Provider.of<ProfileProvider>(context, listen: false).getUserInfo(context);
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => DashBoardScreen()), (route) => false);
         _emailController.clear();
@@ -390,8 +392,12 @@ Container(
             child: Row(mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [TextButton(
-                  onPressed: () =>
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => DashBoardScreen())),
+                  onPressed: () async {
+                    Provider.of<AuthProvider>(context, listen: false).setUserType(
+                          'visitor'
+                        );
+                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => DashBoardScreen()));
+                  },
                   child: Text(getTranslated('SKIP_FOR_NOW', context),
                       style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT,
                           color: ColorResources.getPrimary(context)))),

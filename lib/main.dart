@@ -1,7 +1,9 @@
+import 'package:eamar_user_app/data/datasource/remote/chache/app_path_provider.dart';
 import 'package:eamar_user_app/localization/language_constrants.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -50,12 +52,23 @@ import 'provider/product_provider.dart';
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
 
+void _handleDeepLink(PendingDynamicLinkData data) {
+    final Uri deepLink = data?.link;
+    // if (deepLink== null) {
 
+    //   print('_handleDeepLink | deeplink: $deepLink');
+    // } 
+    // if (deepLink) {
+      
+    // }
+  }
 void handleBackgroundLinks(PendingDynamicLinkData, {
   Function onError,
    Function() onDone,
   bool cancelOnError,}
 ){
+
+    // final Uri deepLink = PendingDynamicLinkData?.link;
 
 
 }
@@ -66,6 +79,8 @@ Future<void> main() async {
   final NotificationAppLaunchDetails notificationAppLaunchDetails =
   await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
 
+
+    await AppPathProvider.initPath();
 
   int _orderID;
   if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
@@ -83,9 +98,10 @@ Future<void> main() async {
 // }
 
 
-// FirebaseDynamicLinks.instance.onLink.listen(handleBackgroundLinks);
+// if (!kIsWeb) {
+//   FirebaseDynamicLinks.instance.onLink.listen(handleBackgroundLinks);
 
-
+// }
 
 
   await MyNotification.initialize(flutterLocalNotificationsPlugin);
@@ -153,7 +169,6 @@ builder: (context, child) => ResponsiveWrapper.builder(
             ResponsiveBreakpoint.resize(1000, name: DESKTOP),
           ],
           background: Container(color: Color(0xFFF5F5F5))),
-
 
 
       title:AppConstants.APP_NAME,

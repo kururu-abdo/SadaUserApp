@@ -1,4 +1,4 @@
-package com.store.joseeder
+package com.eamar.user
 
 import io.flutter.embedding.android.FlutterActivity
 

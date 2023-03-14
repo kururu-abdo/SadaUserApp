@@ -207,8 +207,18 @@ class AuthRepo {
     }
   }
 
+
+
+
+  String setUserType(String type) {
+     sharedPreferences.setString(AppConstants.USER_TYPE ,  type) ;
+  }
+
   String getUserEmail() {
     return sharedPreferences.getString(AppConstants.USER_EMAIL) ?? "";
+  }
+  String getUserType() {
+    return sharedPreferences.getString(AppConstants.USER_TYPE) ?? "visitor";
   }
 
   String getUserPassword() {

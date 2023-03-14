@@ -94,19 +94,20 @@ Iterable data=  apiResponse.response.data;
 
 
 Future<void> getUserJobs( BuildContext context ,String lang, {bool reload = false}) async {
-    if(reload) {
-      userJobs = [];
-    }
-   if (userJobs.length>0) {
-             userJobs = [];
+  //   if(reload) {
+  //     userJobs = [];
+  //   }
+  //  if (userJobs.length>0) {
+  //            userJobs = [];
 
-     }
+  //    }
      
      
       ApiResponse apiResponse = await jobsRepo.getJobs(context ,lang);
       if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
 Iterable data= apiResponse.response.data;
         List<UserJob> _jobs= data.map((data)=>UserJob.fromJson(data)).toList();
+        userJobs = [];
         userJobs.addAll(_jobs);
        
         _isJobsLoading = false;

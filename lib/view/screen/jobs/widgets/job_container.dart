@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/provider/splash_provider.dart';
 import 'package:eamar_user_app/utill/app_constants.dart';
 import 'package:eamar_user_app/utill/images.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:open_whatsapp/open_whatsapp.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -44,7 +48,7 @@ child: Column(
   children: [
 
 Row(
-  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  // mainAxisAlignment: MainAxisAlignment.,
   crossAxisAlignment: CrossAxisAlignment.center,
   children: [
 Container(
@@ -68,7 +72,7 @@ Container(
 
 
 ),
-SizedBox(width: 10,),
+SizedBox(width: 20,),
 Column(
   crossAxisAlignment: CrossAxisAlignment.start,
   children: [
@@ -77,22 +81,28 @@ Column(
 Text(job ,  style: Theme.of(context).textTheme.bodyMedium.copyWith(
   color: Theme.of(context).primaryColor ,fontWeight: FontWeight.bold
 ),),
+Text(
+  address ,  style: Theme.of(context).textTheme.bodyMedium,
+),
 
 
-TextButton.icon(onPressed: ()async{
-  await _launchMail(email);
-}, icon: Icon(Icons.email_outlined ,
-color: Theme.of(context).primaryColor,
-), label: SizedBox(
-  width: MediaQuery.of(context).size.width/4,
-  child:   Text(
-    email ,  
+
+// TextButton.icon(onPressed: ()async{
+//   await _launchMail(email);
+// }, icon: Icon(Icons.email_outlined ,
+// color: Theme.of(context).primaryColor,
+// ), label: SizedBox(
+//   width: MediaQuery.of(context).size.width/4,
+//   child:   Text(
+//     email ,  
   
-    overflow: TextOverflow.ellipsis
-    , style: Theme.of(context).textTheme.bodyMedium,
-  ),
-))
-,
+//     overflow: TextOverflow.ellipsis
+//     , style: Theme.of(context).textTheme.bodyMedium,
+//   ),
+// ))
+
+
+
 
   ],
 )
@@ -117,10 +127,30 @@ Row(
 
 
 
-Text(
-  address ,  style: Theme.of(context).textTheme.bodyMedium,
-),
 
+ IconButton(onPressed: ()async{
+//https://wa.me/+966${w}/?text=Hello
+
+var encoded = Uri.encodeFull("whatsapp://send?phone=+966${phone}");
+
+await _launchWhatsapp(encoded);
+try {
+  log('Pressed');
+  
+      FlutterOpenWhatsapp.sendSingleMessage("966${phone}", "Hello").then((value) {
+        log(value.toString());
+      });
+        log('After Lauch');
+
+
+} catch (e) {
+  log('Exception');
+
+  log(e.toString());
+}
+
+
+ }, icon: FaIcon(FontAwesomeIcons.whatsapp ,  size: 35,)) ,
 
 
 
@@ -197,6 +227,15 @@ InkWell(
       scheme: 'mailto',
       path: "${mail}?subject=''=''",
     );
+    await launchUrl(launchUri);
+   } catch (e) {
+   }
+  }
+
+
+   Future<void> _launchWhatsapp(String url) async {
+   try {
+      final Uri launchUri = Uri.parse(url);
     await launchUrl(launchUri);
    } catch (e) {
    }

@@ -84,7 +84,9 @@
     <string>sada.com</string>
     <key>CFBundleURLSchemes</key>
     <array>
-    <string>customscheme</string>
+    <string>http</string>
+	    <string>https</string>
+
     </array>
     </dict>
 </array>
@@ -99,5 +101,21 @@
 
 
 </array>
+
+
+
+
+<key>com.apple.developer.associated-domains</key>
+  <array>
+        <string>applinks:sada.com</string>
+  </array>
+
+
+
+
+
+
+
+
 </dict>
 </plist>

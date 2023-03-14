@@ -56,7 +56,6 @@ class _CartScreenState extends State<CartScreen> {
       List<CartModel> cartList = [];
       cartList.addAll(cart.cartList);
 
-      //TODO: seller
 
 
       List<String> orderTypeShipping = [];

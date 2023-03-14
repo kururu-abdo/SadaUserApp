@@ -451,7 +451,12 @@ class AuthProvider with ChangeNotifier {
     return authRepo.clearUserEmailAndPassword();
   }
 
-
+String getUserType() {
+    return authRepo.getUserType() ;
+  }
+void setUserType(type){
+  authRepo.setUserType(type);
+}
   String getUserPassword() {
     return authRepo.getUserPassword() ?? "";
   }

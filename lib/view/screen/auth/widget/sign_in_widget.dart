@@ -125,6 +125,7 @@ print(_email.toString());
           Provider.of<AuthProvider>(context, listen: false).checkEmail(_emailController.text.toString(),
               temporaryToken).then((value) async {
             if (value.isSuccess) {
+              // Provider.of<AuthProvider>(context, listen: false).setUserType('user');
               Provider.of<AuthProvider>(context, listen: false).updateEmail(_emailController.text.toString());
               Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => VerificationScreen(
                   temporaryToken,'',_emailController.text.toString())), (route) => false);
@@ -137,6 +138,8 @@ print(_email.toString());
         }
       }
       else{
+                      Provider.of<AuthProvider>(context, listen: false).setUserType('user');
+
         await Provider.of<ProfileProvider>(context, listen: false).getUserInfo(context);
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => DashBoardScreen()), (route) => false);
       }
@@ -285,6 +288,9 @@ Container(
               onTap: () {
                 if (!Provider.of<AuthProvider>(context, listen: false).isLoading) {
                   Provider.of<CartProvider>(context, listen: false).getCartData();
+                        Provider.of<AuthProvider>(context, listen: false).setUserType(
+                          'visitor'
+                        );
                   Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => DashBoardScreen()),
                           (route) => false);
                 }

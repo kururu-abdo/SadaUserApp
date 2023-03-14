@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:connectivity/connectivity.dart';
+import 'package:eamar_user_app/helper/firebase_dynamic_links_services.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/localization/language_constrants.dart';
 import 'package:eamar_user_app/provider/auth_provider.dart';
@@ -15,7 +16,8 @@ import 'package:eamar_user_app/view/screen/maintenance/maintenance_screen.dart';
 import 'package:eamar_user_app/view/screen/onboarding/onboarding_screen.dart';
 import 'package:eamar_user_app/view/screen/splash/widget/splash_painter.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter/services.dart' show PlatformException;
+import 'package:uni_links/uni_links.dart';
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -24,11 +26,52 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   GlobalKey<ScaffoldMessengerState> _globalKey = GlobalKey();
   StreamSubscription<ConnectivityResult> _onConnectivityChanged;
+ Uri _initialUri;
+  Uri _latestUri;
+  Object _err;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Future<void> initUniLinks() async {
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      final initialLink = await getInitialLink();
+      // Parse the link and warn the user, if it is not correct,
+      // but keep in mind it could be `null`.
+if (initialLink.contains('product')) {
+  
+}
+
+
+
+    } on PlatformException {
+      // Handle exception by warning the user their action did not succeed
+      // return?
+    }
+  }
+
+
+
+
+
+
 
   @override
   void initState() {
     super.initState();
-
+DymanicLinksServices.initDynamicLink(context);
     bool _firstTime = true;
     _onConnectivityChanged = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
       if(!_firstTime) {
@@ -109,7 +152,7 @@ class _SplashScreenState extends State<SplashScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Image.asset(Images.logo_with_name_image, height: 250.0, 
+                Image.asset(Images.logo_image, height: 250.0, 
                 // fit: BoxFit.scaleDown,
                   // width: 250.0, 
                   //color: Theme.of(context).cardColor,

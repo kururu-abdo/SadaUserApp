@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/base/api_response.dart';
 import 'package:eamar_user_app/data/model/response/config_model.dart';
@@ -57,6 +59,7 @@ class SplashProvider extends ChangeNotifier {
       isSuccess = true;
     } else {
       isSuccess = false;
+      log(apiResponse.error.toString());
       ApiChecker.checkApi(context, apiResponse);
       if(apiResponse.error.toString() == 'Connection to API server failed due to internet connection') {
         _hasConnection = false;

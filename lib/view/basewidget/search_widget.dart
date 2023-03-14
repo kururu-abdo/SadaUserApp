@@ -83,8 +83,13 @@ class SearchWidget extends StatelessWidget {
               },
               child: Container(
                 width: 55,height: 55,decoration: BoxDecoration(color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.only(topRight: Radius.circular(Dimensions.PADDING_SIZE_SMALL),
-                      bottomRight: Radius.circular(Dimensions.PADDING_SIZE_SMALL))
+                  borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL)
+                  
+                  
+                  
+                  // only(topRight: Radius.circular(Dimensions.PADDING_SIZE_SMALL),
+                  //     bottomRight: Radius.circular(Dimensions.PADDING_SIZE_SMALL)
+                  //     )
               ),
                 child: Icon(Icons.search, color: Theme.of(context).cardColor, size: Dimensions.ICON_SIZE_SMALL),
               ),

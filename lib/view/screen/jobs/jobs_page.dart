@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:eamar_user_app/data/model/response/city.dart';
@@ -22,6 +24,8 @@ import 'package:eamar_user_app/view/screen/jobs/add_job_page.dart';
 import 'package:eamar_user_app/view/screen/jobs/widgets/bottom_sheet_modal.dart';
 import 'package:eamar_user_app/view/screen/jobs/widgets/jobs_view.dart';
 import 'package:eamar_user_app/view/screen/search/search_screen.dart';
+import 'package:flutter/services.dart';
+import 'package:open_whatsapp/open_whatsapp.dart';
 import 'package:provider/provider.dart';
 
 class JobsPage extends StatefulWidget {
@@ -94,8 +98,29 @@ await Provider.of<JobsProvider>(context, listen: false).getUserJobs( context ,
     }});
 
       _loadData(context, false);
- }
 
+       initPlatformState();
+ }
+   String _platformVersion = 'Unknown';
+// Platform messages are asynchronous, so we initialize in an async method.
+  Future<void> initPlatformState() async {
+    String platformVersion;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      platformVersion = await FlutterOpenWhatsapp.platformVersion;
+    } on PlatformException {
+      platformVersion = 'Failed to get platform version.';
+    }
+log(platformVersion);
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+
+    setState(() {
+      _platformVersion = platformVersion;
+    });
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -337,7 +362,7 @@ showModalBottomSheet(context: context,
 
 ,
 floatingActionButton: Visibility(
-        visible: _isVisible,
+        visible: _isVisible && Provider.of<AuthProvider>(context, listen: false).isLoggedIn(),
         maintainAnimation: true,
         maintainState: true,
   child:   FloatingActionButton.extended(onPressed: 
@@ -351,11 +376,14 @@ Navigator.of(context).push(
 
 
   },label: Text(getTranslated('add_job_txt', context) ,
-  style: TextStyle(
-    color: Colors.white
+  // style: TextStyle(
+  //   color: Colors.white
+  // ),
   ),
+  icon:Icon(Icons.add ,  
+  //  color: Colors.white
+  
   ),
-  icon:Icon(Icons.add ,   color: Colors.white),
   // child: Icon(Icons.add),
   ),
 ),

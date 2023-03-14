@@ -1,3 +1,6 @@
+import 'dart:collection';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/base/api_response.dart';
 import 'package:eamar_user_app/data/model/response/product_model.dart';
@@ -196,9 +199,41 @@ class ProductProvider extends ChangeNotifier {
   // Brand and category products
   List<Product> _brandOrCategoryProductList = [];
   bool _hasData;
-
+int _selectedSubCategory;
+int  get  selectedSubCategory   => _selectedSubCategory;
+setSelectedSubCategory(int index){
+  _selectedSubCategory=index;
+  notifyListeners();
+}
   List<Product> get brandOrCategoryProductList => _brandOrCategoryProductList;
   bool get hasData => _hasData;
+
+
+
+
+
+ int _selectedProductId = 0;
+
+  // List<Product> get brandOrCategoryProductList2 => _selectedProductId==0
+  //     ? _brandOrCategoryProductList
+  //     : 
+  //         _brandOrCategoryProductList.where((prod) {
+  //           for (var id in prod.categoryIds) {
+  //             id.position
+  //           }
+  //           return 
+          
+  //           prod.categoryIds.contains(_selectedProductId);
+  //         }
+
+  //         ).toList();
+
+
+ void changeProductId(int selectedProductId) {
+    _selectedProductId = selectedProductId;
+    log(_selectedProductId.toString());
+    notifyListeners();
+  }
 
   void initBrandOrCategoryProductList(bool isBrand, String id, BuildContext context) async {
     _brandOrCategoryProductList.clear();
@@ -210,13 +245,49 @@ class ProductProvider extends ChangeNotifier {
       List<Product> _products = [];
       _products.addAll(_brandOrCategoryProductList);
       _brandOrCategoryProductList.clear();
+      // brandOrCategoryProductList2.clear();
+
       _brandOrCategoryProductList.addAll(_products.reversed);
+      // brandOrCategoryProductList2.addAll(_brandOrCategoryProductList);
     } else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
   }
+filterBrandAndCategoryProductList(BuildContext context,int category)async{
+  _brandOrCategoryProductList.clear();
+    _hasData = true;
+    ApiResponse apiResponse = await productRepo.getProductsById(category.toString());
+    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+      log(apiResponse.response.data.toString());
+      apiResponse.response.data['products'].forEach((product) => _brandOrCategoryProductList.add(Product.fromJson(product)));
+      _hasData = _brandOrCategoryProductList.length > 1;
+      List<Product> _products = [];
+      _products.addAll(_brandOrCategoryProductList);
+      _brandOrCategoryProductList.clear();
+      // brandOrCategoryProductList2.clear();
 
+      _brandOrCategoryProductList.addAll(_products.reversed);
+      // brandOrCategoryProductList2.addAll(_brandOrCategoryProductList);
+    } else {
+      ApiChecker.checkApi(context, apiResponse);
+    }
+    notifyListeners();
+}
+
+
+//filter by sub category
+
+filterProductsBySub(){
+  try {
+    // var _old =  
+    _brandOrCategoryProductList.clear();
+    // _brandOrCategoryProductList.addAll(  );
+  } catch (e) {
+  }
+}
+
+//
   // Related products
   List<Product> _relatedProductList;
   List<Product> get relatedProductList => _relatedProductList;

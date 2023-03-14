@@ -398,5 +398,18 @@
   "img_field_required_txt":"الرجاء اختيار صورة"
 
 
+ ,
+
+ "search_by_budget":"البحث بالميزانية" ,
+ "budget_txt":"الميزانية" ,
+ "category":"التصنيف" ,
+ "show_result_txt":"عرض النتائج" ,
+ "amount_filed_required":"الرجاء تحديد الميزانية" ,
+ "category_field_required":"الرجاء اختيار تصنيف" ,
+"show_txt":"عرض",
+"filter_txt":"الفلاتر" ,
+"location_txt":"الموقع",
+"whatss_num":"رقم الواتساب"
+
 
 }

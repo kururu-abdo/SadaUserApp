@@ -112,7 +112,7 @@ Future<void> init() async {
   sl.registerFactory(() => OnBoardingProvider(onboardingRepo: sl()));
   sl.registerFactory(() => AuthProvider(authRepo: sl()));
   sl.registerFactory(() => ProductDetailsProvider(productDetailsRepo: sl()));
-  sl.registerFactory(() => SearchProvider(searchRepo: sl()));
+  sl.registerFactory(() => SearchProvider(searchRepo: sl() , categoryRepo: sl()));
   sl.registerFactory(() => OrderProvider(orderRepo: sl()));
   sl.registerFactory(() => SellerProvider(sellerRepo: sl()));
   sl.registerFactory(() => CouponProvider(couponRepo: sl()));

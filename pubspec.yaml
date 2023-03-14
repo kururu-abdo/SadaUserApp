@@ -59,13 +59,19 @@ dependencies:
   validate_ksa_number: ^1.0.0
   responsive_framework: ^0.2.0
   expandable: ^5.0.1
-  flutter_survey: ^0.1.4
-  flutter_speech: ^2.0.0
+  # flutter_survey: ^0.1.4
+  # flutter_speech: ^2.0.0
   firebase_dynamic_links: ^4.3.11
-
-
-
-
+  uni_links: ^0.5.1
+  image: ^3.1.0
+  dio_cache_interceptor: ^3.4.0
+  dio_cache_interceptor_hive_store: ^3.2.1
+  font_awesome_flutter: ^10.4.0
+  open_whatsapp: ^0.0.1
+  permission_handler: ^10.2.0
+  gallery_saver: ^2.3.2
+  place_picker: 
+  image_watermark:
 dev_dependencies:
   flutter_test:
     sdk: flutter

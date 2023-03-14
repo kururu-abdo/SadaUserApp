@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/base/api_response.dart';
 import 'package:eamar_user_app/data/model/response/category.dart';
@@ -12,7 +14,11 @@ class CategoryProvider extends ChangeNotifier {
 
   List<Category> _categoryList = [];
   int _categorySelectedIndex;
+  List<SubCategory> _subCategroies = [];
+    List<SubSubCategory> _subSubCategory = [];
+ List<SubSubCategory>    get subSubCategroies   => _subSubCategory;
 
+ List<SubCategory>    get subCategroies   => _subCategroies;
   List<Category> get categoryList => _categoryList;
   int get categorySelectedIndex => _categorySelectedIndex;
 
@@ -29,6 +35,28 @@ class CategoryProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+
+getSubCategries(){
+  try {
+    var data= _categoryList[_categorySelectedIndex].subCategories;
+_subCategroies.clear();
+    _subCategroies.addAll(data);
+    notifyListeners();
+  } catch (e) {
+  }
+}
+getSubSubCategries(int sub){
+  try {
+    var data= _subCategroies.where((element) => element.id==sub).first;
+
+_subSubCategory.clear();
+    _subSubCategory.addAll(data.subSubCategories);
+    print("BRAND"+_subSubCategory.length.toString());
+    notifyListeners();
+  } catch (e) {
+  }
+}
 
   void changeSelectedIndex(int selectedIndex) {
     _categorySelectedIndex = selectedIndex;

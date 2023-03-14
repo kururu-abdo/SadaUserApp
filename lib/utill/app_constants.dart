@@ -94,7 +94,11 @@ static const String GET_REGIONS="/api/v1/places/get_regions";   //body=?lang=ar
 static const String GET_REGION_CITIES ="/api/v1/places/get_region_cities";  //PATH regionId   ?lang=ar
 static const String ADD_JOBS="/api/v1/jobs/register_job";
 
+static const String SEARCH_BUDGET="/api/v1/products/search-buget";  //  buget
+// catogry_id    POST REQUEST 
 
+
+static const GET_PRODUCTS_BY_ID="/api/v1/products/catogry-products/";
 
   //address
   static const String UPDATE_ADDRESS_URI = '/api/v1/customer/address/update/';
@@ -108,6 +112,8 @@ static const String ADD_JOBS="/api/v1/jobs/register_job";
   static const String TOKEN = 'token';
   static const String USER = 'user';
   static const String USER_EMAIL = 'user_email';
+  static const String USER_TYPE = 'user_type';
+  
   static const String USER_PASSWORD = 'user_password';
   static const String HOME_ADDRESS = 'home_address';
   static const String SEARCH_ADDRESS = 'search_address';
@@ -134,7 +140,7 @@ static const String ADD_JOBS="/api/v1/jobs/register_job";
   static const String THEME = 'theme';
   static const String TOPIC = 'sixvalley';
   static const String USER_ADDRESS = 'user_address';
-
+static const String GOOGLE_MAP_KEY="AIzaSyCsE5KDJqjPpbTHsQFqSjnJHclQuCBw8c4";
   static List<LanguageModel> languages = [
     LanguageModel(imageUrl: '', languageName: 'English', countryCode: 'US', languageCode: 'en'),
     LanguageModel(imageUrl: '', languageName: 'Arabic', countryCode: 'SA', languageCode: 'ar'),
