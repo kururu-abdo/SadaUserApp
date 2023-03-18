@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'package:connectivity/connectivity.dart';
+import 'package:eamar_user_app/data/model/response/product_model.dart';
 import 'package:eamar_user_app/helper/firebase_dynamic_links_services.dart';
+import 'package:eamar_user_app/utill/app_constants.dart';
+import 'package:eamar_user_app/view/screen/product/product_details_from_url.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/localization/language_constrants.dart';
 import 'package:eamar_user_app/provider/auth_provider.dart';
@@ -71,7 +74,7 @@ if (initialLink.contains('product')) {
   @override
   void initState() {
     super.initState();
-DymanicLinksServices.initDynamicLink(context);
+
     bool _firstTime = true;
     _onConnectivityChanged = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
       if(!_firstTime) {
@@ -103,6 +106,7 @@ DymanicLinksServices.initDynamicLink(context);
   }
 
   void _route() {
+    DymanicLinksServices.initDynamicLink(context);
     Provider.of<SplashProvider>(context, listen: false).initConfig(context).then((bool isSuccess) {
       if(isSuccess) {
         Provider.of<SplashProvider>(context, listen: false).initSharedPrefData();
@@ -110,7 +114,18 @@ DymanicLinksServices.initDynamicLink(context);
           if(Provider.of<SplashProvider>(context, listen: false).configModel.maintenanceMode) {
             Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => MaintenanceScreen()));
           }else {
+
+  // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) =>
+  
+  
+  //  ProductDetailsFromUrl(
+  //    slug: AppConstants.SLUG,
+  //  )));
+
             if (Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
+
+
+
               Provider.of<AuthProvider>(context, listen: false).updateToken(context);
               Provider.of<ProfileProvider>(context, listen: false).getUserInfo(context);
               Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => DashBoardScreen()));

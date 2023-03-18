@@ -43,42 +43,6 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:715551820384:android:72aa04058cbc4a1e61d105",
-        "android_client_info": {
-          "package_name": "com.store.joseeder"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "715551820384-6v1lct35l528ijlmbtan4c48qm07ctlg.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyD_8FTYzN0YuD6NaIG5UQNss0AZZAj6P0Q"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "715551820384-6r7bntl5libvpp48jgomi2d2smalhqc2.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "715551820384-g8t6t7m8h16f98u3vlri394ofmgua7s3.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "net.eamar.delivery"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:715551820384:android:4577f9aa9dc2b92161d105",
         "android_client_info": {
           "package_name": "net.eamar.delivery"

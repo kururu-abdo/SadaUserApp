@@ -81,9 +81,10 @@
     <key>CFBundleTypeRole</key>
     <string>Editor</string>
     <key>CFBundleURLName</key>
-    <string>sada.com</string>
+    <string>echoemar.com</string>
     <key>CFBundleURLSchemes</key>
     <array>
+	<string>eamar.page.link</string>
     <string>http</string>
 	    <string>https</string>
 

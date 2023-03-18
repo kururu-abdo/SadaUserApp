@@ -18,7 +18,9 @@ class ProductTitleView extends StatelessWidget {
 
     double _startingPrice = 0;
     double _endingPrice;
-    if(productModel.variation != null && productModel.variation.length != 0) {
+    if (productModel!=null) {
+      if(productModel.variation != null &&
+     productModel.variation.length != 0) {
       List<double> _priceList = [];
       productModel.variation.forEach((variation) => _priceList.add(variation.price));
       _priceList.sort((a, b) => a.compareTo(b));
@@ -28,6 +30,7 @@ class ProductTitleView extends StatelessWidget {
       }
     }else {
       _startingPrice = productModel.unitPrice;
+    }
     }
 
     return productModel != null? Container(

@@ -25,6 +25,7 @@ import 'package:image/image.dart' as img;
 import 'dart:ui' as ui;
 
 import '../../../../data/datasource/remote/chache/app_path_provider.dart';
+import '../../../../helper/firebase_dynamic_links_services.dart';
 class ProductImageView extends StatefulWidget {
   final Product productModel;
   ProductImageView({@required this.productModel});
@@ -353,9 +354,26 @@ void dispose() {
 
                     InkWell(
                       onTap: () {
-                        if(Provider.of<ProductDetailsProvider>(context, listen: false).sharableLink != null) {
-                          Share.share(Provider.of<ProductDetailsProvider>(context, listen: false).sharableLink);
-                        }
+
+
+                        DymanicLinksServices.createDynamicLink(true, widget.productModel).then((value) {
+
+
+
+log(value);
+
+
+  Share.share(value);
+                          // Share.share(Provider.of<ProductDetailsProvider>(context, listen: false).sharableLink);
+
+                        });
+
+                        // if(Provider.of<ProductDetailsProvider>(context, listen: false).sharableLink != null) {
+                        //   Share.share(Provider.of<ProductDetailsProvider>(context, listen: false).sharableLink);
+                        // }
+                    
+                    
+                    
                       },
                       child: Card(
                         elevation: 2,

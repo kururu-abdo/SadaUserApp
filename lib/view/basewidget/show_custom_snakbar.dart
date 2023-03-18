@@ -7,3 +7,4 @@ void showCustomSnackBar(String message, BuildContext context, {bool isError = tr
     content: Text(message),
   ));
 }
+

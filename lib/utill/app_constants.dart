@@ -124,6 +124,7 @@ static const GET_PRODUCTS_BY_ID="/api/v1/products/catogry-products/";
   static const String CURRENCY = 'currency';
   static const String LANG_KEY = 'lang';
   static const String INTRO = 'intro';
+  static const String SLUG="fashionable-bag-for-women-5k9uYs";
 
   // order status
   static const String PENDING = 'pending';

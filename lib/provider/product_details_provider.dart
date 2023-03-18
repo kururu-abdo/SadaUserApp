@@ -1,6 +1,9 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:eamar_user_app/provider/auth_provider.dart';
+import 'package:eamar_user_app/provider/product_provider.dart';
+import 'package:eamar_user_app/provider/wishlist_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/body/review_body.dart';
 import 'package:eamar_user_app/data/model/response/base/api_response.dart';
@@ -17,6 +20,14 @@ class ProductDetailsProvider extends ChangeNotifier {
   final ProductDetailsRepo productDetailsRepo;
   ProductDetailsProvider({@required this.productDetailsRepo});
 
+
+bool _slugLoading=true;
+bool get slugLoading => _slugLoading;
+
+
+
+
+
   List<ReviewModel> _reviewList;
   int _imageSliderIndex;
   bool _wish = false;
@@ -24,6 +35,8 @@ class ProductDetailsProvider extends ChangeNotifier {
   int _variantIndex;
   List<int> _variationIndex;
   int _rating = 0;
+    double _ratingValue = 0.0;
+
   bool _isLoading = false;
   int _orderCount;
   int _wishCount;
@@ -38,6 +51,8 @@ class ProductDetailsProvider extends ChangeNotifier {
   int get variantIndex => _variantIndex;
   List<int> get variationIndex => _variationIndex;
   int get rating => _rating;
+    double get ratingValue => _ratingValue;
+
   bool get isLoading => _isLoading;
   int get orderCount => _orderCount;
   int get wishCount => _wishCount;
@@ -45,20 +60,93 @@ class ProductDetailsProvider extends ChangeNotifier {
   String get errorText => _errorText;
   bool get hasConnection => _hasConnection;
 
-  Future<void> initProduct(Product product, String id, String slug, BuildContext context) async {
+  Product   myProdutt;
+  // String rating;
+
+Future<void> initProductFromSlug(String slug, BuildContext context) async {
+    _slugLoading = true;
+     _hasConnection = true;
+    _variantIndex = 0;
+    ;
+  // notifyListeners();
+     ApiResponse reviewResponse = await productDetailsRepo.getProductDetails(
+        slug.toString()
+        
+        
+        );
+
+
+
+    if (reviewResponse.response != null && reviewResponse.response.statusCode == 200) {
+
+myProdutt = Product.fromJson(reviewResponse.response.data);
+removePrevReview();
+
+await initProduct(myProdutt, context);
+
+
+
+    Provider.of<ProductProvider>(context, listen: false).removePrevRelatedProduct();
+      Provider.of<ProductProvider>(context, listen: false).initRelatedProductList( 
+        myProdutt.id.toString()
+        , context);
+      Provider.of<ProductDetailsProvider>(context, listen: false).getCount( myProdutt.id.toString(), context);
+      // Provider.of<ProductDetailsProvider>(context, listen: false).getSharableLink(
+      //   myProdutt.id.toString(), context);
+      if(Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
+      
+        Provider.of<WishListProvider>(context, listen: false).checkWishList(
+         myProdutt.id.toString(), context);
+      }
+      Provider.of<ProductProvider>(context, listen: false).initSellerProductList(
+        
+           myProdutt.userId.toString(), 1, context);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          _slugLoading = false;
+
+    }
+
+ else {
+      ApiChecker.checkApi(context, reviewResponse);
+      if(reviewResponse.error.toString() == 'Connection to API server failed due to internet connection') {
+        _hasConnection = false;
+            _slugLoading = false;
+
+      }
+    }
+      _slugLoading = false;
+    notifyListeners();
+
+}
+  Future<void> initProduct(Product product, BuildContext context) async {
     _hasConnection = true;
     _variantIndex = 0;
     ;
 
     ApiResponse reviewResponse = await productDetailsRepo.getReviews(
-      product==null? id:
-      
       product.id.toString());
     if (reviewResponse.response != null && reviewResponse.response.statusCode == 200) {
         Provider.of<BannerProvider>(context,listen: false).getProductDetails(context, 
-        product==null?slug:
         
-        product.slug.toString());
+        product.slug.toString()
+        
+        
+        );
       _reviewList = [];
       reviewResponse.response.data.forEach((reviewModel) => _reviewList.add(ReviewModel.fromJson(reviewModel)));
       _imageSliderIndex = 0;
@@ -71,8 +159,15 @@ class ProductDetailsProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
+_initRating(Product product)
+{
+ String ratting = product != null &&
+     product.rating != null &&
+    product.rating.length != 0?
+   product.rating[0].average.toString() : "0";
 
-
+   _ratingValue=double.parse(ratting);
+}
   void initData(Product product) {
     _variantIndex = 0;
     _quantity = 1;

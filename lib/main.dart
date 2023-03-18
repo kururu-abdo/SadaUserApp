@@ -185,7 +185,11 @@ builder: (context, child) => ResponsiveWrapper.builder(
         FallbackLocalizationDelegate()
       ],
       supportedLocales: _locals,
-      home: orderId == null ? SplashScreen() : OrderDetailsScreen(orderModel: null,
+      home: orderId == null ? 
+      
+      SplashScreen() : 
+
+      OrderDetailsScreen(orderModel: null,
         orderId: orderId,orderType: 'default_type',),
     );
   }

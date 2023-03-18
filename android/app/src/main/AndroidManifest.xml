@@ -54,37 +54,20 @@
 <!--
     enable deep linking
 -->
-<intent-filter android:autoVerify="true">
-    <action android:name="android.intent.action.VIEW" />
-    <category android:name="android.intent.category.DEFAULT" />
-    <category android:name="android.intent.category.BROWSABLE" />
-    <data android:scheme="http" android:host="sada.com" />
-    <data android:scheme="https"  android:host="sada.com"  />
-
-</intent-filter>
+     <meta-data
+            android:name="flutter_deeplinking_enabled"
+            android:value="true" />
 
 
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
-        <!-- Accepts URIs that begin with YOUR_SCHEME://YOUR_HOST -->
-        <data
-          android:scheme="[YOUR_SCHEME]"
-          android:host="[YOUR_HOST]" />
+          <intent-filter android:autoVerify="true">
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:host="echoemar.page.link" android:scheme="https"/>
+        <data android:host="echoemar.com" android:scheme="https"/>
       </intent-filter>
 
-      <!-- App Links -->
-      <intent-filter android:autoVerify="true">
-        <action android:name="android.intent.action.VIEW" />
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
-        <!-- Accepts URIs that begin with https://YOUR_HOST -->
-        <data
-          android:scheme="https" 
-            android:pathPrefix="/product"
-          android:host="sada.com" />
-      </intent-filter>
+
 
 
 
@@ -119,6 +102,13 @@
                 <action android:name="FLUTTER_NOTIFICATION_CLICK" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+
+
+
+
+
+
+
         </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
@@ -136,6 +126,12 @@
             android:configChanges=
                 "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
+     
+     
+     
+     
+     
+     
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
@@ -145,14 +141,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
-  <intent-filter android:autoVerify="true">
-        <action android:name="android.intent.action.VIEW"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-        <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:host="https://eamar.page.link" android:scheme="http"/>
-        <data android:host="https://eamar.page.link" android:scheme="https"/>
-      </intent-filter>
-
+  
 
 
 

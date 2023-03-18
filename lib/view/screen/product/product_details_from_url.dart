@@ -31,73 +31,58 @@ import 'package:provider/provider.dart';
 
 import 'faq_and_review_screen.dart';
 
-class ProductDetails extends StatefulWidget {
-  final Product product;
+class ProductDetailsFromUrl extends StatefulWidget {
 
-  final String id;
   final String slug;
-    final String seller;
+    
 
-  ProductDetails({@required this.product, this.id ,this.slug  , this.seller});
+  ProductDetailsFromUrl({ this.slug  ,});
 
 
 
   @override
-  State<ProductDetails> createState() => _ProductDetailsState();
+  State<ProductDetailsFromUrl> createState() => _ProductDetailsState();
 }
 
-class _ProductDetailsState extends State<ProductDetails> {
+class _ProductDetailsState extends State<ProductDetailsFromUrl> {
   _loadData( BuildContext context) async{
       Provider.of<ProductDetailsProvider>(context, listen: false).removePrevReview();
-      Provider.of<ProductDetailsProvider>(context, listen: false).initProduct(
-        widget.product==null?
-       null:
-        widget.product,
-
-     
+      Provider.of<ProductDetailsProvider>(context, listen: false).initProductFromSlug(
+       widget.slug,
 
        context);
-      Provider.of<ProductProvider>(context, listen: false).removePrevRelatedProduct();
-      Provider.of<ProductProvider>(context, listen: false).initRelatedProductList( widget.product==null?
-          widget.id:
-          widget.product.id.toString(), context);
-      Provider.of<ProductDetailsProvider>(context, listen: false).getCount( widget.product==null?
-          widget.id:
-          widget.product.id.toString(), context);
-      Provider.of<ProductDetailsProvider>(context, listen: false).getSharableLink(
-        widget.product==null?
-          widget.slug:
-          widget.product.slug.toString(), context);
-      if(Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
-      
-        Provider.of<WishListProvider>(context, listen: false).checkWishList(
-          widget.product==null?
-          widget.id:
-          widget.product.id.toString(), context);
-      }
-      Provider.of<ProductProvider>(context, listen: false).initSellerProductList(
-        
-             widget.product!=null?
-        
-        widget.product.userId.toString():widget.seller, 1, context);
-
+  
 
 
   }
-
+@override
+void initState() { 
+  super.initState();
+  Future.microtask(()async {
+await
+    _loadData(context);
+  });
+}
   @override
   Widget build(BuildContext context) {
     ScrollController _scrollController = ScrollController();
-    String ratting = widget.product != null &&
-      widget.product.rating != null &&
-     widget.product.rating.length != 0?
-    widget.product.rating[0].average.toString() : "0";
-    _loadData(context);
-    return widget.product != null?
+    // String ratting = Provider.of<ProductDetailsProvider>(context).myProdutt != null &&
+    //   Provider.of<ProductDetailsProvider>(context).myProdutt.rating != null &&
+    //  Provider.of<ProductDetailsProvider>(context).myProdutt.rating.length != 0?
+    // Provider.of<ProductDetailsProvider>(context).myProdutt.rating[0].average.toString() : "0";
+  
+  
+    
+
+
+
+    return   !Provider.of<ProductDetailsProvider>(context).slugLoading?
     Consumer<ProductDetailsProvider>(
       builder: (context, details, child) {
 
-        return details.hasConnection ?
+        return details.hasConnection
+        
+         ?
         
          Scaffold(
           backgroundColor: Theme.of(context).primaryColor,
@@ -120,16 +105,22 @@ class _ProductDetailsState extends State<ProductDetails> {
 
 
 
-          bottomNavigationBar: BottomCartView(product: widget.product),
+          bottomNavigationBar: BottomCartView(product:  Provider.of<ProductDetailsProvider>(context).myProdutt),
 
 
 
-          body: SingleChildScrollView(
+          body:
+          
+          
+           SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Column(
               children: [
-                widget.product != null?
-                ProductImageView(productModel: widget.product):SizedBox(),
+                Provider.of<ProductDetailsProvider>(context).myProdutt != null?
+
+                ProductImageView(productModel:
+                 Provider.of<ProductDetailsProvider>(context).myProdutt):
+                 SizedBox(),
 
                 Container(
                   transform: Matrix4.translationValues(0.0, -25.0, 0.0),
@@ -142,29 +133,49 @@ class _ProductDetailsState extends State<ProductDetails> {
                   child: Column(children: [
 
 
-                    ProductTitleView(productModel: widget.product),
+                    ProductTitleView(productModel: Provider.of<ProductDetailsProvider>(context).myProdutt),
 
 
 
-                    (widget.product.details != null && widget.product.details.isNotEmpty) ?
+                    Provider.of<ProductDetailsProvider>(context).myProdutt != null  ?
+
+(Provider.of<ProductDetailsProvider>(context).myProdutt.details != null &&
+                     Provider.of<ProductDetailsProvider>(context).myProdutt.details.isNotEmpty) ?
                     Container(height: 250,
                       margin: EdgeInsets.only(top: Dimensions.PADDING_SIZE_SMALL),
                       padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-                      child: ProductSpecification(productSpecification: widget.product.details ?? ''),) : SizedBox(),
+                      child: ProductSpecification(productSpecification: Provider.of<ProductDetailsProvider>(context).myProdutt.details ?? ''),) 
+                      :SizedBox()
+                      : SizedBox(),
 
-                    widget.product.videoUrl != null?
-                    YoutubeVideoWidget(url: widget.product.videoUrl):SizedBox(),
+                    Provider.of<ProductDetailsProvider>(context).myProdutt!=null?
+                    
+                       Provider.of<ProductDetailsProvider>(context).myProdutt.videoUrl != null?
+
+                    YoutubeVideoWidget(url: Provider.of<ProductDetailsProvider>(context).myProdutt.videoUrl):
+                     SizedBox():
+                    SizedBox(),
 
                     Container(padding: EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_DEFAULT,
                         horizontal: Dimensions.FONT_SIZE_DEFAULT),
                         decoration: BoxDecoration(
                             color: Theme.of(context).cardColor
                         ),
-                        child: PromiseScreen()),
+                        child: PromiseScreen())
+                        
+                        
+                        ,
+
+    Provider.of<ProductDetailsProvider>(context).myProdutt!=null?
+
+                    Provider.of<ProductDetailsProvider>(context).myProdutt.addedBy == 'seller' ?
 
 
-
-                    widget.product.addedBy == 'seller' ? SellerView(sellerId: widget.product.userId.toString()) : SizedBox.shrink(),
+                    
+                     SellerView(sellerId:
+                      Provider.of<ProductDetailsProvider>(context).myProdutt.userId.toString()) :
+                       SizedBox.shrink():
+                       SizedBox.shrink(),
 
 
 
@@ -184,9 +195,9 @@ class _ProductDetailsState extends State<ProductDetails> {
 
                           child: Row(mainAxisAlignment: MainAxisAlignment.center,crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            RatingBar(rating: double.parse(ratting), size: 18,),
+                            RatingBar(rating: double.parse(Provider.of<ProductDetailsProvider>(context).ratingValue.toString()), size: 18,),
                             SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
-                            Text('${double.parse(ratting).toStringAsFixed(1)}'+ ' '+ '${getTranslated('out_of_5', context)}'),
+                            Text('${double.parse(Provider.of<ProductDetailsProvider>(context).ratingValue.toString()).toStringAsFixed(1)}'+ ' '+ '${getTranslated('out_of_5', context)}'),
                           ],
                         ),
                       ),
@@ -196,8 +207,12 @@ class _ProductDetailsState extends State<ProductDetails> {
 
 
 
-                      details.reviewList != null ? details.reviewList.length != 0 ? ReviewWidget(reviewModel: details.reviewList[0])
-                          : SizedBox() : ReviewShimmer(),
+                      details.reviewList != null ?
+                       details.reviewList.length != 0 ? 
+                       ReviewWidget(reviewModel: details.reviewList[0])
+                          : SizedBox() : 
+
+                          ReviewShimmer(),
                       details.reviewList != null ? details.reviewList.length > 1 ? ReviewWidget(reviewModel: details.reviewList[1])
                           : SizedBox() : ReviewShimmer(),
                       details.reviewList != null ? details.reviewList.length > 2 ? ReviewWidget(reviewModel: details.reviewList[2])
@@ -216,16 +231,25 @@ class _ProductDetailsState extends State<ProductDetails> {
 
                     ]),
                   ),
-
-                    widget.product.addedBy == 'seller' ?
+Provider.of<ProductDetailsProvider>(context).myProdutt!=null?
+                    Provider.of<ProductDetailsProvider>(context).myProdutt.addedBy == 'seller' ?
                     Padding(padding: EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
                       child: TitleRow(title: getTranslated('more_from_the_shop', context), isDetailsPage: true),
-                    ):SizedBox(),
-
-                    widget.product.addedBy == 'seller' ?
+                    )
+                    :SizedBox()
+                    :SizedBox()
+                    
+                    ,
+Provider.of<ProductDetailsProvider>(context).myProdutt!=null?
+                    Provider.of<ProductDetailsProvider>(context).myProdutt.addedBy == 'seller' ?
                     Padding(padding: EdgeInsets.all(Dimensions.PADDING_SIZE_EXTRA_SMALL),
+
                       child: ProductView(isHomePage: true, productType: ProductType.SELLER_PRODUCT,
-                          scrollController: _scrollController, sellerId: widget.product.userId.toString()),):SizedBox(),
+
+
+                          scrollController: _scrollController, sellerId: 
+                          Provider.of<ProductDetailsProvider>(context).myProdutt.userId.toString())
+                          ,):SizedBox():SizedBox(),
 
 
 
@@ -250,10 +274,18 @@ class _ProductDetailsState extends State<ProductDetails> {
               ],
             ),
           ),
-        ) : Scaffold(body: NoInternetOrDataScreen(isNoInternet: true,
-            child: ProductDetails(product: widget.product)));
+        ) : 
+        
+        Scaffold(
+          
+          body: NoInternetOrDataScreen(isNoInternet: true,
+            child: ProductDetailsFromUrl(slug: widget.slug)));
       },
-    ):SizedBox();
+    ):
+    
+    Scaffold(
+      body: Center(child: CircularProgressIndicator(),),
+    );
   }
 
 

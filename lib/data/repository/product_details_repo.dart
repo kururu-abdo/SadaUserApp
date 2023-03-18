@@ -52,6 +52,14 @@ class ProductDetailsRepo {
     }
   }
 
+Future<ApiResponse> getProductDetails(String productID) async {
+    try {
+      final response = await dioClient.get('${AppConstants.PRODUCT_DETAILS_URI}$productID');
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
   Future<http.StreamedResponse> submitReview(ReviewBody reviewBody, List<File> files, String token) async {
     http.MultipartRequest request = http.MultipartRequest('POST', Uri.parse('${AppConstants.BASE_URL}${AppConstants.SUBMIT_REVIEW_URI}'));
     request.headers.addAll(<String,String>{'Authorization': 'Bearer $token'});

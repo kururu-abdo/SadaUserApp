@@ -88,6 +88,14 @@ class ProductRepo {
 
   }
 
+Future<ApiResponse> getProductDetails(String productID) async {
+    try {
+      final response = await dioClient.get('${AppConstants.PRODUCT_DETAILS_URI}$productID');
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
 
 
 
