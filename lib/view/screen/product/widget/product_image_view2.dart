@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:eamar_user_app/view/screen/product/widget/download_image_page.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/product_model.dart';
 import 'package:eamar_user_app/helper/price_converter.dart';
@@ -27,23 +28,41 @@ import 'dart:ui' as ui;
 
 import '../../../../data/datasource/remote/chache/app_path_provider.dart';
 import '../../../../helper/firebase_dynamic_links_services.dart';
-class ProductImageView extends StatefulWidget {
+class ProductImageView2 extends StatefulWidget {
   final Product productModel;
-  ProductImageView({@required this.productModel});
+  ProductImageView2({@required this.productModel});
 
   @override
-  State<ProductImageView> createState() => _ProductImageViewState();
+  State<ProductImageView2> createState() => _ProductImageViewState();
 }
 
-class _ProductImageViewState extends State<ProductImageView>   with TickerProviderStateMixin {
+class _ProductImageViewState extends State<ProductImageView2>   with TickerProviderStateMixin {
 
   TransformationController  transformationController;
   final PageController _controller = PageController();
 AnimationController animationController;
 Animation<double> animation;
 Animation<Matrix4> animation2;
+final _transformationController = TransformationController();
+TapDownDetails _doubleTapDetails;
+void _handleDoubleTapDown(TapDownDetails details) {
+  _doubleTapDetails = details;
+}
 
-
+void _handleDoubleTap() {
+  if (_transformationController.value != Matrix4.identity()) {
+    _transformationController.value = Matrix4.identity();
+  } else {
+    final position = _doubleTapDetails.localPosition;
+    // For a 3x zoom
+    _transformationController.value = Matrix4.identity()
+      ..translate(-position.dx * 2, -position.dy * 2)
+      ..scale(3.0);
+    // Fox a 2x zoom
+    // ..translate(-position.dx, -position.dy)
+    // ..scale(2.0);
+  }
+}
  Offset _startingFocalPoint;
 
    Offset _previousOffset;
@@ -227,14 +246,14 @@ void dispose() {
           Container(
             decoration: BoxDecoration(
               color: Colors.black,
-              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
-              boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 700 : 300],
-                  spreadRadius: 1, blurRadius: 5)],
-              gradient: Provider.of<ThemeProvider>(context).darkTheme ? null : LinearGradient(
-                colors: [ColorResources.WHITE, ColorResources.IMAGE_BG],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
+              // borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
+              // boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 700 : 300],
+              //     spreadRadius: 1, blurRadius: 5)],
+              // gradient: Provider.of<ThemeProvider>(context).darkTheme ? null : LinearGradient(
+              //   colors: [ColorResources.WHITE, ColorResources.IMAGE_BG],
+              //   begin: Alignment.topLeft,
+              //   end: Alignment.bottomRight,
+              // ),
             ),
             child: Stack(children: [
               SizedBox(
@@ -321,7 +340,7 @@ void dispose() {
               Positioned(top: 16, right: 16,
                 child: Column(
                   children: [
-                    FavouriteButton(
+                    FavouriteButton2(
                       backgroundColor: ColorResources.getImageBg(context),
                       favColor: Colors.redAccent,
                       isSelected: Provider.of<WishListProvider>(context,listen: false).isWish,
@@ -331,16 +350,19 @@ void dispose() {
 
 
                     InkWell(
-                      onTap: () {
+                      onTap: () async{
 
 
-                        DymanicLinksServices.createDynamicLink(true, widget.productModel).then((value) {
+                        DymanicLinksServices.createDynamicLink(true, widget.productModel).then((value) async{
 
 
 
 log(value);
 
+var result=await FirebaseAnalytics.instance
 
+.logShare(contentType: 'product', itemId: widget.productModel.id.toString(), method: 'share');
+result;
   Share.share(value);
                           // Share.share(Provider.of<ProductDetailsProvider>(context, listen: false).sharableLink);
 
@@ -356,7 +378,7 @@ log(value);
                       child: Card(
                         elevation: 2,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-                        child: Container(width: 30, height: 30,
+                        child: Container(width: 50, height: 50,
                           decoration: BoxDecoration(color: Theme.of(context).primaryColor,
                             shape: BoxShape.circle,
                           ),
@@ -389,7 +411,7 @@ log(value);
                       child: Card(
                         elevation: 2,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-                        child: Container(width: 30, height: 30,
+                        child: Container(width: 50, height: 50,
                           decoration: BoxDecoration(color: Theme.of(context).primaryColor,
                             shape: BoxShape.circle,
                           ),
@@ -432,7 +454,90 @@ log(value);
             ]),
           ):SizedBox(),
         ),
+ 
 
+
+ Container(
+   height: 120,      color: Theme.of(context).cardColor,
+   width: double.infinity,
+   child: 
+   
+   
+   
+   ListView.builder(
+     scrollDirection: Axis.horizontal,
+       padding: const EdgeInsets.all(8),
+    itemCount: widget.productModel.images.length,
+    itemBuilder: (BuildContext context, int index) { 
+return 
+       GestureDetector(
+         onTap: (){   
+            setState(() {
+                        _currentIndex=index;
+                    });
+                 _controller.jumpToPage(_currentIndex);
+                    Provider.of<ProductDetailsProvider>(context, listen: false).setImageSliderSelectedIndex(index);
+         },
+         child: Card(
+       shape: RoundedRectangleBorder(
+            borderRadius:
+               index == Provider.of<ProductDetailsProvider>(context).imageSliderIndex?
+                BorderRadius.circular(20):   BorderRadius.zero ,
+       ),
+       
+           elevation:index == Provider.of<ProductDetailsProvider>(context).imageSliderIndex ?2:0 ,
+           child: Container(
+             width: 100,
+             height: 100, 
+              
+             decoration: BoxDecoration( color: Theme.of(context).highlightColor,
+            //  boxShadow: index == Provider.of<ProductDetailsProvider>(context).imageSliderIndex ?
+             borderRadius:   BorderRadius.circular(20),
+            //  [
+            //    BoxShadow(
+            //      blurRadius: 1 ,
+            //      offset: Offset(0, 1),
+            //      spreadRadius: 1 ,
+            //     //  color: Theme.of(context).colorScheme.shadow,
+                
+            //    )
+            //  ]:null
+            //  ,
+            
+               image: DecorationImage(image: NetworkImage('${Provider.of<SplashProvider>(context,listen: false).baseUrls.productImageUrl}/${ widget.productModel.images[index]}'),
+               fit: BoxFit.cover
+               
+               )
+             ),
+             margin: EdgeInsets.all(10),
+            //  padding:
+            //  EdgeInsets.all(10), 
+           ),
+         ),
+       );
+    })
+    //  children: widget.productModel.images.map((e) => 
+     
+    //  Center(
+    //    child: 
+
+    //    Container(
+    //      width: 100,
+    //      height: 100, 
+     
+    //      decoration: BoxDecoration( color: Theme.of(context).highlightColor,
+    //        borderRadius: BorderRadius.circular(20) ,
+    //        image: DecorationImage(image: NetworkImage('${Provider.of<SplashProvider>(context,listen: false).baseUrls.productImageUrl}/${e}'))
+    //      ),
+    //      margin: EdgeInsets.all(10),
+    //      padding:
+    //      EdgeInsets.all(10), 
+    //    ),
+     
+    //  )
+    //  ).toList(),
+  //  ),
+ )
       ],
     );
   }
@@ -594,44 +699,50 @@ final double minScale=1;
        
             Builder(
               builder: (context) {
-                return InteractiveViewer(
-                              transformationController: transformationController,
-                              onInteractionStart: (details){
-
-                                log('/////////////////////////////////////////////////////////////');
-                                log(details.pointerCount.toString());
-                                _showOverlay(context,index);
-                              },
-                              onInteractionEnd: (details){
-onIneractionEnd();
-                              },
-                              clipBehavior: Clip.none,
-                              maxScale: maxScale,
-                              minScale: minScale,
-                              panEnabled: false,
-                              child:
-
-
-                              // PhotoView(
+                return GestureDetector(
+                     onDoubleTapDown: _handleDoubleTapDown,
+    onDoubleTap: _handleDoubleTap,
+    // onHorizontalDragStart: (),
+    
+                  child: InteractiveViewer(
+                                transformationController: _transformationController,
+                //                 onInteractionStart: (details){
+                
+                //                   log('/////////////////////////////////////////////////////////////');
+                //                   log(details.pointerCount.toString());
+                //                   _showOverlay(context,index);
+                //                 },
+                //                 onInteractionEnd: (details){
+                // onIneractionEnd();
+                //                 },
+                                clipBehavior: Clip.none,
+                                maxScale: maxScale,
+                                minScale: minScale,
+                                panEnabled: false,
+                                child:
+                
+                
+                                // PhotoView(
+                                  
+                                //   imageProvider:    
+                                //   NetworkImage('${Provider.of<SplashProvider>(context,listen: false).baseUrls.productImageUrl}/${widget.productModel.images[index]}'),
+                                //  errorBuilder: (c, o, s) => Image.asset(
+                                //     Images.placeholder, height: MediaQuery.of(context).size.width,
+                                //     width: MediaQuery.of(context).size.width,fit: BoxFit.cover,
+                                //   ),
+                                //   )
                                 
-                              //   imageProvider:    
-                              //   NetworkImage('${Provider.of<SplashProvider>(context,listen: false).baseUrls.productImageUrl}/${widget.productModel.images[index]}'),
-                              //  errorBuilder: (c, o, s) => Image.asset(
-                              //     Images.placeholder, height: MediaQuery.of(context).size.width,
-                              //     width: MediaQuery.of(context).size.width,fit: BoxFit.cover,
-                              //   ),
-                              //   )
-                              
-                               FadeInImage.assetNetwork(fit: BoxFit.cover,
-                                placeholder: Images.placeholder, height: MediaQuery.of(context).size.width,
-                                width: MediaQuery.of(context).size.width,
-                                image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.productImageUrl}/${widget.productModel.images[index]}',
-                                imageErrorBuilder: (c, o, s) => Image.asset(
-                                  Images.placeholder, height: MediaQuery.of(context).size.width,
-                                  width: MediaQuery.of(context).size.width,fit: BoxFit.cover,
+                                 FadeInImage.assetNetwork(fit: BoxFit.cover,
+                                  placeholder: Images.placeholder, height: MediaQuery.of(context).size.width,
+                                  width: MediaQuery.of(context).size.width,
+                                  image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.productImageUrl}/${widget.productModel.images[index]}',
+                                  imageErrorBuilder: (c, o, s) => Image.asset(
+                                    Images.placeholder, height: MediaQuery.of(context).size.width,
+                                    width: MediaQuery.of(context).size.width,fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
-                            );
+                );
               }
             );
                      

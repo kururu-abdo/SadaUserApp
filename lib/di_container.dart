@@ -1,6 +1,7 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 import 'package:eamar_user_app/data/datasource/remote/dio/dio_client.dart';
+import 'package:eamar_user_app/data/datasource/remote/dio/dio_client_no_cache.dart';
 import 'package:eamar_user_app/data/repository/auth_repo.dart';
 import 'package:eamar_user_app/data/repository/banner_repo.dart';
 import 'package:eamar_user_app/data/repository/brand_repo.dart';
@@ -68,6 +69,7 @@ Future<void> init() async {
   // Core
   sl.registerLazySingleton(() => NetworkInfo(sl()));
   sl.registerLazySingleton(() => DioClient(AppConstants.BASE_URL, sl(), loggingInterceptor: sl(), sharedPreferences: sl()));
+  sl.registerLazySingleton(() => DioClientNoCache(AppConstants.BASE_URL, sl(), loggingInterceptor: sl(), sharedPreferences: sl()));
 
   // Repository
 

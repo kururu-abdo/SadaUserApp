@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:eamar_user_app/helper/api_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/base/api_response.dart';
 import 'package:eamar_user_app/data/model/response/featured_deal_model.dart';
@@ -20,7 +23,9 @@ class FeaturedDealProvider extends ChangeNotifier {
   Future<void> getFeaturedDealList(bool reload, BuildContext context) async {
     if (_featuredDealList.length == 0 || reload) {
       ApiResponse apiResponse = await featuredDealRepo.getFeaturedDeal();
-      if (apiResponse.response != null && apiResponse.response.statusCode == 200 && apiResponse.response.data.toString() != '{}') {
+        log(  apiResponse.response.data.toString());
+      if (apiResponse.response != null && apiResponse.response.statusCode == 200 &&
+       apiResponse.response.data.toString() != '{}') {
         _featuredDealList.clear();
         _featuredDealProductList =[];
         apiResponse.response.data.forEach((fDeal) => _featuredDealList.add(FeaturedDealModel.fromJson(fDeal)));
@@ -29,8 +34,29 @@ class FeaturedDealProvider extends ChangeNotifier {
         });
 
         _featuredDealSelectedIndex = 0;
-      } else {
-        //ApiChecker.checkApi(context, apiResponse);
+      } else if(apiResponse.response != null &&   apiResponse.response.data.toString() != '{}' ){
+           _featuredDealList.clear();
+        _featuredDealProductList =[];
+        apiResponse.response.data.forEach((fDeal) => _featuredDealList.add(FeaturedDealModel.fromJson(fDeal)));
+        _featuredDealList.forEach((product) {
+          _featuredDealProductList.add(product.product);
+        });
+
+        _featuredDealSelectedIndex = 0;
+      }
+      
+       else if(apiResponse.response != null &&   apiResponse.response.data.toString() == '{}' ){
+           _featuredDealList.clear();
+        _featuredDealProductList =[];
+        // apiResponse.response.data.forEach((fDeal) => _featuredDealList.add(FeaturedDealModel.fromJson(fDeal)));
+        // _featuredDealList.forEach((product) {
+        //   _featuredDealProductList.add(product.product);
+        // });
+
+        _featuredDealSelectedIndex = 0;
+      }
+      else {
+        ApiChecker.checkApi(context, apiResponse);
       }
       notifyListeners();
     }

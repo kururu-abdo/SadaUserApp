@@ -45,7 +45,8 @@ class CategoryView extends StatelessWidget {
                 onTap: () {
                   categoryProvider.changeSelectedIndex(index);
                   
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => BrandAndCategoryProductScreen(
+                  Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                   BrandAndCategoryProductScreen(
                     isBrand: false,
                     id: categoryProvider.categoryList[index].id.toString(),
                     name: categoryProvider.categoryList[index].name,

@@ -64,6 +64,7 @@ class DefaultFirebaseOptions {
     projectId: 'eamar-ecda8',
     storageBucket: 'eamar-ecda8.appspot.com',
     iosClientId: '715551820384-rlopli676tv3qepl269tn1n91q1l9qe0.apps.googleusercontent.com',
-    iosBundleId: 'com.eamar.user',
+    iosBundleId: 'com.eamar.user',    
+
   );
 }

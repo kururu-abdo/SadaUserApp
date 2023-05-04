@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/base/api_response.dart';
 import 'package:eamar_user_app/data/model/response/product_model.dart';
@@ -53,6 +54,23 @@ class WishListProvider extends ChangeNotifier {
       feedbackMessage(message);
       _wish = true;
       notifyListeners();
+
+
+
+
+await FirebaseAnalytics.instance.logEvent(
+    name: "loved",
+    parameters: {
+        "product": productID.toString(),
+    },
+);
+
+
+
+
+
+
+
     } else {
       _wish = false;
       feedbackMessage('${apiResponse.error.toString()}');
@@ -102,7 +120,28 @@ class WishListProvider extends ChangeNotifier {
       if(apiResponse.response.data.length > 0) {
         notifyListeners();
       }
-    } else {
+    }
+      else if  (apiResponse.response != null ) {
+      _wishList = [];
+      _allWishList = [];
+      for(int i=0; i<apiResponse.response.data.length; i++) {
+        ApiResponse productResponse = await productDetailsRepo.getProduct(
+          WishListModel.fromJson(apiResponse.response.data[i]).product.slug.toString(), languageCode,
+        );
+        if (productResponse.response != null && productResponse.response.statusCode == 200) {
+          Product _product = Product.fromJson(productResponse.response.data);
+          _wishList.add(_product);
+          _allWishList.add(_product);
+          notifyListeners();
+        } else {
+          ApiChecker.checkApi(context, productResponse);
+        }
+      }
+      if(apiResponse.response.data.length > 0) {
+        notifyListeners();
+      }
+    }
+     else {
       notifyListeners();
       ApiChecker.checkApi(context, apiResponse);
     }
@@ -118,7 +157,17 @@ class WishListProvider extends ChangeNotifier {
         productIdList.add(wishListModel.productId.toString());
       });
       productIdList.contains(productId) ? _wish = true : _wish = false;
-    } else {
+    }
+    else if (apiResponse.response != null ) {
+      _wishList = [];
+      apiResponse.response.data.forEach((wishList) async {
+        WishListModel wishListModel = WishListModel.fromJson(wishList);
+        productIdList.add(wishListModel.productId.toString());
+      });
+      productIdList.contains(productId) ? _wish = true : _wish = false;
+    }
+    
+     else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();

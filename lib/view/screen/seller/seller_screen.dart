@@ -18,6 +18,7 @@ import 'package:eamar_user_app/view/basewidget/search_widget.dart';
 import 'package:eamar_user_app/view/screen/chat/chat_screen.dart';
 import 'package:eamar_user_app/view/screen/home/widget/products_view.dart';
 import 'package:provider/provider.dart';
+import 'package:rating_dialog/rating_dialog.dart';
 
 class SellerScreen extends StatefulWidget {
   final SellerModel seller;
@@ -105,6 +106,7 @@ class _SellerScreenState extends State<SellerScreen> {
                             Row(
                               children: [
                                 RatingBar(rating: double.parse(ratting)),
+                                
                                 Text('(${widget.seller.totalReview.toString()})' , style: titilliumRegular.copyWith(), maxLines: 1, overflow: TextOverflow.ellipsis,),
 
                               ],
@@ -113,10 +115,78 @@ class _SellerScreenState extends State<SellerScreen> {
 
                             Row(
                               children: [
-                                Text(widget.seller.totalReview.toString() +' '+ '${getTranslated('reviews', context)}',
-                                  style: titleRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
-                                      color: ColorResources.getReviewRattingColor(context)),
-                                  maxLines: 1, overflow: TextOverflow.ellipsis,),
+                                GestureDetector(
+                                  onTap: ()async{
+
+  final _dialog = RatingDialog(
+      initialRating: 1.0,
+      // your app's name?
+      title: Text(
+        'What is your rate',
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          fontSize: 25,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      // encourage your user to leave a high rating?
+      message: Text(
+        'Please share your opinion about us',
+        textAlign: TextAlign.center,
+        style: const TextStyle(fontSize: 15),
+      ),
+      // your app's logo?
+      // image: const FlutterLogo(size: 100),
+      submitButtonText: 'Add Rating',
+      commentHint: 'let see you opinion',
+      onCancelled: () => print('cancelled'),
+      onSubmitted: (response) {
+        print('rating: ${response.rating}, comment: ${response.comment}');
+//
+
+//call api to send rate
+
+
+
+        // TODO: add your own logic
+        // if (response.rating < 3.0) {
+        //   // send their comments to your email or anywhere you wish
+        //   // ask the user to contact you instead of leaving a bad review
+        // } else {
+        //   // _rateAndReviewApp();
+        // }
+      },
+    );
+
+  showDialog(
+      context: context,
+      barrierDismissible: true, // set to false if you want to force a rating
+      builder: (context) => _dialog,
+    );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                  },
+                                  child: Text(widget.seller.totalReview.toString() +' '+ '${getTranslated('reviews', context)}',
+                                    style: titleRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
+                                        color: ColorResources.getReviewRattingColor(context)),
+                                    maxLines: 1, overflow: TextOverflow.ellipsis,),
+                                ),
                                 SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
 
                                 Text('|'),
@@ -161,7 +231,11 @@ class _SellerScreenState extends State<SellerScreen> {
 
                 Padding(
                   padding: EdgeInsets.all(Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                  child: ProductView(isHomePage: false, productType: ProductType.SELLER_PRODUCT, scrollController: _scrollController, sellerId: widget.seller.seller.id.toString()),
+
+                  child: ProductView(isHomePage: false,
+                   productType: ProductType.SELLER_PRODUCT, scrollController:
+                   _scrollController, sellerId: 
+                   widget.seller.seller.id.toString()),
                 ),
 
               ],

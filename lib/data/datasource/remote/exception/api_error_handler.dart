@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:eamar_user_app/data/model/response/base/error_response.dart';
 
@@ -5,16 +7,28 @@ class ApiErrorHandler {
   static dynamic getMessage(error) {
     dynamic errorDescription = "";
     if (error is Exception) {
+       log('ERROR HAPPEN');
+         log('${error.toString()}');
       try {
         if (error is DioError) {
+         
+
           switch (error.type) {
+            
             case DioErrorType.cancel:
               errorDescription = "Request to API server was cancelled";
               break;
-            case DioErrorType.connectTimeout:
+            case DioErrorType.connectionTimeout:
               errorDescription = "Connection timeout with API server";
               break;
-            case DioErrorType.other:
+               case DioErrorType.badCertificate:
+              errorDescription = "Bad Certificate";
+              break;
+            case DioErrorType.unknown:
+              errorDescription =
+              "Connection to API server failed due to internet connection";
+              break;
+                case DioErrorType.connectionError:
               errorDescription =
               "Connection to API server failed due to internet connection";
               break;
@@ -22,7 +36,7 @@ class ApiErrorHandler {
               errorDescription =
               "Receive timeout in connection with API server";
               break;
-            case DioErrorType.response:
+            case DioErrorType.badResponse:
               switch (error.response.statusCode) {
                 case 404:
                 case 500:

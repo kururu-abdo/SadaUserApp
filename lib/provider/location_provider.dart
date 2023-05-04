@@ -147,7 +147,11 @@ class LocationProvider with ChangeNotifier {
       _addressList.removeAt(index);
       callback(true, 'Deleted address successfully');
       notifyListeners();
-    } else {
+    } 
+    
+    
+    
+    else {
       String errorMessage;
       if (apiResponse.error is String) {
         print(apiResponse.error.toString());
@@ -177,7 +181,14 @@ class LocationProvider with ChangeNotifier {
       _addressList = [];
       apiResponse.response.data.forEach((address) => _addressList.add(AddressModel.fromJson(address)));
       _responseModel = ResponseModel('successful', true);
-    } else {
+    } 
+    if (apiResponse.response != null ) {
+      _addressList = [];
+      apiResponse.response.data.forEach((address) => _addressList.add(AddressModel.fromJson(address)));
+      _responseModel = ResponseModel('successful', true);
+    } 
+    
+    else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
@@ -349,7 +360,12 @@ class LocationProvider with ChangeNotifier {
     String _address = 'Unknown Location Found';
     if(response.response.statusCode == 200 && response.response.data['status'] == 'OK') {
       _address = response.response.data['results'][0]['formatted_address'].toString();
-    }else {
+    }
+    else  if( response.response.data['status'] == 'OK') {
+      _address = response.response.data['results'][0]['formatted_address'].toString();
+    }
+    
+    else {
       ApiChecker.checkApi(context, response);
     }
     return _address;
@@ -361,7 +377,14 @@ class LocationProvider with ChangeNotifier {
       if (response.response.statusCode == 200 && response.response.data['status'] == 'OK') {
         _predictionList = [];
         response.response.data['predictions'].forEach((prediction) => _predictionList.add(Prediction.fromJson(prediction)));
-      } else {
+      }
+      if (response.response.data['status'] == 'OK') {
+        _predictionList = [];
+        response.response.data['predictions'].forEach((prediction) => _predictionList.add(Prediction.fromJson(prediction)));
+      }
+      
+      
+       else {
         ApiChecker.checkApi(context, response);
       }
     }

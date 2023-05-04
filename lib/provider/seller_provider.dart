@@ -21,7 +21,14 @@ class SellerProvider extends ChangeNotifier {
       _orderSellerList =[];
       _orderSellerList.add(SellerModel.fromJson(apiResponse.response.data));
       _sellerModel = SellerModel.fromJson(apiResponse.response.data);
-    } else {
+    }
+    else   if (apiResponse.response != null){
+          _orderSellerList =[];
+      _orderSellerList.add(SellerModel.fromJson(apiResponse.response.data));
+      _sellerModel = SellerModel.fromJson(apiResponse.response.data);
+    }
+    
+    else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();

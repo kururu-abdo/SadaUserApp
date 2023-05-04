@@ -37,7 +37,15 @@ class WalletTransactionProvider extends ChangeNotifier {
       _transactionList = [];
       _transactionList.addAll(TransactionModel.fromJson(apiResponse.response.data).walletTransactioList);
       _transactionPageSize = TransactionModel.fromJson(apiResponse.response.data).totalWalletTransactio;
-    } else {
+    }
+    else  if (apiResponse.response != null ) {
+      _walletBalance = TransactionModel.fromJson(apiResponse.response.data);
+      _transactionList = [];
+      _transactionList.addAll(TransactionModel.fromJson(apiResponse.response.data).walletTransactioList);
+      _transactionPageSize = TransactionModel.fromJson(apiResponse.response.data).totalWalletTransactio;
+    }
+    
+     else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
@@ -50,7 +58,15 @@ class WalletTransactionProvider extends ChangeNotifier {
       _loyaltyPointList = [];
       _loyaltyPointList.addAll(LoyaltyPointModel.fromJson(apiResponse.response.data).loyaltyPointList);
       _loyaltyPointPageSize = LoyaltyPointModel.fromJson(apiResponse.response.data).totalLoyaltyPoint;
-    } else {
+    }
+    
+  else   if (apiResponse.response != null ) {
+      _loyaltyPointList = [];
+      _loyaltyPointList.addAll(LoyaltyPointModel.fromJson(apiResponse.response.data).loyaltyPointList);
+      _loyaltyPointPageSize = LoyaltyPointModel.fromJson(apiResponse.response.data).totalLoyaltyPoint;
+    }
+    
+     else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();

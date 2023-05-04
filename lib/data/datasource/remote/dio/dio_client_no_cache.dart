@@ -9,7 +9,7 @@ import 'package:eamar_user_app/data/datasource/remote/dio/logging_interceptor.da
 import 'package:eamar_user_app/utill/app_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class DioClient {
+class DioClientNoCache {
   
   final String baseUrl;
   final LoggingInterceptor loggingInterceptor;
@@ -19,7 +19,7 @@ class DioClient {
   String token;
   String countryCode;
 
-  DioClient(this.baseUrl,
+  DioClientNoCache(this.baseUrl,
       Dio dioC, {
         this.loggingInterceptor,
         this.sharedPreferences,
@@ -40,9 +40,7 @@ class DioClient {
 
       };
     dio.interceptors.add(loggingInterceptor);
-    dio.interceptors.add(
-        DioCacheInterceptor(options: cacheOptions),
-      );
+   
   }
 
   void updateHeader(String token, String countryCode) {
@@ -65,16 +63,13 @@ class DioClient {
     CancelToken cancelToken,
     ProgressCallback onReceiveProgress,
   }) async {
-  Options _options;
-_options = cacheOptions.copyWith(
-  policy: CachePolicy.forceCache
-).toOptions();
+
 
     try {
       var response = await dio.get(
         uri,
         queryParameters: queryParameters,
-        options: _options,
+        options: options,
         cancelToken: cancelToken,
         onReceiveProgress: onReceiveProgress,
       );
@@ -99,17 +94,14 @@ _options = cacheOptions.copyWith(
     ProgressCallback onReceiveProgress,
   }) async {
     log(dio.options.headers.toString());
-        Options _options;
-_options = cacheOptions.copyWith(
-  policy: CachePolicy.noCache
-).toOptions();
+
 
     try {
       var response = await dio.post(
         uri,
         data: data,
         queryParameters: queryParameters,
-        options: _options,
+        options: options,
         cancelToken: cancelToken,
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
@@ -132,15 +124,12 @@ _options = cacheOptions.copyWith(
     ProgressCallback onReceiveProgress,
   }) async {
     try {
-      var _options;
-      _options = cacheOptions.copyWith(
-  policy: CachePolicy.noCache
-).toOptions();
+    
       var response = await dio.put(
         uri,
         data: data,
         queryParameters: queryParameters,
-        options: _options,
+        options: options,
         cancelToken: cancelToken,
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
@@ -178,35 +167,3 @@ _options = cacheOptions.copyWith(
 
 
 
-
-final cacheOptions =  CacheOptions(
-  // A default store is required for interceptor.
-  // store:  
-  
-  // // FileCacheStore()
-  // MemCacheStore(maxSize: 10485760, maxEntrySize: 1048576)
-            store: HiveCacheStore(AppPathProvider.path),
-  
-
-  // All subsequent fields are optional.
-  
-  // Default.
-  // policy: CachePolicy.request,
-  // Returns a cached response on error but for statuses 401 & 403.
-  // Also allows to return a cached response on network errors (e.g. offline usage).
-  // Defaults to [null].
-  hitCacheOnErrorExcept: [], //401, 403
-  // Overrides any HTTP directive to delete entry past this duration.
-  // Useful only when origin server has no cache config or custom behaviour is desired.
-  // Defaults to [null].
-  maxStale: const Duration(minutes: 10),
-  // Default. Allows 3 cache sets and ease cleanup.
-  priority: CachePriority.high,
-  // Default. Body and headers encryption with your own algorithm.
-  cipher: null,
-  // Default. Key builder to retrieve requests.
-  keyBuilder: CacheOptions.defaultCacheKeyBuilder,
-  // Default. Allows to cache POST requests.
-  // Overriding [keyBuilder] is strongly recommended when [true].
-  allowPostMethod: true,
-);

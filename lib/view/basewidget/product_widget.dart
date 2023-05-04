@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:eamar_user_app/view/screen/product/product_details_screen2.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/product_model.dart';
 import 'package:eamar_user_app/helper/price_converter.dart';
@@ -30,7 +31,7 @@ class _ProductWidgetState extends State<ProductWidget> {
       onTap: () {
         Navigator.push(context, PageRouteBuilder(
           transitionDuration: Duration(milliseconds: 1000),
-          pageBuilder: (context, anim1, anim2) => ProductDetails(product: widget.productModel),
+          pageBuilder: (context, anim1, anim2) => ProductDetails2(product: widget.productModel),
         ));
       },
       child: Container(

@@ -333,6 +333,8 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                     'out_of_stock' : 'add_to_cart', context),
                         onTap: _stock < 1  ? null :() {
                           if(_stock > 0 ) {
+
+                            
                             CartModel cart = CartModel(
                                 widget.product.id, widget.product.thumbnail, widget.product.name,
                                 widget.product.addedBy == 'seller' ?

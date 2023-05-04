@@ -1,3 +1,4 @@
+import 'package:eamar_user_app/view/screen/product/product_details_screen2.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/helper/price_converter.dart';
 import 'package:eamar_user_app/provider/featured_deal_provider.dart';

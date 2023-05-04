@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:eamar_user_app/data/datasource/remote/chache/app_path_provider.dart';
 import 'package:eamar_user_app/localization/language_constrants.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -51,7 +54,13 @@ import 'provider/product_provider.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-
+ class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+  }
+}
 void _handleDeepLink(PendingDynamicLinkData data) {
     final Uri deepLink = data?.link;
     // if (deepLink== null) {
@@ -74,6 +83,10 @@ void handleBackgroundLinks(PendingDynamicLinkData, {
 }
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+
+    HttpOverrides.global = MyHttpOverrides();
+
   await Firebase.initializeApp();
   await di.init();
   final NotificationAppLaunchDetails notificationAppLaunchDetails =
@@ -149,7 +162,11 @@ class MyApp extends StatelessWidget {
   MyApp({@required this.orderId});
 
   static final navigatorKey = new GlobalKey<NavigatorState>();
+ FirebaseAnalytics analytics=FirebaseAnalytics.instance;
 
+   static FirebaseAnalytics analytics2 = FirebaseAnalytics.instance;
+  static FirebaseAnalyticsObserver observer =
+      FirebaseAnalyticsObserver(analytics: analytics2);
   @override
   Widget build(BuildContext context) {
     List<Locale> _locals = [];
@@ -184,9 +201,12 @@ builder: (context, child) => ResponsiveWrapper.builder(
         GlobalCupertinoLocalizations.delegate,
         FallbackLocalizationDelegate()
       ],
+      navigatorObservers: [
+FirebaseAnalyticsObserver(analytics: analytics),
+],
       supportedLocales: _locals,
       home: orderId == null ? 
-      
+     
       SplashScreen() : 
 
       OrderDetailsScreen(orderModel: null,

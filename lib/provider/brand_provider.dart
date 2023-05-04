@@ -23,7 +23,15 @@ class BrandProvider extends ChangeNotifier {
         apiResponse.response.data.forEach((brand) => _originalBrandList.add(BrandModel.fromJson(brand)));
         _brandList.clear();
         apiResponse.response.data.forEach((brand) => _brandList.add(BrandModel.fromJson(brand)));
-      } else {
+      }else if(apiResponse.response != null){
+        _originalBrandList.clear();
+        apiResponse.response.data.forEach((brand) => _originalBrandList.add(BrandModel.fromJson(brand)));
+        _brandList.clear();
+        apiResponse.response.data.forEach((brand) => _brandList.add(BrandModel.fromJson(brand)));
+      }
+      
+      
+       else {
         ApiChecker.checkApi(context, apiResponse);
       }
       notifyListeners();

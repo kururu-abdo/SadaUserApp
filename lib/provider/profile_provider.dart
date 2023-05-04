@@ -132,7 +132,19 @@ class ProfileProvider extends ChangeNotifier {
 
       _balance = _userInfoModel.walletBalance;
       print('===> nai keno==>${_userInfoModel.walletBalance}');
-    } else {
+    }else if(  (apiResponse.response != null)){
+          _userInfoModel = UserInfoModel.fromJson(apiResponse.response.data);
+      userID = _userInfoModel.id !=null? _userInfoModel.id.toString():'-1';
+
+
+
+      _balance = _userInfoModel.walletBalance;
+      print('===> nai keno==>${_userInfoModel.walletBalance}');
+    }
+    
+    
+    
+     else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
@@ -146,7 +158,14 @@ class ProfileProvider extends ChangeNotifier {
         _addressTypeList.clear();
         _addressTypeList.addAll(apiResponse.response.data);
         _addressType = apiResponse.response.data[0];
-      } else {
+      }
+      if (apiResponse.response != null ) {
+        _addressTypeList.clear();
+        _addressTypeList.addAll(apiResponse.response.data);
+        _addressType = apiResponse.response.data[0];
+      }
+      
+       else {
         ApiChecker.checkApi(context, apiResponse);
       }
       notifyListeners();

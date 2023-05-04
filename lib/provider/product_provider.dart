@@ -79,7 +79,15 @@ class ProductProvider extends ChangeNotifier {
         _latestPageSize = ProductModel.fromJson(apiResponse.response.data).totalSize;
         _filterFirstLoading = false;
         _filterIsLoading = false;
-      } else {
+      } else if(apiResponse.response != null ){
+          _latestProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
+        _latestPageSize = ProductModel.fromJson(apiResponse.response.data).totalSize;
+        _filterFirstLoading = false;
+        _filterIsLoading = false;
+      }
+      
+      
+      else {
         ApiChecker.checkApi(context, apiResponse);
       }
       notifyListeners();
@@ -105,7 +113,16 @@ class ProductProvider extends ChangeNotifier {
         _lPageSize = ProductModel.fromJson(apiResponse.response.data).totalSize;
         _firstLoading = false;
         _isLoading = false;
-      } else {
+      }    else  if (apiResponse.response != null){
+_lProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
+        _lPageSize = ProductModel.fromJson(apiResponse.response.data).totalSize;
+        _firstLoading = false;
+        _isLoading = false;
+
+      }
+      
+      
+      else {
         ApiChecker.checkApi(context, apiResponse);
       }
       notifyListeners();
@@ -160,7 +177,9 @@ class ProductProvider extends ChangeNotifier {
     }
     _sellerOffset = offset;
 
-    ApiResponse apiResponse = await productRepo.getSellerProductList(sellerId, offset.toString());
+ try {
+      ApiResponse apiResponse = await productRepo.getSellerProductList(sellerId, offset.toString());
+    log(apiResponse.response.data.toString());
     if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
       _sellerProductList = [];
       _sellerProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
@@ -168,11 +187,34 @@ class ProductProvider extends ChangeNotifier {
       _sellerPageSize = ProductModel.fromJson(apiResponse.response.data).totalSize;
       _firstLoading = false;
       _filterIsLoading = false;
+      _filterFirstLoading=false;
       _isLoading = false;
-    } else {
+         notifyListeners();
+
+    } else if(apiResponse.response != null ){
+       _sellerProductList = [];
+      _sellerProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
+      _sellerAllProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
+      _sellerPageSize = ProductModel.fromJson(apiResponse.response.data).totalSize;
+      log('NO PROBLEM WHAT SO EVER');
+      _firstLoading = false;
+      _filterIsLoading = false;
+            _filterFirstLoading=false;
+
+      _isLoading = false;
+         notifyListeners();
+
+    }
+    
+    
+    
+    else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
+ } catch (e) {
+   log(e.toString());
+ }
 
   }
 
@@ -238,9 +280,13 @@ setSelectedSubCategory(int index){
   void initBrandOrCategoryProductList(bool isBrand, String id, BuildContext context) async {
     _brandOrCategoryProductList.clear();
     _hasData = true;
+      notifyListeners();
+
     ApiResponse apiResponse = await productRepo.getBrandOrCategoryProductList(isBrand, id);
     if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-      apiResponse.response.data.forEach((product) => _brandOrCategoryProductList.add(Product.fromJson(product)));
+      apiResponse.response.data.forEach((product) => 
+      
+      _brandOrCategoryProductList.add(Product.fromJson(product)));
       _hasData = _brandOrCategoryProductList.length > 1;
       List<Product> _products = [];
       _products.addAll(_brandOrCategoryProductList);
@@ -258,18 +304,42 @@ filterBrandAndCategoryProductList(BuildContext context,int category)async{
   _brandOrCategoryProductList.clear();
     _hasData = true;
     ApiResponse apiResponse = await productRepo.getProductsById(category.toString());
+   
+   
+       log(apiResponse.response.statusCode.toString());
     if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-      log(apiResponse.response.data.toString());
-      apiResponse.response.data['products'].forEach((product) => _brandOrCategoryProductList.add(Product.fromJson(product)));
+   _brandOrCategoryProductList.clear();
+      apiResponse.response.data['products'].forEach((product) => 
+      _brandOrCategoryProductList.add(Product.fromJson(product)));
       _hasData = _brandOrCategoryProductList.length > 1;
       List<Product> _products = [];
       _products.addAll(_brandOrCategoryProductList);
-      _brandOrCategoryProductList.clear();
-      // brandOrCategoryProductList2.clear();
-
+      // _brandOrCategoryProductList.addAll();
+      // _brandOrCategoryProductList2.clear();
+// 
       _brandOrCategoryProductList.addAll(_products.reversed);
       // brandOrCategoryProductList2.addAll(_brandOrCategoryProductList);
-    } else {
+
+          notifyListeners();
+
+    } else  if (apiResponse.response != null){
+_brandOrCategoryProductList.clear();
+      apiResponse.response.data['products'].forEach((product) => 
+      _brandOrCategoryProductList.add(Product.fromJson(product)));
+      _hasData = _brandOrCategoryProductList.length > 1;
+      List<Product> _products = [];
+      _products.addAll(_brandOrCategoryProductList);
+      // _brandOrCategoryProductList.addAll();
+      // _brandOrCategoryProductList2.clear();
+// 
+      _brandOrCategoryProductList.addAll(_products.reversed);
+      // brandOrCategoryProductList2.addAll(_brandOrCategoryProductList);
+
+          notifyListeners();
+    }
+     else {
+      log('HERE IS PROBELM');
+      log(apiResponse.error.toString());
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
@@ -294,10 +364,19 @@ filterProductsBySub(){
 
   void initRelatedProductList(String id, BuildContext context) async {
     ApiResponse apiResponse = await productRepo.getRelatedProductList(id);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    if (apiResponse.response != null && (apiResponse.response.statusCode == 200  ||apiResponse.response.statusCode == 200  )) {
       _relatedProductList = [];
       apiResponse.response.data.forEach((product) => _relatedProductList.add(Product.fromJson(product)));
-    } else {
+    } 
+    else if (apiResponse.response != null){
+   _relatedProductList = [];
+      apiResponse.response.data.forEach((product) => _relatedProductList.add(Product.fromJson(product)));
+    }
+    
+    
+    
+    
+    else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
@@ -320,7 +399,15 @@ filterProductsBySub(){
         _featuredPageSize = ProductModel.fromJson(apiResponse.response.data).totalSize;
         _firstFeaturedLoading = false;
         _isFeaturedLoading = false;
-      } else {
+      }  else if (apiResponse.response != null){
+_featuredProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
+        _featuredPageSize = ProductModel.fromJson(apiResponse.response.data).totalSize;
+        _firstFeaturedLoading = false;
+        _isFeaturedLoading = false;
+      }
+      
+      
+       else {
         ApiChecker.checkApi(context, apiResponse);
       }
       notifyListeners();
@@ -339,7 +426,14 @@ filterProductsBySub(){
       if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
         _recommendedProduct = Product.fromJson(apiResponse.response.data);
         print('=rex===>${recommendedProduct.toJson()}');
-      } else {
+      }  else   if (apiResponse.response != null){
+
+         _recommendedProduct = Product.fromJson(apiResponse.response.data);
+        print('=rex===>${recommendedProduct.toJson()}');
+      }
+      
+      
+       else {
         ApiChecker.checkApi(context, apiResponse);
       }
       notifyListeners();

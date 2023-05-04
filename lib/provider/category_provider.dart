@@ -29,7 +29,14 @@ class CategoryProvider extends ChangeNotifier {
         _categoryList.clear();
         apiResponse.response.data.forEach((category) => _categoryList.add(Category.fromJson(category)));
         _categorySelectedIndex = 0;
-      } else {
+      }  else  if (apiResponse.response != null){
+         _categoryList.clear();
+        apiResponse.response.data.forEach((category) => _categoryList.add(Category.fromJson(category)));
+        _categorySelectedIndex = 0;
+      }
+      
+      
+       else {
         ApiChecker.checkApi(context, apiResponse);
       }
       notifyListeners();

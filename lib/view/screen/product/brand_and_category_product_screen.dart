@@ -43,8 +43,11 @@ void initState() {
   
 Future.microtask(() {
  if (mounted) {
-       Provider.of<ProductProvider>(context, listen: false).initBrandOrCategoryProductList(widget.isBrand, widget.id, context);
-     Provider.of<CategoryProvider>(context, listen: false).getSubCategries();
+       Provider.of<ProductProvider>(context, listen: false).initBrandOrCategoryProductList(widget.isBrand,
+        widget.id, context);
+    
+    
+    Provider.of<CategoryProvider>(context, listen: false).getSubCategries();
 
    }
 
@@ -281,9 +284,10 @@ Expanded(
 
             Expanded(child: Center(
               child:
-               productProvider.hasData ?
+               !productProvider.hasData ?
 
               ProductShimmer(isHomePage: false,
+
                 isEnabled: Provider.of<ProductProvider>(context ).brandOrCategoryProductList.length == 0)
                 : 
                 NoInternetOrDataScreen(isNoInternet: false),

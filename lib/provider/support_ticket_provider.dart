@@ -32,7 +32,10 @@ class SupportTicketProvider extends ChangeNotifier {
           subject: supportTicketBody.subject, createdAt: DateConverter.formatDate(DateTime.now()), status: 'pending'));
       getSupportTicketList(context);
       notifyListeners();
-    } else {
+    } 
+    
+    
+    else {
       String errorMessage;
       if (apiResponse.error is String) {
         print(apiResponse.error.toString());
@@ -53,7 +56,12 @@ class SupportTicketProvider extends ChangeNotifier {
     if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
       _supportTicketList = [];
       apiResponse.response.data.forEach((supportTicket) => _supportTicketList.add(SupportTicketModel.fromJson(supportTicket)));
-    } else {
+    }
+   else  if (apiResponse.response != null ) {
+      _supportTicketList = [];
+      apiResponse.response.data.forEach((supportTicket) => _supportTicketList.add(SupportTicketModel.fromJson(supportTicket)));
+    }
+     else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();

@@ -48,6 +48,8 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+  
     return Consumer<CartProvider>(builder: (context, cart, child) {
       double amount = 0.0;
       double shippingAmount = 0.0;
@@ -171,10 +173,18 @@ class _CartScreenState extends State<CartScreen> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_LARGE,
                               vertical: Dimensions.FONT_SIZE_SMALL),
-                          child: Text(getTranslated('checkout', context),
-                              style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT,
-                                color: Theme.of(context).cardColor,
-                              )),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+
+Icon(Icons.lock) ,
+
+                              Text(getTranslated('checkout', context),
+                                  style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT,
+                                    color: Theme.of(context).cardColor,
+                                  )),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -249,10 +259,15 @@ class _CartScreenState extends State<CartScreen> {
                                                 child: InkWell(
                                                   onTap: () {
                                                     if(Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
+
+
                                                       showModalBottomSheet(
                                                         context: context, isScrollControlled: true, backgroundColor: Colors.transparent,
-                                                        builder: (context) => ShippingMethodBottomSheet(groupId: sellerGroupList[index].cartGroupId,sellerIndex: index, sellerId: sellerGroupList[index].id),
+                                                        builder: (context) => 
+                                                        ShippingMethodBottomSheet(groupId: sellerGroupList[index].cartGroupId,sellerIndex: index, sellerId: sellerGroupList[index].id),
                                                       );
+
+                                                      
                                                     }else {
                                                       showCustomSnackBar('not_logged_in', context);
                                                     }

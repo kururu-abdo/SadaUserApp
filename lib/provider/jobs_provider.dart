@@ -82,7 +82,22 @@ Iterable data=  apiResponse.response.data;
         jobs.addAll(_jobs);
        
         _isLoading = false;
-      } else {
+      } 
+      
+   else    if (apiResponse.response != null ) {
+log(apiResponse.response.data.runtimeType.toString());
+Iterable data=  apiResponse.response.data;
+        List<Job> _jobs= 
+         data.
+        map
+        ((data)=>Job.fromJson(data))
+        .toList();
+        jobs.addAll(_jobs);
+       
+        _isLoading = false;
+      } 
+      
+      else {
         ApiChecker.checkApi(context, apiResponse);
       }
       notifyListeners();
@@ -111,7 +126,18 @@ Iterable data= apiResponse.response.data;
         userJobs.addAll(_jobs);
        
         _isJobsLoading = false;
-      } else {
+      }
+    else  if (apiResponse.response != null ) {
+Iterable data= apiResponse.response.data;
+        List<UserJob> _jobs= data.map((data)=>UserJob.fromJson(data)).toList();
+        userJobs = [];
+        userJobs.addAll(_jobs);
+       
+        _isJobsLoading = false;
+      }
+      
+      
+       else {
         ApiChecker.checkApi(context, apiResponse);
       }
       notifyListeners();
@@ -184,7 +210,56 @@ log('message');
      
 }
        
-      } else {
+      }
+   else  if (apiResponse.response != null ) {
+    
+if (job==null) {
+   log('JOB NULL');
+  var data=apiResponse.response.data ;
+
+ if (data is Map) {
+    for (var key in (data as Map).keys) {
+      
+  userJobs.add(UserJob.fromJson(data[key]));
+  }
+ }else {
+   Iterable data  =apiResponse.response.data;
+
+
+     var _jobs=  data.map((data)=>UserJob.fromJson(data)).toList();
+        userJobs.addAll(_jobs);
+
+log('message');
+      _isJobsLoading=false;
+     notifyListeners(); 
+     
+ }
+
+  log('message');
+      _isJobsLoading=false;
+     notifyListeners(); 
+}
+
+
+else{
+   log('JOB NOT NULL');
+
+Iterable data  =apiResponse.response.data;
+
+
+     var _jobs=  data.map((data)=>UserJob.fromJson(data)).toList();
+        userJobs.addAll(_jobs);
+
+log('message');
+      _isJobsLoading=false;
+     notifyListeners(); 
+     
+}
+       
+      } 
+      
+      
+       else {
  log('OUTSEIDE IF');
         _isJobsLoading = false;
         notifyListeners();
@@ -261,7 +336,21 @@ Iterable data= apiResponse.response.data;
         regions.addAll(_jobs);
        
         _isRegionsLoading = false;
-      } else {
+      }
+      else if (apiResponse.response != null ) {
+Iterable data= apiResponse.response.data;
+
+
+        var _jobs=  data.map((data)=>Region.fromJson(data)).toList();
+
+        
+        regions.addAll(_jobs);
+       
+        _isRegionsLoading = false;
+      }
+      
+      
+       else {
         ApiChecker.checkApi(context, apiResponse);
       }
       notifyListeners();
@@ -290,7 +379,16 @@ Iterable data=apiResponse.response.data;
         cities.addAll(_jobs);
        
         _isCitiesLoading = false;
-      } else {
+      }
+      else   if (apiResponse.response != null) {
+Iterable data=apiResponse.response.data;
+        var _jobs=  data.map((data)=>City.fromJson(data)).toList();
+        cities.addAll(_jobs);
+       
+        _isCitiesLoading = false;
+      }
+      
+       else {
         ApiChecker.checkApi(context, apiResponse);
       }
       notifyListeners();

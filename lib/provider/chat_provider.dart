@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -42,7 +43,24 @@ class ChatProvider extends ChangeNotifier {
       }else {
         _chatInfoModel = ChatInfoModel(uniqueShops: []);
       }
-    } else {
+    }
+    
+   else  if (apiResponse.response != null) {
+      _chatInfoModel = ChatInfoModel.fromJson(apiResponse.response.data);
+      _uniqueShopList = [];
+      _uniqueShopAllList = [];
+      if(_chatInfoModel.uniqueShops != null) {
+        _chatInfoModel.uniqueShops.forEach((uniqueShop) {
+          _uniqueShopList.add(uniqueShop);
+          _uniqueShopAllList.add(uniqueShop);
+        });
+      }else {
+        _chatInfoModel = ChatInfoModel(uniqueShops: []);
+      }
+    }
+    
+    
+     else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
@@ -50,10 +68,19 @@ class ChatProvider extends ChangeNotifier {
   Future<void> initChatList(int sellerID, BuildContext context) async {
     _chatList = null;
     ApiResponse apiResponse = await chatRepo.getChatList(sellerID.toString());
+
+    log(apiResponse.response.data.toString());
     if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
       _chatList = [];
       apiResponse.response.data.forEach((chat) => _chatList.add(ChatModel.fromJson(chat)));
-    } else {
+    }
+    
+  else   if (apiResponse.response != null ) {
+    log('INIT DATA');
+      _chatList = [];
+      apiResponse.response.data.forEach((chat) => _chatList.add(ChatModel.fromJson(chat)));
+    }
+     else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
@@ -65,7 +92,16 @@ class ChatProvider extends ChangeNotifier {
       _chatList.add(ChatModel(sellerId: int.parse(messageBody.shopId), message: messageBody.message, sentByCustomer: 1, sentBySeller: 0,
           seenByCustomer: 0, seenBySeller:1, shopId: int.parse(messageBody.shopId), createdAt: DateConverter.localDateToIsoString(DateTime.now())));
       notifyListeners();
-    } else {
+    } 
+    
+    else      if (apiResponse.response != null) {
+      _chatList.add(ChatModel(sellerId: int.parse(messageBody.shopId), message: messageBody.message, sentByCustomer: 1, sentBySeller: 0,
+          seenByCustomer: 0, seenBySeller:1, shopId: int.parse(messageBody.shopId), createdAt: DateConverter.localDateToIsoString(DateTime.now())));
+      notifyListeners();
+    } 
+    
+    
+    else {
       ApiChecker.checkApi(context, apiResponse);
     }
     _imageFile = null;

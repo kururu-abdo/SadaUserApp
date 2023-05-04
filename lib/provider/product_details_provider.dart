@@ -151,7 +151,21 @@ await initProduct(myProdutt, context);
       reviewResponse.response.data.forEach((reviewModel) => _reviewList.add(ReviewModel.fromJson(reviewModel)));
       _imageSliderIndex = 0;
       _quantity = 1;
-    } else {
+    }
+    else if (reviewResponse.response != null) {
+        Provider.of<BannerProvider>(context,listen: false).getProductDetails(context, 
+        
+        product.slug.toString()
+        
+        
+        );
+      _reviewList = [];
+      reviewResponse.response.data.forEach((reviewModel) => _reviewList.add(ReviewModel.fromJson(reviewModel)));
+      _imageSliderIndex = 0;
+      _quantity = 1;
+    }
+    
+     else {
       ApiChecker.checkApi(context, reviewResponse);
       if(reviewResponse.error.toString() == 'Connection to API server failed due to internet connection') {
         _hasConnection = false;
@@ -185,7 +199,14 @@ _initRating(Product product)
     if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
       _orderCount = apiResponse.response.data['order_count'];
       _wishCount = apiResponse.response.data['wishlist_count'];
-    } else {
+    } 
+  else    if (apiResponse.response != null ) {
+      _orderCount = apiResponse.response.data['order_count'];
+      _wishCount = apiResponse.response.data['wishlist_count'];
+    } 
+    
+    
+    else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
@@ -195,7 +216,12 @@ _initRating(Product product)
     ApiResponse apiResponse = await productDetailsRepo.getSharableLink(productID);
     if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
       _sharableLink = apiResponse.response.data;
-    } else {
+    }
+   else  if (apiResponse.response != null ) {
+      _sharableLink = apiResponse.response.data;
+    }
+    
+     else {
       ApiChecker.checkApi(context, apiResponse);
     }
   }

@@ -57,9 +57,30 @@ class SplashProvider extends ChangeNotifier {
       getCurrencyData(_currencyCode);
       _packageInfo = await PackageInfo.fromPlatform();
       isSuccess = true;
-    } else {
+    } else if(apiResponse.response != null){
+      _configModel = ConfigModel.fromJson(apiResponse.response.data);
+      _baseUrls = ConfigModel.fromJson(apiResponse.response.data).baseUrls;
+      String _currencyCode = splashRepo.getCurrency();
+      for(CurrencyList currencyList in _configModel.currencyList) {
+        if(currencyList.id == _configModel.systemDefaultCurrency) {
+          if(_currencyCode == null || _currencyCode.isEmpty) {
+            _currencyCode = currencyList.code;
+          }
+          _defaultCurrency = currencyList;
+        }
+        if(currencyList.code == 'USD') {
+          _usdCurrency = currencyList;
+        }
+      }
+      getCurrencyData(_currencyCode);
+      _packageInfo = await PackageInfo.fromPlatform();
+      isSuccess = true;
+    }
+    
+    
+    else {
       isSuccess = false;
-      log(apiResponse.error.toString());
+      log("No Connection");
       ApiChecker.checkApi(context, apiResponse);
       if(apiResponse.error.toString() == 'Connection to API server failed due to internet connection') {
         _hasConnection = false;

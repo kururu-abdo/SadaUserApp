@@ -1,6 +1,9 @@
+
 import 'dart:io';
 
 import 'package:eamar_user_app/data/datasource/remote/chache/app_path_provider.dart';
+import 'package:eamar_user_app/view/screen/product/widget/product_image_view2.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/helper/product_type.dart';
 import 'package:eamar_user_app/provider/auth_provider.dart';
@@ -28,26 +31,55 @@ import 'package:eamar_user_app/view/screen/product/widget/related_product_view.d
 import 'package:eamar_user_app/view/screen/product/widget/review_widget.dart';
 import 'package:eamar_user_app/view/screen/product/widget/youtube_video_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:rating_dialog/rating_dialog.dart';
 
 import 'faq_and_review_screen.dart';
 
-class ProductDetails extends StatefulWidget {
+
+
+class ProductDetails2 extends StatefulWidget {
   final Product product;
 
   final String id;
   final String slug;
     final String seller;
 
-  ProductDetails({@required this.product, this.id ,this.slug  , this.seller});
+  ProductDetails2({@required this.product, this.id ,this.slug  , this.seller});
 
 
 
   @override
-  State<ProductDetails> createState() => _ProductDetailsState();
+  State<ProductDetails2> createState() => _ProductDetailsState();
 }
 
-class _ProductDetailsState extends State<ProductDetails> {
+class _ProductDetailsState extends State<ProductDetails2> {
+
+
+
+
+
+
+
   _loadData( BuildContext context) async{
+
+    if (     widget.product!=null) {
+   final product = AnalyticsEventItem(
+    itemId: "${widget.product.slug}",
+    itemName: "${widget.product.name}",
+    itemCategory: "${widget.product.categoryIds.first}",
+    itemVariant: "${widget.product.colors.first}",
+    price: widget.product.unitPrice,
+
+);
+
+
+
+await FirebaseAnalytics.instance.logSelectItem(
+    itemListId: "${widget.product.slug}",
+    itemListName: "Common products",
+    items: [product],
+);
+    }
       Provider.of<ProductDetailsProvider>(context, listen: false).removePrevReview();
 
       Provider.of<ProductDetailsProvider>(context, listen: false).initProduct(
@@ -88,20 +120,25 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   @override
   Widget build(BuildContext context) {
-    ScrollController _scrollController = ScrollController();
+  ScrollController _scrollController = ScrollController();
     String ratting = widget.product != null &&
       widget.product.rating != null &&
      widget.product.rating.length != 0?
     widget.product.rating[0].average.toString() : "0";
     _loadData(context);
-    return widget.product != null?
-    Consumer<ProductDetailsProvider>(
+
+
+
+
+   return widget.product != null?
+
+      Consumer<ProductDetailsProvider>(
       builder: (context, details, child) {
 
         return details.hasConnection ?
-        
-         Scaffold(
-          backgroundColor: Theme.of(context).primaryColor,
+Scaffold(
+
+  backgroundColor: Theme.of(context).primaryColor,
           appBar: AppBar(title: Row(children: [
               InkWell(
                 child: Icon(Icons.arrow_back_ios, color: Theme.of(context).cardColor, size: 20),
@@ -119,9 +156,12 @@ class _ProductDetailsState extends State<ProductDetails> {
             backgroundColor: Provider.of<ThemeProvider>(context).darkTheme ? Colors.black : Theme.of(context).primaryColor,
           ),
 
+      bottomNavigationBar: BottomCartView(product: widget.product),
 
 
-          bottomNavigationBar: BottomCartView(product: widget.product),
+
+
+
 
 
 
@@ -129,19 +169,23 @@ class _ProductDetailsState extends State<ProductDetails> {
             physics: BouncingScrollPhysics(),
             child: Column(
               children: [
-                widget.product != null?
-                ProductImageView(productModel: widget.product):SizedBox(),
+//image view 
+     widget.product != null?
 
-                Container(
-                  transform: Matrix4.translationValues(0.0, -25.0, 0.0),
-                  padding: EdgeInsets.only(top: Dimensions.FONT_SIZE_DEFAULT),
-                  decoration: BoxDecoration(
+     ProductImageView2(productModel: widget.product):SizedBox(),
+
+
+//details
+  Container(
+padding: EdgeInsets.only(top: Dimensions.FONT_SIZE_DEFAULT),
+
+                     decoration: BoxDecoration(
                     color: Theme.of(context).canvasColor,
-                      borderRadius: BorderRadius.only(topLeft:Radius.circular(Dimensions.PADDING_SIZE_EXTRA_LARGE),
-                          topRight:Radius.circular(Dimensions.PADDING_SIZE_EXTRA_LARGE) ),
+                    
                         ),
-                  child: Column(children: [
 
+
+      child: Column(children: [
 
                     ProductTitleView(productModel: widget.product),
 
@@ -199,11 +243,189 @@ class _ProductDetailsState extends State<ProductDetails> {
 
 
 
-                      details.reviewList != null ? details.reviewList.length != 0 ? ReviewWidget(reviewModel: details.reviewList[0])
+                      details.reviewList != null ? details.reviewList.length != 0 ?
+                       GestureDetector(
+                         
+                         
+                         onTap: ()async{
+
+
+
+                            final _dialog = RatingDialog(
+      initialRating: 1.0,
+      // your app's name?
+      title: Text(
+        'What is your rate',
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          fontSize: 25,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      // encourage your user to leave a high rating?
+      message: Text(
+        'Please share your opinion about us',
+        textAlign: TextAlign.center,
+        style: const TextStyle(fontSize: 15),
+      ),
+      // your app's logo?
+      // image: const FlutterLogo(size: 100),
+      submitButtonText: 'Add Rating',
+      commentHint: 'let see you opinion',
+      onCancelled: () => print('cancelled'),
+      onSubmitted: (response) {
+        print('rating: ${response.rating}, comment: ${response.comment}');
+//
+
+//call api to send rate
+
+
+
+        // TODO: add your own logic
+        // if (response.rating < 3.0) {
+        //   // send their comments to your email or anywhere you wish
+        //   // ask the user to contact you instead of leaving a bad review
+        // } else {
+        //   // _rateAndReviewApp();
+        // }
+      },
+    );
+
+  showDialog(
+      context: context,
+      barrierDismissible: true, // set to false if you want to force a rating
+      builder: (context) => _dialog,
+    );
+
+
+                         },
+                         
+                         
+                         child: ReviewWidget(reviewModel: details.reviewList[0]))
+
                           : SizedBox() : ReviewShimmer(),
-                      details.reviewList != null ? details.reviewList.length > 1 ? ReviewWidget(reviewModel: details.reviewList[1])
+
+                      details.reviewList != null ? details.reviewList.length > 1 ?
+                       GestureDetector(
+                               
+                         onTap: ()async{
+
+
+
+                            final _dialog = RatingDialog(
+      initialRating: 1.0,
+      // your app's name?
+      title: Text(
+        'What is your rate',
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          fontSize: 25,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      // encourage your user to leave a high rating?
+      message: Text(
+        'Please share your opinion about us',
+        textAlign: TextAlign.center,
+        style: const TextStyle(fontSize: 15),
+      ),
+      // your app's logo?
+      // image: const FlutterLogo(size: 100),
+      submitButtonText: 'Add Rating',
+      commentHint: 'let see you opinion',
+      onCancelled: () => print('cancelled'),
+      onSubmitted: (response) {
+        print('rating: ${response.rating}, comment: ${response.comment}');
+//
+
+//call api to send rate
+
+
+
+        // TODO: add your own logic
+        // if (response.rating < 3.0) {
+        //   // send their comments to your email or anywhere you wish
+        //   // ask the user to contact you instead of leaving a bad review
+        // } else {
+        //   // _rateAndReviewApp();
+        // }
+      },
+    );
+
+  showDialog(
+      context: context,
+      barrierDismissible: true, // set to false if you want to force a rating
+      builder: (context) => _dialog,
+    );
+
+
+                         },
+                         
+                         
+                         child: ReviewWidget(reviewModel: details.reviewList[1]))
+
+
                           : SizedBox() : ReviewShimmer(),
-                      details.reviewList != null ? details.reviewList.length > 2 ? ReviewWidget(reviewModel: details.reviewList[2])
+                      details.reviewList != null ? details.reviewList.length > 2 ? 
+                      
+                      GestureDetector(
+                        
+                              
+                         onTap: ()async{
+
+
+
+                            final _dialog = RatingDialog(
+      initialRating: 1.0,
+      // your app's name?
+      title: Text(
+        'What is your rate',
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          fontSize: 25,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      // encourage your user to leave a high rating?
+      message: Text(
+        'Please share your opinion about us',
+        textAlign: TextAlign.center,
+        style: const TextStyle(fontSize: 15),
+      ),
+      // your app's logo?
+      // image: const FlutterLogo(size: 100),
+      submitButtonText: 'Add Rating',
+      commentHint: 'let see you opinion',
+      onCancelled: () => print('cancelled'),
+      onSubmitted: (response) {
+        print('rating: ${response.rating}, comment: ${response.comment}');
+//
+
+//call api to send rate
+
+
+
+        // TODO: add your own logic
+        // if (response.rating < 3.0) {
+        //   // send their comments to your email or anywhere you wish
+        //   // ask the user to contact you instead of leaving a bad review
+        // } else {
+        //   // _rateAndReviewApp();
+        // }
+      },
+    );
+
+  showDialog(
+      context: context,
+      barrierDismissible: true, // set to false if you want to force a rating
+      builder: (context) => _dialog,
+    );
+
+
+                         },
+                        
+                        
+                        child: ReviewWidget(reviewModel: details.reviewList[2]))
                           : SizedBox() : ReviewShimmer(),
 
                       InkWell(
@@ -256,23 +478,33 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ),
                   ),
 
+      ])
 
-                ],),),
-            
-            
-            
-              ],
-            ),
-          ),
-        ) :
-        
-         Scaffold(body: NoInternetOrDataScreen(isNoInternet: true,
-            child: ProductDetails(product: widget.product)));
-      },
-    ):SizedBox();
+  )
+
+
+
+              ]))
+
+
+
+
+
+): 
+
+    Scaffold(body: NoInternetOrDataScreen(isNoInternet: true,
+            child: ProductDetails2(product: widget.product)));
+      })
+
+
+
+
+
+
+:SizedBox();
+
+
   }
-
-
 
 
 

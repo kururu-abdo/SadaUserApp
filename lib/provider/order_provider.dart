@@ -10,6 +10,7 @@ import 'package:eamar_user_app/data/model/response/shipping_method_model.dart';
 import 'package:eamar_user_app/data/repository/order_repo.dart';
 import 'package:eamar_user_app/helper/api_checker.dart';
 import 'package:eamar_user_app/utill/app_constants.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -71,7 +72,25 @@ class OrderProvider with ChangeNotifier {
           _canceledList.add(orderModel);
         }
       });
-    } else {
+    }
+    else  if (apiResponse.response != null ) {
+      _pendingList = [];
+      _deliveredList = [];
+      _canceledList = [];
+      apiResponse.response.data.forEach((order) {
+        OrderModel orderModel = OrderModel.fromJson(order);
+        if (orderModel.orderStatus == AppConstants.PENDING || orderModel.orderStatus == AppConstants.CONFIRMED || orderModel.orderStatus ==AppConstants.OUT_FOR_DELIVERY
+            || orderModel.orderStatus == AppConstants.PROCESSING || orderModel.orderStatus == AppConstants.PROCESSED) {
+          _pendingList.add(orderModel);
+        } else if (orderModel.orderStatus == AppConstants.DELIVERED) {
+          _deliveredList.add(orderModel);
+        } else if (orderModel.orderStatus == AppConstants.CANCELLED || orderModel.orderStatus == AppConstants.FAILED
+            || orderModel.orderStatus == AppConstants.RETURNED) {
+          _canceledList.add(orderModel);
+        }
+      });
+    }
+     else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
@@ -95,7 +114,14 @@ class OrderProvider with ChangeNotifier {
     if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
       _orderDetails = [];
       apiResponse.response.data.forEach((order) => _orderDetails.add(OrderDetailsModel.fromJson(order)));
-    } else {
+    } 
+    else  if (apiResponse.response != null ) {
+      _orderDetails = [];
+      apiResponse.response.data.forEach((order) => _orderDetails.add(OrderDetailsModel.fromJson(order)));
+    } 
+    
+    
+    else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
@@ -111,7 +137,115 @@ class OrderProvider with ChangeNotifier {
       _billingAddressIndex = null;
       String message = apiResponse.response.data.toString();
       callback(true, message, '', cartList);
-    } else {
+
+await FirebaseAnalytics.instance
+.logAddPaymentInfo(
+  currency: 'SAR' ,
+  paymentType: orderPlaceModel.paymentMethod
+);
+
+// await FirebaseAnalytics.instance.logEvent(
+//     name: "store",
+//     parameters: {
+//         "store": orderPlaceModel.,
+//         "full_text": text,
+//     },
+// );
+// await FirebaseAnalytics.instance
+// .logEvent(name: 'Buy' ,
+
+// parameters: {
+//    "value": 10.0,
+//     "currency": 'SAR',
+//     "items":    orderPlaceModel.cart.map((e) => 
+
+//       {  "itemName": e.name,
+//         "itemId": e.id.toString(),
+//         "price": e.price
+//       }
+    
+//     ).toList()
+// }
+// );
+// await FirebaseAnalytics.instance
+//   .logPurchase(
+//     // value: 10.0,
+//     currency: 'SAR',
+//     items:
+//     orderPlaceModel.cart.map((e) => 
+
+//       AnalyticsEventItem(
+//         itemName: e.name,
+//         itemId: e.id.toString(),
+//         price: e.price
+//       )
+    
+//     ).toList() ,
+    
+  
+//     //  [
+//     //   AnalyticsEventItem(
+//     //     itemName: 'Socks',
+//     //     itemId: 'xjw73ndnw',
+//     //     price: '10.0'
+//     //   ),
+//     // ],
+//     coupon: couponCode.toString(),
+//     callOptions: AnalyticsCallOptions(global: true)
+//   );
+
+
+
+await FirebaseAnalytics.instance.logPurchase(
+    transactionId: DateTime.now().microsecondsSinceEpoch.toString(),
+    affiliation: "Eamar Store",
+    currency: 'SAR',
+    // value: 15.98,
+    // shipping: orderPlaceModel.paymentMethod.,
+    // tax: 1.66,
+    // coupon: "SUMMER_FUN",
+    items:  orderPlaceModel.cart.map((e) => 
+
+      AnalyticsEventItem(
+        itemName: e.name,
+        itemId: e.id.toString(),
+        price: e.price
+      )
+    
+    ).toList() ,
+);
+
+// const data = {
+//              "transaction_id": 'T)ID',
+//              "value": 1.00,
+//              "currency": 'USD',
+//              "tax": 0,
+//              "shipping": 0,
+//              "coupon": '',
+//              "items": [{
+//                      "item_id": 'I_ID',
+//                      "item_name": 'I_NAME',
+//                      "item_list_name": 'IL_NAME',
+//                      "item_list_id": 'IL_ID',
+//                      "item_brand": 'I_B',
+//                      "item_category": 'I_C',
+//                      "item_variant": 'I_V',
+//                      "quantity": 1,
+//                      "price": 1,
+//                      }]
+//                };
+                    
+// await FirebaseAnalytics.instance.logEvent(name: 'purchase', parameters:   data);
+
+    }
+    else   if (apiResponse.response != null ) {
+      _addressIndex = null;
+      _billingAddressIndex = null;
+      String message = apiResponse.response.data.toString();
+      callback(true, message, '', cartList);
+    }
+    
+     else {
       String errorMessage;
       if (apiResponse.error is String) {
         print(apiResponse.error.toString());
@@ -148,7 +282,12 @@ class OrderProvider with ChangeNotifier {
     if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
       _shippingList = [];
       apiResponse.response.data.forEach((shippingMethod) => _shippingList.add(ShippingMethodModel.fromJson(shippingMethod)));
-    } else {
+    } 
+   else  if (apiResponse.response != null ) {
+      _shippingList = [];
+      apiResponse.response.data.forEach((shippingMethod) => _shippingList.add(ShippingMethodModel.fromJson(shippingMethod)));
+    }  
+    else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
@@ -186,7 +325,13 @@ class OrderProvider with ChangeNotifier {
       ApiResponse apiResponse = await orderRepo.getTrackingInfo(orderID);
       if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
         _trackingModel = OrderModel.fromJson(apiResponse.response.data);
-      } else {
+      }
+      
+      else    if (apiResponse.response != null ) {
+        _trackingModel = OrderModel.fromJson(apiResponse.response.data);
+      }
+      
+       else {
         ApiChecker.checkApi(context, apiResponse);
       }
       notifyListeners();
@@ -265,7 +410,13 @@ class OrderProvider with ChangeNotifier {
     if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
       _isLoading = false;
       _refundResultModel = RefundResultModel.fromJson(apiResponse.response.data);
-    } else {
+    }
+   else if (apiResponse.response != null ) {
+      _isLoading = false;
+      _refundResultModel = RefundResultModel.fromJson(apiResponse.response.data);
+    }
+    
+     else {
       _isLoading = false;
       ApiChecker.checkApi(context, apiResponse);
     }

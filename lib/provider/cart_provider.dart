@@ -1,5 +1,9 @@
 
 
+
+import 'dart:developer';
+
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/body/selected_shipping_type.dart';
 import 'package:eamar_user_app/data/model/response/base/api_response.dart';
@@ -60,6 +64,19 @@ class CartProvider extends ChangeNotifier {
     cartRepo.addToCartList(_cartList);
     _amount = _amount + (cartModel.discountedPrice * cartModel.quantity);
     notifyListeners();
+     FirebaseAnalytics.instance
+     .logEvent(name: 'cart' ,
+     parameters: {
+       'product':cartModel.name
+     }
+     
+     ).then((value) {
+      
+     });
+// .log(
+//   currency: 'SAR' ,
+//   paymentType: orderPlaceModel.paymentMethod
+// );
   }
 
   void removeFromCart(int index) {
@@ -87,10 +104,13 @@ class CartProvider extends ChangeNotifier {
 
   void removeCheckoutProduct(List<CartModel> carts) {
     carts.forEach((cart) {
+      log(cart.name.toString());
       _amount = _amount - (cart.discountedPrice * cart.quantity);
       _cartList.removeWhere((cartModel) => cartModel.id == cart.id);
       _isSelectedList.removeWhere((selected) => selected);
     });
+        notifyListeners();
+
     cartRepo.addToCartList(_cartList);
     notifyListeners();
   }
@@ -105,7 +125,17 @@ class CartProvider extends ChangeNotifier {
     if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
       _cartList = [];
       apiResponse.response.data.forEach((cart) => _cartList.add(CartModel.fromJson(cart)));
-    } else {
+         notifyListeners();
+    }  else if (apiResponse.response != null ){
+      log('NO CART DATA YET');
+      log(apiResponse.response.data.toString());
+      _cartList = [];
+      apiResponse.response.data.forEach((cart) => _cartList.add(CartModel.fromJson(cart)));
+   notifyListeners();
+    }
+    
+    
+     else {
       ApiChecker.checkApi(context, apiResponse);
     }
     _isLoading = false;
@@ -124,7 +154,15 @@ class CartProvider extends ChangeNotifier {
       String message = apiResponse.response.data['message'].toString();
       responseModel = ResponseModel( message,true);
       await getCartDataAPI(context);
-    } else {
+    }   else if (apiResponse.response != null){
+       String message = apiResponse.response.data['message'].toString();
+      responseModel = ResponseModel( message,true);
+      await getCartDataAPI(context);
+    }
+    
+    
+    
+    else {
       String errorMessage = apiResponse.error.toString();
       if (apiResponse.error is String) {
         print(apiResponse.error.toString());
@@ -198,7 +236,13 @@ class CartProvider extends ChangeNotifier {
       callback(true, message);
       getCartDataAPI(context);
       notifyListeners();
-    } else {
+    }  else if (apiResponse.response != null){
+      Map map = apiResponse.response.data;
+      String message = map["message"];
+      callback(true, message);
+      getCartDataAPI(context);
+      notifyListeners();
+      }else {
       String errorMessage;
       if (apiResponse.error is String) {
         print(apiResponse.error.toString());
@@ -229,7 +273,16 @@ class CartProvider extends ChangeNotifier {
       responseModel = ResponseModel( message,true);
       getCartDataAPI(context);
       getChosenShippingMethod(context);
-    } else {
+    } 
+    
+    else   if (apiResponse.response != null ) {
+      String message = apiResponse.response.data.toString();
+      responseModel = ResponseModel( message,true);
+      getCartDataAPI(context);
+      getChosenShippingMethod(context);
+    } 
+    
+    else {
       String errorMessage = apiResponse.error.toString();
       if (apiResponse.error is String) {
         print(apiResponse.error.toString());
@@ -290,7 +343,35 @@ class CartProvider extends ChangeNotifier {
           }
         }
         _shippingList[i].shippingIndex = _index;
-      } else {
+      } 
+      else     if (apiResponse.response != null ) {
+        List<ShippingMethodModel> _shippingMethodList =[];
+        apiResponse.response.data.forEach((shipping) => _shippingMethodList.add(ShippingMethodModel.fromJson(shipping)));
+
+        _shippingList[i].shippingMethodList =[];
+        _shippingList[i].shippingMethodList.addAll(_shippingMethodList);
+        int _index = -1;
+        int _shipId = -1;
+        for(ChosenShippingMethodModel cs in _chosenShippingList) {
+          if(cs.cartGroupId == groupList[i]) {
+            _shipId = cs.shippingMethodId;
+            break;
+          }
+        }
+        if(_shipId != -1) {
+          for(int j=0; j<_shippingList[i].shippingMethodList.length; j++) {
+            if(_shippingList[i].shippingMethodList[j].id == _shipId) {
+              _index = j;
+              break;
+            }
+          }
+        }
+        _shippingList[i].shippingIndex = _index;
+      } 
+       
+      
+      
+      else {
         ApiChecker.checkApi(context, apiResponse);
       }
       _isLoading = false;
@@ -325,7 +406,30 @@ class CartProvider extends ChangeNotifier {
       }
 
       _shippingList[0].shippingIndex = _index;
-    } else {
+    } 
+    else   if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+      _shippingList.add(ShippingModel(-1, '', []));
+      List<ShippingMethodModel> _shippingMethodList =[];
+      apiResponse.response.data.forEach((shipping) => _shippingMethodList.add(ShippingMethodModel.fromJson(shipping)));
+
+      _shippingList[0].shippingMethodList =[];
+      _shippingList[0].shippingMethodList.addAll(_shippingMethodList);
+      int _index = -1;
+
+
+      if(_chosenShippingList.length>0){
+        for(int j=0; j<_shippingList[0].shippingMethodList.length; j++) {
+          if(_shippingList[0].shippingMethodList[j].id == _chosenShippingList[0].shippingMethodId) {
+            _index = j;
+            break;
+          }
+        }
+      }
+
+      _shippingList[0].shippingIndex = _index;
+    } 
+    
+    else {
       ApiChecker.checkApi(context, apiResponse);
     }
     _isLoading = false;
@@ -340,7 +444,16 @@ class CartProvider extends ChangeNotifier {
       _chosenShippingList = [];
       apiResponse.response.data.forEach((shipping) => _chosenShippingList.add(ChosenShippingMethodModel.fromJson(shipping)));
       notifyListeners();
-    } else {
+    }
+    else  if (apiResponse.response != null ) {
+      _chosenShippingList = [];
+      apiResponse.response.data.forEach((shipping) => _chosenShippingList.add(ChosenShippingMethodModel.fromJson(shipping)));
+      notifyListeners();
+    }
+    
+    
+    
+     else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
@@ -378,9 +491,20 @@ class CartProvider extends ChangeNotifier {
 
       getChosenShippingMethod(context);
       //String message = map["message"];
-      callback(true, '');
+      callback(context ,true, '');
       notifyListeners();
-    } else {
+    } 
+    
+     if (apiResponse.response != null ) {
+      //Map map = await jsonDecode(apiResponse.response.data);
+      //json.decode(apiResponse.response.data);
+log('SHIPPEd');
+      getChosenShippingMethod(context);
+      //String message = map["message"];
+      callback(context ,true, '');
+      notifyListeners();
+    }  
+    else {
       String errorMessage;
       if (apiResponse.error is String) {
         print(apiResponse.error.toString());
@@ -390,7 +514,7 @@ class CartProvider extends ChangeNotifier {
         print(errorResponse.errors[0].message);
         errorMessage = errorResponse.errors[0].message;
       }
-      callback(false, errorMessage);
+      callback(context ,false, errorMessage);
       notifyListeners();
     }
   }
@@ -422,7 +546,16 @@ class CartProvider extends ChangeNotifier {
     if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
      _selectedShippingType = apiResponse.response.data['shipping_type'];
      _selectedShippingTypeList.add(SelectedShippingType(sellerId: sellerId, selectedShippingType: _selectedShippingType));
-    } else {
+    } 
+    
+    else  if (apiResponse.response != null ) {
+     _selectedShippingType = apiResponse.response.data['shipping_type'];
+     _selectedShippingTypeList.add(SelectedShippingType(sellerId: sellerId, selectedShippingType: _selectedShippingType));
+    } 
+    
+    
+    
+    else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();

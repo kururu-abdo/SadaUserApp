@@ -51,7 +51,16 @@ setCategory(Category cat){
         _categories.clear();
         apiResponse.response.data.forEach((category) => _categories.add(Category.fromJson(category)));
         // _categorySelectedIndex = 0;
-      } else {
+      }else   if (apiResponse.response != null){
+
+         _categories.clear();
+        apiResponse.response.data.forEach((category) => _categories.add(Category.fromJson(category)));
+      }
+      
+      
+      
+      
+       else {
         ApiChecker.checkApi(context, apiResponse);
       }
       notifyListeners();
@@ -124,7 +133,21 @@ setCategory(Category cat){
         _filterProductList = [];
         _filterProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
       }
-    } else {
+    }  else   if (apiResponse.response != null){
+ if (query.isEmpty) {
+        _searchProductList = [];
+      } else {
+        _searchProductList = [];
+        _searchProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
+        _filterProductList = [];
+        _filterProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
+      }
+
+    }
+    
+    
+    
+     else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
@@ -149,7 +172,20 @@ setCategory(Category cat){
         _filterProductList = [];
         _filterProductList.addAll(_searchProductList);
       // }
-    } else {
+    } else   if (apiResponse.response != null){
+  _searchProductList = [];
+        Iterable data = apiResponse.response.data;
+        _searchProductList=data.map((product)=>Product.fromJson(product)).toList();
+        
+        // addAll(ProductModel.fromJson(apiResponse.response.data).products);
+        _filterProductList = [];
+        _filterProductList.addAll(_searchProductList);
+
+    }
+    
+    
+    
+    else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();

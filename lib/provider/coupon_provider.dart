@@ -31,7 +31,23 @@ class CouponProvider extends ChangeNotifier {
       } else {
         _discount = 0;
       }
-    } else {
+    } 
+    
+   else  if (apiResponse.response != null && apiResponse.response.toString() != '{}' ) {
+      _coupon = CouponModel.fromJson(apiResponse.response.data);
+      if (_coupon.minPurchase != null && _coupon.minPurchase < order) {
+        if(_coupon.discountType == 'percent' || _coupon.discountType == 'percentage' ) {
+          _discount = (_coupon.discount * order / 100) < _coupon.maxDiscount
+              ? (_coupon.discount * order / 100) : _coupon.maxDiscount;
+        }else {
+          _discount = _coupon.discount;
+        }
+      } else {
+        _discount = 0;
+      }
+    } 
+    
+    else {
       print(apiResponse.error.toString());
       _discount = 0;
       notifyListeners();

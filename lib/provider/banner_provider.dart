@@ -36,7 +36,16 @@ class BannerProvider extends ChangeNotifier {
 
         _currentIndex = 0;
         notifyListeners();
-      } else {
+      }else if(apiResponse.response != null){
+          _mainBannerList = [];
+        apiResponse.response.data.forEach((bannerModel) => _mainBannerList.add(BannerModel.fromJson(bannerModel)));
+
+        _currentIndex = 0;
+        notifyListeners();
+      }
+      
+      
+       else {
         ApiChecker.checkApi(context, apiResponse);
       }
     }
@@ -55,6 +64,11 @@ class BannerProvider extends ChangeNotifier {
       _footerBannerList = [];
       apiResponse.response.data.forEach((bannerModel) => _footerBannerList.add(BannerModel.fromJson(bannerModel)));
       notifyListeners();
+    }else if  (apiResponse.response != null){
+ _footerBannerList = [];
+      apiResponse.response.data.forEach((bannerModel) => _footerBannerList.add(BannerModel.fromJson(bannerModel)));
+      notifyListeners();
+
     } else {
       ApiChecker.checkApi(context, apiResponse);
     }
@@ -66,7 +80,15 @@ class BannerProvider extends ChangeNotifier {
       _mainSectionBannerList = [];
       apiResponse.response.data.forEach((bannerModel) => _mainSectionBannerList.add(BannerModel.fromJson(bannerModel)));
       notifyListeners();
-    } else {
+    } 
+    else if (apiResponse.response != null){
+        _mainSectionBannerList = [];
+      apiResponse.response.data.forEach((bannerModel) => _mainSectionBannerList.add(BannerModel.fromJson(bannerModel)));
+      notifyListeners();
+    }
+    
+    
+    else {
       ApiChecker.checkApi(context, apiResponse);
     }
   }
@@ -75,7 +97,12 @@ class BannerProvider extends ChangeNotifier {
     ApiResponse apiResponse = await bannerRepo.getProductDetails(productId);
     if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
       _product = (Product.fromJson(apiResponse.response.data));
-    } else {
+    }else   if (apiResponse.response != null ) {
+      _product = (Product.fromJson(apiResponse.response.data));
+    }
+    
+    
+     else {
       showCustomSnackBar(apiResponse.error.toString(), context);
     }
   }

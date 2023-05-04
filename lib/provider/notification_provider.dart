@@ -17,7 +17,15 @@ class NotificationProvider extends ChangeNotifier {
     if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
       _notificationList = [];
       apiResponse.response.data.forEach((notification) => _notificationList.add(NotificationModel.fromJson(notification)));
-    } else {
+    } 
+      else if (apiResponse.response != null ) {
+      _notificationList = [];
+      apiResponse.response.data.forEach((notification) => _notificationList.add(NotificationModel.fromJson(notification)));
+    } 
+    
+    
+    
+    else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();

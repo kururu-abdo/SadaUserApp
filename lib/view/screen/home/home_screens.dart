@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 
 import 'package:eamar_user_app/helper/product_type.dart';
@@ -55,24 +56,60 @@ class _HomePageState extends State<HomePage> {
   final ScrollController _scrollController = ScrollController();
 
   Future<void> _loadData(BuildContext context, bool reload) async {
-    await Provider.of<BannerProvider>(context, listen: false).getBannerList(reload, context);
-     Provider.of<BannerProvider>(context, listen: false).getFooterBannerList(context);
-     Provider.of<BannerProvider>(context, listen: false).getMainSectionBanner(context);
-     Provider.of<CategoryProvider>(context, listen: false).getCategoryList(reload, context);
-     Provider.of<HomeCategoryProductProvider>(context, listen: false).getHomeCategoryProductList(reload, context);
-     Provider.of<TopSellerProvider>(context, listen: false).getTopSellerList(reload, context);
-     Provider.of<BrandProvider>(context, listen: false).getBrandList(reload, context);
-     Provider.of<ProductProvider>(context, listen: false).getLatestProductList(1, context, reload: reload);
-     Provider.of<ProductProvider>(context, listen: false).getFeaturedProductList('1', context, reload: reload);
-     Provider.of<FeaturedDealProvider>(context, listen: false).getFeaturedDealList(reload, context);
-     Provider.of<ProductProvider>(context, listen: false).getLProductList('1', context, reload: reload);
-     Provider.of<ProductProvider>(context, listen: false).getRecommendedProduct(context);
 
+ FirebaseAnalytics.instance
+ .logEvent(name: 'LoadingData' ,
+ 
+ parameters: {
+   'time':DateTime.now()
+ }
+ );
 
-     if ( Provider.of<AuthProvider>(context, listen: false).getUserType()!='visitor') {
+Future.wait(
+  [
+
+  Provider.of<BannerProvider>(context, listen: false).getBannerList(reload, context),
+     Provider.of<BannerProvider>(context, listen: false).getFooterBannerList(context),
+     Provider.of<BannerProvider>(context, listen: false).getMainSectionBanner(context),
+     Provider.of<CategoryProvider>(context, listen: false).getCategoryList(reload, context),
+     Provider.of<HomeCategoryProductProvider>(context, listen: false).getHomeCategoryProductList(reload, context),
+     Provider.of<TopSellerProvider>(context, listen: false).getTopSellerList(reload, context),
+     Provider.of<BrandProvider>(context, listen: false).getBrandList(reload, context),
+     Provider.of<ProductProvider>(context, listen: false).getLatestProductList(1, context, reload: reload),
+     Provider.of<ProductProvider>(context, listen: false).getFeaturedProductList('1', context, reload: reload),
+     Provider.of<FeaturedDealProvider>(context, listen: false).getFeaturedDealList(reload, context),
+     Provider.of<ProductProvider>(context, listen: false).getLProductList('1', context, reload: reload),
+     Provider.of<ProductProvider>(context, listen: false).getRecommendedProduct(context),
+
+Future.delayed(Duration.zero ,
+()async{
+ if ( Provider.of<AuthProvider>(context, listen: false).getUserType()!='visitor') {
            await Provider.of<ProfileProvider>(context, listen: false).getUserInfo(context);
 
      }
+})
+    
+  ]
+);
+
+    // await Provider.of<BannerProvider>(context, listen: false).getBannerList(reload, context);
+    //  Provider.of<BannerProvider>(context, listen: false).getFooterBannerList(context);
+    //  Provider.of<BannerProvider>(context, listen: false).getMainSectionBanner(context);
+    //  Provider.of<CategoryProvider>(context, listen: false).getCategoryList(reload, context);
+    //  Provider.of<HomeCategoryProductProvider>(context, listen: false).getHomeCategoryProductList(reload, context);
+    //  Provider.of<TopSellerProvider>(context, listen: false).getTopSellerList(reload, context);
+    //  Provider.of<BrandProvider>(context, listen: false).getBrandList(reload, context);
+    //  Provider.of<ProductProvider>(context, listen: false).getLatestProductList(1, context, reload: reload);
+    //  Provider.of<ProductProvider>(context, listen: false).getFeaturedProductList('1', context, reload: reload);
+    //  Provider.of<FeaturedDealProvider>(context, listen: false).getFeaturedDealList(reload, context);
+    //  Provider.of<ProductProvider>(context, listen: false).getLProductList('1', context, reload: reload);
+    //  Provider.of<ProductProvider>(context, listen: false).getRecommendedProduct(context);
+
+
+    //  if ( Provider.of<AuthProvider>(context, listen: false).getUserType()!='visitor') {
+    //        await Provider.of<ProfileProvider>(context, listen: false).getUserInfo(context);
+
+    //  }
   }
 
   void passData(int index, String title) {
@@ -85,6 +122,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
+    
     singleVendor = Provider.of<SplashProvider>(context, listen: false).configModel.businessMode == "single";
     Provider.of<FlashDealProvider>(context, listen: false).getMegaDealList(true, context, true);
 
@@ -216,7 +254,8 @@ class _HomePageState extends State<HomePage> {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_EXTRA_SMALL,vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                             child: TitleRow(title: getTranslated('CATEGORY', context),
-                                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AllCategoryScreen()))),
+                                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                                 AllCategoryScreen()))),
                           ),
                           SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                           Padding(

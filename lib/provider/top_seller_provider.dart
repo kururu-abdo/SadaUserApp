@@ -18,11 +18,21 @@ class TopSellerProvider extends ChangeNotifier {
   Future<void> getTopSellerList(bool reload, BuildContext context) async {
     if (_topSellerList.length == 0 || reload) {
       ApiResponse apiResponse = await topSellerRepo.getTopSeller();
-      if (apiResponse.response != null && apiResponse.response.statusCode == 200 && apiResponse.response.data.toString() != '{}') {
+      if (apiResponse.response != null && apiResponse.response.statusCode == 200 && 
+      apiResponse.response.data.toString() != '{}') 
+      {
         _topSellerList.clear();
         apiResponse.response.data.forEach((category) => _topSellerList.add(TopSellerModel.fromJson(category)));
         _topSellerSelectedIndex = 0;
-      } else {
+      }   else if(apiResponse.response != null  && 
+      apiResponse.response.data.toString() != '{}'){
+         _topSellerList.clear();
+        apiResponse.response.data.forEach((category) => _topSellerList.add(TopSellerModel.fromJson(category)));
+        _topSellerSelectedIndex = 0;
+      }
+      
+      
+       else {
         ApiChecker.checkApi(context, apiResponse);
       }
       notifyListeners();

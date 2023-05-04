@@ -25,7 +25,14 @@ class OnBoardingProvider with ChangeNotifier {
     if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
       _onBoardingList.clear();
       _onBoardingList.addAll(apiResponse.response.data);
-    } else {
+    }
+    else  if (apiResponse.response != null ) {
+      _onBoardingList.clear();
+      _onBoardingList.addAll(apiResponse.response.data);
+    }
+    
+    
+     else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();

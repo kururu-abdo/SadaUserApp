@@ -31,7 +31,18 @@ class HomeCategoryProductProvider extends ChangeNotifier {
           _productList.addAll(product.products);
         });
 
-      } else {
+      } else  if (apiResponse.response != null){
+          _productList = [];
+
+        _homeCategoryProductList.clear();
+        apiResponse.response.data.forEach((homeCategoryProduct) => _homeCategoryProductList.add(HomeCategoryProduct.fromJson(homeCategoryProduct)));
+
+        _homeCategoryProductList.forEach((product) {
+          _productList.addAll(product.products);
+        });
+      }
+      
+      else {
         ApiChecker.checkApi(context, apiResponse);
       }
       notifyListeners();

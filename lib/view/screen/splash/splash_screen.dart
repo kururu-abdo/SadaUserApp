@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:connectivity/connectivity.dart';
 import 'package:eamar_user_app/data/model/response/product_model.dart';
 import 'package:eamar_user_app/helper/firebase_dynamic_links_services.dart';
@@ -76,6 +77,7 @@ if (initialLink.contains('product')) {
     super.initState();
 
     bool _firstTime = true;
+
     _onConnectivityChanged = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
       if(!_firstTime) {
         bool isNotConnected = result != ConnectivityResult.wifi && result != ConnectivityResult.mobile;
@@ -107,7 +109,11 @@ if (initialLink.contains('product')) {
 
   void _route() {
     DymanicLinksServices.initDynamicLink(context);
+                          // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => AuthScreen()));
+
     Provider.of<SplashProvider>(context, listen: false).initConfig(context).then((bool isSuccess) {
+      log("RESULT"+ isSuccess.toString());
+
       if(isSuccess) {
         Provider.of<SplashProvider>(context, listen: false).initSharedPrefData();
         Timer(Duration(seconds: 1), () {

@@ -1,6 +1,10 @@
 
 import 'dart:convert';
+import 'dart:developer';
 
+import 'package:dio/dio.dart';
+import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+import 'package:eamar_user_app/data/datasource/remote/dio/dio_client_no_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/datasource/remote/dio/dio_client.dart';
 import 'package:eamar_user_app/data/datasource/remote/exception/api_error_handler.dart';
@@ -11,7 +15,7 @@ import 'package:eamar_user_app/utill/app_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CartRepo{
-  final DioClient dioClient;
+  final DioClientNoCache dioClient;
   final SharedPreferences sharedPreferences;
   CartRepo({@required this.dioClient, @required this.sharedPreferences});
 
@@ -34,6 +38,8 @@ class CartRepo{
   Future<ApiResponse> getCartListData() async {
     try {
       final response = await dioClient.get(AppConstants.GET_CART_DATA_URI);
+
+      log(response.data.toString());
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -63,7 +69,7 @@ class CartRepo{
     }
   }
   Future<ApiResponse> updateQuantity( int key,int quantity) async {
-    print('Body: ${{'_method': 'put', 'key': key, 'quantity': quantity}}');
+    log('Body: ${{'_method': 'put', 'key': key, 'quantity': quantity}}');
     try {
       final response = await dioClient.post(AppConstants.UPDATE_CART_QUANTITY_URI,
         data: {'_method': 'put', 'key': key, 'quantity': quantity});
@@ -74,8 +80,16 @@ class CartRepo{
   }
   Future<ApiResponse> removeFromCart(int key) async {
     try {
+       Options _options;
+_options = cacheOptions.copyWith(
+  policy: CachePolicy.noCache
+).toOptions();
       final response = await dioClient.post(AppConstants.REMOVE_FROM_CART_URI,
-          data: {'_method': 'delete', 'key': key});
+          data: {'_method': 'delete', 'key': key} ,
+          options: _options
+          
+          );
+          log(response.data.toString());
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -94,6 +108,8 @@ class CartRepo{
     print('===>${{"id":id, "cart_group_id": cartGroupId}}');
     try {
       final response = await dioClient.post(AppConstants.CHOOSE_SHIPPING_METHOD, data: {"id":id, "cart_group_id": cartGroupId});
+     
+     log(response.data.toString());
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));

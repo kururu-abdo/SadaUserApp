@@ -64,7 +64,8 @@ class NotificationScreen extends StatelessWidget {
                     );
                   },
                 ),
-              ) : NoInternetOrDataScreen(isNoInternet: false) : NotificationShimmer();
+              ) : NoInternetOrDataScreen(isNoInternet: false) : 
+              NotificationShimmer();
             },
           ),
         ),

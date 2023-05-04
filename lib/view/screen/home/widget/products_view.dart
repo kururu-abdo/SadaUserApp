@@ -1,3 +1,4 @@
+import 'package:eamar_user_app/view/basewidget/no_internet_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/product_model.dart';
 import 'package:eamar_user_app/helper/product_type.dart';
@@ -79,7 +80,9 @@ class ProductView extends StatelessWidget {
         return Column(children: [
 
 
-          !prodProvider.filterFirstLoading ? productList.length != 0 ?
+          !prodProvider.filterFirstLoading ?
+
+           productList.length != 0 ?
            StaggeredGridView.countBuilder(
             itemCount: isHomePage? productList.length>4?
             4:productList.length:productList.length,
@@ -91,13 +94,18 @@ class ProductView extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               return ProductWidget(productModel: productList[index]);
             },
-          ) : SizedBox.shrink():
+          ) : NoInternetOrDataScreen(isNoInternet: false):
+
            ProductShimmer(isHomePage: isHomePage ,isEnabled: prodProvider.firstLoading),
 
-          prodProvider.filterIsLoading ? Center(child: Padding(
+          prodProvider.filterIsLoading ?
+           Center(child: Padding(
             padding: EdgeInsets.all(Dimensions.ICON_SIZE_EXTRA_SMALL),
-            child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor)),
-          )) : SizedBox.shrink(),
+
+            child: CircularProgressIndicator(valueColor: 
+            AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor)),
+          )) : 
+          SizedBox.shrink(),
 
         ]);
       },
