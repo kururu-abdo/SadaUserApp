@@ -38,12 +38,24 @@ log(singleVendor.toString());
     _screens = [
       HomePage(),
 
-       singleVendor?OrderScreen(isBacButtonExist: false): InboxScreen(isBackButtonExist: false) ,
-      singleVendor? NotificationScreen(isBacButtonExist: false): OrderScreen(isBacButtonExist: false),
+       singleVendor?
+       OrderScreen(isBacButtonExist: false): 
+       InboxScreen(isBackButtonExist: false) ,
+
+      // singleVendor? 
+      // NotificationScreen(isBacButtonExist: false):
+      //  OrderScreen(isBacButtonExist: false),
 
            JobsPage(isBacButtonExist: false),
 
-      singleVendor? MoreScreen(): NotificationScreen(isBacButtonExist: false),
+     singleVendor? 
+      NotificationScreen(isBacButtonExist: false):
+       OrderScreen(isBacButtonExist: false),
+
+
+
+      singleVendor? MoreScreen():
+       NotificationScreen(isBacButtonExist: false),
       singleVendor?SizedBox(): MoreScreen()
 
       // singleVendor?OrderScreen(isBacButtonExist: false): InboxScreen(isBackButtonExist: false) ,
@@ -131,7 +143,7 @@ log(singleVendor.toString());
     }else{
       _list.add(_barItem(Images.home_image, getTranslated('home', context), 0));
       _list.add(_barItem(Images.shopping_image, getTranslated('orders', context), 1));
-                  _list.add(_barItem('assets/images/office.png', getTranslated('jobs_txt', context), 2));
+      _list.add(_barItem('assets/images/office.png', getTranslated('jobs_txt', context), 2));
 
       _list.add(_barItem(Images.notification, getTranslated('notification', context), 3));
       _list.add(_barItem(Images.more_image, getTranslated('more', context), 4));

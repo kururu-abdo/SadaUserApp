@@ -43,11 +43,14 @@ void initState() {
   
 Future.microtask(() {
  if (mounted) {
-       Provider.of<ProductProvider>(context, listen: false).initBrandOrCategoryProductList(widget.isBrand,
-        widget.id, context);
+      Future.wait([
+         Provider.of<ProductProvider>(context, listen: false)
+       .initBrandOrCategoryProductList(widget.isBrand,
+        widget.id, context),
     
     
-    Provider.of<CategoryProvider>(context, listen: false).getSubCategries();
+    Provider.of<CategoryProvider>(context, listen: false).getSubCategries(),
+      ]);
 
    }
 
@@ -138,126 +141,132 @@ Consumer<CategoryProvider>(
             
                 ],
               ),
-            ) : 
+            )
+            
+             : 
             
             
            Consumer<CategoryProvider>(
       builder: (context, categoryProvider, child)  {
-                return SizedBox(height: 
-                toggleSubCategries?MediaQuery.of(context).size.height/3:
-                MediaQuery.of(context).size.height/3.3,
-                child: Column(
-                  children: [
-Expanded(
-  flex: 1,
-  child: 
-   categoryProvider.subCategroies.length != 0 ?
-        ListView.builder(
-          scrollDirection: Axis.horizontal,
-          // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          //   crossAxisCount: 4,
-          //   crossAxisSpacing: 15,
-          //   mainAxisSpacing: 5,
-          //   childAspectRatio: (1/1.3),
-          // ),
-          itemCount:
-           categoryProvider.subCategroies.length,
-          shrinkWrap: true,
-          physics: PageScrollPhysics(),
-          itemBuilder: (BuildContext context, int index) {
-
-            return InkWell(
-              onTap: () {
-  Provider.of<ProductProvider>(context, listen: false)
-                             .filterBrandAndCategoryProductList(context, 
-                             categoryProvider.subCategroies[index].id);
-          setState(() {
-            toggleSubCategries = categoryProvider.subCategroies[index].subSubCategories.length>0;
-          });
-          Provider.of<CategoryProvider>(context, listen: false).getSubSubCategries(categoryProvider.subCategroies[index].id);
-
-                // Navigator.push(context, MaterialPageRoute(builder: (_) => BrandAndCategoryProductScreen(
-                //   isBrand: false,
-                //   id: categoryProvider.categoryList[index].id.toString(),
-                //   name: categoryProvider.categoryList[index].name,
-                // )
-                // )
-                // );
-              },
-              child: SubCategoryWidget(category: categoryProvider.subCategroies[index]),
-            );
-
-          },
-        )
-
-        : CategoryShimmer()
-  
-  
-  ),Expanded(
-  flex: 1,
-    
-    child:
-    
-   
-     AnimatedOpacity( child:  
-      categoryProvider.subSubCategroies.length>0?
-    ListView.builder(
-          scrollDirection: Axis.horizontal,
-          // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          //   crossAxisCount: 4,
-          //   crossAxisSpacing: 15,
-          //   mainAxisSpacing: 5,
-          //   childAspectRatio: (1/1.3),
-          // ),
-          itemCount:
-           categoryProvider.subSubCategroies.length,
-          shrinkWrap: true,
-          physics: PageScrollPhysics(),
-          itemBuilder: (BuildContext context, int index) {
-
-            return InkWell(
-              onTap: () {
-  Provider.of<ProductProvider>(context, listen: false)
-                             .filterBrandAndCategoryProductList(context, 
-                             categoryProvider.subSubCategroies[index].id);
-//               setState(() {
-// toggleSubCategries=
-//  categoryProvider.subCategroies[index].subSubCategories.length>1;
-//                 //  =!toggleSubCategries;
-//               });
-                // Navigator.push(context, MaterialPageRoute(builder: (_) => BrandAndCategoryProductScreen(
-                //   isBrand: false,
-                //   id: categoryProvider.categoryList[index].id.toString(),
-                //   name: categoryProvider.categoryList[index].name,
-                // )
-                // )
-                // );
-              },
-              child: 
-              // Container(
-              //   height: 20,width: 40,
-              //   color: Colors.green,
-              // )
-              
-              SubSubCategoryWidget(category: categoryProvider.subSubCategroies[index]),
-            );
-
-          },
-        )
-
-        : SizedBox.shrink() ,
-    
-    duration: Duration(milliseconds: 350) ,
-    opacity:  toggleSubCategries ? 1.0 : 0.0,
-
-    curve: Curves.easeOut,
-    ))
-
-
-
-                  ],
-                ),
+                return Visibility(
+                    visible:      categoryProvider.subCategroies.length != 0 ,
+                  child: SizedBox(height: 
+                  toggleSubCategries?
+                  MediaQuery.of(context).size.height/3:
+                  MediaQuery.of(context).size.height/3.3,
+                  child: Column(
+                    children: [
+                Expanded(
+                  flex: 1,
+                  child: 
+                   categoryProvider.subCategroies.length != 0 ?
+                        ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          //   crossAxisCount: 4,
+                          //   crossAxisSpacing: 15,
+                          //   mainAxisSpacing: 5,
+                          //   childAspectRatio: (1/1.3),
+                          // ),
+                          itemCount:
+                           categoryProvider.subCategroies.length,
+                          shrinkWrap: true,
+                          physics: PageScrollPhysics(),
+                          itemBuilder: (BuildContext context, int index) {
                 
+                            return InkWell(
+                              onTap: () {
+                  Provider.of<ProductProvider>(context, listen: false)
+                               .filterBrandAndCategoryProductList(context, 
+                               categoryProvider.subCategroies[index].id);
+                          setState(() {
+                            toggleSubCategries = categoryProvider.subCategroies[index].subSubCategories.length>0;
+                          });
+                          Provider.of<CategoryProvider>(context, listen: false).getSubSubCategries(categoryProvider.subCategroies[index].id);
+                
+                  // Navigator.push(context, MaterialPageRoute(builder: (_) => BrandAndCategoryProductScreen(
+                  //   isBrand: false,
+                  //   id: categoryProvider.categoryList[index].id.toString(),
+                  //   name: categoryProvider.categoryList[index].name,
+                  // )
+                  // )
+                  // );
+                              },
+                              child: SubCategoryWidget(category: categoryProvider.subCategroies[index]),
+                            );
+                
+                          },
+                        )
+                
+                        : SizedBox.shrink()
+                  
+                  
+                  ),Expanded(
+                  flex: 1,
+                    
+                    child:
+                    
+                   
+                     AnimatedOpacity( child:  
+                      categoryProvider.subSubCategroies.length>0?
+                    ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          //   crossAxisCount: 4,
+                          //   crossAxisSpacing: 15,
+                          //   mainAxisSpacing: 5,
+                          //   childAspectRatio: (1/1.3),
+                          // ),
+                          itemCount:
+                           categoryProvider.subSubCategroies.length,
+                          shrinkWrap: true,
+                          physics: PageScrollPhysics(),
+                          itemBuilder: (BuildContext context, int index) {
+                
+                            return InkWell(
+                              onTap: () {
+                  Provider.of<ProductProvider>(context, listen: false)
+                               .filterBrandAndCategoryProductList(context, 
+                               categoryProvider.subSubCategroies[index].id);
+                //               setState(() {
+                // toggleSubCategries=
+                //  categoryProvider.subCategroies[index].subSubCategories.length>1;
+                //                 //  =!toggleSubCategries;
+                //               });
+                  // Navigator.push(context, MaterialPageRoute(builder: (_) => BrandAndCategoryProductScreen(
+                  //   isBrand: false,
+                  //   id: categoryProvider.categoryList[index].id.toString(),
+                  //   name: categoryProvider.categoryList[index].name,
+                  // )
+                  // )
+                  // );
+                              },
+                              child: 
+                              // Container(
+                              //   height: 20,width: 40,
+                              //   color: Colors.green,
+                              // )
+                              
+                              SubSubCategoryWidget(category: categoryProvider.subSubCategroies[index]),
+                            );
+                
+                          },
+                        )
+                
+                        : SizedBox.shrink() ,
+                    
+                    duration: Duration(milliseconds: 350) ,
+                    opacity:  toggleSubCategries ? 1.0 : 0.0,
+                
+                    curve: Curves.easeOut,
+                    ))
+                
+                
+                
+                    ],
+                  ),
+                  
+                  ),
                 );
               }
             )
@@ -284,11 +293,21 @@ Expanded(
 
             Expanded(child: Center(
               child:
-               !productProvider.hasData ?
+              //  !productProvider.hasData
+               productProvider.isProductLoading
+               
+               
+                ?
 
               ProductShimmer(isHomePage: false,
 
-                isEnabled: Provider.of<ProductProvider>(context ).brandOrCategoryProductList.length == 0)
+                isEnabled: 
+                    productProvider.isProductLoading
+               
+                // Provider.of<ProductProvider>(context )
+                // .brandOrCategoryProductList.length == 0
+                
+                )
                 : 
                 NoInternetOrDataScreen(isNoInternet: false),
             )),

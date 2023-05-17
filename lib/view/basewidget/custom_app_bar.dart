@@ -31,11 +31,18 @@ class CustomAppBar extends StatelessWidget {
         alignment: Alignment.center,
         child: Row(children: [
 
-          isBackButtonExist ? IconButton(
+          isBackButtonExist ?
+          
+           IconButton(
             icon: Icon(Icons.arrow_back_ios, size: 20,
                 color: Provider.of<ThemeProvider>(context).darkTheme ? Colors.white : Colors.black),
             onPressed: () => onBackPressed != null ? onBackPressed() : Navigator.of(context).pop(),
-          ) : SizedBox.shrink(),
+          ) 
+          
+          
+          :
+          
+           SizedBox.shrink(),
           SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
 
           Expanded(

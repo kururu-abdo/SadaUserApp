@@ -58,25 +58,25 @@ SizedBox(width: 8,),
                           ]),
                         ),
                         Container(height: 10, width: 50, color: Colors.white),
+                         SizedBox(height: 3,),
                         Icon(Icons.star, color: Colors.white, size: 15),
                       ]),
 
 
 
  Spacer(),
- Column(
-   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-   crossAxisAlignment: CrossAxisAlignment.end,
-   children: [
-                        Container(height: 10, width: 50, color: Colors.white),
-                        Container(height: 30, width: 30,
-                        decoration: BoxDecoration(
-
-                         color: Colors.white,borderRadius: BorderRadius.circular(5)
-                        ),
-                        ),
-                        // Icon(Icons.star, color: Colors.orange, size: 15),
-                      ]),
+ Padding(
+   padding: const EdgeInsets.all(8.0),
+   child: Column(
+     mainAxisAlignment: MainAxisAlignment.center,
+     crossAxisAlignment: CrossAxisAlignment.end,
+     children: [
+                          Container(height: 10, width: 50, color: Colors.white),
+                          SizedBox(height: 8,),
+                            Container(height: 10, width: 50, color: Colors.white),
+                          // Icon(Icons.star, color: Colors.orange, size: 15),
+                        ]),
+ ),
 
 
 

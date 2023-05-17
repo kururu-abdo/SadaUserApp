@@ -60,13 +60,16 @@ return
           FadeInImage.assetNetwork(
                             placeholder: Images.placeholder, 
                             fit: BoxFit.cover,
-                          
+                            width:    (MediaQuery.of(context).size.width)/4,
+                                // height: MediaQuery.of(context).size.width/2.45
+                                 height: MediaQuery.of(context).size.height/6,
                             image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls.productThumbnailUrl}/${widget.productModel.thumbnail}',
                             imageErrorBuilder: (c, o, s) =>
                              Image.asset(Images.placeholder_1x1,
                                 fit: BoxFit.cover,
+                                     width:    (MediaQuery.of(context).size.width)/4,
                                 // height: MediaQuery.of(context).size.width/2.45
-                                
+                                 height: MediaQuery.of(context).size.height/6,
                                 ),
                           ),
       widget.productModel.discount > 0 ?
@@ -173,10 +176,10 @@ return
   
   Spacer(),
               Padding(
-                padding: const EdgeInsets.all(3.0),
+                padding: const EdgeInsets.all(6.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Column(crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
@@ -208,33 +211,33 @@ return
                  
   
   
-                 InkWell(
-                   onTap: (){
+        //          InkWell(
+        //            onTap: (){
   
-                      Navigator.push(context, PageRouteBuilder(
-          transitionDuration: Duration(milliseconds: 1000),
-          pageBuilder: (context, anim1, anim2) => ProductDetails(product: widget.productModel),
-        ));
-                   },
-                   child: Container(
-                     margin: const EdgeInsets.all(5.0),
-                     width: 30,
-                     height: 30,
-                     decoration: BoxDecoration(
-                       color: Theme.of(context).primaryColor
+        //               Navigator.push(context, PageRouteBuilder(
+        //   transitionDuration: Duration(milliseconds: 1000),
+        //   pageBuilder: (context, anim1, anim2) => ProductDetails(product: widget.productModel),
+        // ));
+        //            },
+        //            child: Container(
+        //              margin: const EdgeInsets.all(5.0),
+        //              width: 30,
+        //              height: 30,
+        //              decoration: BoxDecoration(
+        //                color: Theme.of(context).primaryColor
                  
-                       ,borderRadius: BorderRadius.circular(5)
-                     ),
+        //                ,borderRadius: BorderRadius.circular(5)
+        //              ),
                  
-                     child: Center(
-                       child: Icon(Icons.add ,
-                       size: 20,color: 
+        //              child: Center(
+        //                child: Icon(Icons.add ,
+        //                size: 20,color: 
                        
-                       Theme.of(context).colorScheme.onPrimary,
-                       ),
-                     ),
-                   ),
-                 )
+        //                Theme.of(context).colorScheme.onPrimary,
+        //                ),
+        //              ),
+        //            ),
+        //          )
                  
                  
                   ],

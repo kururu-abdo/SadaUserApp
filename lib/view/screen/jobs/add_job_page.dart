@@ -335,6 +335,7 @@ children: [
 
  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
    children: [
      Align(
                             alignment: Alignment.center,
@@ -343,8 +344,8 @@ children: [
                               backgroundColor: 
                               // Colors.white,
                               
-                              
-                              Color(0xff476cfb),
+                              Theme.of(context).primaryColor,
+                              // Color(0xff476cfb),
                               child: ClipOval(
                                 child: new SizedBox(
                                   width: 180.0,
@@ -890,8 +891,8 @@ await
                                                      getTranslated('add_job_btn_txt', context) ,
                                        
                                                      style: TextStyle(
-                                                       fontWeight: FontWeight.bold,
-                                                       
+                                                       fontWeight: FontWeight.w500,
+                                                        color: Theme.of(context).cardColor,
                                                        fontSize: 20
                                                      ),
                                                ),

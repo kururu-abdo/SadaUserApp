@@ -276,10 +276,11 @@ setSelectedSubCategory(int index){
     log(_selectedProductId.toString());
     notifyListeners();
   }
-
-  void initBrandOrCategoryProductList(bool isBrand, String id, BuildContext context) async {
+bool isProductLoading=false;
+  Future<void> initBrandOrCategoryProductList(bool isBrand, String id, BuildContext context) async {
     _brandOrCategoryProductList.clear();
     _hasData = true;
+    isProductLoading=true;
       notifyListeners();
 
     ApiResponse apiResponse = await productRepo.getBrandOrCategoryProductList(isBrand, id);
@@ -295,14 +296,56 @@ setSelectedSubCategory(int index){
 
       _brandOrCategoryProductList.addAll(_products.reversed);
       // brandOrCategoryProductList2.addAll(_brandOrCategoryProductList);
-    } else {
+       isProductLoading=false;
+
+    notifyListeners();
+   
+   
+    } 
+    
+    
+    if (apiResponse.response != null && apiResponse.response.statusCode == 304) {
+      apiResponse.response.data.forEach((product) => 
+      
+      _brandOrCategoryProductList.add(Product.fromJson(product)));
+      _hasData = _brandOrCategoryProductList.length > 1;
+      List<Product> _products = [];
+      _products.addAll(_brandOrCategoryProductList);
+      _brandOrCategoryProductList.clear();
+      // brandOrCategoryProductList2.clear();
+
+      _brandOrCategoryProductList.addAll(_products.reversed);
+      // brandOrCategoryProductList2.addAll(_brandOrCategoryProductList);
+       isProductLoading=false;
+
+    notifyListeners();
+   
+   
+    } 
+    
+    
+    
+    
+    
+    
+    
+    else {    isProductLoading=false;
+
+    notifyListeners();
       ApiChecker.checkApi(context, apiResponse);
     }
+      // notifyListeners();
+          isProductLoading=false;
+
     notifyListeners();
   }
+
+
 filterBrandAndCategoryProductList(BuildContext context,int category)async{
   _brandOrCategoryProductList.clear();
     _hasData = true;
+    isProductLoading =true;
+    notifyListeners();
     ApiResponse apiResponse = await productRepo.getProductsById(category.toString());
    
    
@@ -319,6 +362,7 @@ filterBrandAndCategoryProductList(BuildContext context,int category)async{
 // 
       _brandOrCategoryProductList.addAll(_products.reversed);
       // brandOrCategoryProductList2.addAll(_brandOrCategoryProductList);
+    isProductLoading =false;
 
           notifyListeners();
 
@@ -334,10 +378,12 @@ _brandOrCategoryProductList.clear();
 // 
       _brandOrCategoryProductList.addAll(_products.reversed);
       // brandOrCategoryProductList2.addAll(_brandOrCategoryProductList);
+    isProductLoading =false;
 
           notifyListeners();
     }
-     else {
+     else {    isProductLoading =false;
+
       log('HERE IS PROBELM');
       log(apiResponse.error.toString());
       ApiChecker.checkApi(context, apiResponse);

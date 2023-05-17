@@ -67,7 +67,7 @@ class _ProductDetailsState extends State<ProductDetails2> {
     itemId: "${widget.product.slug}",
     itemName: "${widget.product.name}",
     itemCategory: "${widget.product.categoryIds.first}",
-    itemVariant: "${widget.product.colors.first}",
+    itemVariant: "${widget.product.colors.length>0?widget.product.colors.first:''}",
     price: widget.product.unitPrice,
 
 );
@@ -147,8 +147,13 @@ Scaffold(
 
 
               Text(getTranslated('product_details', context),
+
+              
                   style: robotoRegular.copyWith(fontSize: 20,
-                      color: Theme.of(context).cardColor)),
+                      color: Theme.of(context).cardColor)
+                      
+                      
+                      ),
             ]),
 
             automaticallyImplyLeading: false,
@@ -195,7 +200,9 @@ padding: EdgeInsets.only(top: Dimensions.FONT_SIZE_DEFAULT),
                     Container(height: 250,
                       margin: EdgeInsets.only(top: Dimensions.PADDING_SIZE_SMALL),
                       padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-                      child: ProductSpecification(productSpecification: widget.product.details ?? ''),) : SizedBox(),
+                      child: 
+                      ProductSpecification(productSpecification: widget.product.details
+                       ?? ''),) : SizedBox(),
 
                     widget.product.videoUrl != null?
                     YoutubeVideoWidget(url: widget.product.videoUrl):SizedBox(),
@@ -221,6 +228,8 @@ padding: EdgeInsets.only(top: Dimensions.FONT_SIZE_DEFAULT),
                       padding: EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
                       color: Theme.of(context).cardColor,
                       child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+
+
                         Text(getTranslated('customer_reviews', context),
                           style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),),
                         SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT,),
@@ -312,51 +321,7 @@ padding: EdgeInsets.only(top: Dimensions.FONT_SIZE_DEFAULT),
 
 
 
-                            final _dialog = RatingDialog(
-      initialRating: 1.0,
-      // your app's name?
-      title: Text(
-        'What is your rate',
-        textAlign: TextAlign.center,
-        style: const TextStyle(
-          fontSize: 25,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      // encourage your user to leave a high rating?
-      message: Text(
-        'Please share your opinion about us',
-        textAlign: TextAlign.center,
-        style: const TextStyle(fontSize: 15),
-      ),
-      // your app's logo?
-      // image: const FlutterLogo(size: 100),
-      submitButtonText: 'Add Rating',
-      commentHint: 'let see you opinion',
-      onCancelled: () => print('cancelled'),
-      onSubmitted: (response) {
-        print('rating: ${response.rating}, comment: ${response.comment}');
-//
-
-//call api to send rate
-
-
-
-        // TODO: add your own logic
-        // if (response.rating < 3.0) {
-        //   // send their comments to your email or anywhere you wish
-        //   // ask the user to contact you instead of leaving a bad review
-        // } else {
-        //   // _rateAndReviewApp();
-        // }
-      },
-    );
-
-  showDialog(
-      context: context,
-      barrierDismissible: true, // set to false if you want to force a rating
-      builder: (context) => _dialog,
-    );
+                    
 
 
                          },

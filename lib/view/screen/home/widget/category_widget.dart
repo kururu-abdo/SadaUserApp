@@ -12,7 +12,9 @@ class CategoryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column( children: [
+    return 
+
+    Column( children: [
       Container(
         height: MediaQuery.of(context).size.width/5,
         width: MediaQuery.of(context).size.width/5,
@@ -47,6 +49,7 @@ class CategoryWidget extends StatelessWidget {
         ),
       ),
 
-    ]);
+    ])
+    ;
   }
 }

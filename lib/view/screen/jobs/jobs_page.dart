@@ -629,8 +629,18 @@ Column(
                 },
                 controller: editingController,
                 decoration: InputDecoration(
-                    labelText: "Search",
-                    hintText: "Search",
+                    labelText:
+                  
+                    
+                    getTranslated('search_txt', context)
+                    //  "Search"
+                     ,
+                    hintText: 
+                    
+                    getTranslated('search_txt', context)
+                    // "Search"
+                    
+                    ,
                     prefixIcon: Icon(Icons.search),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(25.0)))),

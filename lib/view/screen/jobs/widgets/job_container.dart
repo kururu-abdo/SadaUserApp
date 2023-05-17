@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/provider/splash_provider.dart';
 import 'package:eamar_user_app/utill/app_constants.dart';
@@ -130,7 +131,14 @@ Row(
 
  IconButton(onPressed: ()async{
 //https://wa.me/+966${w}/?text=Hello
-
+await FirebaseAnalytics.instance.logEvent(
+    name: "job_whatsapp",
+    parameters: {
+        "name":name      ,
+        "time": DateTime.now().toString(),
+        "job":job
+    },
+);
 var encoded = Uri.encodeFull("whatsapp://send?phone=+966${phone}");
 
 await _launchWhatsapp(encoded);
@@ -158,6 +166,14 @@ try {
 
 InkWell(
   onTap: ()async{
+    await FirebaseAnalytics.instance.logEvent(
+    name: "job_call",
+    parameters: {
+        "name":name      ,
+        "time": DateTime.now().toString(),
+        "job":job
+    },
+);
     await _makePhoneCall(phone);
   },
   child:   Container(

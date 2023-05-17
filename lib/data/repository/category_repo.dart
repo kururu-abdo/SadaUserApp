@@ -17,4 +17,51 @@ class CategoryRepo {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
+
+ Future<ApiResponse> getProductsById(String id) async {
+ try {
+      final response = await dioClient.get(
+        AppConstants.GET_PRODUCTS_BY_ID+id);
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+
+
+  }
+
+
+
+
+ Future<ApiResponse> getSellerProductList(String sellerId, String offset) async {
+    try {
+      final response = await dioClient.get(
+        AppConstants.SELLER_PRODUCT_URI+sellerId+'/products?limit=10&&offset='+offset);
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
+  Future<ApiResponse> getBrandOrCategoryProductList(bool isBrand, String id) async {
+    try {
+      String uri;
+      if(isBrand){
+        uri = '${AppConstants.BRAND_PRODUCT_URI}$id';
+      }else {
+        uri = '${AppConstants.CATEGORY_PRODUCT_URI}$id';
+      }
+      final response = await dioClient.get(uri);
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
+
+
+
+
+
+
+
 }

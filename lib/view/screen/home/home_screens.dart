@@ -77,6 +77,7 @@ Future.wait(
      Provider.of<BrandProvider>(context, listen: false).getBrandList(reload, context),
      Provider.of<ProductProvider>(context, listen: false).getLatestProductList(1, context, reload: reload),
      Provider.of<ProductProvider>(context, listen: false).getFeaturedProductList('1', context, reload: reload),
+     
      Provider.of<FeaturedDealProvider>(context, listen: false).getFeaturedDealList(reload, context),
      Provider.of<ProductProvider>(context, listen: false).getLProductList('1', context, reload: reload),
      Provider.of<ProductProvider>(context, listen: false).getRecommendedProduct(context),
@@ -123,7 +124,8 @@ Future.delayed(Duration.zero ,
     super.initState();
 
     
-    singleVendor = Provider.of<SplashProvider>(context, listen: false).configModel.businessMode == "single";
+   Future.microtask(() {
+ singleVendor = Provider.of<SplashProvider>(context, listen: false).configModel.businessMode == "single";
     Provider.of<FlashDealProvider>(context, listen: false).getMegaDealList(true, context, true);
 
     _loadData(context, false);
@@ -134,6 +136,7 @@ Future.delayed(Duration.zero ,
     }else {
       Provider.of<CartProvider>(context, listen: false).getCartData();
     }
+   });
   }
 
 

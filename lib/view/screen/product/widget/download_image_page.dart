@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:eamar_user_app/data/datasource/remote/chache/app_path_provider.dart';
+import 'package:eamar_user_app/localization/language_constrants.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/product_model.dart';
 import 'package:eamar_user_app/helper/price_converter.dart';
@@ -101,10 +102,16 @@ class _ProductImageDownloadState extends State<ProductImageDownload> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          title: Text(
+          getTranslated('dowlonad_image' , context),
+
+             style: robotoRegular.copyWith(fontSize: 20,
+                      color: Theme.of(context).cardColor)
+          ),
           // backgroundColor: Colors.transparent,
           leading: IconButton(onPressed: (){
             Navigator.pop(context);
-          }, icon: Icon(Icons.arrow_back_ios)),
+          }, icon: Icon(Icons.arrow_back_ios ,   color: Theme.of(context).cardColor)),
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -157,7 +164,9 @@ class _ProductImageDownloadState extends State<ProductImageDownload> {
               
                                       alignment: Alignment.center,
                                       child: Transform.rotate(angle: 120,
-                                      child: Text('صدى الاعمار ' ,
+                                      child: Text(
+                                     getTranslated('sada' , context)      
+                                      ,
                                       
                                       style: TextStyle(
                                         fontSize: 50 ,fontWeight: FontWeight.bold ,
@@ -222,8 +231,8 @@ class _ProductImageDownloadState extends State<ProductImageDownload> {
                 child: Center(
                   child:
                     SizedBox(
-                      height: 40,
-                      width: 80,
+                      height: 50,
+                      width: 120,
                       child: OutlinedButton(
                               style: OutlinedButton.styleFrom(
                                 padding: EdgeInsets.all(8),
@@ -242,8 +251,9 @@ class _ProductImageDownloadState extends State<ProductImageDownload> {
                     await _downloadImage();
                               },
                               child: Center(
-                                child: Text('تحميل'
-                                ,
+                                child: Text(    getTranslated('dowload' , context)      
+                                      ,
+                                
                                      style: TextStyle(
                         color: Colors.black, 
                         fontWeight: FontWeight.bold

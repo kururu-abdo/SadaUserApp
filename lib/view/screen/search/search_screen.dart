@@ -301,6 +301,7 @@ Provider.of<SearchProvider>(context, listen: false).getCategoryList(false ,conte
                                       .map(
                                         (item) => DropdownItem<Category>(
                                           value: item,
+                                          
                                           child: Padding(
                                             padding: const EdgeInsets.only(
                               
@@ -343,7 +344,7 @@ Provider.of<SearchProvider>(context, listen: false).getCategoryList(false ,conte
                                                     keyboardType: TextInputType.number,
                                                     textInputAction: TextInputAction.next,
                                                     // onSubmitted: (_) => FocusScope.of(context).requestFocus(_lastFocus),
-                                                    textAlign: TextAlign.center,
+                                                    // textAlign: TextAlign.center,
                                                     maxLines: 1,
                                                   
                                                     // focusNode: _firstFocus,
@@ -393,7 +394,7 @@ if (str.isEmpty) {
        backgroundColor: Colors.red));
                               }else{
                                  if (_vormKey.currentState.validate()) {
-                                await searchProvider.filterByBudgetAndCategory(searchProvider.category.id, num.parse(_firstPriceController.text), context);
+                                await searchProvider.filterByBudgetAndCategory(searchProvider.category, num.parse(_firstPriceController.text), context);
                               }
                               }
                              
@@ -430,9 +431,11 @@ if (str.isEmpty) {
                                                     getTranslated('show_result_txt', context) ,
                                          
                                                        style: TextStyle(
-                                                         fontWeight: FontWeight.bold,
+                                                         fontWeight: FontWeight.w500,
                                                          
-                                                         fontSize: 20
+                                                         fontSize: 20 ,
+
+                                                         color: Theme.of(context).cardColor
                                                        ),
                                                  ),
                                                ),

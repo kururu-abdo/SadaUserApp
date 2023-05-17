@@ -52,7 +52,9 @@ void initState() {
  
     return Scaffold(
       backgroundColor: ColorResources.getIconBg(context),
-      body: Consumer<ProductProvider>(
+      body: 
+      
+      Consumer<ProductProvider>(
         builder: (context, productProvider, child) {
           return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
 
@@ -202,7 +204,14 @@ void initState() {
 //             SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
             // Products
-            productProvider.brandOrCategoryProductList.length > 0 ? Expanded(
+            productProvider.brandOrCategoryProductList.length > 0 
+            
+            // && !productProvider.isProductLoading
+            
+            ?
+             Expanded(
+            
+            
               child: StaggeredGridView.countBuilder(
                 padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL),
                 physics: BouncingScrollPhysics(),
@@ -216,12 +225,28 @@ void initState() {
               ),
             ) :
 
-            Expanded(child: Center(child: productProvider.hasData ?
+      
+            Expanded(child: Center(
+              child:
+              //  !productProvider.hasData
+               productProvider.isProductLoading
+               
+               
+                ?
 
               ProductShimmer(isHomePage: false,
-                isEnabled: Provider.of<ProductProvider>(context).brandOrCategoryProductList.length == 0)
-                : NoInternetOrDataScreen(isNoInternet: false),
+
+                isEnabled: 
+                    productProvider.isProductLoading
+               
+                // Provider.of<ProductProvider>(context )
+                // .brandOrCategoryProductList.length == 0
+                
+                )
+                : 
+                NoInternetOrDataScreen(isNoInternet: false),
             )),
+
 
           ]);
         },

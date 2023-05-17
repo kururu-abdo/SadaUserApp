@@ -457,86 +457,90 @@ result;
  
 
 
- Container(
-   height: 120,      color: Theme.of(context).cardColor,
-   width: double.infinity,
-   child: 
-   
-   
-   
-   ListView.builder(
-     scrollDirection: Axis.horizontal,
-       padding: const EdgeInsets.all(8),
-    itemCount: widget.productModel.images.length,
-    itemBuilder: (BuildContext context, int index) { 
-return 
-       GestureDetector(
-         onTap: (){   
-            setState(() {
-                        _currentIndex=index;
-                    });
-                 _controller.jumpToPage(_currentIndex);
-                    Provider.of<ProductDetailsProvider>(context, listen: false).setImageSliderSelectedIndex(index);
-         },
-         child: Card(
-       shape: RoundedRectangleBorder(
-            borderRadius:
-               index == Provider.of<ProductDetailsProvider>(context).imageSliderIndex?
-                BorderRadius.circular(20):   BorderRadius.zero ,
-       ),
-       
-           elevation:index == Provider.of<ProductDetailsProvider>(context).imageSliderIndex ?2:0 ,
-           child: Container(
-             width: 100,
-             height: 100, 
-              
-             decoration: BoxDecoration( color: Theme.of(context).highlightColor,
-            //  boxShadow: index == Provider.of<ProductDetailsProvider>(context).imageSliderIndex ?
-             borderRadius:   BorderRadius.circular(20),
-            //  [
-            //    BoxShadow(
-            //      blurRadius: 1 ,
-            //      offset: Offset(0, 1),
-            //      spreadRadius: 1 ,
-            //     //  color: Theme.of(context).colorScheme.shadow,
-                
-            //    )
-            //  ]:null
-            //  ,
-            
-               image: DecorationImage(image: NetworkImage('${Provider.of<SplashProvider>(context,listen: false).baseUrls.productImageUrl}/${ widget.productModel.images[index]}'),
-               fit: BoxFit.cover
-               
-               )
-             ),
-             margin: EdgeInsets.all(10),
-            //  padding:
-            //  EdgeInsets.all(10), 
-           ),
-         ),
-       );
-    })
-    //  children: widget.productModel.images.map((e) => 
-     
-    //  Center(
-    //    child: 
+ Visibility(
+visible: widget.productModel.images.length>1,
 
-    //    Container(
-    //      width: 100,
-    //      height: 100, 
+   child: Container(
+     height: 120,      color: Theme.of(context).cardColor,
+     width: double.infinity,
+     child: 
      
-    //      decoration: BoxDecoration( color: Theme.of(context).highlightColor,
-    //        borderRadius: BorderRadius.circular(20) ,
-    //        image: DecorationImage(image: NetworkImage('${Provider.of<SplashProvider>(context,listen: false).baseUrls.productImageUrl}/${e}'))
-    //      ),
-    //      margin: EdgeInsets.all(10),
-    //      padding:
-    //      EdgeInsets.all(10), 
-    //    ),
      
-    //  )
-    //  ).toList(),
-  //  ),
+     
+     ListView.builder(
+       scrollDirection: Axis.horizontal,
+         padding: const EdgeInsets.all(8),
+      itemCount: widget.productModel.images.length,
+      itemBuilder: (BuildContext context, int index) { 
+ return 
+         GestureDetector(
+           onTap: (){   
+              setState(() {
+                          _currentIndex=index;
+                      });
+                   _controller.jumpToPage(_currentIndex);
+                      Provider.of<ProductDetailsProvider>(context, listen: false).setImageSliderSelectedIndex(index);
+           },
+           child: Card(
+         shape: RoundedRectangleBorder(
+              borderRadius:
+                 index == Provider.of<ProductDetailsProvider>(context).imageSliderIndex?
+                  BorderRadius.circular(20):   BorderRadius.zero ,
+         ),
+         
+             elevation:index == Provider.of<ProductDetailsProvider>(context).imageSliderIndex ?2:0 ,
+             child: Container(
+               width: 100,
+               height: 100, 
+                
+               decoration: BoxDecoration( color: Theme.of(context).highlightColor,
+              //  boxShadow: index == Provider.of<ProductDetailsProvider>(context).imageSliderIndex ?
+               borderRadius:   BorderRadius.circular(20),
+              //  [
+              //    BoxShadow(
+              //      blurRadius: 1 ,
+              //      offset: Offset(0, 1),
+              //      spreadRadius: 1 ,
+              //     //  color: Theme.of(context).colorScheme.shadow,
+                  
+              //    )
+              //  ]:null
+              //  ,
+              
+                 image: DecorationImage(image: NetworkImage('${Provider.of<SplashProvider>(context,listen: false).baseUrls.productImageUrl}/${ widget.productModel.images[index]}'),
+                 fit: BoxFit.cover
+                 
+                 )
+               ),
+               margin: EdgeInsets.all(10),
+              //  padding:
+              //  EdgeInsets.all(10), 
+             ),
+           ),
+         );
+      })
+      //  children: widget.productModel.images.map((e) => 
+       
+      //  Center(
+      //    child: 
+ 
+      //    Container(
+      //      width: 100,
+      //      height: 100, 
+       
+      //      decoration: BoxDecoration( color: Theme.of(context).highlightColor,
+      //        borderRadius: BorderRadius.circular(20) ,
+      //        image: DecorationImage(image: NetworkImage('${Provider.of<SplashProvider>(context,listen: false).baseUrls.productImageUrl}/${e}'))
+      //      ),
+      //      margin: EdgeInsets.all(10),
+      //      padding:
+      //      EdgeInsets.all(10), 
+      //    ),
+       
+      //  )
+      //  ).toList(),
+    //  ),
+   ),
  )
       ],
     );

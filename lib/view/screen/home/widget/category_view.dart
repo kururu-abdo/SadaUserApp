@@ -1,3 +1,6 @@
+import 'package:eamar_user_app/view/screen/home/widget/category_details_screen.dart';
+import 'package:eamar_user_app/view/screen/product/all_product_by_category.dart';
+import 'package:eamar_user_app/view/screen/product/category_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/provider/category_provider.dart';
 import 'package:eamar_user_app/view/screen/home/widget/category_widget.dart';
@@ -16,6 +19,7 @@ class CategoryView extends StatelessWidget {
       builder: (context, categoryProvider, child) {
 
         return 
+        
         categoryProvider.categoryList.length != 0 ?
         SizedBox(
           height: MediaQuery.of(context).size.width/4,
@@ -41,25 +45,80 @@ class CategoryView extends StatelessWidget {
             physics: ScrollPhysics(),
             itemBuilder: (BuildContext context, int index) {
         
-              return InkWell(
+
+
+
+
+              return
+              
+               InkWell(
                 onTap: () {
                   categoryProvider.changeSelectedIndex(index);
                   
-                  Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                   BrandAndCategoryProductScreen(
+
+
+
+
+if (categoryProvider.categoryList[index].subCategories.length>0) {
+    //  Navigator.push(context, MaterialPageRoute(builder: (_) =>
+    //                CategoryDetailsScreen(
+    //                 isBrand: false,
+    //                 category: categoryProvider.categoryList[index],
+    //                 id: categoryProvider.categoryList[index].id.toString(),
+    //                 name: categoryProvider.categoryList[index].name,
+    //               )));
+
+
+
+
+
+
+
+Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                   CategoryDetailsPage(
+                    // isBrand: false,
+                    category: categoryProvider.categoryList[index],
+                    // id: categoryProvider.categoryList[index].id.toString(),
+                    // name: categoryProvider.categoryList[index].name,
+                  )));
+
+
+
+
+
+
+} else {
+
+
+  Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                   AllProductsByCategory(
                     isBrand: false,
+                    // category: categoryProvider.categoryList[index],
                     id: categoryProvider.categoryList[index].id.toString(),
                     name: categoryProvider.categoryList[index].name,
                   )));
+
+
+
+
+
+}
+
+
+               
                 },
                 child: CategoryWidget(category: categoryProvider.categoryList[index]),
               );
         
+           
+           
             },
           ),
         )
 
-        : CategoryShimmer();
+        : 
+        
+        CategoryShimmer();
 
       },
     );

@@ -64,7 +64,7 @@ void initState() {
     return  Consumer<JobsProvider>(
       builder: (context , provider, child) {
         return new Container(
-                    height: 500.0,
+                    height: 400.0,
                     color: Colors.transparent, //could change this to Color(0xFF737373), 
                                //so you don't have to change MaterialApp canvasColor
                     child: new Container(
@@ -443,8 +443,8 @@ CustomDropdown<City>(
                                           getTranslated('search_txt', context) ,
                             
                                           style: TextStyle(
-                                            color: Theme.of(context).highlightColor,
-                                            fontWeight: FontWeight.bold,
+                                            color: Theme.of(context).cardColor,
+                                            fontWeight: FontWeight.w500,
                                             fontSize: 20
                                           ),
                                         ),

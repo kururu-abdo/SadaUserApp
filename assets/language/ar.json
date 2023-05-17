@@ -410,6 +410,14 @@
 "filter_txt":"الفلاتر" ,
 "location_txt":"الموقع",
 "whatss_num":"رقم الواتساب"
-
+ ,
+ "dowlonad_image":"تحميل الصورة" ,
+ "dowload":"تحميل"
+ ,"sada":"صدى الاعمار" ,
+ "add_rating":"تعليق" ,
+ "whats_is_your_rate":"ما هو تقييمك؟" ,
+ "plesase_share_opinion":"قم بإبداء رأيك" ,
+ "please_comment":"الرجاء كتابة تعليق" ,
+ "thanks_for_rate":"شكرا على ابداء رأيك"
 
 }

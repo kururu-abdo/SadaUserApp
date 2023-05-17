@@ -143,9 +143,13 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>>
           onPressed: _toggleDropdown,
           child: Row(
             mainAxisAlignment:
-                style.mainAxisAlignment??  MainAxisAlignment.spaceEvenly,
-            textDirection:
-                widget.leadingIcon ? TextDirection.rtl : TextDirection.ltr,
+                style.mainAxisAlignment??  
+                MainAxisAlignment.spaceEvenly,
+            // textDirection:
+            //     widget.leadingIcon ? 
+            //     TextDirection.rtl :
+                
+            //      TextDirection.ltr,
             mainAxisSize: MainAxisSize.max,
             children: [
               if (_currentIndex == -1) ...[
@@ -155,7 +159,7 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T>>
               ],
 
 
-              if (widget.hideIcon)
+              if (!widget.hideIcon)
                 RotationTransition(
                   turns: _rotateAnimation,
                   child:

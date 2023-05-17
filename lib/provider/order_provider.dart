@@ -201,7 +201,7 @@ await FirebaseAnalytics.instance.logPurchase(
     affiliation: "Eamar Store",
     currency: 'SAR',
     // value: 15.98,
-    // shipping: orderPlaceModel.paymentMethod.,
+
     // tax: 1.66,
     // coupon: "SUMMER_FUN",
     items:  orderPlaceModel.cart.map((e) => 
@@ -209,7 +209,12 @@ await FirebaseAnalytics.instance.logPurchase(
       AnalyticsEventItem(
         itemName: e.name,
         itemId: e.id.toString(),
-        price: e.price
+        price: e.price ,quantity: e.quantity ,
+
+        currency: 'SAR' ,
+      itemCategory2: e.variant ,
+      
+        
       )
     
     ).toList() ,

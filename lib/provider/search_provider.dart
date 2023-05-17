@@ -152,14 +152,14 @@ setCategory(Category cat){
     }
     notifyListeners();
   }
- void filterByBudgetAndCategory(cat, budget, BuildContext context) async {
-    _searchText = "Cat: ${cat},Amount:${budget}";
+ void filterByBudgetAndCategory(Category cat, budget, BuildContext context) async {
+    _searchText = "Cat: ${cat.name},Amount:${budget}";
     _isClear = false;
     _searchProductList = null;
     _filterProductList = null;
     notifyListeners();
 
-    ApiResponse apiResponse = await searchRepo.filterByBudget(cat , budget);
+    ApiResponse apiResponse = await searchRepo.filterByBudget(cat.id , budget);
     if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
       // if (query.isEmpty) {
       //   _searchProductList = [];

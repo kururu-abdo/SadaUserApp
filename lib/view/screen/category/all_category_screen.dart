@@ -1,5 +1,6 @@
 
 import 'package:eamar_user_app/view/screen/category/sub_categories_page.dart';
+import 'package:eamar_user_app/view/screen/product/all_product_by_category.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/category.dart';
 import 'package:eamar_user_app/localization/language_constrants.dart';
@@ -57,7 +58,12 @@ class AllCategoryScreen extends StatelessWidget {
                               ))
                             );
                           }else {
-                            
+                             Navigator.push(context, MaterialPageRoute(builder: (_) => AllProductsByCategory(
+                              isBrand: false,
+                              
+                              id: _category.id.toString(),
+                              name: _category.name,
+                            )));
                           }
                           Provider.of<CategoryProvider>(context, listen: false).changeSelectedIndex(index);
                         },
