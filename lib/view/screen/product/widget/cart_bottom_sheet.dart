@@ -299,12 +299,17 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
 
 
                 // Quantity
+                
                 Row(children: [
                   Text(getTranslated('quantity', context), style: robotoBold),
                   QuantityButton(isIncrement: false, quantity: details.quantity, stock: _stock),
                   Text(details.quantity.toString(), style: titilliumSemiBold),
                   QuantityButton(isIncrement: true, quantity: details.quantity, stock: _stock),
                 ]),
+               
+               
+               
+               
                 SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
 

@@ -94,7 +94,34 @@ class ProfileProvider extends ChangeNotifier {
 
       });
      // apiResponse.response.data.forEach((address) => _addressList.add(AddressModel.fromJson(address)));
-    } else {
+    } 
+    
+    
+    
+    
+    
+    
+        if (apiResponse.response != null ) {
+      _addressList = [];
+      _billingAddressList =[];
+      _shippingAddressList =[];
+      apiResponse.response.data.forEach((address) {
+        AddressModel addressModel = AddressModel.fromJson(address);
+        if(addressModel.isBilling == 1){
+          _billingAddressList.add(addressModel);
+        }else if(addressModel.isBilling == 0){
+          _addressList.add(addressModel);
+        }
+          _shippingAddressList.add(addressModel);
+
+
+      });
+     // apiResponse.response.data.forEach((address) => _addressList.add(AddressModel.fromJson(address)));
+    } 
+    
+    
+    
+    else {
       ApiChecker.checkApi(context, apiResponse);
     }
     notifyListeners();
