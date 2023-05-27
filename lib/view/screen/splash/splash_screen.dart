@@ -4,6 +4,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:eamar_user_app/data/model/response/product_model.dart';
 import 'package:eamar_user_app/helper/firebase_dynamic_links_services.dart';
 import 'package:eamar_user_app/utill/app_constants.dart';
+import 'package:eamar_user_app/view/screen/auth/login_screen.dart';
 import 'package:eamar_user_app/view/screen/product/product_details_from_url.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/localization/language_constrants.dart';
@@ -141,7 +142,7 @@ if (initialLink.contains('product')) {
                   indicatorColor: ColorResources.GREY, selectedIndicatorColor: Theme.of(context).primaryColor,
                 )));
               }else {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => AuthScreen()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => LoginScreen()));
               }
             }
           }

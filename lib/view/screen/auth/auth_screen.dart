@@ -38,7 +38,9 @@ class AuthScreen extends StatelessWidget{
           //     width: MediaQuery.of(context).size.width),
 
           Consumer<AuthProvider>(
-            builder: (context, auth, child) => SafeArea(
+            builder: (context, auth, child) => 
+            
+            SafeArea(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -140,4 +142,34 @@ class AuthScreen extends StatelessWidget{
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

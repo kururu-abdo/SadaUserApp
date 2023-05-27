@@ -2,6 +2,9 @@
 import 'dart:developer';
 
 import 'package:country_code_picker/country_code.dart';
+import 'package:eamar_user_app/provider/theme_provider.dart';
+import 'package:eamar_user_app/view/screen/auth/signup_screen.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/body/login_model.dart';
 import 'package:eamar_user_app/localization/language_constrants.dart';
@@ -153,159 +156,271 @@ print(_email.toString());
     Provider.of<AuthProvider>(context, listen: false).isRemember;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: Dimensions.MARGIN_SIZE_LARGE),
+      padding: const EdgeInsets.symmetric(horizontal: 
+      Dimensions.MARGIN_SIZE_LARGE),
       child: Form(
         key: _formKeyLogin,
-        child: ListView(
-          padding: EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_SMALL),
-          children: [
+        child: Container(
+            padding:
+           EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_SMALL),
 
 
-            // Container(
-            //     margin:
-            //     EdgeInsets.only(bottom: Dimensions.MARGIN_SIZE_SMALL),
-            //     child: CustomTextField(
-            //       hintText: getTranslated('ENTER_YOUR_EMAIL', context),
-            //       focusNode: _emailNode,
-            //       nextNode: _passNode,
-            //       textInputType: TextInputType.emailAddress,
-            //       controller: _emailController,
-            //     )),
-
-  //for phone
-
-
-  //  Container(
-  //           margin: EdgeInsets.only(
-  //               left: Dimensions.MARGIN_SIZE_LARGE,
-  //               right: Dimensions.MARGIN_SIZE_LARGE,
-  //               bottom: Dimensions.MARGIN_SIZE_SMALL),
-  //           child: Row(
-  //             children: [
-  //               // CodePickerWidget(
-  //               //   onChanged: (CountryCode countryCode) {
-  //               //     _countryDialCode = countryCode.dialCode;
-  //               //   },
-  //               //   initialSelection: _countryDialCode,
-  //               //   favorite: [_countryDialCode],
-  //               //   showDropDownButton: true,
-  //               //   padding: EdgeInsets.zero,
-  //               //   showFlagMain: true,
-  //               //   textStyle: TextStyle(
-  //               //       color: Theme.of(context).textTheme.headline1.color),
-  //               // ),
-  //               Expanded(
-  //                   child: Container(
-  //                                margin:
-  //               EdgeInsets.only(bottom: Dimensions.MARGIN_SIZE_DEFAULT),
-  //                     child: CustomTextField(
-  //                                     hintText: getTranslated('ENTER_MOBILE_NUMBER', context),
-  //                                     focusNode: _emailNode,
-  //                                     nextNode: _passNode,
-  //                                     controller: _emailController,
-                                      
-  //                                     isPhoneNumber: true,
-  //                                     textInputAction: TextInputAction.next,
-  //                                     textInputType: TextInputType.phone,
-  //                                   ),
-  //                   )),
-  //             ],
-  //           ),
-  //         ),
-Container(
-                                 margin:
-                EdgeInsets.only(bottom: Dimensions.MARGIN_SIZE_DEFAULT),
-                      child: CustomTextField(
-                                      hintText: getTranslated('ENTER_MOBILE_NUMBER', context),
-                                      focusNode: _emailNode,
-                                      nextNode: _passNode,
-                                      controller: _emailController,
-                                      
-                                      isPhoneNumber: true,
-                                      textInputAction: TextInputAction.next,
-                                      textInputType: TextInputType.phone,
-                                    ),
+          child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+        
+            children: [
+        
+        
+              // Container(
+              //     margin:
+              //     EdgeInsets.only(bottom: Dimensions.MARGIN_SIZE_SMALL),
+              //     child: CustomTextField(
+              //       hintText: getTranslated('ENTER_YOUR_EMAIL', context),
+              //       focusNode: _emailNode,
+              //       nextNode: _passNode,
+              //       textInputType: TextInputType.emailAddress,
+              //       controller: _emailController,
+              //     )),
+        
+          //for phone
+        
+        
+          //  Container(
+          //           margin: EdgeInsets.only(
+          //               left: Dimensions.MARGIN_SIZE_LARGE,
+          //               right: Dimensions.MARGIN_SIZE_LARGE,
+          //               bottom: Dimensions.MARGIN_SIZE_SMALL),
+          //           child: Row(
+          //             children: [
+          //               // CodePickerWidget(
+          //               //   onChanged: (CountryCode countryCode) {
+          //               //     _countryDialCode = countryCode.dialCode;
+          //               //   },
+          //               //   initialSelection: _countryDialCode,
+          //               //   favorite: [_countryDialCode],
+          //               //   showDropDownButton: true,
+          //               //   padding: EdgeInsets.zero,
+          //               //   showFlagMain: true,
+          //               //   textStyle: TextStyle(
+          //               //       color: Theme.of(context).textTheme.headline1.color),
+          //               // ),
+          //               Expanded(
+          //                   child: Container(
+          //                                margin:
+          //               EdgeInsets.only(bottom: Dimensions.MARGIN_SIZE_DEFAULT),
+          //                     child: CustomTextField(
+          //                                     hintText: getTranslated('ENTER_MOBILE_NUMBER', context),
+          //                                     focusNode: _emailNode,
+          //                                     nextNode: _passNode,
+          //                                     controller: _emailController,
+                                        
+          //                                     isPhoneNumber: true,
+          //                                     textInputAction: TextInputAction.next,
+          //                                     textInputType: TextInputType.phone,
+          //                                   ),
+          //                   )),
+          //             ],
+          //           ),
+          //         ),
+        Container(
+                                   margin:
+                  EdgeInsets.only(bottom: Dimensions.MARGIN_SIZE_DEFAULT),
+                        child: CustomTextField(
+                                        hintText: getTranslated('ENTER_MOBILE_NUMBER', context),
+                                        focusNode: _emailNode,
+                                        nextNode: _passNode,
+                                        controller: _emailController,
+                                        
+                                        isPhoneNumber: true,
+                                        textInputAction: TextInputAction.next,
+                                        textInputType: TextInputType.phone,
+                                      ),
+                      ),
+              Container(
+                  margin:
+                  EdgeInsets.only(bottom: Dimensions.MARGIN_SIZE_DEFAULT),
+                  child: CustomPasswordTextField(
+                    hintTxt: getTranslated('ENTER_YOUR_PASSWORD', context),
+                    textInputAction: TextInputAction.done,
+                    focusNode: _passNode,
+                    controller: _passwordController,
+                  )),
+        
+        
+        
+              Container(
+                margin: EdgeInsets.only(right: Dimensions.MARGIN_SIZE_SMALL),
+                child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [Row(children: [
+                    Consumer<AuthProvider>(
+                      builder: (context, authProvider, child) => Checkbox(
+                        checkColor: ColorResources.WHITE,
+                        activeColor: Theme.of(context).primaryColor,
+                        value: authProvider.isRemember,
+                        onChanged: authProvider.updateRemember,),),
+        
+        
+                    Text(getTranslated('REMEMBER', context),
+                     style: titilliumRegular),
+                  ],),
+        
+                    InkWell(
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ForgetPasswordScreen())),
+                      child: Text(getTranslated('FORGET_PASSWORD', context),
+                          style: titilliumRegular.copyWith(
+                          color: ColorResources.getLightSkyBlue(context))),
                     ),
-            Container(
-                margin:
-                EdgeInsets.only(bottom: Dimensions.MARGIN_SIZE_DEFAULT),
-                child: CustomPasswordTextField(
-                  hintTxt: getTranslated('ENTER_YOUR_PASSWORD', context),
-                  textInputAction: TextInputAction.done,
-                  focusNode: _passNode,
-                  controller: _passwordController,
-                )),
-
-
-
-            Container(
-              margin: EdgeInsets.only(right: Dimensions.MARGIN_SIZE_SMALL),
-              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Row(children: [
-                  Consumer<AuthProvider>(
-                    builder: (context, authProvider, child) => Checkbox(
-                      checkColor: ColorResources.WHITE,
-                      activeColor: Theme.of(context).primaryColor,
-                      value: authProvider.isRemember,
-                      onChanged: authProvider.updateRemember,),),
-
-
-                  Text(getTranslated('REMEMBER', context), style: titilliumRegular),
-                ],),
-
-                  InkWell(
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ForgetPasswordScreen())),
-                    child: Text(getTranslated('FORGET_PASSWORD', context),
-                        style: titilliumRegular.copyWith(
-                        color: ColorResources.getLightSkyBlue(context))),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
+        
+        
+        
+              Container(
 
 
 
-            Container(
-              margin: EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 30),
-              child: Provider.of<AuthProvider>(context).isLoading ?
-              Center(
-                child: CircularProgressIndicator(
-                  valueColor: new AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor,),),) :
-              CustomButton(onTap: loginUser, buttonText: getTranslated('SIGN_IN', context)),),
-            SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
+                // margin: EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 30),
+                
+                   margin: EdgeInsets.only(right: Dimensions.MARGIN_SIZE_SMALL),
+                
+                child: Provider.of<AuthProvider>(context).isLoading ?
+                Center(
+                  child: CircularProgressIndicator(
+                    valueColor: new AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor,),),) :
+                CustomButton(onTap: loginUser, buttonText: getTranslated('SIGN_IN', context)),),
+            
+            
+            
+            
+            
+              SizedBox(height: 8),
+        
+               Container(
+                    margin: EdgeInsets.only(right: Dimensions.MARGIN_SIZE_SMALL),
+                 child: Align(
+               
+                   alignment: getLang(context)=="ar"?
+                   Alignment.centerLeft: 
+                     Alignment.centerRight
+                   ,
+                   child:    getLang(context)=="ar"?
+                   
+                   
+                  RichText(
+                  text:  TextSpan(
+                      text: 'ليس لديك حساب؟' ,
+                      
+                      style:  titilliumRegular.copyWith(
+                 color:      Provider.of<ThemeProvider>(context).darkTheme? 
+                        
+                        
+                        
+                      Colors.white :Colors.black,
 
 
+                          fontSize: 16 ,fontWeight: FontWeight.w500
+                      ),
+                      children: [
+                        TextSpan(
+                          text: 'إنشاء حساب' ,
+                          recognizer:   TapGestureRecognizer()..onTap = () {
+                        
 
-            SocialLoginWidget(),
-            SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context)=>   
+                           SignupScreen()
+                        ));
+                      },
+                          style: TextStyle(
+                            fontSize: 18 , fontWeight: FontWeight.w500 ,
+                            color: Theme.of(context).primaryColor
+                          )
+                        )
+                      ]
+                    )
+                  ):
+               
+              RichText(
+                text:    TextSpan(
+                      text: 'You don\'t have an accoount? ' ,
+                      style: titilliumRegular.copyWith(
+                        fontSize: 16 ,
+                        fontWeight: FontWeight.w500 ,
 
-            Center(child: Text(getTranslated('OR', context),
-                style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT))),
 
+                     
 
+                        color: 
+                        
+                          Provider.of<ThemeProvider>(context).darkTheme? 
+                        
+                        
+                        
+                      Colors.white :Colors.black
+                      ),
+                      children: [
+                        TextSpan(
+                          text: 'create account' ,
+recognizer:   TapGestureRecognizer(
 
-            GestureDetector(
-              onTap: () {
-                if (!Provider.of<AuthProvider>(context, listen: false).isLoading) {
-                  Provider.of<CartProvider>(context, listen: false).getCartData();
-                        Provider.of<AuthProvider>(context, listen: false).setUserType(
-                          'visitor'
-                        );
-                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => DashBoardScreen()),
-                          (route) => false);
-                }
-              },
-              child: Container(
-                margin: EdgeInsets.only(left: Dimensions.MARGIN_SIZE_AUTH, right: Dimensions.MARGIN_SIZE_AUTH,
-                    top: Dimensions.MARGIN_SIZE_AUTH_SMALL),
-                width: double.infinity, height: 40, alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Colors.transparent, borderRadius: BorderRadius.circular(6),),
-                child: Text(getTranslated('CONTINUE_AS_GUEST', context),
-                    style: titleHeader.copyWith(color: ColorResources.getPrimary(context))),
+  
+)..onTap = () {
+                        
+
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context)=>   
+                           SignupScreen()
+                        ));
+                      },
+                          
+                          style: TextStyle(
+                            fontSize: 18 , fontWeight: FontWeight.w500 ,
+                            color: Theme.of(context).primaryColor
+                          ),
+                          
+                        )
+                      ]
+                    )
+                  )
+               
+                   
+                     ,
+                 ),
+               ),
+        
+              // SocialLoginWidget(),
+              // SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+        
+        SizedBox(height: 20,),
+              Center(child: Text(getTranslated('OR', context),
+                  style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT))),
+        
+        
+        
+              GestureDetector(
+                onTap: () {
+                  if (!Provider.of<AuthProvider>(context, listen: false).isLoading) {
+                    Provider.of<CartProvider>(context, listen: false).getCartData();
+                          Provider.of<AuthProvider>(context, listen: false).setUserType(
+                            'visitor'
+                          );
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => DashBoardScreen()),
+                            (route) => false);
+                  }
+                },
+                child: Container(
+                  margin: EdgeInsets.only(left: Dimensions.MARGIN_SIZE_AUTH, right: Dimensions.MARGIN_SIZE_AUTH,
+                      top: Dimensions.MARGIN_SIZE_AUTH_SMALL),
+                  width: double.infinity, height: 40, alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Colors.transparent, borderRadius: BorderRadius.circular(6),),
+                  child: Text(getTranslated('CONTINUE_AS_GUEST', context),
+                      style: titleHeader.copyWith(color: ColorResources.getPrimary(context))),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
