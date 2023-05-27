@@ -56,13 +56,13 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterL
 
  class MyHttpOverrides extends HttpOverrides{
   @override
-  HttpClient createHttpClient(SecurityContext context){
+  HttpClient createHttpClient(SecurityContext? context){
     return super.createHttpClient(context)
       ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
   }
 }
 void _handleDeepLink(PendingDynamicLinkData data) {
-    final Uri deepLink = data?.link;
+    final Uri deepLink = data.link;
     // if (deepLink== null) {
 
     //   print('_handleDeepLink | deeplink: $deepLink');
@@ -72,9 +72,9 @@ void _handleDeepLink(PendingDynamicLinkData data) {
     // }
   }
 void handleBackgroundLinks(PendingDynamicLinkData, {
-  Function onError,
-   Function() onDone,
-  bool cancelOnError,}
+  Function? onError,
+   Function()? onDone,
+  bool? cancelOnError,}
 ){
 
     // final Uri deepLink = PendingDynamicLinkData?.link;
@@ -95,10 +95,10 @@ Future<void> main() async {
 
     await AppPathProvider.initPath();
 
-  int _orderID;
-  if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
-    _orderID = (notificationAppLaunchDetails.payload != null && notificationAppLaunchDetails.payload.isNotEmpty)
-        ? int.parse(notificationAppLaunchDetails.payload) : null;
+  int? _orderID;
+  if (notificationAppLaunchDetails.didNotificationLaunchApp ) {
+    _orderID = (notificationAppLaunchDetails.payload != null && notificationAppLaunchDetails.payload!.isNotEmpty)
+        ? int.parse(notificationAppLaunchDetails.payload!) : null;
   }
 //   final PendingDynamicLinkData initialLink = await FirebaseDynamicLinks.instance.getInitialLink();
 

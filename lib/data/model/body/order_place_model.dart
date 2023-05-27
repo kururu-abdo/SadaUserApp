@@ -2,10 +2,10 @@ import 'package:eamar_user_app/data/model/response/cart_model.dart';
 import 'package:eamar_user_app/data/model/response/product_model.dart';
 
 class OrderPlaceModel {
-  CustomerInfo _customerInfo;
-  List<CartModel> _cart;
-  String _paymentMethod;
-  double _discount;
+  CustomerInfo? _customerInfo;
+  List<CartModel>? _cart;
+  String? _paymentMethod;
+  double? _discount;
 
   OrderPlaceModel(
       CustomerInfo customerInfo,
@@ -18,10 +18,10 @@ class OrderPlaceModel {
     this._discount = discount;
   }
 
-  CustomerInfo get customerInfo => _customerInfo;
-  List<CartModel> get cart => _cart;
-  String get paymentMethod => _paymentMethod;
-  double get discount => _discount;
+  CustomerInfo get customerInfo => _customerInfo!;
+  List<CartModel> get cart => _cart!;
+  String get paymentMethod => _paymentMethod!;
+  double get discount => _discount!;
 
   OrderPlaceModel.fromJson(Map<String, dynamic> json) {
     _customerInfo = json['customer_info'] != null
@@ -30,7 +30,7 @@ class OrderPlaceModel {
     if (json['cart'] != null) {
       _cart = [];
       json['cart'].forEach((v) {
-        _cart.add(new CartModel.fromJson(v));
+        _cart!.add(new CartModel.fromJson(v));
       });
     }
     _paymentMethod = json['payment_method'];
@@ -40,10 +40,10 @@ class OrderPlaceModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this._customerInfo != null) {
-      data['customer_info'] = this._customerInfo.toJson();
+      data['customer_info'] = this._customerInfo!.toJson();
     }
     if (this._cart != null) {
-      data['cart'] = this._cart.map((v) => v.toJson()).toList();
+      data['cart'] = this._cart!.map((v) => v.toJson()).toList();
     }
     data['payment_method'] = this._paymentMethod;
     data['discount'] = this._discount;
@@ -52,11 +52,11 @@ class OrderPlaceModel {
 }
 
 class CustomerInfo {
-  String _addressId;
-  String _shippingAddress;
-  String _billingId;
-  String _billingAddress;
-  String _orderNote;
+  String? _addressId;
+  String? _shippingAddress;
+  String? _billingId;
+  String? _billingAddress;
+  String? _orderNote;
 
   CustomerInfo(String addressId, String shippingAddress, String billingId, String billingAddress, String orderNote) {
     this._addressId = addressId;
@@ -66,11 +66,11 @@ class CustomerInfo {
     this._orderNote = orderNote;
   }
 
-  String get addressId => _addressId;
-  String get shippingAddress => _shippingAddress;
-  String get billingId => _billingId;
-  String get billingAddress => _billingAddress;
-  String get orderNote => _orderNote;
+  String get addressId => _addressId!;
+  String get shippingAddress => _shippingAddress!;
+  String get billingId => _billingId!;
+  String get billingAddress => _billingAddress!;
+  String get orderNote => _orderNote!;
 
   CustomerInfo.fromJson(Map<String, dynamic> json) {
     _addressId = json['address_id'];
@@ -93,16 +93,16 @@ class CustomerInfo {
 }
 
 class Cart {
-  String _id;
-  double _tax;
-  int _quantity;
-  double _price;
-  double _discount;
-  String _discountType;
-  int _shippingMethodId;
-  String _variant;
-  List<Variation> _variation;
-  double _shippingCost;
+  String? _id;
+  double? _tax;
+  int? _quantity;
+  double? _price;
+  double? _discount;
+  String? _discountType;
+  int? _shippingMethodId;
+  String? _variant;
+  List<Variation>? _variation;
+  double? _shippingCost;
 
   Cart(
       String id,
@@ -127,16 +127,16 @@ class Cart {
     this._shippingCost = shippingCost;
   }
 
-  String get id => _id;
-  double get tax => _tax;
-  int get quantity => _quantity;
-  double get price => _price;
-  double get discount => _discount;
-  String get discountType => _discountType;
-  int get shippingMethodId => _shippingMethodId;
-  String get variant => _variant;
-  List<Variation> get variation => _variation;
-  double get shippingCost => _shippingCost;
+  String get id => _id!;
+  double get tax => _tax!;
+  int get quantity => _quantity!;
+  double get price => _price!;
+  double get discount => _discount!;
+  String get discountType => _discountType!;
+  int get shippingMethodId => _shippingMethodId!;
+  String get variant => _variant!;
+  List<Variation> get variation => _variation!;
+  double get shippingCost => _shippingCost!;
 
   Cart.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
@@ -150,7 +150,7 @@ class Cart {
     if (json['variations'] != null) {
       _variation = [];
       json['variations'].forEach((v) {
-        _variation.add(new Variation.fromJson(v));
+        _variation!.add(new Variation.fromJson(v));
       });
     }
     _shippingCost = json['shipping_cost'];
@@ -167,7 +167,7 @@ class Cart {
     data['shipping_method_id'] = this._shippingMethodId;
     data['variant'] = this._variant;
     if (this._variation != null) {
-      data['variations'] = this._variation.map((v) => v.toJson()).toList();
+      data['variations'] = this._variation!.map((v) => v.toJson()).toList();
     }
     data['shipping_cost'] = this._shippingCost;
     return data;

@@ -1,16 +1,16 @@
 import 'package:eamar_user_app/data/model/response/product_model.dart';
 
 class BannerModel {
-  int id;
-  String photo;
-  String bannerType;
-  int published;
-  String createdAt;
-  String updatedAt;
-  String url;
-  String resourceType;
-  int resourceId;
-  Product product;
+  int? id;
+  String? photo;
+  String? bannerType;
+  int? published;
+  String? createdAt;
+  String? updatedAt;
+  String? url;
+  String? resourceType;
+  int? resourceId;
+  Product? product;
 
   BannerModel(
       {this.id,
@@ -50,7 +50,7 @@ class BannerModel {
     data['resource_type'] = this.resourceType;
     data['resource_id'] = this.resourceId;
     if (this.product != null) {
-      data['product'] = this.product.toJson();
+      data['product'] = this.product!.toJson();
     }
     return data;
   }

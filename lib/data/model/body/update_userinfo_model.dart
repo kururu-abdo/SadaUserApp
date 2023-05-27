@@ -1,7 +1,7 @@
 class UpdateUserInfoModel {
-  String fName;
-  String lName;
-  String phone;
+  String? fName;
+  String? lName;
+  String? phone;
 
   UpdateUserInfoModel({
     this.fName,

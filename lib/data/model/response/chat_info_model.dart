@@ -1,12 +1,12 @@
 class ChatInfoModel {
-  LastChat _lastChat;
-  List<ChatList> _chatList;
-  List<UniqueShops> _uniqueShops;
+  LastChat? _lastChat;
+  List<ChatList>? _chatList;
+  List<UniqueShops>? _uniqueShops;
 
   ChatInfoModel(
-      {LastChat lastChat,
-        List<ChatList> chatList,
-        List<UniqueShops> uniqueShops}) {
+      {LastChat? lastChat,
+        List<ChatList>? chatList,
+        List<UniqueShops>? uniqueShops}) {
     if (lastChat != null) {
       this._lastChat = lastChat;
     }
@@ -18,9 +18,9 @@ class ChatInfoModel {
     }
   }
 
-  LastChat get lastChat => _lastChat;
-  List<ChatList> get chatList => _chatList;
-  List<UniqueShops> get uniqueShops => _uniqueShops;
+  LastChat get lastChat => _lastChat!;
+  List<ChatList> get chatList => _chatList!;
+  List<UniqueShops> get uniqueShops => _uniqueShops!;
 
 
   ChatInfoModel.fromJson(Map<String, dynamic> json) {
@@ -30,13 +30,13 @@ class ChatInfoModel {
     if (json['chat_list'] != null) {
       _chatList = <ChatList>[];
       json['chat_list'].forEach((v) {
-        _chatList.add(new ChatList.fromJson(v));
+        _chatList!.add(new ChatList.fromJson(v));
       });
     }
     if (json['unique_shops'] != null) {
       _uniqueShops = <UniqueShops>[];
       json['unique_shops'].forEach((v) {
-        _uniqueShops.add(new UniqueShops.fromJson(v));
+        _uniqueShops!.add(new UniqueShops.fromJson(v));
       });
     }
   }
@@ -44,47 +44,47 @@ class ChatInfoModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this._lastChat != null) {
-      data['last_chat'] = this._lastChat.toJson();
+      data['last_chat'] = this._lastChat!.toJson();
     }
     if (this._chatList != null) {
-      data['chat_list'] = this._chatList.map((v) => v.toJson()).toList();
+      data['chat_list'] = this._chatList!.map((v) => v.toJson()).toList();
     }
     if (this._uniqueShops != null) {
-      data['unique_shops'] = this._uniqueShops.map((v) => v.toJson()).toList();
+      data['unique_shops'] = this._uniqueShops!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class LastChat {
-  int _id;
-  int _userId;
-  int _sellerId;
-  String _message;
-  int _sentByCustomer;
-  int _sentBySeller;
-  int _seenByCustomer;
-  int _seenBySeller;
-  int _status;
-  String _createdAt;
-  int _shopId;
-  SellerInfo _sellerInfo;
-  Shop _shop;
+  int? _id;
+  int? _userId;
+  int? _sellerId;
+  String? _message;
+  int? _sentByCustomer;
+  int? _sentBySeller;
+  int? _seenByCustomer;
+  int? _seenBySeller;
+  int? _status;
+  String? _createdAt;
+  int? _shopId;
+  SellerInfo? _sellerInfo;
+  Shop? _shop;
 
   LastChat(
-      {int id,
-        int userId,
-        int sellerId,
-        String message,
-        int sentByCustomer,
-        int sentBySeller,
-        int seenByCustomer,
-        int seenBySeller,
-        int status,
-        String createdAt,
-        int shopId,
-        SellerInfo sellerInfo,
-        Shop shop}) {
+      {int? id,
+        int? userId,
+        int? sellerId,
+        String? message,
+        int? sentByCustomer,
+        int? sentBySeller,
+        int? seenByCustomer,
+        int? seenBySeller,
+        int? status,
+        String? createdAt,
+        int? shopId,
+        SellerInfo? sellerInfo,
+        Shop? shop}) {
     if (id != null) {
       this._id = id;
     }
@@ -127,19 +127,19 @@ class LastChat {
     }
   }
 
-  int get id => _id;
-  int get userId => _userId;
-  int get sellerId => _sellerId;
-  String get message => _message;
-  int get sentByCustomer => _sentByCustomer;
-  int get sentBySeller => _sentBySeller;
-  int get seenByCustomer => _seenByCustomer;
-  int get seenBySeller => _seenBySeller;
-  int get status => _status;
-  String get createdAt => _createdAt;
-  int get shopId => _shopId;
-  SellerInfo get sellerInfo => _sellerInfo;
-  Shop get shop => _shop;
+  int get id => _id!;
+  int get userId => _userId!;
+  int get sellerId => _sellerId!;
+  String get message => _message!;
+  int get sentByCustomer => _sentByCustomer!;
+  int get sentBySeller => _sentBySeller!;
+  int get seenByCustomer => _seenByCustomer!;
+  int get seenBySeller => _seenBySeller!;
+  int get status => _status!;
+  String get createdAt => _createdAt!;
+  int get shopId => _shopId!;
+  SellerInfo get sellerInfo => _sellerInfo!;
+  Shop get shop => _shop!;
 
 
   LastChat.fromJson(Map<String, dynamic> json) {
@@ -175,57 +175,57 @@ class LastChat {
     data['created_at'] = this._createdAt;
     data['shop_id'] = this._shopId;
     if (this._sellerInfo != null) {
-      data['seller_info'] = this._sellerInfo.toJson();
+      data['seller_info'] = this._sellerInfo!.toJson();
     }
 
     if (this._shop != null) {
-      data['shop'] = this._shop.toJson();
+      data['shop'] = this._shop!.toJson();
     }
     return data;
   }
 }
 
 class SellerInfo {
-  int _id;
-  String _fName;
-  String _lName;
-  String _phone;
-  String _image;
-  String _email;
-  String _password;
-  String _status;
-  String _createdAt;
-  String _updatedAt;
-  String _bankName;
-  String _branch;
-  String _accountNo;
-  String _holderName;
-  String _authToken;
-  int _salesCommissionPercentage;
-  String _gst;
-  String _cmFirebaseToken;
-  int _posStatus;
+  int? _id;
+  String? _fName;
+  String? _lName;
+  String? _phone;
+  String? _image;
+  String? _email;
+  String? _password;
+  String? _status;
+  String? _createdAt;
+  String? _updatedAt;
+  String? _bankName;
+  String? _branch;
+  String? _accountNo;
+  String? _holderName;
+  String? _authToken;
+  int? _salesCommissionPercentage;
+  String? _gst;
+  String? _cmFirebaseToken;
+  int? _posStatus;
 
   SellerInfo(
-      {int id,
-        String fName,
-        String lName,
-        String phone,
-        String image,
-        String email,
-        String password,
-        String status,
-        String createdAt,
-        String updatedAt,
-        String bankName,
-        String branch,
-        String accountNo,
-        String holderName,
-        String authToken,
-        int salesCommissionPercentage,
-        String gst,
-        String cmFirebaseToken,
-        int posStatus}) {
+      {int? id,
+        String? fName,
+        String? lName,
+        String? phone,
+        String? image,
+        String? email,
+        String? password,
+        String? status,
+        String? createdAt,
+        String? updatedAt,
+        String? bankName,
+        String? branch,
+        String? accountNo,
+        String? holderName,
+        String? authToken,
+        int? salesCommissionPercentage,
+        String? gst,
+        String? cmFirebaseToken,
+        int? posStatus}) {
     if (id != null) {
       this._id = id;
     }

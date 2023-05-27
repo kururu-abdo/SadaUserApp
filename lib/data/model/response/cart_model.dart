@@ -1,30 +1,30 @@
 import 'package:eamar_user_app/data/model/response/product_model.dart';
 class CartModel {
-  int _id;
-  String _image;
-  String _name;
-  String _thumbnail;
-  int _sellerId;
-  String _sellerIs;
-  String _seller;
-  double _price;
-  double _discountedPrice;
-  int _quantity;
-  int _maxQuantity;
-  String _variant;
-  String _color;
-  Variation _variation;
-  double _discount;
-  String _discountType;
-  double _tax;
-  String _taxType;
-  int shippingMethodId;
-  String _cartGroupId;
-  String _shopInfo;
-  List<ChoiceOptions> _choiceOptions;
-  List<int> _variationIndexes;
-  double  _shippingCost;
-  String _shippingType;
+  int? _id;
+  String? _image;
+  String? _name;
+  String? _thumbnail;
+  int? _sellerId;
+  String? _sellerIs;
+  String? _seller;
+  double? _price;
+  double? _discountedPrice;
+  int? _quantity;
+  int? _maxQuantity;
+  String? _variant;
+  String? _color;
+  Variation? _variation;
+  double? _discount;
+  String? _discountType;
+  double? _tax;
+  String? _taxType;
+  int? shippingMethodId;
+  String? _cartGroupId;
+  String? _shopInfo;
+  List<ChoiceOptions>? _choiceOptions;
+  List<int>? _variationIndexes;
+  double?  _shippingCost;
+  String? _shippingType;
 
 
   CartModel(
@@ -32,35 +32,35 @@ class CartModel {
       this._variation, this._discount, this._discountType, this._tax, this._taxType, this.shippingMethodId, this._cartGroupId,this._sellerId, this._sellerIs,
       this._image, this._shopInfo, this._choiceOptions, this._variationIndexes, this._shippingCost);
 
-  String get variant => _variant;
-  String get color => _color;
-  Variation get variation => _variation;
+  String get variant => _variant!;
+  String get color => _color!;
+  Variation get variation => _variation!;
   // ignore: unnecessary_getters_setters
-  int get quantity => _quantity;
+  int get quantity => _quantity!;
   // ignore: unnecessary_getters_setters
   set quantity(int value) {
     _quantity = value;
   }
-  int get maxQuantity => _maxQuantity;
-  double get price => _price;
-  double get discountedPrice => _discountedPrice;
-  String get name => _name;
-  String get seller => _seller;
-  String get image => _image;
-  int get id => _id;
-  double get discount => _discount;
-  String get discountType => _discountType;
-  double get tax => _tax;
-  String get taxType => _taxType;
-  String get cartGroupId => _cartGroupId;
-  String get sellerIs => _sellerIs;
-  int get sellerId => _sellerId;
-  String get thumbnail => _thumbnail;
-  String get shopInfo => _shopInfo;
-  List<ChoiceOptions> get choiceOptions => _choiceOptions;
-  List<int> get variationIndexes => _variationIndexes;
-  double get  shippingCost => _shippingCost;
-  String get  shippingType => _shippingType;
+  int get maxQuantity => _maxQuantity!;
+  double get price => _price!;
+  double get discountedPrice => _discountedPrice!;
+  String get name => _name!;
+  String get seller => _seller!;
+  String get image => _image!;
+  int get id => _id!;
+  double get discount => _discount!;
+  String get discountType => _discountType!;
+  double get tax => _tax!;
+  String get taxType => _taxType!;
+  String get cartGroupId => _cartGroupId!;
+  String get sellerIs => _sellerIs!;
+  int get sellerId => _sellerId!;
+  String get thumbnail => _thumbnail!;
+  String get shopInfo => _shopInfo!;
+  List<ChoiceOptions> get choiceOptions => _choiceOptions!;
+  List<int> get variationIndexes => _variationIndexes!;
+  double get  shippingCost => _shippingCost!;
+  String get  shippingType => _shippingType!;
 
   CartModel.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
@@ -86,7 +86,7 @@ class CartModel {
     _shopInfo = json['shop_info'];
     if (json['choice_options'] != null) {
       _choiceOptions = [];
-      json['choice_options'].forEach((v) {_choiceOptions.add(new ChoiceOptions.fromJson(v));
+      json['choice_options'].forEach((v) {_choiceOptions!.add(new ChoiceOptions.fromJson(v));
       });
     }
     _variationIndexes = json['variation_indexes'] != null ? json['variation_indexes'].cast<int>() : [];
@@ -123,7 +123,7 @@ class CartModel {
     data['seller_is'] = this._sellerIs;
     data['shop_info'] = this._shopInfo;
     if (this._choiceOptions != null) {
-      data['choice_options'] = this._choiceOptions.map((v) => v.toJson()).toList();
+      data['choice_options'] = this._choiceOptions!.map((v) => v.toJson()).toList();
     }
     data['variation_indexes'] = this._variationIndexes;
     data['shipping_cost'] = this._shippingCost;
