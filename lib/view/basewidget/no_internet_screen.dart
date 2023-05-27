@@ -8,8 +8,8 @@ import 'package:eamar_user_app/utill/images.dart';
 
 class NoInternetOrDataScreen extends StatelessWidget {
   final bool isNoInternet;
-  final Widget child;
-  NoInternetOrDataScreen({@required this.isNoInternet, this.child});
+  final Widget? child;
+  NoInternetOrDataScreen({required this.isNoInternet, this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +20,13 @@ class NoInternetOrDataScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(isNoInternet ? Images.no_internet : Images.no_data, width: 150, height: 150),
-            Text(isNoInternet ? getTranslated('OPPS', context) : getTranslated('sorry', context), style: titilliumBold.copyWith(
+            Text(isNoInternet ? getTranslated('OPPS', context)! : getTranslated('sorry', context)!, style: titilliumBold.copyWith(
               fontSize: 30,
-              color: isNoInternet ? Theme.of(context).textTheme.bodyText1.color : ColorResources.getColombiaBlue(context),
+              color: isNoInternet ? Theme.of(context).textTheme.bodyText1!.color : ColorResources.getColombiaBlue(context),
             )),
             SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
             Text(
-              isNoInternet ? getTranslated('no_internet_connection', context) : 'No data found',
+              isNoInternet ? getTranslated('no_internet_connection', context)! : 'No data found',
               textAlign: TextAlign.center,
               style: titilliumRegular,
             ),
@@ -38,13 +38,13 @@ class NoInternetOrDataScreen extends StatelessWidget {
               child: TextButton(
                 onPressed: () async {
                   if(await Connectivity().checkConnectivity() != ConnectivityResult.none) {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => child));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => child!));
                   }
                 },
                 child: Container(
                   width: double.infinity,
                   alignment: Alignment.center,
-                  child: Text(getTranslated('RETRY', context), style: titilliumSemiBold.copyWith(color: Theme.of(context).highlightColor, fontSize: Dimensions.FONT_SIZE_LARGE)),
+                  child: Text(getTranslated('RETRY', context)!, style: titilliumSemiBold.copyWith(color: Theme.of(context).highlightColor, fontSize: Dimensions.FONT_SIZE_LARGE)),
                 ),
               ),
             ) : SizedBox.shrink(),

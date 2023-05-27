@@ -5,12 +5,12 @@ import 'package:eamar_user_app/data/model/response/base/api_response.dart';
 import 'package:eamar_user_app/utill/app_constants.dart';
 
 class FeaturedDealRepo {
-  final DioClient dioClient;
-  FeaturedDealRepo({@required this.dioClient});
+  final DioClient? dioClient;
+  FeaturedDealRepo({required this.dioClient});
 
   Future<ApiResponse> getFeaturedDeal() async {
     try {
-      final response = await dioClient.get(AppConstants.FEATURED_DEAL_URI
+      final response = await dioClient!.get(AppConstants.FEATURED_DEAL_URI
       );
       return ApiResponse.withSuccess(response);
     } catch (e) {

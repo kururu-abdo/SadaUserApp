@@ -17,8 +17,8 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 class ProductDetailsProvider extends ChangeNotifier {
-  final ProductDetailsRepo productDetailsRepo;
-  ProductDetailsProvider({@required this.productDetailsRepo});
+  final ProductDetailsRepo? productDetailsRepo;
+  ProductDetailsProvider({required this.productDetailsRepo});
 
 
 bool _slugLoading=true;
@@ -28,48 +28,48 @@ bool get slugLoading => _slugLoading;
 
 
 
-  List<ReviewModel> _reviewList;
-  int _imageSliderIndex;
+  List<ReviewModel>? _reviewList;
+  int? _imageSliderIndex;
   bool _wish = false;
   int _quantity = 0;
-  int _variantIndex;
-  List<int> _variationIndex;
+  int? _variantIndex;
+  List<int>? _variationIndex;
   int _rating = 0;
     double _ratingValue = 0.0;
 
   bool _isLoading = false;
-  int _orderCount;
-  int _wishCount;
-  String _sharableLink;
-  String _errorText;
+  int? _orderCount;
+  int? _wishCount;
+  String? _sharableLink;
+  String? _errorText;
   bool _hasConnection = true;
 
-  List<ReviewModel> get reviewList => _reviewList;
-  int get imageSliderIndex => _imageSliderIndex;
+  List<ReviewModel>? get reviewList => _reviewList;
+  int? get imageSliderIndex => _imageSliderIndex;
   bool get isWished => _wish;
   int get quantity => _quantity;
-  int get variantIndex => _variantIndex;
-  List<int> get variationIndex => _variationIndex;
+  int? get variantIndex => _variantIndex;
+  List<int>? get variationIndex => _variationIndex;
   int get rating => _rating;
     double get ratingValue => _ratingValue;
 
   bool get isLoading => _isLoading;
-  int get orderCount => _orderCount;
-  int get wishCount => _wishCount;
-  String get sharableLink => _sharableLink;
-  String get errorText => _errorText;
+  int? get orderCount => _orderCount;
+  int? get wishCount => _wishCount;
+  String? get sharableLink => _sharableLink;
+  String? get errorText => _errorText;
   bool get hasConnection => _hasConnection;
 
-  Product   myProdutt;
+  Product?   myProdutt;
   // String rating;
 
-Future<void> initProductFromSlug(String slug, BuildContext context) async {
+Future<void> initProductFromSlug(String? slug, BuildContext context) async {
     _slugLoading = true;
      _hasConnection = true;
     _variantIndex = 0;
     ;
   // notifyListeners();
-     ApiResponse reviewResponse = await productDetailsRepo.getProductDetails(
+     ApiResponse reviewResponse = await productDetailsRepo!.getProductDetails(
         slug.toString()
         
         
@@ -77,30 +77,30 @@ Future<void> initProductFromSlug(String slug, BuildContext context) async {
 
 
 
-    if (reviewResponse.response != null && reviewResponse.response.statusCode == 200) {
+    if (reviewResponse.response != null && reviewResponse.response!.statusCode == 200) {
 
-myProdutt = Product.fromJson(reviewResponse.response.data);
+myProdutt = Product.fromJson(reviewResponse.response!.data);
 removePrevReview();
 
-await initProduct(myProdutt, context);
+await initProduct(myProdutt!, context);
 
 
 
     Provider.of<ProductProvider>(context, listen: false).removePrevRelatedProduct();
       Provider.of<ProductProvider>(context, listen: false).initRelatedProductList( 
-        myProdutt.id.toString()
+        myProdutt!.id.toString()
         , context);
-      Provider.of<ProductDetailsProvider>(context, listen: false).getCount( myProdutt.id.toString(), context);
+      Provider.of<ProductDetailsProvider>(context, listen: false).getCount( myProdutt!.id.toString(), context);
       // Provider.of<ProductDetailsProvider>(context, listen: false).getSharableLink(
       //   myProdutt.id.toString(), context);
       if(Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
       
         Provider.of<WishListProvider>(context, listen: false).checkWishList(
-         myProdutt.id.toString(), context);
+         myProdutt!.id.toString(), context);
       }
       Provider.of<ProductProvider>(context, listen: false).initSellerProductList(
         
-           myProdutt.userId.toString(), 1, context);
+           myProdutt!.userId.toString(), 1, context);
 
 
 
@@ -133,14 +133,14 @@ await initProduct(myProdutt, context);
     notifyListeners();
 
 }
-  Future<void> initProduct(Product product, BuildContext context) async {
+  Future<void> initProduct(Product? product, BuildContext context) async {
     _hasConnection = true;
     _variantIndex = 0;
     ;
 
-    ApiResponse reviewResponse = await productDetailsRepo.getReviews(
-      product.id.toString());
-    if (reviewResponse.response != null && reviewResponse.response.statusCode == 200) {
+    ApiResponse reviewResponse = await productDetailsRepo!.getReviews(
+      product!.id.toString());
+    if (reviewResponse.response != null && reviewResponse.response!.statusCode == 200) {
         Provider.of<BannerProvider>(context,listen: false).getProductDetails(context, 
         
         product.slug.toString()
@@ -148,7 +148,7 @@ await initProduct(myProdutt, context);
         
         );
       _reviewList = [];
-      reviewResponse.response.data.forEach((reviewModel) => _reviewList.add(ReviewModel.fromJson(reviewModel)));
+      reviewResponse.response!.data.forEach((reviewModel) => _reviewList!.add(ReviewModel.fromJson(reviewModel)));
       _imageSliderIndex = 0;
       _quantity = 1;
     }
@@ -160,7 +160,7 @@ await initProduct(myProdutt, context);
         
         );
       _reviewList = [];
-      reviewResponse.response.data.forEach((reviewModel) => _reviewList.add(ReviewModel.fromJson(reviewModel)));
+      reviewResponse.response!.data.forEach((reviewModel) => _reviewList!.add(ReviewModel.fromJson(reviewModel)));
       _imageSliderIndex = 0;
       _quantity = 1;
     }
@@ -177,8 +177,8 @@ _initRating(Product product)
 {
  String ratting = product != null &&
      product.rating != null &&
-    product.rating.length != 0?
-   product.rating[0].average.toString() : "0";
+    product.rating!.length != 0?
+   product.rating![0].average.toString() : "0";
 
    _ratingValue=double.parse(ratting);
 }
@@ -186,7 +186,7 @@ _initRating(Product product)
     _variantIndex = 0;
     _quantity = 1;
     _variationIndex = [];
-    product.choiceOptions.forEach((element) => _variationIndex.add(0));
+    product.choiceOptions!.forEach((element) => _variationIndex!.add(0));
   }
 
   void removePrevReview() {
@@ -195,14 +195,14 @@ _initRating(Product product)
   }
 
   void getCount(String productID, BuildContext context) async {
-    ApiResponse apiResponse = await productDetailsRepo.getCount(productID);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-      _orderCount = apiResponse.response.data['order_count'];
-      _wishCount = apiResponse.response.data['wishlist_count'];
+    ApiResponse apiResponse = await productDetailsRepo!.getCount(productID);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      _orderCount = apiResponse.response!.data['order_count'];
+      _wishCount = apiResponse.response!.data['wishlist_count'];
     } 
   else    if (apiResponse.response != null ) {
-      _orderCount = apiResponse.response.data['order_count'];
-      _wishCount = apiResponse.response.data['wishlist_count'];
+      _orderCount = apiResponse.response!.data['order_count'];
+      _wishCount = apiResponse.response!.data['wishlist_count'];
     } 
     
     
@@ -213,12 +213,12 @@ _initRating(Product product)
   }
 
   void getSharableLink(String productID, BuildContext context) async {
-    ApiResponse apiResponse = await productDetailsRepo.getSharableLink(productID);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-      _sharableLink = apiResponse.response.data;
+    ApiResponse apiResponse = await productDetailsRepo!.getSharableLink(productID);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      _sharableLink = apiResponse.response!.data;
     }
    else  if (apiResponse.response != null ) {
-      _sharableLink = apiResponse.response.data;
+      _sharableLink = apiResponse.response!.data;
     }
     
      else {
@@ -226,7 +226,7 @@ _initRating(Product product)
     }
   }
 
-  void setErrorText(String error) {
+  void setErrorText(String? error) {
     _errorText = error;
     notifyListeners();
   }
@@ -259,7 +259,7 @@ _initRating(Product product)
   }
 
   void setCartVariationIndex(int index, int i) {
-    _variationIndex[index] = i;
+    _variationIndex![index] = i;
     _quantity = 1;
     notifyListeners();
   }
@@ -273,7 +273,7 @@ _initRating(Product product)
     _isLoading = true;
     notifyListeners();
 
-    http.StreamedResponse response = await productDetailsRepo.submitReview(reviewBody, files, token);
+    http.StreamedResponse response = await productDetailsRepo!.submitReview(reviewBody, files, token);
     ResponseModel responseModel;
     if (response.statusCode == 200) {
       _rating = 0;

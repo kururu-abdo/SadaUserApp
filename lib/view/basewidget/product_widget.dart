@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 
 class ProductWidget extends StatefulWidget {
   final Product productModel;
-  ProductWidget({@required this.productModel});
+  ProductWidget({required this.productModel});
 
   @override
   State<ProductWidget> createState() => _ProductWidgetState();
@@ -25,7 +25,7 @@ class _ProductWidgetState extends State<ProductWidget> {
 
   @override
   Widget build(BuildContext context) {
-    String ratting = widget.productModel.rating != null && widget.productModel.rating.length != 0? widget.productModel.rating[0].average : "0";
+    String ratting = widget.productModel.rating != null && widget.productModel.rating!.length != 0? widget.productModel.rating![0].average! : "0";
 
     return InkWell(
       onTap: () {
@@ -59,7 +59,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                 child: FadeInImage.assetNetwork(
                   placeholder: Images.placeholder, fit: BoxFit.cover,
                   height: MediaQuery.of(context).size.width/2.45,
-                  image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls.productThumbnailUrl}/${widget.productModel.thumbnail}',
+                  image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.productThumbnailUrl}/${widget.productModel.thumbnail}',
                   imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder_1x1,
                       fit: BoxFit.cover,height: MediaQuery.of(context).size.width/2.45),
                 ),
@@ -90,7 +90,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                             ),
 
 
-                        Text('(${widget.productModel.reviewCount.toString() ?? 0})',
+                        Text('(${widget.productModel.reviewCount.toString() })',
                             style: robotoRegular.copyWith(
                               fontSize: Dimensions.FONT_SIZE_SMALL,
                             )),
@@ -99,7 +99,7 @@ class _ProductWidgetState extends State<ProductWidget> {
                       SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
 
-                        widget.productModel.discount!= null && widget.productModel.discount > 0 ?
+                        widget.productModel.discount!= null && widget.productModel.discount! > 0 ?
                         Text(PriceConverter.convertPrice(context, widget.productModel.unitPrice),
                         style: titleRegular.copyWith(
                           color: ColorResources.getRed(context),
@@ -128,7 +128,7 @@ class _ProductWidgetState extends State<ProductWidget> {
 
           // Off
 
-          widget.productModel.discount > 0 ?
+          widget.productModel.discount! > 0 ?
           Positioned(top: 0, left: 0, child: Container(
               height: 20,
               padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),

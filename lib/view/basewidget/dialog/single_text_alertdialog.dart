@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:eamar_user_app/utill/custom_themes.dart';
 
 class SingleTextAlertDialog extends StatelessWidget {
-  final String message;
+  final String? message;
 
   SingleTextAlertDialog({this.message});
 

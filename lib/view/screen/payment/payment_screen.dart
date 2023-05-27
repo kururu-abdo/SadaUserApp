@@ -13,22 +13,22 @@ import 'package:webview_flutter/webview_flutter.dart';
 class PaymentScreen extends StatefulWidget {
   final String addressID;
   final String billingId;
-  final String orderNote;
+  final String? orderNote;
   final String customerID;
-  final String couponCode;
+  final String? couponCode;
 
-  PaymentScreen({@required this.addressID, @required this.customerID, @required this.couponCode, @required this.billingId, this.orderNote});
+  PaymentScreen({required this.addressID, required this.customerID, required this.couponCode, required this.billingId, this.orderNote});
 
   @override
   _PaymentScreenState createState() => _PaymentScreenState();
 }
 
 class _PaymentScreenState extends State<PaymentScreen> {
-  String selectedUrl;
+  String? selectedUrl;
   double value = 0.0;
   bool _isLoading = true;
   final Completer<WebViewController> _controller = Completer<WebViewController>();
-  WebViewController controllerGlobal;
+  late WebViewController controllerGlobal;
 
   @override
   void initState() {

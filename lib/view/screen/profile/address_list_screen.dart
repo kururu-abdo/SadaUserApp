@@ -52,7 +52,7 @@ class AddressListScreen extends StatelessWidget {
                       child: Stack(
                         children: [
                           ListTile(
-                            title: Text('Address: ${profileProvider.shippingAddressList[index].address}' ?? ""),
+                            title: Text('Address: ${profileProvider.shippingAddressList[index].address}' ),
                             subtitle: Row(
                               children: [
                                 Text('${getTranslated('city', context)} : ${profileProvider.shippingAddressList[index].city ?? ""}'),
@@ -88,7 +88,7 @@ class AddressListScreen extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(5.0),
                                 child: Text(profileProvider.shippingAddressList[index].isBilling ==0?
-                            getTranslated('shipping_address', context):getTranslated('billing_address', context),
+                            getTranslated('shipping_address', context)!:getTranslated('billing_address', context)!,
                                   style: robotoRegular.copyWith(fontSize: 8, color: Theme.of(context).cardColor),),
                               ),),
                           )

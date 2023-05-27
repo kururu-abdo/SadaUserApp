@@ -18,7 +18,7 @@ import 'add_new_address_screen.dart';
 
 class AddressScreen extends StatefulWidget {
 
-  final AddressModel addressModel;
+  final AddressModel? addressModel;
   AddressScreen({this.addressModel});
 
   @override
@@ -26,7 +26,7 @@ class AddressScreen extends StatefulWidget {
 }
 
 class _AddressScreenState extends State<AddressScreen> {
-  bool _isLoggedIn;
+  late bool _isLoggedIn;
 
   @override
   void initState() {
@@ -52,7 +52,7 @@ class _AddressScreenState extends State<AddressScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          getTranslated('saved_address', context),
+                          getTranslated('saved_address', context)!,
                           style: robotoRegular.copyWith(color: ColorResources.getTextTitle(context)),
                         ),
                         InkWell(
@@ -63,7 +63,7 @@ class _AddressScreenState extends State<AddressScreen> {
                             children: [
                               Icon(Icons.add, color: ColorResources.getTextTitle(context)),
                               Text(
-                                getTranslated('add_new', context),
+                                getTranslated('add_new', context)!,
                                 style: robotoRegular.copyWith(color: ColorResources.getTextTitle(context)),
                               ),
                             ],

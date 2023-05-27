@@ -7,18 +7,18 @@ import 'package:eamar_user_app/data/repository/search_repo.dart';
 import 'package:eamar_user_app/helper/api_checker.dart';
 
 class SearchProvider with ChangeNotifier {
-  final SearchRepo searchRepo;
-  final CategoryRepo categoryRepo;
-  SearchProvider({@required this.searchRepo , this.categoryRepo});
+  final SearchRepo? searchRepo;
+  final CategoryRepo? categoryRepo;
+  SearchProvider({required this.searchRepo , this.categoryRepo});
 
 
 
 
 
-Category  _category;
+Category?  _category;
 
 
-Category   get category=> _category;
+Category?   get category=> _category;
 
 
 
@@ -46,15 +46,15 @@ setCategory(Category cat){
   }
   Future<void> getCategoryList(bool reload, BuildContext context) async {
     if (_categories.length == 0 || reload) {
-      ApiResponse apiResponse = await categoryRepo.getCategoryList();
-      if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+      ApiResponse apiResponse = await categoryRepo!.getCategoryList();
+      if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
         _categories.clear();
-        apiResponse.response.data.forEach((category) => _categories.add(Category.fromJson(category)));
+        apiResponse.response!.data.forEach((category) => _categories.add(Category.fromJson(category)));
         // _categorySelectedIndex = 0;
       }else   if (apiResponse.response != null){
 
          _categories.clear();
-        apiResponse.response.data.forEach((category) => _categories.add(Category.fromJson(category)));
+        apiResponse.response!.data.forEach((category) => _categories.add(Category.fromJson(category)));
       }
       
       
@@ -69,38 +69,38 @@ setCategory(Category cat){
   void sortSearchList(double startingPrice, double endingPrice) {
     _searchProductList = [];
     if(startingPrice > 0 && endingPrice > startingPrice) {
-      _searchProductList.addAll(_filterProductList.where((product) =>
-      (product.unitPrice) > startingPrice && (product.unitPrice) < endingPrice).toList());
+      _searchProductList!.addAll(_filterProductList!.where((product) =>
+      product.unitPrice! > startingPrice && product.unitPrice! < endingPrice).toList());
     }else {
-      _searchProductList.addAll(_filterProductList);
+      _searchProductList!.addAll(_filterProductList!);
     }
 
     if (_filterIndex == 0) {
 
     } else if (_filterIndex == 1) {
-      _searchProductList.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+      _searchProductList!.sort((a, b) => a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
     } else if (_filterIndex == 2) {
-      _searchProductList.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
-      Iterable iterable = _searchProductList.reversed;
-      _searchProductList = iterable.toList();
+      _searchProductList!.sort((a, b) => a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
+      Iterable iterable = _searchProductList!.reversed;
+      _searchProductList = iterable.toList() as List<Product>?;
     } else if (_filterIndex == 3) {
-      _searchProductList.sort((a, b) => a.unitPrice.compareTo(b.unitPrice));
+      _searchProductList!.sort((a, b) => a.unitPrice!.compareTo(b.unitPrice!));
     } else if (_filterIndex == 4) {
-      _searchProductList.sort((a, b) => a.unitPrice.compareTo(b.unitPrice));
-      Iterable iterable = _searchProductList.reversed;
-      _searchProductList = iterable.toList();
+      _searchProductList!.sort((a, b) => a.unitPrice!.compareTo(b.unitPrice!));
+      Iterable iterable = _searchProductList!.reversed;
+      _searchProductList = iterable.toList() as List<Product>?;
     }
 
     notifyListeners();
   }
 
-  List<Product> _searchProductList;
-  List<Product> _filterProductList;
+  List<Product>? _searchProductList;
+  List<Product>? _filterProductList;
   bool _isClear = true;
   String _searchText = '';
 
-  List<Product> get searchProductList => _searchProductList;
-  List<Product> get filterProductList => _filterProductList;
+  List<Product>? get searchProductList => _searchProductList;
+  List<Product>? get filterProductList => _filterProductList;
   bool get isClear => _isClear;
   String get searchText => _searchText;
 
@@ -123,24 +123,24 @@ setCategory(Category cat){
     _filterProductList = null;
     notifyListeners();
 
-    ApiResponse apiResponse = await searchRepo.getSearchProductList(query);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await searchRepo!.getSearchProductList(query);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       if (query.isEmpty) {
         _searchProductList = [];
       } else {
         _searchProductList = [];
-        _searchProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
+        _searchProductList!.addAll(ProductModel.fromJson(apiResponse.response!.data).products!);
         _filterProductList = [];
-        _filterProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
+        _filterProductList!.addAll(ProductModel.fromJson(apiResponse.response!.data).products!);
       }
     }  else   if (apiResponse.response != null){
  if (query.isEmpty) {
         _searchProductList = [];
       } else {
         _searchProductList = [];
-        _searchProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
+        _searchProductList!.addAll(ProductModel.fromJson(apiResponse.response!.data).products!);
         _filterProductList = [];
-        _filterProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
+        _filterProductList!.addAll(ProductModel.fromJson(apiResponse.response!.data).products!);
       }
 
     }
@@ -152,34 +152,34 @@ setCategory(Category cat){
     }
     notifyListeners();
   }
- void filterByBudgetAndCategory(Category cat, budget, BuildContext context) async {
-    _searchText = "Cat: ${cat.name},Amount:${budget}";
+  filterByBudgetAndCategory(Category? cat, budget, BuildContext context) async {
+    _searchText = "Cat: ${cat!.name},Amount:${budget}";
     _isClear = false;
     _searchProductList = null;
     _filterProductList = null;
     notifyListeners();
 
-    ApiResponse apiResponse = await searchRepo.filterByBudget(cat.id , budget);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await searchRepo!.filterByBudget(cat.id , budget);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       // if (query.isEmpty) {
       //   _searchProductList = [];
       // } else {
         _searchProductList = [];
-        Iterable data = apiResponse.response.data;
+        Iterable data = apiResponse.response!.data;
         _searchProductList=data.map((product)=>Product.fromJson(product)).toList();
         
         // addAll(ProductModel.fromJson(apiResponse.response.data).products);
         _filterProductList = [];
-        _filterProductList.addAll(_searchProductList);
+        _filterProductList!.addAll(_searchProductList!);
       // }
     } else   if (apiResponse.response != null){
   _searchProductList = [];
-        Iterable data = apiResponse.response.data;
+        Iterable data = apiResponse.response!.data;
         _searchProductList=data.map((product)=>Product.fromJson(product)).toList();
         
         // addAll(ProductModel.fromJson(apiResponse.response.data).products);
         _filterProductList = [];
-        _filterProductList.addAll(_searchProductList);
+        _filterProductList!.addAll(_searchProductList!);
 
     }
     
@@ -193,12 +193,12 @@ setCategory(Category cat){
 
   void initHistoryList() {
     _historyList = [];
-    _historyList.addAll(searchRepo.getSearchAddress());
+    _historyList.addAll(searchRepo!.getSearchAddress());
     notifyListeners();
   }
 
   void saveSearchAddress(String searchAddress) async {
-    searchRepo.saveSearchAddress(searchAddress);
+    searchRepo!.saveSearchAddress(searchAddress);
     if (!_historyList.contains(searchAddress)) {
       _historyList.add(searchAddress);
     }
@@ -206,7 +206,7 @@ setCategory(Category cat){
   }
 
   void clearSearchAddress() async {
-    searchRepo.clearSearchAddress();
+    searchRepo!.clearSearchAddress();
     _historyList = [];
     notifyListeners();
   }

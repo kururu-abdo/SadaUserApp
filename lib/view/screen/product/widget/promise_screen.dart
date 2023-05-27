@@ -3,7 +3,7 @@ import 'package:eamar_user_app/localization/language_constrants.dart';
 import 'package:eamar_user_app/utill/dimensions.dart';
 import 'package:eamar_user_app/utill/images.dart';
 class PromiseScreen extends StatelessWidget {
-  const PromiseScreen({Key key}) : super(key: key);
+  const PromiseScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,14 +12,14 @@ class PromiseScreen extends StatelessWidget {
       children: [
       Expanded(child: Column(children: [
         Container(width: width, child: Image.asset(Images.seven_day_easy_return),),
-          Text(getTranslated('seven_days_return', context),maxLines: 2,
+          Text(getTranslated('seven_days_return', context)!,maxLines: 2,
             overflow: TextOverflow.ellipsis,textAlign: TextAlign.center,),],),
       ),
       SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT,),
 
         Expanded(child: Column(children: [
           Container(width: width, child: Image.asset(Images.safe_payment),),
-          Text(getTranslated('safe_payment', context),
+          Text(getTranslated('safe_payment', context)!,
               maxLines: 2,overflow: TextOverflow.ellipsis,textAlign: TextAlign.center),],),
       ),
       SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT,),
@@ -27,7 +27,7 @@ class PromiseScreen extends StatelessWidget {
 
         Expanded(child: Column(children: [
           Container(width: width, child: Image.asset(Images.hundred_par_authentic),),
-          Text(getTranslated('authentic_product', context),
+          Text(getTranslated('authentic_product', context)!,
             maxLines: 2,overflow: TextOverflow.ellipsis,textAlign: TextAlign.center,),],),
         ),
     ],);

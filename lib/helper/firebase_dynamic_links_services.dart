@@ -83,7 +83,7 @@ static Future<void> initDynamicLink(BuildContext context)async{
     });
 
 
-var pendingInitLink =await  FirebaseDynamicLinks.instance.getInitialLink();
+var pendingInitLink =(await  FirebaseDynamicLinks.instance.getInitialLink())!;
 
 
 var deepLink=pendingInitLink.link;

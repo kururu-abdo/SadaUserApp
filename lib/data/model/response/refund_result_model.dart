@@ -1,12 +1,12 @@
 class RefundResultModel {
-  double productPrice;
-  int quntity;
-  double productTotalDiscount;
-  double productTotalTax;
-  double subtotal;
-  double couponDiscount;
-  double refundAmount;
-  List<RefundRequest> refundRequest;
+  double? productPrice;
+  int? quntity;
+  double? productTotalDiscount;
+  double? productTotalTax;
+  double? subtotal;
+  double? couponDiscount;
+  double? refundAmount;
+  List<RefundRequest>? refundRequest;
 
   RefundResultModel(
       {this.productPrice,
@@ -29,7 +29,7 @@ class RefundResultModel {
     if (json['refund_request'] != null) {
       refundRequest = <RefundRequest>[];
       json['refund_request'].forEach((v) {
-        refundRequest.add(new RefundRequest.fromJson(v));
+        refundRequest!.add(new RefundRequest.fromJson(v));
       });
     }
   }
@@ -45,28 +45,28 @@ class RefundResultModel {
     data['refund_amount'] = this.refundAmount;
     if (this.refundRequest != null) {
       data['refund_request'] =
-          this.refundRequest.map((v) => v.toJson()).toList();
+          this.refundRequest!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class RefundRequest {
-  int id;
-  int orderDetailsId;
-  int customerId;
-  String status;
-  double amount;
-  int productId;
-  int orderId;
-  String refundReason;
-  List<String> images;
-  String createdAt;
-  String updatedAt;
-  String approvedNote;
-  String rejectedNote;
-  String paymentInfo;
-  String changeBy;
+  int? id;
+  int? orderDetailsId;
+  int? customerId;
+  String? status;
+  double? amount;
+  int? productId;
+  int? orderId;
+  String? refundReason;
+  List<String>? images;
+  String? createdAt;
+  String? updatedAt;
+  String? approvedNote;
+  String? rejectedNote;
+  String? paymentInfo;
+  String? changeBy;
 
   RefundRequest(
       {this.id,

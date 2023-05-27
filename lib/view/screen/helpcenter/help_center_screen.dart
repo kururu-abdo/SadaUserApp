@@ -42,7 +42,7 @@ class HelpCenterScreen extends StatelessWidget {
         SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
         // Recommended
-        Text(getTranslated('recommended_articles', context), style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
+        Text(getTranslated('recommended_articles', context)!, style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
         SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
         ListView.builder(
           padding: EdgeInsets.all(0),
@@ -61,7 +61,7 @@ class HelpCenterScreen extends StatelessWidget {
         // Could not find
         Padding(
           padding: EdgeInsets.all(Dimensions.PADDING_SIZE_LARGE),
-          child: Text(getTranslated('contact_with_customer_care', context), textAlign: TextAlign.center, style: titilliumSemiBold.copyWith(
+          child: Text(getTranslated('contact_with_customer_care', context)!, textAlign: TextAlign.center, style: titilliumSemiBold.copyWith(
             fontSize: Dimensions.FONT_SIZE_LARGE,
             color: Theme.of(context).hintColor,
           )),

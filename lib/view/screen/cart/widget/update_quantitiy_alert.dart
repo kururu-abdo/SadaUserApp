@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class QuantityAlert extends StatefulWidget {
-    final Function(int value) onConfirm;      // <------------|     
-  const QuantityAlert({ Key key, this.onConfirm }) : super(key: key);
+    final Function(int value)? onConfirm;      // <------------|     
+  const QuantityAlert({ Key? key, this.onConfirm }) : super(key: key);
 
   @override
   _QuantityAlertState createState() => _QuantityAlertState();
 }
 
 class _QuantityAlertState extends State<QuantityAlert> with TickerProviderStateMixin{
-   AnimationController controller;
-   Animation<double> animation;
+   late AnimationController controller;
+   late Animation<double> animation;
  @override
   void initState() {
     super.initState();
@@ -86,7 +86,7 @@ actionsAlignment: MainAxisAlignment.end,
 
 class CircleIconButton extends StatelessWidget {
 final double size;
-final Function onPressed;
+final Function? onPressed;
 final IconData icon;
 
 CircleIconButton({this.size = 30.0, this.icon = Icons.clear, this.onPressed});
@@ -94,7 +94,7 @@ CircleIconButton({this.size = 30.0, this.icon = Icons.clear, this.onPressed});
 @override
 Widget build(BuildContext context) {
   return InkWell(
-    onTap: this.onPressed,
+    onTap: this.onPressed as void Function()?,
     child: SizedBox(
         width: size,
         height: size,

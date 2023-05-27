@@ -16,9 +16,9 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 
 class CategoryDetailsPage extends StatefulWidget {
-  final   Category  category;
+  final   Category?  category;
   
-  const CategoryDetailsPage({ Key key, this.category }) : super(key: key);
+  const CategoryDetailsPage({ Key? key, this.category }) : super(key: key);
 
   @override
   _CategoryDetailsPageState createState() => _CategoryDetailsPageState();
@@ -30,13 +30,13 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
 
     //text: '${e.name}'
     return DefaultTabController(
-      length: widget.category.subCategories.length,
+      length: widget.category!.subCategories!.length,
       child: Scaffold(
         appBar: AppBar(
 
 
 title: Text(
-              widget.category.name, style: titilliumRegular.copyWith(fontSize: 20,
+              widget.category!.name!, style: titilliumRegular.copyWith(fontSize: 20,
               color: 
               
               Theme.of(context).cardColor,
@@ -65,7 +65,7 @@ title: Text(
             onPressed: () =>  Navigator.of(context).pop(),
           ) ,
           bottom:  TabBar(   isScrollable: true,
-            tabs: widget.category.subCategories.map((e) =>   
+            tabs: widget.category!.subCategories!.map((e) =>   
             //  Tab(
             //   //  height: 20,
             //    child:
@@ -95,7 +95,7 @@ title: Text(
         body: TabBarView(
           
           
-          children: widget.category.subCategories.map((e) => 
+          children: widget.category!.subCategories!.map((e) => 
           
           
           
@@ -113,10 +113,10 @@ title: Text(
 
 
 class CategoryItemView extends StatefulWidget {
-  final Category category;
-    final SubCategory subCategory;
+  final Category? category;
+    final SubCategory? subCategory;
 
-  const CategoryItemView({ Key key, this.category, this.subCategory }) : super(key: key);
+  const CategoryItemView({ Key? key, this.category, this.subCategory }) : super(key: key);
 
   @override
   _CategoryViewState createState() => _CategoryViewState();
@@ -130,7 +130,7 @@ void initState() {
   super.initState();
   Future.microtask(() {
 
-    context.read<ProductProvider>().filterBrandAndCategoryProductList(context, widget.subCategory.id);
+    context.read<ProductProvider>().filterBrandAndCategoryProductList(context, widget.subCategory!.id);
   }
   
   
@@ -151,7 +151,7 @@ void initState() {
         return Column(
           children: [
 Visibility(
-  visible: widget.subCategory.subSubCategories.length>0,
+  visible: widget.subCategory!.subSubCategories!.length>0,
 
   child:  SizedBox( 
      height: MediaQuery.of(context).size.height/5,
@@ -172,7 +172,7 @@ Visibility(
             //        : categoryProvider.categoryList.length
             //     : 
                 
-                widget.subCategory.subSubCategories.length,
+                widget.subCategory!.subSubCategories!.length,
             shrinkWrap: true,
             physics: ScrollPhysics(),
             itemBuilder: (BuildContext context, int index) {
@@ -188,7 +188,7 @@ Visibility(
 
 Provider.of<ProductProvider>(context , listen: false).filterBrandAndCategoryProductList(context, 
 
-widget.subCategory.subSubCategories[categoryProvider.subSubCategorySelectedIndex].id
+widget.subCategory!.subSubCategories![categoryProvider.subSubCategorySelectedIndex!].id
 
 );
 
@@ -220,7 +220,7 @@ widget.subCategory.subSubCategories[categoryProvider.subSubCategorySelectedIndex
           child: FadeInImage.assetNetwork(
             fit: BoxFit.cover,
             placeholder: Images.placeholder,
-            image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.categoryImageUrl}'
+            image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.categoryImageUrl}'
                 '/${categoryProvider.categoryList[index].icon}',
             imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, fit: BoxFit.cover,),
           ),
@@ -230,7 +230,7 @@ widget.subCategory.subSubCategories[categoryProvider.subSubCategorySelectedIndex
       SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
       Container(
         child: Center(
-          child: Text(categoryProvider.categoryList[index].name,
+          child: Text(categoryProvider.categoryList[index].name!,
             textAlign: TextAlign.center,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,

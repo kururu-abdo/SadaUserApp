@@ -12,7 +12,7 @@ class PreferenceDialog extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
         Padding(padding: EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
-          child: Text(getTranslated('preference', context), style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
+          child: Text(getTranslated('preference', context)!, style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
         ),
         SwitchTile(title: 'Location', value: true),
         SwitchTile(title: 'Storage', value: true),
@@ -22,7 +22,7 @@ class PreferenceDialog extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text(getTranslated('CANCEL', context), style: robotoRegular.copyWith(color: ColorResources.YELLOW)),
+            child: Text(getTranslated('CANCEL', context)!, style: robotoRegular.copyWith(color: ColorResources.YELLOW)),
           ),
         ),
       ]),
@@ -33,7 +33,7 @@ class PreferenceDialog extends StatelessWidget {
 class SwitchTile extends StatelessWidget {
   final String title;
   final bool value;
-  SwitchTile({@required this.title, @required this.value});
+  SwitchTile({required this.title, required this.value});
 
   @override
   Widget build(BuildContext context) {

@@ -18,7 +18,7 @@ import 'package:shimmer/shimmer.dart';
 class TopSellerChatScreen extends StatelessWidget {
 
   final TopSellerModel topSeller;
-  TopSellerChatScreen({@required this.topSeller});
+  TopSellerChatScreen({required this.topSeller});
 
   final ImagePicker picker = ImagePicker();
   final TextEditingController _controller = TextEditingController();
@@ -40,13 +40,13 @@ class TopSellerChatScreen extends StatelessWidget {
         CustomAppBar(title: topSeller.name),
 
         // Chats
-        Expanded(child: Provider.of<ChatProvider>(context).chatList != null ? Provider.of<ChatProvider>(context).chatList.length != 0 ? ListView.builder(
+        Expanded(child: Provider.of<ChatProvider>(context).chatList != null ? Provider.of<ChatProvider>(context).chatList!.length != 0 ? ListView.builder(
           physics: BouncingScrollPhysics(),
           padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-          itemCount: Provider.of<ChatProvider>(context).chatList.length,
+          itemCount: Provider.of<ChatProvider>(context).chatList!.length,
           reverse: true,
           itemBuilder: (context, index) {
-            List<ChatModel> chats = Provider.of<ChatProvider>(context).chatList.reversed.toList();
+            List<ChatModel> chats = Provider.of<ChatProvider>(context).chatList!.reversed.toList();
             return MessageBubble(chat: chats[index], sellerImage: topSeller.image, onProfileTap: () {
               Navigator.push(context, MaterialPageRoute(builder: (_) => AllTopSellerScreen(topSeller: topSeller)));
             });
@@ -159,8 +159,8 @@ class ChatShimmer extends StatelessWidget {
 
         bool isMe = index%2 == 0;
         return Shimmer.fromColors(
-          baseColor: isMe ? Colors.grey[300] : ColorResources.IMAGE_BG,
-          highlightColor: isMe ? Colors.grey[100] : ColorResources.IMAGE_BG.withOpacity(0.9),
+          baseColor: isMe ? Colors.grey[300]! : ColorResources.IMAGE_BG,
+          highlightColor: isMe ? Colors.grey[100]! : ColorResources.IMAGE_BG.withOpacity(0.9),
           enabled: Provider.of<ChatProvider>(context).chatList == null,
           child: Row(
             mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,

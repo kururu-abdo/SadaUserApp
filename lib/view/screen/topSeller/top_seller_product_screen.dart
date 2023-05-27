@@ -22,9 +22,9 @@ import 'package:provider/provider.dart';
 
 class TopSellerProductScreen extends StatefulWidget {
   final TopSellerModel topSeller;
-  final int topSellerId;
+  final int? topSellerId;
 
-  TopSellerProductScreen({@required this.topSeller, this.topSellerId});
+  TopSellerProductScreen({required this.topSeller, this.topSellerId});
 
   @override
   State<TopSellerProductScreen> createState() => _TopSellerProductScreenState();
@@ -74,7 +74,7 @@ class _TopSellerProductScreenState extends State<TopSellerProductScreen> {
                     borderRadius: BorderRadius.circular(10),
                     child: FadeInImage.assetNetwork(
                       placeholder: Images.placeholder, height: 120, fit: BoxFit.cover,
-                      image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls.shopImageUrl}/banner/${widget.topSeller.banner != null ? widget.topSeller.banner : ''}',
+                      image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.shopImageUrl}/banner/${widget.topSeller.banner != null ? widget.topSeller.banner : ''}',
                       imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, height: 120, fit: BoxFit.cover),
                     ),
                   ),
@@ -97,7 +97,7 @@ class _TopSellerProductScreenState extends State<TopSellerProductScreen> {
                           borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL),
                           child: FadeInImage.assetNetwork(
                             placeholder: Images.placeholder, height: 80, width: 80, fit: BoxFit.cover,
-                            image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls.shopImageUrl}/${widget.topSeller.image}',
+                            image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.shopImageUrl}/${widget.topSeller.image}',
                             imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, height: 80, width: 80, fit: BoxFit.cover),
                           ),
                         ),
@@ -106,14 +106,14 @@ class _TopSellerProductScreenState extends State<TopSellerProductScreen> {
                       Expanded(
                         child: Consumer<SellerProvider>(
                           builder: (context, sellerProvider,_) {
-                            String ratting = sellerProvider.sellerModel != null && sellerProvider.sellerModel.avgRating != null?
-                            sellerProvider.sellerModel.avgRating.toString() : "0";
+                            String ratting = sellerProvider.sellerModel != null && sellerProvider.sellerModel!.avgRating != null?
+                            sellerProvider.sellerModel!.avgRating.toString() : "0";
 
                             return Column(crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(children: [
                                     Expanded(child: Text(
-                                      widget.topSeller.name,
+                                      widget.topSeller.name!,
                                       style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,),),
@@ -139,7 +139,7 @@ class _TopSellerProductScreenState extends State<TopSellerProductScreen> {
                                     Row(
                                       children: [
                                         RatingBar(rating: double.parse(ratting)),
-                                        Text('(${sellerProvider.sellerModel.totalReview.toString()})' ,
+                                        Text('(${sellerProvider.sellerModel!.totalReview.toString()})' ,
                                           style: titilliumRegular.copyWith(), maxLines: 1, overflow: TextOverflow.ellipsis,),
                                       ],
                                     ),
@@ -147,7 +147,7 @@ class _TopSellerProductScreenState extends State<TopSellerProductScreen> {
 
 
                                     Row(children: [
-                                      Text(sellerProvider.sellerModel.totalReview.toString() +' '+ '${getTranslated('reviews', context)}',
+                                      Text(sellerProvider.sellerModel!.totalReview.toString() +' '+ '${getTranslated('reviews', context)}',
                                         style: titleRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
                                             color: ColorResources.getReviewRattingColor(context)),
                                         maxLines: 1, overflow: TextOverflow.ellipsis,),
@@ -156,7 +156,7 @@ class _TopSellerProductScreenState extends State<TopSellerProductScreen> {
                                         Text('|'),
                                         SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
 
-                                        Text(sellerProvider.sellerModel.totalProduct.toString() +' '+
+                                        Text(sellerProvider.sellerModel!.totalProduct.toString() +' '+
                                             '${getTranslated('products', context)}',
                                           style: titleRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
                                               color: ColorResources.getReviewRattingColor(context)),

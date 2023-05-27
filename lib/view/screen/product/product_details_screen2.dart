@@ -38,13 +38,13 @@ import 'faq_and_review_screen.dart';
 
 
 class ProductDetails2 extends StatefulWidget {
-  final Product product;
+  final Product? product;
 
-  final String id;
-  final String slug;
-    final String seller;
+  final String? id;
+  final String? slug;
+    final String? seller;
 
-  ProductDetails2({@required this.product, this.id ,this.slug  , this.seller});
+  ProductDetails2({required this.product, this.id ,this.slug  , this.seller});
 
 
 
@@ -64,18 +64,18 @@ class _ProductDetailsState extends State<ProductDetails2> {
 
     if (     widget.product!=null) {
    final product = AnalyticsEventItem(
-    itemId: "${widget.product.slug}",
-    itemName: "${widget.product.name}",
-    itemCategory: "${widget.product.categoryIds.first}",
-    itemVariant: "${widget.product.colors.length>0?widget.product.colors.first:''}",
-    price: widget.product.unitPrice,
+    itemId: "${widget.product!.slug}",
+    itemName: "${widget.product!.name}",
+    itemCategory: "${widget.product!.categoryIds!.first}",
+    itemVariant: "${widget.product!.colors!.length>0?widget.product!.colors!.first:''}",
+    price: widget.product!.unitPrice,
 
 );
 
 
 
 await FirebaseAnalytics.instance.logSelectItem(
-    itemListId: "${widget.product.slug}",
+    itemListId: "${widget.product!.slug}",
     itemListName: "Common products",
     items: [product],
 );
@@ -92,27 +92,27 @@ await FirebaseAnalytics.instance.logSelectItem(
        context);
       Provider.of<ProductProvider>(context, listen: false).removePrevRelatedProduct();
       Provider.of<ProductProvider>(context, listen: false).initRelatedProductList( widget.product==null?
-          widget.id:
-          widget.product.id.toString(), context);
+          widget.id!:
+          widget.product!.id.toString(), context);
       Provider.of<ProductDetailsProvider>(context, listen: false).getCount( widget.product==null?
-          widget.id:
-          widget.product.id.toString(), context);
+          widget.id!:
+          widget.product!.id.toString(), context);
       Provider.of<ProductDetailsProvider>(context, listen: false).getSharableLink(
         widget.product==null?
-          widget.slug:
-          widget.product.slug.toString(), context);
+          widget.slug!:
+          widget.product!.slug.toString(), context);
       if(Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
       
         Provider.of<WishListProvider>(context, listen: false).checkWishList(
           widget.product==null?
           widget.id:
-          widget.product.id.toString(), context);
+          widget.product!.id.toString(), context);
       }
       Provider.of<ProductProvider>(context, listen: false).initSellerProductList(
         
              widget.product!=null?
         
-        widget.product.userId.toString():widget.seller, 1, context);
+        widget.product!.userId.toString():widget.seller!, 1, context);
 
 
 
@@ -122,9 +122,9 @@ await FirebaseAnalytics.instance.logSelectItem(
   Widget build(BuildContext context) {
   ScrollController _scrollController = ScrollController();
     String ratting = widget.product != null &&
-      widget.product.rating != null &&
-     widget.product.rating.length != 0?
-    widget.product.rating[0].average.toString() : "0";
+      widget.product!.rating != null &&
+     widget.product!.rating!.length != 0?
+    widget.product!.rating![0].average.toString() : "0";
     _loadData(context);
 
 
@@ -146,7 +146,7 @@ Scaffold(
               SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
 
 
-              Text(getTranslated('product_details', context),
+              Text(getTranslated('product_details', context)!,
 
               
                   style: robotoRegular.copyWith(fontSize: 20,
@@ -170,17 +170,28 @@ Scaffold(
 
 
 
-          body: SingleChildScrollView(
+          body: 
+          
+          
+          
+          
+          SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Column(
               children: [
+
 //image view 
+
      widget.product != null?
 
-     ProductImageView2(productModel: widget.product):SizedBox(),
+ ProductImageView2(productModel: widget.product!)
+     :
+     SizedBox(),
+
 
 
 //details
+
   Container(
 padding: EdgeInsets.only(top: Dimensions.FONT_SIZE_DEFAULT),
 
@@ -196,16 +207,16 @@ padding: EdgeInsets.only(top: Dimensions.FONT_SIZE_DEFAULT),
 
 
 
-                    (widget.product.details != null && widget.product.details.isNotEmpty) ?
+                    (widget.product!.details != null && widget.product!.details!.isNotEmpty) ?
                     Container(height: 250,
                       margin: EdgeInsets.only(top: Dimensions.PADDING_SIZE_SMALL),
                       padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
                       child: 
-                      ProductSpecification(productSpecification: widget.product.details
+                      ProductSpecification(productSpecification: widget.product!.details
                        ?? ''),) : SizedBox(),
 
-                    widget.product.videoUrl != null?
-                    YoutubeVideoWidget(url: widget.product.videoUrl):SizedBox(),
+                    widget.product!.videoUrl != null?
+                    YoutubeVideoWidget(url: widget.product!.videoUrl):SizedBox(),
 
                     Container(padding: EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_DEFAULT,
                         horizontal: Dimensions.FONT_SIZE_DEFAULT),
@@ -216,8 +227,8 @@ padding: EdgeInsets.only(top: Dimensions.FONT_SIZE_DEFAULT),
 
 
 
-                    widget.product.addedBy == 'seller' ? 
-                    SellerView(sellerId: widget.product.userId.toString()) :
+                    widget.product!.addedBy == 'seller' ? 
+                    SellerView(sellerId: widget.product!.userId.toString()) :
                      SizedBox.shrink(),
 
 
@@ -230,7 +241,7 @@ padding: EdgeInsets.only(top: Dimensions.FONT_SIZE_DEFAULT),
                       child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
 
 
-                        Text(getTranslated('customer_reviews', context),
+                        Text(getTranslated('customer_reviews', context)!,
                           style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),),
                         SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT,),
                         Container(width: 230,height: 30,
@@ -248,11 +259,11 @@ padding: EdgeInsets.only(top: Dimensions.FONT_SIZE_DEFAULT),
                       ),
 
                       SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
-                      Text('${getTranslated('total', context)}' + ' '+'${details.reviewList != null ? details.reviewList.length : 0}' +' '+ '${getTranslated('reviews', context)}'),
+                      Text('${getTranslated('total', context)}' + ' '+'${details.reviewList != null ? details.reviewList!.length : 0}' +' '+ '${getTranslated('reviews', context)}'),
 
 
 
-                      details.reviewList != null ? details.reviewList.length != 0 ?
+                      details.reviewList != null ? details.reviewList!.length != 0 ?
                        GestureDetector(
                          
                          
@@ -310,11 +321,11 @@ padding: EdgeInsets.only(top: Dimensions.FONT_SIZE_DEFAULT),
                          },
                          
                          
-                         child: ReviewWidget(reviewModel: details.reviewList[0]))
+                         child: ReviewWidget(reviewModel: details.reviewList![0]))
 
                           : SizedBox() : ReviewShimmer(),
 
-                      details.reviewList != null ? details.reviewList.length > 1 ?
+                      details.reviewList != null ? details.reviewList!.length > 1 ?
                        GestureDetector(
                                
                          onTap: ()async{
@@ -327,11 +338,11 @@ padding: EdgeInsets.only(top: Dimensions.FONT_SIZE_DEFAULT),
                          },
                          
                          
-                         child: ReviewWidget(reviewModel: details.reviewList[1]))
+                         child: ReviewWidget(reviewModel: details.reviewList![1]))
 
 
                           : SizedBox() : ReviewShimmer(),
-                      details.reviewList != null ? details.reviewList.length > 2 ? 
+                      details.reviewList != null ? details.reviewList!.length > 2 ? 
                       
                       GestureDetector(
                         
@@ -390,7 +401,7 @@ padding: EdgeInsets.only(top: Dimensions.FONT_SIZE_DEFAULT),
                          },
                         
                         
-                        child: ReviewWidget(reviewModel: details.reviewList[2]))
+                        child: ReviewWidget(reviewModel: details.reviewList![2]))
                           : SizedBox() : ReviewShimmer(),
 
                       InkWell(
@@ -399,10 +410,10 @@ padding: EdgeInsets.only(top: Dimensions.FONT_SIZE_DEFAULT),
                             {Navigator.push(context, MaterialPageRoute(builder: (_) =>
                                 ReviewScreen(reviewList: details.reviewList)));}},
                           child: 
-                          details.reviewList != null && details.reviewList.length > 3?
+                          details.reviewList != null && details.reviewList!.length > 3?
 
 
-                          Text(getTranslated('view_more', context),
+                          Text(getTranslated('view_more', context)!,
                             style: 
                             titilliumRegular.copyWith(color: Theme.of(context).primaryColor),)
                             
@@ -415,15 +426,15 @@ padding: EdgeInsets.only(top: Dimensions.FONT_SIZE_DEFAULT),
                     ]),
                   ),
 
-                    widget.product.addedBy == 'seller' ?
+                    widget.product!.addedBy == 'seller' ?
                     Padding(padding: EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
                       child: TitleRow(title: getTranslated('more_from_the_shop', context), isDetailsPage: true),
                     ):SizedBox(),
 
-                    widget.product.addedBy == 'seller' ?
+                    widget.product!.addedBy == 'seller' ?
                     Padding(padding: EdgeInsets.all(Dimensions.PADDING_SIZE_EXTRA_SMALL),
                       child: ProductView(isHomePage: true, productType: ProductType.SELLER_PRODUCT,
-                          scrollController: _scrollController, sellerId: widget.product.userId.toString()),):SizedBox(),
+                          scrollController: _scrollController, sellerId: widget.product!.userId.toString()),):SizedBox(),
 
 
 
@@ -449,7 +460,12 @@ padding: EdgeInsets.only(top: Dimensions.FONT_SIZE_DEFAULT),
 
 
 
-              ]))
+
+
+              ])
+              
+              
+              )
 
 
 
@@ -457,8 +473,12 @@ padding: EdgeInsets.only(top: Dimensions.FONT_SIZE_DEFAULT),
 
 ): 
 
-    Scaffold(body: NoInternetOrDataScreen(isNoInternet: true,
-            child: ProductDetails2(product: widget.product)));
+   Scaffold(body: NoInternetOrDataScreen(isNoInternet: true,
+            child: ProductDetails2(product: widget.product)
+            
+            ))
+            
+            ;
       })
 
 

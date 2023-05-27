@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:eamar_user_app/utill/dimensions.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 class YoutubeVideoWidget extends StatelessWidget {
-  final String url;
-  YoutubeVideoWidget({@required this.url});
+  final String? url;
+  YoutubeVideoWidget({required this.url});
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    return url.isNotEmpty ?
+    return url!.isNotEmpty ?
     Container(height: width/1.55,width:width,
         padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL),
         child: WebView(

@@ -15,13 +15,13 @@ import 'package:shimmer/shimmer.dart';
 
 // ignore: must_be_immutable
 class ChatScreen extends StatelessWidget {
-  final SellerModel seller;
-  final TopSellerModel topSeller;
-  final int shopId;
-  final int sellerId;
-  final String shopName;
-  final String image;
-  ChatScreen({@required this.seller, this.topSeller, this.shopId, this.sellerId, this.shopName, this.image});
+  final SellerModel? seller;
+  final TopSellerModel? topSeller;
+  final int? shopId;
+  final int? sellerId;
+  final String? shopName;
+  final String? image;
+  ChatScreen({required this.seller, this.topSeller, this.shopId, this.sellerId, this.shopName, this.image});
 
   final ImagePicker picker = ImagePicker();
   final TextEditingController _controller = TextEditingController();
@@ -44,14 +44,14 @@ class ChatScreen extends StatelessWidget {
             CustomAppBar(title: shopName?? ''),
 
             // Chats
-            Expanded(child: chatProvider.chatList != null ? chatProvider.chatList.length != 0 ?
+            Expanded(child: chatProvider.chatList != null ? chatProvider.chatList!.length != 0 ?
             ListView.builder(
               physics: BouncingScrollPhysics(),
               padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-              itemCount: Provider.of<ChatProvider>(context).chatList.length,
+              itemCount: Provider.of<ChatProvider>(context).chatList!.length,
               reverse: true,
               itemBuilder: (context, index) {
-                List<ChatModel> chats = chatProvider.chatList.reversed.toList();
+                List<ChatModel> chats = chatProvider.chatList!.reversed.toList();
                 return MessageBubble(chat: chats[index], sellerImage: image, onProfileTap: () {
                   // Navigator.push(context, MaterialPageRoute(builder: (_) => SellerScreen(seller: seller)));
                 });
@@ -166,8 +166,8 @@ class ChatShimmer extends StatelessWidget {
 
         bool isMe = index%2 == 0;
         return Shimmer.fromColors(
-          baseColor: isMe ? Colors.grey[300] : ColorResources.IMAGE_BG,
-          highlightColor: isMe ? Colors.grey[100] : ColorResources.IMAGE_BG.withOpacity(0.9),
+          baseColor: isMe ? Colors.grey[300]! : ColorResources.IMAGE_BG,
+          highlightColor: isMe ? Colors.grey[100]! : ColorResources.IMAGE_BG.withOpacity(0.9),
           enabled: Provider.of<ChatProvider>(context).chatList == null,
           child: Row(
             mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,

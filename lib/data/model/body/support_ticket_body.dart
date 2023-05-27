@@ -9,9 +9,9 @@ class SupportTicketBody {
     this._description = description;
   }
 
-  String get type => _type!;
-  String get subject => _subject!;
-  String get description => _description!;
+  String? get type => _type;
+  String? get subject => _subject;
+  String? get description => _description;
 
   SupportTicketBody.fromJson(Map<String, dynamic> json) {
     _type = json['type'];

@@ -19,7 +19,7 @@ class CategoryShimmer extends StatelessWidget {
 
         return Container(
           decoration: BoxDecoration(boxShadow: [BoxShadow(
-              color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 700 : 200],
+              color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 700 : 200]!,
               spreadRadius: 2, blurRadius: 5)]),
           margin: EdgeInsets.all(3),
           child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -27,8 +27,8 @@ class CategoryShimmer extends StatelessWidget {
             Expanded(
               flex: 7,
               child: Shimmer.fromColors(
-                baseColor: Colors.grey[300],
-                highlightColor: Colors.grey[100],
+                baseColor: Colors.grey[300]!,
+                highlightColor: Colors.grey[100]!,
                 enabled: Provider.of<CategoryProvider>(context).categoryList.length == 0,
                 child: Container(decoration: BoxDecoration(
                   color: Colors.white,
@@ -44,8 +44,8 @@ class CategoryShimmer extends StatelessWidget {
                 borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10)),
               ),
               child: Shimmer.fromColors(
-                baseColor: Colors.grey[300],
-                highlightColor: Colors.grey[100],
+                baseColor: Colors.grey[300]!,
+                highlightColor: Colors.grey[100]!,
                 enabled: Provider.of<CategoryProvider>(context).categoryList.length == 0,
                 child: Container(height: 10, color: Colors.white, margin: EdgeInsets.only(left: 15, right: 15)),
               ),

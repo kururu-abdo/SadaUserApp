@@ -6,7 +6,7 @@ import 'package:shimmer/shimmer.dart';
 class JobShimmer extends StatelessWidget {
   final bool isEnabled;
   final bool isHomePage;
-  JobShimmer({@required this.isEnabled, @required this.isHomePage});
+  JobShimmer({required this.isEnabled, required this.isHomePage});
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +37,8 @@ class JobShimmer extends StatelessWidget {
           boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.2), spreadRadius: 1, blurRadius: 5)],
         ),
     child: Shimmer.fromColors(
-            baseColor: Colors.grey[300],
-            highlightColor: Colors.grey[100],
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
             enabled: isEnabled,
 
 
@@ -149,8 +149,8 @@ Row(
             boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.3), spreadRadius: 1, blurRadius: 5)],
           ),
           child: Shimmer.fromColors(
-            baseColor: Colors.grey[300],
-            highlightColor: Colors.grey[100],
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
             enabled: isEnabled,
             child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
               // Product Image

@@ -12,18 +12,18 @@ import 'package:provider/provider.dart';
 class ResetPasswordWidget extends StatefulWidget {
   final String mobileNumber;
   final String otp;
-  const ResetPasswordWidget({Key key,@required this.mobileNumber,@required this.otp}) : super(key: key);
+  const ResetPasswordWidget({Key? key,required this.mobileNumber,required this.otp}) : super(key: key);
 
   @override
   _ResetPasswordWidgetState createState() => _ResetPasswordWidgetState();
 }
 
 class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
-  TextEditingController _passwordController;
-  TextEditingController _confirmPasswordController;
+  TextEditingController? _passwordController;
+  TextEditingController? _confirmPasswordController;
   FocusNode _newPasswordNode = FocusNode();
   FocusNode _confirmPasswordNode = FocusNode();
-  GlobalKey<FormState> _formKeyReset;
+  GlobalKey<FormState>? _formKeyReset;
 
   @override
   void initState() {
@@ -34,22 +34,22 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
 
 
   void resetPassword() async {
-      String _password = _passwordController.text.trim();
-      String _confirmPassword = _confirmPasswordController.text.trim();
+      String _password = _passwordController!.text.trim();
+      String _confirmPassword = _confirmPasswordController!.text.trim();
 
       if (_password.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('PASSWORD_MUST_BE_REQUIRED', context)),
+          content: Text(getTranslated('PASSWORD_MUST_BE_REQUIRED', context)!),
           backgroundColor: Colors.red,
         ));
       } else if (_confirmPassword.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('CONFIRM_PASSWORD_MUST_BE_REQUIRED', context)),
+          content: Text(getTranslated('CONFIRM_PASSWORD_MUST_BE_REQUIRED', context)!),
           backgroundColor: Colors.red,
         ));
       }else if (_password != _confirmPassword) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('PASSWORD_DID_NOT_MATCH', context)),
+          content: Text(getTranslated('PASSWORD_DID_NOT_MATCH', context)!),
           backgroundColor: Colors.red,
         ));
       } else {
@@ -57,12 +57,12 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
             _password, _confirmPassword).then((value) {
           if(value.isSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(getTranslated('password_reset_successfully', context)),
+                SnackBar(content: Text(getTranslated('password_reset_successfully', context)!),
                   backgroundColor: Colors.green,)
             );
             Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => AuthScreen()), (route) => false);
           }else {
-            showCustomSnackBar(value.message, context);
+            showCustomSnackBar(value.message!, context);
           }
         });
 
@@ -87,7 +87,7 @@ class _ResetPasswordWidgetState extends State<ResetPasswordWidget> {
 
             Padding(
               padding: const EdgeInsets.all(Dimensions.MARGIN_SIZE_LARGE),
-              child: Text(getTranslated('password_reset', context), style: titilliumSemiBold),
+              child: Text(getTranslated('password_reset', context)!, style: titilliumSemiBold),
             ),
             // for new password
             Container(

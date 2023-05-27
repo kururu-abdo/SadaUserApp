@@ -22,9 +22,9 @@ import 'package:provider/provider.dart';
 class AllProductsByCategory extends StatefulWidget {
   final bool isBrand;
   final String id;
-  final String name;
-  final String image;
-  AllProductsByCategory({@required this.isBrand, @required this.id, @required this.name, this.image});
+  final String? name;
+  final String? image;
+  AllProductsByCategory({required this.isBrand, required this.id, required this.name, this.image});
 
   @override
   State<AllProductsByCategory> createState() => _AllProductsByCategoryState();

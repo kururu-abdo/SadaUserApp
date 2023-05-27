@@ -1,26 +1,26 @@
 class SupportTicketModel {
-  int _id;
-  int _customerId;
-  String _subject;
-  String _type;
-  String _priority;
-  String _description;
-  String _reply;
-  String _status;
-  String _createdAt;
-  String _updatedAt;
+  int? _id;
+  int? _customerId;
+  String? _subject;
+  String? _type;
+  String? _priority;
+  String? _description;
+  String? _reply;
+  String? _status;
+  String? _createdAt;
+  String? _updatedAt;
 
   SupportTicketModel(
-      {int id,
-        int customerId,
-        String subject,
-        String type,
-        String priority,
-        String description,
-        String reply,
-        String status,
-        String createdAt,
-        String updatedAt}) {
+      {int? id,
+        int? customerId,
+        String? subject,
+        String? type,
+        String? priority,
+        String? description,
+        String? reply,
+        String? status,
+        String? createdAt,
+        String? updatedAt}) {
     this._id = id;
     this._customerId = customerId;
     this._subject = subject;
@@ -33,16 +33,16 @@ class SupportTicketModel {
     this._updatedAt = updatedAt;
   }
 
-  int get id => _id;
-  int get customerId => _customerId;
-  String get subject => _subject;
-  String get type => _type;
-  String get priority => _priority;
-  String get description => _description;
-  String get reply => _reply;
-  String get status => _status;
-  String get createdAt => _createdAt;
-  String get updatedAt => _updatedAt;
+  int? get id => _id;
+  int? get customerId => _customerId;
+  String? get subject => _subject;
+  String? get type => _type;
+  String? get priority => _priority;
+  String? get description => _description;
+  String? get reply => _reply;
+  String? get status => _status;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
 
   SupportTicketModel.fromJson(Map<String, dynamic> json) {
     _id = json['id'];

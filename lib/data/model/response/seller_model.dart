@@ -1,12 +1,12 @@
 class SellerModel {
-  Seller _seller;
-  int _avgRating;
-  int _totalReview;
-  int _totalOrder;
-  int _totalProduct;
+  Seller? _seller;
+  int? _avgRating;
+  int? _totalReview;
+  int? _totalOrder;
+  int? _totalProduct;
 
   SellerModel(
-      {Seller seller, int avgRating, int totalReview, int totalOrder, int totalProduct}) {
+      {Seller? seller, int? avgRating, int? totalReview, int? totalOrder, int? totalProduct}) {
     if (seller != null) {
       this._seller = seller;
     }
@@ -24,11 +24,11 @@ class SellerModel {
     }
   }
 
-  Seller get seller => _seller;
-  int get avgRating => _avgRating;
-  int get totalReview => _totalReview;
-  int get totalOrder => _totalOrder;
-  int get totalProduct => _totalProduct;
+  Seller? get seller => _seller;
+  int? get avgRating => _avgRating;
+  int? get totalReview => _totalReview;
+  int? get totalOrder => _totalOrder;
+  int? get totalProduct => _totalProduct;
 
 
   SellerModel.fromJson(Map<String, dynamic> json) {
@@ -43,7 +43,7 @@ class SellerModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this._seller != null) {
-      data['seller'] = this._seller.toJson();
+      data['seller'] = this._seller!.toJson();
     }
     data['avg_rating'] = this._avgRating;
     data['total_review'] = this._totalReview;
@@ -54,20 +54,20 @@ class SellerModel {
 }
 
 class Seller {
-  int _id;
-  String _fName;
-  String _lName;
-  String _phone;
-  String _image;
-  Shop _shop;
+  int? _id;
+  String? _fName;
+  String? _lName;
+  String? _phone;
+  String? _image;
+  Shop? _shop;
 
   Seller(
-      {int id,
-        String fName,
-        String lName,
-        String phone,
-        String image,
-        Shop shop}) {
+      {int? id,
+        String? fName,
+        String? lName,
+        String? phone,
+        String? image,
+        Shop? shop}) {
     if (id != null) {
       this._id = id;
     }
@@ -88,12 +88,12 @@ class Seller {
     }
   }
 
-  int get id => _id;
-  String get fName => _fName;
-  String get lName => _lName;
-  String get phone => _phone;
-  String get image => _image;
-  Shop get shop => _shop;
+  int? get id => _id;
+  String? get fName => _fName;
+  String? get lName => _lName;
+  String? get phone => _phone;
+  String? get image => _image;
+  Shop? get shop => _shop;
 
   Seller.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
@@ -112,33 +112,33 @@ class Seller {
     data['phone'] = this._phone;
     data['image'] = this._image;
     if (this._shop != null) {
-      data['shop'] = this._shop.toJson();
+      data['shop'] = this._shop!.toJson();
     }
     return data;
   }
 }
 
 class Shop {
-  int _id;
-  int _sellerId;
-  String _name;
-  String _address;
-  String _contact;
-  String _image;
-  String _createdAt;
-  String _updatedAt;
-  String _banner;
+  int? _id;
+  int? _sellerId;
+  String? _name;
+  String? _address;
+  String? _contact;
+  String? _image;
+  String? _createdAt;
+  String? _updatedAt;
+  String? _banner;
 
   Shop(
-      {int id,
-        int sellerId,
-        String name,
-        String address,
-        String contact,
-        String image,
-        String createdAt,
-        String updatedAt,
-        String banner}) {
+      {int? id,
+        int? sellerId,
+        String? name,
+        String? address,
+        String? contact,
+        String? image,
+        String? createdAt,
+        String? updatedAt,
+        String? banner}) {
     if (id != null) {
       this._id = id;
     }
@@ -168,15 +168,15 @@ class Shop {
     }
   }
 
-  int get id => _id;
-  int get sellerId => _sellerId;
-  String get name => _name;
-  String get address => _address;
-  String get contact => _contact;
-  String get image => _image;
-  String get createdAt => _createdAt;
-  String get updatedAt => _updatedAt;
-  String get banner => _banner;
+  int? get id => _id;
+  int? get sellerId => _sellerId;
+  String? get name => _name;
+  String? get address => _address;
+  String? get contact => _contact;
+  String? get image => _image;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
+  String? get banner => _banner;
 
 
   Shop.fromJson(Map<String, dynamic> json) {

@@ -6,7 +6,7 @@ import 'package:shimmer/shimmer.dart';
 class ProductShimmerSimple extends StatelessWidget {
   final bool isEnabled;
   final bool isHomePage;
-  ProductShimmerSimple({@required this.isEnabled, @required this.isHomePage});
+  ProductShimmerSimple({required this.isEnabled, required this.isHomePage});
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +33,8 @@ class ProductShimmerSimple extends StatelessWidget {
             boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.2), spreadRadius: 1, blurRadius: 5)],
           ),
     child: Shimmer.fromColors(
-            baseColor: Colors.grey[300],
-            highlightColor: Colors.grey[100],
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
             enabled: isEnabled,
 
 child: Row(
@@ -108,8 +108,8 @@ SizedBox(width: 8,),
             boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.3), spreadRadius: 1, blurRadius: 5)],
           ),
           child: Shimmer.fromColors(
-            baseColor: Colors.grey[300],
-            highlightColor: Colors.grey[100],
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
             enabled: isEnabled,
             child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
               // Product Image

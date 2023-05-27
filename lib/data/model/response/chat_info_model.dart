@@ -18,14 +18,14 @@ class ChatInfoModel {
     }
   }
 
-  LastChat get lastChat => _lastChat!;
-  List<ChatList> get chatList => _chatList!;
-  List<UniqueShops> get uniqueShops => _uniqueShops!;
+  LastChat? get lastChat => _lastChat;
+  List<ChatList>? get chatList => _chatList;
+  List<UniqueShops>? get uniqueShops => _uniqueShops;
 
 
   ChatInfoModel.fromJson(Map<String, dynamic> json) {
-    _lastChat = json['last_chat'] != null
-        ? new LastChat.fromJson(json['last_chat'])
+    _lastChat = json['last_chat'] != null?
+         new LastChat.fromJson(json['last_chat'])
         : null;
     if (json['chat_list'] != null) {
       _chatList = <ChatList>[];
@@ -127,19 +127,19 @@ class LastChat {
     }
   }
 
-  int get id => _id!;
-  int get userId => _userId!;
-  int get sellerId => _sellerId!;
-  String get message => _message!;
-  int get sentByCustomer => _sentByCustomer!;
-  int get sentBySeller => _sentBySeller!;
-  int get seenByCustomer => _seenByCustomer!;
-  int get seenBySeller => _seenBySeller!;
-  int get status => _status!;
-  String get createdAt => _createdAt!;
-  int get shopId => _shopId!;
-  SellerInfo get sellerInfo => _sellerInfo!;
-  Shop get shop => _shop!;
+  int? get id => _id;
+  int? get userId => _userId;
+  int? get sellerId => _sellerId;
+  String? get message => _message;
+  int? get sentByCustomer => _sentByCustomer;
+  int? get sentBySeller => _sentBySeller;
+  int? get seenByCustomer => _seenByCustomer;
+  int? get seenBySeller => _seenBySeller;
+  int? get status => _status;
+  String? get createdAt => _createdAt;
+  int? get shopId => _shopId;
+  SellerInfo? get sellerInfo => _sellerInfo;
+  Shop? get shop => _shop;
 
 
   LastChat.fromJson(Map<String, dynamic> json) {
@@ -154,11 +154,11 @@ class LastChat {
     _status = json['status'];
     _createdAt = json['created_at'];
     _shopId = json['shop_id'];
-    _sellerInfo = json['seller_info'] != null
-        ? new SellerInfo.fromJson(json['seller_info'])
+    _sellerInfo = json['seller_info'] != null?
+         new SellerInfo.fromJson(json['seller_info'])
         : null;
 
-    _shop = json['shop'] != null ? new Shop.fromJson(json['shop']) : null;
+    _shop = json['shop'] != null?  new Shop.fromJson(json['shop']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -232,78 +232,78 @@ class SellerInfo {
     if (fName != null) {
       this._fName = fName;
     }
-    if (lName != null) {
+    if (lName !=  null) {
       this._lName = lName;
     }
-    if (phone != null) {
+    if (phone !=  null) {
       this._phone = phone;
     }
-    if (image != null) {
+    if (image !=  null) {
       this._image = image;
     }
     if (email != null) {
       this._email = email;
     }
-    if (password != null) {
+    if (password !=  null) {
       this._password = password;
     }
-    if (status != null) {
+    if (status !=  null) {
       this._status = status;
     }
-    if (createdAt != null) {
+    if (createdAt !=  null) {
       this._createdAt = createdAt;
     }
-    if (updatedAt != null) {
+    if (updatedAt !=  null) {
       this._updatedAt = updatedAt;
     }
-    if (bankName != null) {
+    if (bankName !=  null) {
       this._bankName = bankName;
     }
-    if (branch != null) {
+    if (branch !=  null) {
       this._branch = branch;
     }
-    if (accountNo != null) {
+    if (accountNo !=  null) {
       this._accountNo = accountNo;
     }
-    if (holderName != null) {
+    if (holderName !=  null) {
       this._holderName = holderName;
     }
-    if (authToken != null) {
+    if (authToken !=  null) {
       this._authToken = authToken;
     }
-    if (salesCommissionPercentage != null) {
+    if (salesCommissionPercentage !=  null) {
       this._salesCommissionPercentage = salesCommissionPercentage;
     }
-    if (gst != null) {
+    if (gst !=  null) {
       this._gst = gst;
     }
-    if (cmFirebaseToken != null) {
+    if (cmFirebaseToken !=  null) {
       this._cmFirebaseToken = cmFirebaseToken;
     }
-    if (posStatus != null) {
+    if (posStatus !=  null) {
       this._posStatus = posStatus;
     }
   }
 
-  int get id => _id;
-  String get fName => _fName;
-  String get lName => _lName;
-  String get phone => _phone;
-  String get image => _image;
-  String get email => _email;
-  String get password => _password;
-  String get status => _status;
-  String get createdAt => _createdAt;
-  String get updatedAt => _updatedAt;
-  String get bankName => _bankName;
-  String get branch => _branch;
-  String get accountNo => _accountNo;
-  String get holderName => _holderName;
-  String get authToken => _authToken;
-  int get salesCommissionPercentage => _salesCommissionPercentage;
-  String get gst => _gst;
-  String get cmFirebaseToken => _cmFirebaseToken;
-  int get posStatus => _posStatus;
+  int? get id => _id;
+  String? get fName => _fName;
+  String? get lName => _lName;
+  String? get phone => _phone;
+  String? get image => _image;
+  String? get email => _email;
+  String? get password => _password;
+  String? get status => _status;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
+  String? get bankName => _bankName;
+  String? get branch => _branch;
+  String? get accountNo => _accountNo;
+  String? get holderName => _holderName;
+  String? get authToken => _authToken;
+  int? get salesCommissionPercentage => _salesCommissionPercentage;
+  String? get gst => _gst;
+  String? get cmFirebaseToken => _cmFirebaseToken;
+  int? get posStatus => _posStatus;
 
 
   SellerInfo.fromJson(Map<String, dynamic> json) {
@@ -356,64 +356,64 @@ class SellerInfo {
 
 
 class Shop {
-  int _id;
-  int _sellerId;
-  String _name;
-  String _address;
-  String _contact;
-  String _image;
-  String _createdAt;
-  String _updatedAt;
-  String _banner;
+  int? _id;
+  int? _sellerId;
+  String? _name;
+  String? _address;
+  String? _contact;
+  String? _image;
+  String? _createdAt;
+  String? _updatedAt;
+  String? _banner;
 
   Shop(
-      {int id,
-        int sellerId,
-        String name,
-        String address,
-        String contact,
-        String image,
-        String createdAt,
-        String updatedAt,
-        String banner}) {
-    if (id != null) {
+      {int? id,
+        int? sellerId,
+        String? name,
+        String? address,
+        String? contact,
+        String? image,
+        String? createdAt,
+        String? updatedAt,
+        String? banner}) {
+    if (id !=  null) {
       this._id = id;
     }
-    if (sellerId != null) {
+    if (sellerId !=  null) {
       this._sellerId = sellerId;
     }
-    if (name != null) {
+    if (name !=  null) {
       this._name = name;
     }
-    if (address != null) {
+    if (address !=  null) {
       this._address = address;
     }
-    if (contact != null) {
+    if (contact !=  null) {
       this._contact = contact;
     }
-    if (image != null) {
+    if (image !=  null) {
       this._image = image;
     }
-    if (createdAt != null) {
+    if (createdAt !=  null) {
       this._createdAt = createdAt;
     }
-    if (updatedAt != null) {
+    if (updatedAt !=  null) {
       this._updatedAt = updatedAt;
     }
-    if (banner != null) {
+    if (banner !=  null) {
       this._banner = banner;
     }
   }
 
-  int get id => _id;
-  int get sellerId => _sellerId;
-  String get name => _name;
-  String get address => _address;
-  String get contact => _contact;
-  String get image => _image;
-  String get createdAt => _createdAt;
-  String get updatedAt => _updatedAt;
-  String get banner => _banner;
+  int? get id => _id;
+  int? get sellerId => _sellerId;
+  String? get name => _name;
+  String? get address => _address;
+  String? get contact => _contact;
+  String? get image => _image;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
+  String? get banner => _banner;
 
 
   Shop.fromJson(Map<String, dynamic> json) {
@@ -444,107 +444,107 @@ class Shop {
 }
 
 class ChatList {
-  int _id;
-  int _userId;
-  int _sellerId;
-  String _message;
-  int _sentByCustomer;
-  int _sentBySeller;
-  int _seenByCustomer;
-  int _seenBySeller;
-  int _status;
-  String _createdAt;
-  String _updatedAt;
-  int _shopId;
-  String _name;
-  String _image;
-  SellerInfo _sellerInfo;
-  Shop _shop;
+  int? _id;
+  int? _userId;
+  int? _sellerId;
+  String? _message;
+  int? _sentByCustomer;
+  int? _sentBySeller;
+  int? _seenByCustomer;
+  int? _seenBySeller;
+  int? _status;
+  String? _createdAt;
+  String? _updatedAt;
+  int? _shopId;
+  String? _name;
+  String? _image;
+  SellerInfo? _sellerInfo;
+  Shop? _shop;
 
   ChatList(
-      {int id,
-        int userId,
-        int sellerId,
-        String message,
-        int sentByCustomer,
-        int sentBySeller,
-        int seenByCustomer,
-        int seenBySeller,
-        int status,
-        String createdAt,
-        String updatedAt,
-        int shopId,
-        String name,
-        String image,
-        SellerInfo sellerInfo,
-        Shop shop}) {
+      {int? id,
+        int? userId,
+        int? sellerId,
+        String? message,
+        int? sentByCustomer,
+        int? sentBySeller,
+        int? seenByCustomer,
+        int? seenBySeller,
+        int? status,
+        String? createdAt,
+        String? updatedAt,
+        int? shopId,
+        String? name,
+        String? image,
+        SellerInfo? sellerInfo,
+        Shop? shop}) {
     if (id != null) {
       this._id = id;
     }
-    if (userId != null) {
+    if (userId !=  null) {
       this._userId = userId;
     }
-    if (sellerId != null) {
+    if (sellerId !=  null) {
       this._sellerId = sellerId;
     }
-    if (message != null) {
+    if (message !=  null) {
       this._message = message;
     }
-    if (sentByCustomer != null) {
+    if (sentByCustomer !=  null) {
       this._sentByCustomer = sentByCustomer;
     }
-    if (sentBySeller != null) {
+    if (sentBySeller !=  null) {
       this._sentBySeller = sentBySeller;
     }
-    if (seenByCustomer != null) {
+    if (seenByCustomer !=  null) {
       this._seenByCustomer = seenByCustomer;
     }
-    if (seenBySeller != null) {
+    if (seenBySeller !=  null) {
       this._seenBySeller = seenBySeller;
     }
-    if (status != null) {
+    if (status !=  null) {
       this._status = status;
     }
-    if (createdAt != null) {
+    if (createdAt !=  null) {
       this._createdAt = createdAt;
     }
-    if (updatedAt != null) {
+    if (updatedAt !=  null) {
       this._updatedAt = updatedAt;
     }
-    if (shopId != null) {
+    if (shopId !=  null) {
       this._shopId = shopId;
     }
-    if (name != null) {
+    if (name !=  null) {
       this._name = name;
     }
-    if (image != null) {
+    if (image !=  null) {
       this._image = image;
     }
-    if (sellerInfo != null) {
+    if (sellerInfo !=  null) {
       this._sellerInfo = sellerInfo;
     }
 
-    if (shop != null) {
+    if (shop !=  null) {
       this._shop = shop;
     }
   }
 
-  int get id => _id;
-  int get userId => _userId;
-  int get sellerId => _sellerId;
-  String get message => _message;
-  int get sentByCustomer => _sentByCustomer;
-  int get sentBySeller => _sentBySeller;
-  int get seenByCustomer => _seenByCustomer;
-  int get seenBySeller => _seenBySeller;
-  int get status => _status;
-  String get createdAt => _createdAt;
-  String get updatedAt => _updatedAt;
-  int get shopId => _shopId;
-  String get name => _name;
-  String get image => _image;
-  SellerInfo get sellerInfo => _sellerInfo;
-  Shop get shop => _shop;
+  int? get id => _id;
+  int? get userId => _userId;
+  int? get sellerId => _sellerId;
+  String? get message => _message;
+  int? get sentByCustomer => _sentByCustomer;
+  int? get sentBySeller => _sentBySeller;
+  int? get seenByCustomer => _seenByCustomer;
+  int? get seenBySeller => _seenBySeller;
+  int? get status => _status;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
+  int? get shopId => _shopId;
+  String? get name => _name;
+  String? get image => _image;
+  SellerInfo? get sellerInfo => _sellerInfo;
+  Shop? get shop => _shop;
 
 
   ChatList.fromJson(Map<String, dynamic> json) {
@@ -562,8 +562,8 @@ class ChatList {
     _shopId = json['shop_id'];
     _name = json['name'];
     _image = json['image'];
-    _sellerInfo = json['seller_info'] != null
-        ? new SellerInfo.fromJson(json['seller_info'])
+    _sellerInfo = json['seller_info'] != null?
+         new SellerInfo.fromJson(json['seller_info'])
         : null;
     _shop = json['shop'] != null ? new Shop.fromJson(json['shop']) : null;
   }
@@ -585,45 +585,45 @@ class ChatList {
     data['name'] = this._name;
     data['image'] = this._image;
     if (this._sellerInfo != null) {
-      data['seller_info'] = this._sellerInfo.toJson();
+      data['seller_info'] = this._sellerInfo!.toJson();
     }
 
     if (this._shop != null) {
-      data['shop'] = this._shop.toJson();
+      data['shop'] = this._shop!.toJson();
     }
     return data;
   }
 }
 
 class UniqueShops {
-  int _id;
-  int _userId;
-  int _sellerId;
-  String _message;
-  int _sentByCustomer;
-  int _sentBySeller;
-  int _seenByCustomer;
-  int _seenBySeller;
-  int _status;
-  String _createdAt;
-  int _shopId;
-  SellerInfo _sellerInfo;
-  Shop _shop;
+  int? _id;
+  int? _userId;
+  int? _sellerId;
+  String? _message;
+  int? _sentByCustomer;
+  int? _sentBySeller;
+  int? _seenByCustomer;
+  int? _seenBySeller;
+  int? _status;
+  String? _createdAt;
+  int? _shopId;
+  SellerInfo? _sellerInfo;
+  Shop? _shop;
 
   UniqueShops(
-      {int id,
-        int userId,
-        int sellerId,
-        String message,
-        int sentByCustomer,
-        int sentBySeller,
-        int seenByCustomer,
-        int seenBySeller,
-        int status,
-        String createdAt,
-        int shopId,
-        SellerInfo sellerInfo,
-        Shop shop}) {
+      {int? id,
+        int? userId,
+        int? sellerId,
+        String? message,
+        int? sentByCustomer,
+        int? sentBySeller,
+        int? seenByCustomer,
+        int? seenBySeller,
+        int? status,
+        String? createdAt,
+        int? shopId,
+        SellerInfo? sellerInfo,
+        Shop? shop}) {
     if (id != null) {
       this._id = id;
     }
@@ -666,19 +666,19 @@ class UniqueShops {
     }
   }
 
-  int get id => _id;
-  int get userId => _userId;
-  int get sellerId => _sellerId;
-  String get message => _message;
-  int get sentByCustomer => _sentByCustomer;
-  int get sentBySeller => _sentBySeller;
-  int get seenByCustomer => _seenByCustomer;
-  int get seenBySeller => _seenBySeller;
-  int get status => _status;
-  String get createdAt => _createdAt;
-  int get shopId => _shopId;
-  SellerInfo get sellerInfo => _sellerInfo;
-  Shop get shop => _shop;
+  int? get id => _id;
+  int? get userId => _userId;
+  int? get sellerId => _sellerId;
+  String? get message => _message;
+  int? get sentByCustomer => _sentByCustomer;
+  int? get sentBySeller => _sentBySeller;
+  int? get seenByCustomer => _seenByCustomer;
+  int? get seenBySeller => _seenBySeller;
+  int? get status => _status;
+  String? get createdAt => _createdAt;
+  int? get shopId => _shopId;
+  SellerInfo? get sellerInfo => _sellerInfo;
+  Shop? get shop => _shop;
 
 
   UniqueShops.fromJson(Map<String, dynamic> json) {
@@ -693,10 +693,10 @@ class UniqueShops {
     _status = json['status'];
     _createdAt = json['created_at'];
     _shopId = json['shop_id'];
-    _sellerInfo = json['seller_info'] != null
-        ? new SellerInfo.fromJson(json['seller_info'])
+    _sellerInfo = json['seller_info'] != null?
+         new SellerInfo.fromJson(json['seller_info'])
         : null;
-    _shop = json['shop'] != null ? new Shop.fromJson(json['shop']) : null;
+    _shop = json['shop'] != null?  new Shop.fromJson(json['shop']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -713,10 +713,10 @@ class UniqueShops {
     data['created_at'] = this._createdAt;
     data['shop_id'] = this._shopId;
     if (this._sellerInfo != null) {
-      data['seller_info'] = this._sellerInfo.toJson();
+      data['seller_info'] = this._sellerInfo!.toJson();
     }
     if (this._shop != null) {
-      data['shop'] = this._shop.toJson();
+      data['shop'] = this._shop!.toJson();
     }
     return data;
   }

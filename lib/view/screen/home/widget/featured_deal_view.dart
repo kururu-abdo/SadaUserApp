@@ -32,7 +32,7 @@ class FeaturedDealsView extends StatelessWidget {
             return InkWell(
               onTap: () {
                 Navigator.push(context, PageRouteBuilder(transitionDuration: Duration(milliseconds: 1000),
-                  pageBuilder: (context, anim1, anim2) => ProductDetails(product: featuredDealProvider.featuredDealProductList[index]),
+                  pageBuilder: (context, anim1, anim2) => ProductDetails2(product: featuredDealProvider.featuredDealProductList[index]!),
                 ));
               },
               child: Container(
@@ -61,8 +61,8 @@ class FeaturedDealsView extends StatelessWidget {
                           bottomLeft: Radius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL),),
                           child: FadeInImage.assetNetwork(
                             placeholder: Images.placeholder, fit: BoxFit.cover,
-                            image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls.productThumbnailUrl}'
-                                '/${featuredDealProvider.featuredDealProductList[index].thumbnail}',
+                            image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.productThumbnailUrl}'
+                                '/${featuredDealProvider.featuredDealProductList[index]!.thumbnail}',
                             imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, fit: BoxFit.cover),
                           ),
                         ),
@@ -79,7 +79,7 @@ class FeaturedDealsView extends StatelessWidget {
                           children: [
 
                             Text(
-                              featuredDealProvider.featuredDealProductList[index].name,
+                              featuredDealProvider.featuredDealProductList[index]!.name!,
                               style: robotoRegular.copyWith(height: 1.3,fontSize: Dimensions.FONT_SIZE_SMALL),
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
@@ -88,13 +88,13 @@ class FeaturedDealsView extends StatelessWidget {
 
                             Row(children: [
                               Text(
-                                featuredDealProvider.featuredDealProductList[index].rating != null && featuredDealProvider.featuredDealProductList[index].rating.isNotEmpty?
-                                double.parse(featuredDealProvider.featuredDealProductList[index].rating[0].average).toStringAsFixed(1) : '0.0',
+                                featuredDealProvider.featuredDealProductList[index]!.rating != null && featuredDealProvider.featuredDealProductList[index]!.rating!.isNotEmpty?
+                                double.parse(featuredDealProvider.featuredDealProductList[index]!.rating![0].average!).toStringAsFixed(1) : '0.0',
                                 style: robotoRegular.copyWith(color: Provider.of<ThemeProvider>(context).darkTheme ? Colors.white : Colors.orange, fontSize: Dimensions.FONT_SIZE_SMALL),
                               ),
                               Icon(Icons.star, color: Provider.of<ThemeProvider>(context).darkTheme ?
                               Colors.white : Colors.orange, size: 15),
-                              Text('(${featuredDealProvider.featuredDealProductList[index].reviewCount.toString() ?? 0})',
+                              Text('(${featuredDealProvider.featuredDealProductList[index]!.reviewCount.toString() })',
                                   style: robotoRegular.copyWith(
                                     color: Provider.of<ThemeProvider>(context).darkTheme ? Colors.white : Colors.orange,
                                     fontSize: Dimensions.FONT_SIZE_SMALL,
@@ -107,17 +107,17 @@ class FeaturedDealsView extends StatelessWidget {
                             Row(crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                               Text(
-                                featuredDealProvider.featuredDealProductList[index].discount > 0 ? PriceConverter.convertPrice(context, featuredDealProvider.featuredDealProductList[index].unitPrice.toDouble()) : '',
+                                featuredDealProvider.featuredDealProductList[index]!.discount! > 0 ? PriceConverter.convertPrice(context, featuredDealProvider.featuredDealProductList[index]!.unitPrice!.toDouble()) : '',
                                 style: robotoRegular.copyWith(
                                   color: ColorResources.getRed(context),
                                   decoration: TextDecoration.lineThrough,
                                   fontSize: Dimensions.FONT_SIZE_SMALL,
                                 ),
                               ),
-                                  featuredDealProvider.featuredDealProductList[index].discount > 0? SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT): SizedBox(),
+                                  featuredDealProvider.featuredDealProductList[index]!.discount! > 0? SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT): SizedBox(),
                               Text(
-                                PriceConverter.convertPrice(context, featuredDealProvider.featuredDealProductList[index].unitPrice.toDouble(),
-                                    discountType: featuredDealProvider.featuredDealProductList[index].discountType, discount: featuredDealProvider.featuredDealProductList[index].discount.toDouble()),
+                                PriceConverter.convertPrice(context, featuredDealProvider.featuredDealProductList[index]!.unitPrice!.toDouble(),
+                                    discountType: featuredDealProvider.featuredDealProductList[index]!.discountType, discount: featuredDealProvider.featuredDealProductList[index]!.discount!.toDouble()),
                                 style: robotoBold.copyWith(color: ColorResources.getPrimary(context),fontSize: Dimensions.FONT_SIZE_LARGE),
                               ),
 
@@ -130,7 +130,7 @@ class FeaturedDealsView extends StatelessWidget {
                   ]),
 
                   // Off
-                  featuredDealProvider.featuredDealProductList[index].discount > 0 ? Positioned(
+                  featuredDealProvider.featuredDealProductList[index]!.discount! > 0 ? Positioned(
                     top: 0,
                     left: 0,
                     child: Container(
@@ -144,9 +144,9 @@ class FeaturedDealsView extends StatelessWidget {
                       child: Text(
                         PriceConverter.percentageCalculation(
                           context,
-                          featuredDealProvider.featuredDealProductList[index].unitPrice.toDouble(),
-                          featuredDealProvider.featuredDealProductList[index].discount.toDouble(),
-                          featuredDealProvider.featuredDealProductList[index].discountType,
+                          featuredDealProvider.featuredDealProductList[index]!.unitPrice!.toDouble(),
+                          featuredDealProvider.featuredDealProductList[index]!.discount!.toDouble(),
+                          featuredDealProvider.featuredDealProductList[index]!.discountType,
                         ),
                         style: robotoRegular.copyWith(color: Theme.of(context).highlightColor,
                             fontSize: Dimensions.FONT_SIZE_SMALL),
@@ -165,7 +165,7 @@ class FeaturedDealsView extends StatelessWidget {
 
 class MegaDealShimmer extends StatelessWidget {
   final bool isHomeScreen;
-  MegaDealShimmer({@required this.isHomeScreen});
+  MegaDealShimmer({required this.isHomeScreen});
 
   @override
   Widget build(BuildContext context) {
@@ -183,8 +183,8 @@ class MegaDealShimmer extends StatelessWidget {
               color: ColorResources.WHITE,
               boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.3), spreadRadius: 1, blurRadius: 5)]),
           child: Shimmer.fromColors(
-            baseColor: Colors.grey[300],
-            highlightColor: Colors.grey[100],
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
             enabled: Provider.of<FeaturedDealProvider>(context).featuredDealList.length == 0,
             child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
 

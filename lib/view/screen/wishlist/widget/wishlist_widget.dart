@@ -13,8 +13,8 @@ import 'package:eamar_user_app/view/screen/product/widget/cart_bottom_sheet.dart
 import 'package:provider/provider.dart';
 
 class WishListWidget extends StatelessWidget {
-  final Product product;
-  final int index;
+  final Product? product;
+  final int? index;
   WishListWidget({this.product, this.index});
 
   @override
@@ -44,7 +44,7 @@ class WishListWidget extends StatelessWidget {
                           borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL),
                           child: FadeInImage.assetNetwork(
                             placeholder: Images.placeholder, fit: BoxFit.scaleDown, width: 80, height: 80,
-                            image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls.productThumbnailUrl}/${product.thumbnail}',
+                            image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.productThumbnailUrl}/${product!.thumbnail}',
                             imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, fit: BoxFit.scaleDown, width: 80, height: 80),
                           ),
                         ),
@@ -52,7 +52,7 @@ class WishListWidget extends StatelessWidget {
 
 
 
-                      product.unitPrice!=null && product.discount>0?
+                      product!.unitPrice!=null && product!.discount!>0?
                       Positioned(top: 0,left: 0,
                         child: Container(height: 20,
                           padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
@@ -61,8 +61,8 @@ class WishListWidget extends StatelessWidget {
                               borderRadius: BorderRadius.only(topLeft: Radius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL),
                                   bottomRight: Radius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL)),
                               color: Theme.of(context).primaryColor),
-                          child: Text(product.unitPrice!=null && product.discount != null && product.discountType != null?
-                          PriceConverter.percentageCalculation(context, product.unitPrice, product.discount, product.discountType) : '',
+                          child: Text(product!.unitPrice!=null && product!.discount != null && product!.discountType != null?
+                          PriceConverter.percentageCalculation(context, product!.unitPrice, product!.discount, product!.discountType) : '',
                             style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL,
                                 color: Theme.of(context).cardColor),
                           ),
@@ -78,7 +78,7 @@ class WishListWidget extends StatelessWidget {
                       children: [
                         Row(children: [
                           Expanded(
-                            child: Text(product.name ?? '',maxLines: 1,overflow: TextOverflow.ellipsis,
+                            child: Text(product!.name ?? '',maxLines: 1,overflow: TextOverflow.ellipsis,
                               style: titilliumSemiBold.copyWith(color: ColorResources.getReviewRattingColor(context),
                                 fontSize: Dimensions.FONT_SIZE_DEFAULT,
                               ),
@@ -90,16 +90,16 @@ class WishListWidget extends StatelessWidget {
 
                           InkWell(
                               onTap: (){showDialog(context: context, builder: (_) => new CupertinoAlertDialog(
-                                  title: new Text(getTranslated('ARE_YOU_SURE_WANT_TO_REMOVE_WISH_LIST', context)),
+                                  title: new Text(getTranslated('ARE_YOU_SURE_WANT_TO_REMOVE_WISH_LIST', context)!),
                                   actions: <Widget>[
-                                    TextButton(child: Text(getTranslated('YES', context)),
+                                    TextButton(child: Text(getTranslated('YES', context)!),
                                       onPressed: () {
-                                        Provider.of<WishListProvider>(context, listen: false).removeWishList(product.id, index: index);
+                                        Provider.of<WishListProvider>(context, listen: false).removeWishList(product!.id, index: index);
                                         Navigator.of(context).pop();
                                       },
                                     ),
 
-                                    TextButton(child: Text(getTranslated('NO', context)),
+                                    TextButton(child: Text(getTranslated('NO', context)!),
                                       onPressed: ()  => Navigator.of(context).pop(),
                                     ),
                                   ],
@@ -112,18 +112,18 @@ class WishListWidget extends StatelessWidget {
                         ),
                         SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
-                        Row(children: [product.discount != null && product.discount>0?
-                          Text(product.unitPrice != null?PriceConverter.convertPrice(context, product.unitPrice):'',
+                        Row(children: [product!.discount != null && product!.discount!>0?
+                          Text(product!.unitPrice != null?PriceConverter.convertPrice(context, product!.unitPrice):'',
                             style: titilliumSemiBold.copyWith(color: ColorResources.getRed(context),
                                 decoration: TextDecoration.lineThrough),):SizedBox(),
 
 
-                          product.discount != null && product.discount>0?
+                          product!.discount != null && product!.discount!>0?
                           SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT):SizedBox(),
 
 
-                          Text(PriceConverter.convertPrice(context, product.unitPrice,
-                              discount: product.discount,discountType: product.discountType),
+                          Text(PriceConverter.convertPrice(context, product!.unitPrice,
+                              discount: product!.discount,discountType: product!.discountType),
                               maxLines: 1,overflow: TextOverflow.ellipsis,
                               style: titilliumRegular.copyWith(color: ColorResources.getPrimary(context),
                                   fontSize: Dimensions.FONT_SIZE_LARGE),)
@@ -131,7 +131,7 @@ class WishListWidget extends StatelessWidget {
 
 
                         Row(children: [
-                            Text('${getTranslated('qty', context)}:'+' '+ '${product.minQty}',
+                            Text('${getTranslated('qty', context)}:'+' '+ '${product!.minQty}',
                               style: titleRegular.copyWith(color: ColorResources.getReviewRattingColor(context)),
                               textAlign: TextAlign.center,
                             ),
@@ -164,7 +164,7 @@ class WishListWidget extends StatelessWidget {
                                     SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL,),
 
 
-                                    FittedBox(child: Text(getTranslated('add_to_cart', context),
+                                    FittedBox(child: Text(getTranslated('add_to_cart', context)!,
                                           style: titleRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT,
                                               color: Colors.white)),
                                     ),

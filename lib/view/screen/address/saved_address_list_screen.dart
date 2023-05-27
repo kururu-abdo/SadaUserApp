@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 
 import 'add_new_address_screen.dart';
 class SavedAddressListScreen extends StatelessWidget {
-  const SavedAddressListScreen({Key key}) : super(key: key);
+  const SavedAddressListScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class SavedAddressListScreen extends StatelessWidget {
         child: Icon(Icons.add, color: Theme.of(context).highlightColor),
         backgroundColor: ColorResources.getPrimary(context),
       ),
-      appBar: AppBar(title: Text(getTranslated('SHIPPING_ADDRESS_LIST', context)),),
+      appBar: AppBar(title: Text(getTranslated('SHIPPING_ADDRESS_LIST', context)!),),
       body: SafeArea(child: Consumer<ProfileProvider>(
         builder: (context, profile, child) {
           return SingleChildScrollView(

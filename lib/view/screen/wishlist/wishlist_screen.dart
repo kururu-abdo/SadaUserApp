@@ -18,7 +18,7 @@ class WishListScreen extends StatefulWidget {
 }
 
 class _WishListScreenState extends State<WishListScreen> {
-  bool isGuestMode;
+  late bool isGuestMode;
 
   @override
   void initState() {
@@ -39,7 +39,7 @@ class _WishListScreenState extends State<WishListScreen> {
           Expanded(
             child: isGuestMode ? NotLoggedInWidget() :  Consumer<WishListProvider>(
               builder: (context, wishListProvider, child) {
-                return wishListProvider.wishList != null ? wishListProvider.wishList.length > 0 ? RefreshIndicator(
+                return wishListProvider.wishList != null ? wishListProvider.wishList!.length > 0 ? RefreshIndicator(
                   backgroundColor: Theme.of(context).primaryColor,
                   onRefresh: () async {
                     await  Provider.of<WishListProvider>(context, listen: false).initWishList(
@@ -49,9 +49,9 @@ class _WishListScreenState extends State<WishListScreen> {
 
                   child: ListView.builder(
                     padding: EdgeInsets.all(0),
-                    itemCount: wishListProvider.wishList.length,
+                    itemCount: wishListProvider.wishList!.length,
                     itemBuilder: (context, index) => WishListWidget(
-                      product: wishListProvider.wishList[index],
+                      product: wishListProvider.wishList![index],
                       index: index,
                     ),
                   ),
@@ -73,8 +73,8 @@ class WishListShimmer extends StatelessWidget {
       padding: EdgeInsets.all(0),
       itemBuilder: (context, index) {
         return Shimmer.fromColors(
-          baseColor: Colors.grey[300],
-          highlightColor: Colors.grey[100],
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
           enabled: Provider.of<WishListProvider>(context).wishList==null,
           child: ListTile(
             leading: Container(height: 50, width: 50, color: ColorResources.WHITE),

@@ -33,7 +33,7 @@ import 'faq_and_review_screen.dart';
 
 class ProductDetailsFromUrl extends StatefulWidget {
 
-  final String slug;
+  final String? slug;
     
 
   ProductDetailsFromUrl({ this.slug  ,});
@@ -93,7 +93,7 @@ await
               SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
 
 
-              Text(getTranslated('product_details', context),
+              Text(getTranslated('product_details', context)!,
                   style: robotoRegular.copyWith(fontSize: 20,
                       color: Theme.of(context).cardColor)),
             ]),
@@ -139,20 +139,20 @@ await
 
                     Provider.of<ProductDetailsProvider>(context).myProdutt != null  ?
 
-(Provider.of<ProductDetailsProvider>(context).myProdutt.details != null &&
-                     Provider.of<ProductDetailsProvider>(context).myProdutt.details.isNotEmpty) ?
+(Provider.of<ProductDetailsProvider>(context).myProdutt!.details != null &&
+                     Provider.of<ProductDetailsProvider>(context).myProdutt!.details!.isNotEmpty) ?
                     Container(height: 250,
                       margin: EdgeInsets.only(top: Dimensions.PADDING_SIZE_SMALL),
                       padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-                      child: ProductSpecification(productSpecification: Provider.of<ProductDetailsProvider>(context).myProdutt.details ?? ''),) 
+                      child: ProductSpecification(productSpecification: Provider.of<ProductDetailsProvider>(context).myProdutt!.details ?? ''),) 
                       :SizedBox()
                       : SizedBox(),
 
                     Provider.of<ProductDetailsProvider>(context).myProdutt!=null?
                     
-                       Provider.of<ProductDetailsProvider>(context).myProdutt.videoUrl != null?
+                       Provider.of<ProductDetailsProvider>(context).myProdutt!.videoUrl != null?
 
-                    YoutubeVideoWidget(url: Provider.of<ProductDetailsProvider>(context).myProdutt.videoUrl):
+                    YoutubeVideoWidget(url: Provider.of<ProductDetailsProvider>(context).myProdutt!.videoUrl):
                      SizedBox():
                     SizedBox(),
 
@@ -168,12 +168,12 @@ await
 
     Provider.of<ProductDetailsProvider>(context).myProdutt!=null?
 
-                    Provider.of<ProductDetailsProvider>(context).myProdutt.addedBy == 'seller' ?
+                    Provider.of<ProductDetailsProvider>(context).myProdutt!.addedBy == 'seller' ?
 
 
                     
                      SellerView(sellerId:
-                      Provider.of<ProductDetailsProvider>(context).myProdutt.userId.toString()) :
+                      Provider.of<ProductDetailsProvider>(context).myProdutt!.userId.toString()) :
                        SizedBox.shrink():
                        SizedBox.shrink(),
 
@@ -185,7 +185,7 @@ await
                       padding: EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
                       color: Theme.of(context).cardColor,
                       child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                        Text(getTranslated('customer_reviews', context),
+                        Text(getTranslated('customer_reviews', context)!,
                           style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),),
                         SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT,),
                         Container(width: 230,height: 30,
@@ -203,19 +203,19 @@ await
                       ),
 
                       SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
-                      Text('${getTranslated('total', context)}' + ' '+'${details.reviewList != null ? details.reviewList.length : 0}' +' '+ '${getTranslated('reviews', context)}'),
+                      Text('${getTranslated('total', context)}' + ' '+'${details.reviewList != null ? details.reviewList!.length : 0}' +' '+ '${getTranslated('reviews', context)}'),
 
 
 
                       details.reviewList != null ?
-                       details.reviewList.length != 0 ? 
-                       ReviewWidget(reviewModel: details.reviewList[0])
+                       details.reviewList!.length != 0 ? 
+                       ReviewWidget(reviewModel: details.reviewList![0])
                           : SizedBox() : 
 
                           ReviewShimmer(),
-                      details.reviewList != null ? details.reviewList.length > 1 ? ReviewWidget(reviewModel: details.reviewList[1])
+                      details.reviewList != null ? details.reviewList!.length > 1 ? ReviewWidget(reviewModel: details.reviewList![1])
                           : SizedBox() : ReviewShimmer(),
-                      details.reviewList != null ? details.reviewList.length > 2 ? ReviewWidget(reviewModel: details.reviewList[2])
+                      details.reviewList != null ? details.reviewList!.length > 2 ? ReviewWidget(reviewModel: details.reviewList![2])
                           : SizedBox() : ReviewShimmer(),
 
                       InkWell(
@@ -223,8 +223,8 @@ await
                             if(details.reviewList != null)
                             {Navigator.push(context, MaterialPageRoute(builder: (_) =>
                                 ReviewScreen(reviewList: details.reviewList)));}},
-                          child: details.reviewList != null && details.reviewList.length > 3?
-                          Text(getTranslated('view_more', context),
+                          child: details.reviewList != null && details.reviewList!.length > 3?
+                          Text(getTranslated('view_more', context)!,
                             style: titilliumRegular.copyWith(color: Theme.of(context).primaryColor),):SizedBox())
 
 
@@ -232,7 +232,7 @@ await
                     ]),
                   ),
 Provider.of<ProductDetailsProvider>(context).myProdutt!=null?
-                    Provider.of<ProductDetailsProvider>(context).myProdutt.addedBy == 'seller' ?
+                    Provider.of<ProductDetailsProvider>(context).myProdutt!.addedBy == 'seller' ?
                     Padding(padding: EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
                       child: TitleRow(title: getTranslated('more_from_the_shop', context), isDetailsPage: true),
                     )
@@ -241,14 +241,14 @@ Provider.of<ProductDetailsProvider>(context).myProdutt!=null?
                     
                     ,
 Provider.of<ProductDetailsProvider>(context).myProdutt!=null?
-                    Provider.of<ProductDetailsProvider>(context).myProdutt.addedBy == 'seller' ?
+                    Provider.of<ProductDetailsProvider>(context).myProdutt!.addedBy == 'seller' ?
                     Padding(padding: EdgeInsets.all(Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
                       child: ProductView(isHomePage: true, productType: ProductType.SELLER_PRODUCT,
 
 
                           scrollController: _scrollController, sellerId: 
-                          Provider.of<ProductDetailsProvider>(context).myProdutt.userId.toString())
+                          Provider.of<ProductDetailsProvider>(context).myProdutt!.userId.toString())
                           ,):SizedBox():SizedBox(),
 
 

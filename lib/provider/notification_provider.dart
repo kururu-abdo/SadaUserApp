@@ -5,22 +5,22 @@ import 'package:eamar_user_app/data/repository/notification_repo.dart';
 import 'package:eamar_user_app/helper/api_checker.dart';
 
 class NotificationProvider extends ChangeNotifier {
-  final NotificationRepo notificationRepo;
+  final NotificationRepo? notificationRepo;
 
-  NotificationProvider({@required this.notificationRepo});
+  NotificationProvider({required this.notificationRepo});
 
-  List<NotificationModel> _notificationList;
-  List<NotificationModel> get notificationList => _notificationList;
+  List<NotificationModel>? _notificationList;
+  List<NotificationModel>? get notificationList => _notificationList;
 
   Future<void> initNotificationList(BuildContext context) async {
-    ApiResponse apiResponse = await notificationRepo.getNotificationList();
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await notificationRepo!.getNotificationList();
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _notificationList = [];
-      apiResponse.response.data.forEach((notification) => _notificationList.add(NotificationModel.fromJson(notification)));
+      apiResponse.response!.data.forEach((notification) => _notificationList!.add(NotificationModel.fromJson(notification)));
     } 
       else if (apiResponse.response != null ) {
       _notificationList = [];
-      apiResponse.response.data.forEach((notification) => _notificationList.add(NotificationModel.fromJson(notification)));
+      apiResponse.response!.data.forEach((notification) => _notificationList!.add(NotificationModel.fromJson(notification)));
     } 
     
     

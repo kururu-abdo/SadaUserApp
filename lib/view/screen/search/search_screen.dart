@@ -58,7 +58,7 @@ Provider.of<SearchProvider>(context, listen: false).getCategoryList(false ,conte
             Consumer<SearchProvider>(
               builder: (context, searchProvider, child) {
                 return !searchProvider.isClear ? searchProvider.searchProductList != null ?
-                searchProvider.searchProductList.length > 0 ?
+                searchProvider.searchProductList!.length > 0 ?
                 Expanded(child: SearchProductWidget(products: searchProvider.searchProductList, isViewScrollable: true)) :
                 Expanded(child: NoInternetOrDataScreen(isNoInternet: false)) :
                 Expanded(child: ProductShimmer(isHomePage: false,
@@ -167,14 +167,14 @@ Provider.of<SearchProvider>(context, listen: false).getCategoryList(false ,conte
                               padding: const EdgeInsets.all(8.0),
                               child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(getTranslated('SEARCH_HISTORY', context), style: robotoBold),
+                                  Text(getTranslated('SEARCH_HISTORY', context)!, style: robotoBold),
 
 
                                   InkWell(borderRadius: BorderRadius.circular(10),
                                       onTap: () => Provider.of<SearchProvider>(context, listen: false).clearSearchAddress(),
                                       child: Container(padding: EdgeInsets.symmetric(horizontal:Dimensions.PADDING_SIZE_DEFAULT,
                                           vertical:Dimensions.PADDING_SIZE_LARGE ),
-                                          child: Text(getTranslated('REMOVE', context),
+                                          child: Text(getTranslated('REMOVE', context)!,
                                             style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL,
                                                 color: Theme.of(context).primaryColor),)))
                                 ],
@@ -200,7 +200,7 @@ Provider.of<SearchProvider>(context, listen: false).getCategoryList(false ,conte
                                               color: ColorResources.getGrey(context)),
                                           width: double.infinity,
                                           child: Center(
-                                            child: Text(Provider.of<SearchProvider>(context, listen: false).historyList[index] ?? "",
+                                            child: Text(Provider.of<SearchProvider>(context, listen: false).historyList[index] ,
                                               style: titilliumItalic.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT),
                                             ),
                                           ),
@@ -228,7 +228,7 @@ Provider.of<SearchProvider>(context, listen: false).getCategoryList(false ,conte
                             padding: const EdgeInsets.all(8.0),
                             child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(getTranslated('search_by_budget', context), style: robotoBold),
+                                Text(getTranslated('search_by_budget', context)!, style: robotoBold),
 
 
                                 // InkWell(borderRadius: BorderRadius.circular(10),
@@ -259,7 +259,7 @@ Provider.of<SearchProvider>(context, listen: false).getCategoryList(false ,conte
                                                         child: CustomDropdown<Category>(
                                                           
                                   child: Text(
-                                  getTranslated('category', context),
+                                  getTranslated('category', context)!,
                                     style: titilliumRegular.copyWith(color: Theme.of(context).hintColor),
                                   ),
                                   leadingIcon: true,
@@ -307,7 +307,7 @@ Provider.of<SearchProvider>(context, listen: false).getCategoryList(false ,conte
                               
                                               left: 18,right: 18 ,bottom: 18
                                             ),
-                                            child: Text(item.name,
+                                            child: Text(item.name!,
                                                 style:
                                                     TextStyle(color: Color(0xFF6F6E6E),
                                                     fontSize: 12,fontWeight: 
@@ -368,7 +368,7 @@ Provider.of<SearchProvider>(context, listen: false).getCategoryList(false ,conte
 
                                                           validator: (str){
 
-if (str.isEmpty) {
+if (str!.isEmpty) {
   return getTranslated('amount_filed_required', context);
 }else {
   return null;
@@ -390,11 +390,12 @@ if (str.isEmpty) {
                               async{
                               
                               if (searchProvider.category ==null) {
-                                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('category_field_required', context)),
+                                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('category_field_required', context)!),
        backgroundColor: Colors.red));
                               }else{
-                                 if (_vormKey.currentState.validate()) {
-                                await searchProvider.filterByBudgetAndCategory(searchProvider.category, num.parse(_firstPriceController.text), context);
+                                 if (_vormKey.currentState!.validate()) {
+                                await 
+                                searchProvider.filterByBudgetAndCategory(searchProvider.category!, num.parse(_firstPriceController.text), context);
                               }
                               }
                              
@@ -428,7 +429,7 @@ if (str.isEmpty) {
                                                Center(
                                                  
                                                  child: Text(
-                                                    getTranslated('show_result_txt', context) ,
+                                                    getTranslated('show_result_txt', context)! ,
                                          
                                                        style: TextStyle(
                                                          fontWeight: FontWeight.w500,

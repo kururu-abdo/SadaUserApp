@@ -9,18 +9,18 @@ import 'package:eamar_user_app/helper/api_checker.dart';
 import 'package:eamar_user_app/helper/product_type.dart';
 
 class ProductProvider extends ChangeNotifier {
-  final ProductRepo productRepo;
-  ProductProvider({@required this.productRepo});
+  final ProductRepo? productRepo;
+  ProductProvider({required this.productRepo});
 
   // Latest products
-  List<Product> _latestProductList = [];
+  List<Product>? _latestProductList = [];
   List<Product> _lProductList = [];
   List<Product> get lProductList=> _lProductList;
   List<Product> _featuredProductList = [];
 
 
   ProductType _productType = ProductType.NEW_ARRIVAL;
-  String _title = 'xyz';
+  String? _title = 'xyz';
 
   bool _filterIsLoading = false;
   bool _filterFirstLoading = true;
@@ -30,15 +30,15 @@ class ProductProvider extends ChangeNotifier {
   bool get isFeaturedLoading => _isFeaturedLoading;
   bool _firstFeaturedLoading = true;
   bool _firstLoading = true;
-  int _latestPageSize;
+  int? _latestPageSize;
   int _lOffset = 1;
   int _sellerOffset = 1;
-  int _lPageSize;
-  int get lPageSize=> _lPageSize;
-  int _featuredPageSize;
+  int? _lPageSize;
+  int? get lPageSize=> _lPageSize;
+  int? _featuredPageSize;
 
   ProductType get productType => _productType;
-  String get title => _title;
+  String? get title => _title;
   int get lOffset => _lOffset;
   int get sellerOffset => _sellerOffset;
 
@@ -47,19 +47,19 @@ class ProductProvider extends ChangeNotifier {
   List<String> get lOffsetList=>_lOffsetList;
   List<String> _featuredOffsetList = [];
 
-  List<Product> get latestProductList => _latestProductList;
+  List<Product>? get latestProductList => _latestProductList;
   List<Product> get featuredProductList => _featuredProductList;
 
-  Product _recommendedProduct;
-  Product get recommendedProduct=> _recommendedProduct;
+  Product? _recommendedProduct;
+  Product? get recommendedProduct=> _recommendedProduct;
 
   bool get filterIsLoading => _filterIsLoading;
   bool get filterFirstLoading => _filterFirstLoading;
   bool get isLoading => _isLoading;
   bool get firstFeaturedLoading => _firstFeaturedLoading;
   bool get firstLoading => _firstLoading;
-  int get latestPageSize => _latestPageSize;
-  int get featuredPageSize => _featuredPageSize;
+  int? get latestPageSize => _latestPageSize;
+  int? get featuredPageSize => _featuredPageSize;
 
 
 
@@ -73,15 +73,15 @@ class ProductProvider extends ChangeNotifier {
     _lOffset = offset;
     if(!_offsetList.contains(offset)) {
       _offsetList.add(offset);
-      ApiResponse apiResponse = await productRepo.getLatestProductList(context,offset.toString(), productType, title);
-      if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-        _latestProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
-        _latestPageSize = ProductModel.fromJson(apiResponse.response.data).totalSize;
+      ApiResponse apiResponse = await productRepo!.getLatestProductList(context,offset.toString(), productType, title);
+      if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+        _latestProductList!.addAll(ProductModel.fromJson(apiResponse.response!.data).products!);
+        _latestPageSize = ProductModel.fromJson(apiResponse.response!.data).totalSize;
         _filterFirstLoading = false;
         _filterIsLoading = false;
       } else if(apiResponse.response != null ){
-          _latestProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
-        _latestPageSize = ProductModel.fromJson(apiResponse.response.data).totalSize;
+          _latestProductList!.addAll(ProductModel.fromJson(apiResponse.response!.data).products!);
+        _latestPageSize = ProductModel.fromJson(apiResponse.response!.data).totalSize;
         _filterFirstLoading = false;
         _filterIsLoading = false;
       }
@@ -107,15 +107,15 @@ class ProductProvider extends ChangeNotifier {
     }
     if(!_lOffsetList.contains(offset)) {
       _lOffsetList.add(offset);
-      ApiResponse apiResponse = await productRepo.getLProductList(offset);
-      if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-        _lProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
-        _lPageSize = ProductModel.fromJson(apiResponse.response.data).totalSize;
+      ApiResponse apiResponse = await productRepo!.getLProductList(offset);
+      if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+        _lProductList.addAll(ProductModel.fromJson(apiResponse.response!.data).products!);
+        _lPageSize = ProductModel.fromJson(apiResponse.response!.data).totalSize;
         _firstLoading = false;
         _isLoading = false;
       }    else  if (apiResponse.response != null){
-_lProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
-        _lPageSize = ProductModel.fromJson(apiResponse.response.data).totalSize;
+_lProductList.addAll(ProductModel.fromJson(apiResponse.response!.data).products!);
+        _lPageSize = ProductModel.fromJson(apiResponse.response!.data).totalSize;
         _firstLoading = false;
         _isLoading = false;
 
@@ -136,12 +136,12 @@ _lProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
   }
 
 
-  Future<int> getLatestOffset(BuildContext context) async {
-    ApiResponse apiResponse = await productRepo.getLatestProductList(context,'1', productType, title);
-    return ProductModel.fromJson(apiResponse.response.data).totalSize;
+  Future<int?> getLatestOffset(BuildContext context) async {
+    ApiResponse apiResponse = await productRepo!.getLatestProductList(context,'1', productType, title);
+    return ProductModel.fromJson(apiResponse.response!.data).totalSize;
   }
 
- void changeTypeOfProduct(ProductType type, String title){
+ void changeTypeOfProduct(ProductType type, String? title){
     _productType = type;
     _title = title;
     _latestProductList = null;
@@ -165,9 +165,9 @@ _lProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
   // Seller products
   List<Product> _sellerAllProductList = [];
   List<Product> _sellerProductList = [];
-  int _sellerPageSize;
+  int? _sellerPageSize;
   List<Product> get sellerProductList => _sellerProductList;
-  int get sellerPageSize => _sellerPageSize;
+  int? get sellerPageSize => _sellerPageSize;
 
   void initSellerProductList(String sellerId, int offset, BuildContext context, {bool reload = false}) async {
     _firstLoading = true;
@@ -178,13 +178,13 @@ _lProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
     _sellerOffset = offset;
 
  try {
-      ApiResponse apiResponse = await productRepo.getSellerProductList(sellerId, offset.toString());
-    log(apiResponse.response.data.toString());
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+      ApiResponse apiResponse = await productRepo!.getSellerProductList(sellerId, offset.toString());
+    log(apiResponse.response!.data.toString());
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _sellerProductList = [];
-      _sellerProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
-      _sellerAllProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
-      _sellerPageSize = ProductModel.fromJson(apiResponse.response.data).totalSize;
+      _sellerProductList.addAll(ProductModel.fromJson(apiResponse.response!.data).products!);
+      _sellerAllProductList.addAll(ProductModel.fromJson(apiResponse.response!.data).products!);
+      _sellerPageSize = ProductModel.fromJson(apiResponse.response!.data).totalSize;
       _firstLoading = false;
       _filterIsLoading = false;
       _filterFirstLoading=false;
@@ -193,9 +193,9 @@ _lProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
 
     } else if(apiResponse.response != null ){
        _sellerProductList = [];
-      _sellerProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
-      _sellerAllProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
-      _sellerPageSize = ProductModel.fromJson(apiResponse.response.data).totalSize;
+      _sellerProductList.addAll(ProductModel.fromJson(apiResponse.response!.data).products!);
+      _sellerAllProductList.addAll(ProductModel.fromJson(apiResponse.response!.data).products!);
+      _sellerPageSize = ProductModel.fromJson(apiResponse.response!.data).totalSize;
       log('NO PROBLEM WHAT SO EVER');
       _firstLoading = false;
       _filterIsLoading = false;
@@ -222,7 +222,7 @@ _lProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
     _sellerProductList.clear();
     if(newText.isNotEmpty) {
       _sellerAllProductList.forEach((product) {
-        if (product.name.toLowerCase().contains(newText.toLowerCase())) {
+        if (product.name!.toLowerCase().contains(newText.toLowerCase())) {
           _sellerProductList.add(product);
         }
       });
@@ -240,21 +240,21 @@ _lProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
 
   // Brand and category products
   List<Product> _brandOrCategoryProductList = [];
-  bool _hasData;
-int _selectedSubCategory;
-int  get  selectedSubCategory   => _selectedSubCategory;
+  bool? _hasData;
+int? _selectedSubCategory;
+int?  get  selectedSubCategory   => _selectedSubCategory;
 setSelectedSubCategory(int index){
   _selectedSubCategory=index;
   notifyListeners();
 }
   List<Product> get brandOrCategoryProductList => _brandOrCategoryProductList;
-  bool get hasData => _hasData;
+  bool? get hasData => _hasData;
 
 
 
 
 
- int _selectedProductId = 0;
+ int? _selectedProductId = 0;
 
   // List<Product> get brandOrCategoryProductList2 => _selectedProductId==0
   //     ? _brandOrCategoryProductList
@@ -271,7 +271,7 @@ setSelectedSubCategory(int index){
   //         ).toList();
 
 
- void changeProductId(int selectedProductId) {
+ void changeProductId(int? selectedProductId) {
     _selectedProductId = selectedProductId;
     log(_selectedProductId.toString());
     notifyListeners();
@@ -283,9 +283,9 @@ bool isProductLoading=false;
     isProductLoading=true;
       notifyListeners();
 
-    ApiResponse apiResponse = await productRepo.getBrandOrCategoryProductList(isBrand, id);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-      apiResponse.response.data.forEach((product) => 
+    ApiResponse apiResponse = await productRepo!.getBrandOrCategoryProductList(isBrand, id);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      apiResponse.response!.data.forEach((product) => 
       
       _brandOrCategoryProductList.add(Product.fromJson(product)));
       _hasData = _brandOrCategoryProductList.length > 1;
@@ -304,8 +304,8 @@ bool isProductLoading=false;
     } 
     
     
-    if (apiResponse.response != null && apiResponse.response.statusCode == 304) {
-      apiResponse.response.data.forEach((product) => 
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 304) {
+      apiResponse.response!.data.forEach((product) => 
       
       _brandOrCategoryProductList.add(Product.fromJson(product)));
       _hasData = _brandOrCategoryProductList.length > 1;
@@ -341,18 +341,18 @@ bool isProductLoading=false;
   }
 
 
-filterBrandAndCategoryProductList(BuildContext context,int category)async{
+filterBrandAndCategoryProductList(BuildContext context,int? category)async{
   _brandOrCategoryProductList.clear();
     _hasData = true;
     isProductLoading =true;
     notifyListeners();
-    ApiResponse apiResponse = await productRepo.getProductsById(category.toString());
+    ApiResponse apiResponse = await productRepo!.getProductsById(category.toString());
    
    
-       log(apiResponse.response.statusCode.toString());
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+       log(apiResponse.response!.statusCode.toString());
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
    _brandOrCategoryProductList.clear();
-      apiResponse.response.data['products'].forEach((product) => 
+      apiResponse.response!.data['products'].forEach((product) => 
       _brandOrCategoryProductList.add(Product.fromJson(product)));
       _hasData = _brandOrCategoryProductList.length > 1;
       List<Product> _products = [];
@@ -368,7 +368,7 @@ filterBrandAndCategoryProductList(BuildContext context,int category)async{
 
     } else  if (apiResponse.response != null){
 _brandOrCategoryProductList.clear();
-      apiResponse.response.data['products'].forEach((product) => 
+      apiResponse.response!.data['products'].forEach((product) => 
       _brandOrCategoryProductList.add(Product.fromJson(product)));
       _hasData = _brandOrCategoryProductList.length > 1;
       List<Product> _products = [];
@@ -405,18 +405,18 @@ filterProductsBySub(){
 
 //
   // Related products
-  List<Product> _relatedProductList;
-  List<Product> get relatedProductList => _relatedProductList;
+  List<Product>? _relatedProductList;
+  List<Product>? get relatedProductList => _relatedProductList;
 
   void initRelatedProductList(String id, BuildContext context) async {
-    ApiResponse apiResponse = await productRepo.getRelatedProductList(id);
-    if (apiResponse.response != null && (apiResponse.response.statusCode == 200  ||apiResponse.response.statusCode == 200  )) {
+    ApiResponse apiResponse = await productRepo!.getRelatedProductList(id);
+    if (apiResponse.response != null && (apiResponse.response!.statusCode == 200  ||apiResponse.response!.statusCode == 200  )) {
       _relatedProductList = [];
-      apiResponse.response.data.forEach((product) => _relatedProductList.add(Product.fromJson(product)));
+      apiResponse.response!.data.forEach((product) => _relatedProductList!.add(Product.fromJson(product)));
     } 
     else if (apiResponse.response != null){
    _relatedProductList = [];
-      apiResponse.response.data.forEach((product) => _relatedProductList.add(Product.fromJson(product)));
+      apiResponse.response!.data.forEach((product) => _relatedProductList!.add(Product.fromJson(product)));
     }
     
     
@@ -439,15 +439,15 @@ filterProductsBySub(){
     }
     if(!_featuredOffsetList.contains(offset)) {
       _featuredOffsetList.add(offset);
-      ApiResponse apiResponse = await productRepo.getFeaturedProductList(offset);
-      if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-        _featuredProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
-        _featuredPageSize = ProductModel.fromJson(apiResponse.response.data).totalSize;
+      ApiResponse apiResponse = await productRepo!.getFeaturedProductList(offset);
+      if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+        _featuredProductList.addAll(ProductModel.fromJson(apiResponse.response!.data).products!);
+        _featuredPageSize = ProductModel.fromJson(apiResponse.response!.data).totalSize;
         _firstFeaturedLoading = false;
         _isFeaturedLoading = false;
       }  else if (apiResponse.response != null){
-_featuredProductList.addAll(ProductModel.fromJson(apiResponse.response.data).products);
-        _featuredPageSize = ProductModel.fromJson(apiResponse.response.data).totalSize;
+_featuredProductList.addAll(ProductModel.fromJson(apiResponse.response!.data).products!);
+        _featuredPageSize = ProductModel.fromJson(apiResponse.response!.data).totalSize;
         _firstFeaturedLoading = false;
         _isFeaturedLoading = false;
       }
@@ -468,14 +468,14 @@ _featuredProductList.addAll(ProductModel.fromJson(apiResponse.response.data).pro
 
 
   Future<void> getRecommendedProduct( BuildContext context) async {
-    ApiResponse apiResponse = await productRepo.getRecommendedProduct();
-      if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-        _recommendedProduct = Product.fromJson(apiResponse.response.data);
-        print('=rex===>${recommendedProduct.toJson()}');
+    ApiResponse apiResponse = await productRepo!.getRecommendedProduct();
+      if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+        _recommendedProduct = Product.fromJson(apiResponse.response!.data);
+        print('=rex===>${recommendedProduct!.toJson()}');
       }  else   if (apiResponse.response != null){
 
-         _recommendedProduct = Product.fromJson(apiResponse.response.data);
-        print('=rex===>${recommendedProduct.toJson()}');
+         _recommendedProduct = Product.fromJson(apiResponse.response!.data);
+        print('=rex===>${recommendedProduct!.toJson()}');
       }
       
       

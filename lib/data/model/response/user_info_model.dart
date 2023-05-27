@@ -1,17 +1,17 @@
 class UserInfoModel {
-  int id;
-  String name;
-  String method;
-  String fName;
-  String lName;
-  String phone;
-  String image;
-  String email;
-  String emailVerifiedAt;
-  String createdAt;
-  String updatedAt;
-  double walletBalance;
-  double loyaltyPoint;
+  int? id;
+  String? name;
+  String? method;
+  String? fName;
+  String? lName;
+  String? phone;
+  String? image;
+  String? email;
+  String? emailVerifiedAt;
+  String? createdAt;
+  String? updatedAt;
+  double? walletBalance;
+  double? loyaltyPoint;
 
   UserInfoModel(
       {this.id, this.name, this.method, this.fName,

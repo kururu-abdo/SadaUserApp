@@ -31,7 +31,7 @@ class NotificationScreen extends StatelessWidget {
           child: Consumer<NotificationProvider>(
             builder: (context, notification, child) {
               return notification.notificationList != null ? 
-              notification.notificationList.length != 0 ?
+              notification.notificationList!.length != 0 ?
                RefreshIndicator(
                 backgroundColor: Theme.of(context).primaryColor,
                 onRefresh: () async {
@@ -39,24 +39,24 @@ class NotificationScreen extends StatelessWidget {
                 },
                 child: 
                 ListView.builder(
-                  itemCount: Provider.of<NotificationProvider>(context).notificationList.length,
+                  itemCount: Provider.of<NotificationProvider>(context).notificationList!.length,
                   padding: EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_SMALL),
                   itemBuilder: (context, index) {
                     return InkWell(
-                      onTap: () => showDialog(context: context, builder: (context) => NotificationDialog(notificationModel: notification.notificationList[index])),
+                      onTap: () => showDialog(context: context, builder: (context) => NotificationDialog(notificationModel: notification.notificationList![index])),
                       child: Container(
                         margin: EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_SMALL),
                         color: ColorResources.getGrey(context),
                         child: ListTile(
                           leading: ClipOval(child: FadeInImage.assetNetwork(
                             placeholder: Images.placeholder, height: 50, width: 50, fit: BoxFit.cover,
-                            image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls.notificationImageUrl}/${notification.notificationList[index].image}',
+                            image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.notificationImageUrl}/${notification.notificationList![index].image}',
                             imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, height: 50, width: 50, fit: BoxFit.cover),
                           )),
-                          title: Text(notification.notificationList[index].title, style: titilliumRegular.copyWith(
+                          title: Text(notification.notificationList![index].title!, style: titilliumRegular.copyWith(
                             fontSize: Dimensions.FONT_SIZE_SMALL,
                           )),
-                          subtitle: Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(notification.notificationList[index].createdAt)),
+                          subtitle: Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(notification.notificationList![index].createdAt!)),
                             style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL, color: ColorResources.getHint(context)),
                           ),
                         ),
@@ -88,8 +88,8 @@ class NotificationShimmer extends StatelessWidget {
           color: ColorResources.getGrey(context),
           alignment: Alignment.center,
           child: Shimmer.fromColors(
-            baseColor: Colors.grey[300],
-            highlightColor: Colors.grey[100],
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
             enabled: Provider.of<NotificationProvider>(context).notificationList == null,
             child: ListTile(
               leading: CircleAvatar(child: Icon(Icons.notifications)),

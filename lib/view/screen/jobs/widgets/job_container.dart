@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -11,19 +12,19 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class JobContainer extends StatelessWidget {
-final   String  image;
-final   String  name;
-final   String  job;
-final   String  desc;
-final   String  email;
+final   String?  image;
+final   String?  name;
+final   String?  job;
+final   String?  desc;
+final   String?  email;
 
-final   String  phone;
+final   String?  phone;
 
-final   String  address;
+final   String?  address;
 
 
   
-  const JobContainer({ Key key, this.image, this.name, this.job, this.desc, this.email, this.phone, this.address }) : super(key: key);
+  const JobContainer({ Key? key, this.image, this.name, this.job, this.desc, this.email, this.phone, this.address }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -62,13 +63,13 @@ Container(
   child:   CircleAvatar(
     radius: 30,
     backgroundImage: 
-    image ==null?
+    (image ==null?
     AssetImage(Images.placeholder ):
     
     NetworkImage(
       AppConstants.BASE_URL+"/"+
       
-      image.toString())
+      image.toString())) as ImageProvider<Object>?
   ),
 
 
@@ -77,13 +78,13 @@ SizedBox(width: 20,),
 Column(
   crossAxisAlignment: CrossAxisAlignment.start,
   children: [
-    Text(name ,  style: Theme.of(context).textTheme.titleMedium,),
+    Text(name! ,  style: Theme.of(context).textTheme.titleMedium,),
 
-Text(job ,  style: Theme.of(context).textTheme.bodyMedium.copyWith(
+Text(job! ,  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
   color: Theme.of(context).primaryColor ,fontWeight: FontWeight.bold
 ),),
 Text(
-  address ,  style: Theme.of(context).textTheme.bodyMedium,
+  address! ,  style: Theme.of(context).textTheme.bodyMedium,
 ),
 
 
@@ -116,7 +117,7 @@ SizedBox(width: 10,),
 
 SizedBox(
   width: double.infinity,
-  child:   Text(desc, textAlign: TextAlign.justify ,maxLines: 3 ,overflow: TextOverflow.ellipsis,
+  child:   Text(desc!, textAlign: TextAlign.justify ,maxLines: 3 ,overflow: TextOverflow.ellipsis,
   
     style: Theme.of(context).textTheme.bodySmall,),
 ),
@@ -147,7 +148,7 @@ try {
   
       FlutterOpenWhatsapp.sendSingleMessage("966${phone}", "Hello").then((value) {
         log(value.toString());
-      });
+      } as FutureOr<void> Function(Null));
         log('After Lauch');
 
 
@@ -226,7 +227,7 @@ InkWell(
 
 
 
-   Future<void> _makePhoneCall(String phoneNumber) async {
+   Future<void> _makePhoneCall(String? phoneNumber) async {
    try {
       final Uri launchUri = Uri(
       scheme: 'tel',

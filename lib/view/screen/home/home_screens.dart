@@ -125,7 +125,7 @@ Future.delayed(Duration.zero ,
 
     
    Future.microtask(() {
- singleVendor = Provider.of<SplashProvider>(context, listen: false).configModel.businessMode == "single";
+ singleVendor = Provider.of<SplashProvider>(context, listen: false).configModel!.businessMode == "single";
     Provider.of<FlashDealProvider>(context, listen: false).getMegaDealList(true, context, true);
 
     _loadData(context, false);
@@ -144,7 +144,7 @@ Future.delayed(Duration.zero ,
   Widget build(BuildContext context) {
 
 
-   List<String> types =[getTranslated('new_arrival', context),getTranslated('top_product', context), getTranslated('best_selling', context),  getTranslated('discounted_product', context)];
+   List<String?> types =[getTranslated('new_arrival', context),getTranslated('top_product', context), getTranslated('best_selling', context),  getTranslated('discounted_product', context)];
     return Scaffold(
       backgroundColor: ColorResources.getHomeBg(context),
       resizeToAvoidBottomInset: false,
@@ -155,7 +155,7 @@ Future.delayed(Duration.zero ,
             await _loadData(context, true);
             await Provider.of<FlashDealProvider>(context, listen: false).getMegaDealList(true, context, false);
 
-            return true;
+            // return true;
           },
           child:
           
@@ -222,11 +222,11 @@ Future.delayed(Duration.zero ,
                                 height: 60, alignment: Alignment.centerLeft,
                                 decoration: BoxDecoration(color: Theme.of(context).cardColor,
                                   boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ?
-                                  900 : 200], spreadRadius: 1, blurRadius: 1)],
+                                  900 : 200]!, spreadRadius: 1, blurRadius: 1)],
                                   borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL),),
                                 child: Row(mainAxisAlignment : MainAxisAlignment.spaceBetween, children: [
 
-                                  Text(getTranslated('SEARCH_HINT', context),
+                                  Text(getTranslated('SEARCH_HINT', context)!,
                                       style: robotoRegular.copyWith(color: Theme.of(context).hintColor)),
 
                                   Container(
@@ -330,7 +330,7 @@ Future.delayed(Duration.zero ,
 
                           //footer banner
                           Consumer<BannerProvider>(builder: (context, footerBannerProvider, child){
-                            return footerBannerProvider.footerBannerList != null && footerBannerProvider.footerBannerList.length > 0?
+                            return footerBannerProvider.footerBannerList != null && footerBannerProvider.footerBannerList!.length > 0?
                             Padding(
                               padding: const EdgeInsets.only(bottom: Dimensions.HOME_PAGE_PADDING),
                               child: FooterBannersView(index: 0,),
@@ -350,7 +350,9 @@ Future.delayed(Duration.zero ,
                                 child: Padding(
                                   padding: const EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_SMALL),
                                   child: TitleRow(title: getTranslated('featured_products', context),
-                                      onTap: () {Navigator.push(context, MaterialPageRoute(builder: (_) => AllProductScreen(productType: ProductType.FEATURED_PRODUCT)));}),
+                                      onTap: () {Navigator.push(context,
+                                       MaterialPageRoute(builder: (_) =>
+                                        AllProductScreen(productType: ProductType.FEATURED_PRODUCT)));}),
                                 ),
                               ):SizedBox();
                             }
@@ -404,7 +406,7 @@ Future.delayed(Duration.zero ,
                           //footer banner
                           Consumer<BannerProvider>(builder: (context, footerBannerProvider, child){
                             return footerBannerProvider.mainSectionBannerList != null &&
-                                footerBannerProvider.mainSectionBannerList.length > 0?
+                                footerBannerProvider.mainSectionBannerList!.length > 0?
                             Padding(
                               padding: const EdgeInsets.only(bottom: Dimensions.HOME_PAGE_PADDING),
                               child: MainSectionBannersView(index: 0,),
@@ -435,7 +437,7 @@ Future.delayed(Duration.zero ,
 
                           //footer banner
                           Consumer<BannerProvider>(builder: (context, footerBannerProvider, child){
-                            return footerBannerProvider.footerBannerList != null && footerBannerProvider.footerBannerList.length>1?
+                            return footerBannerProvider.footerBannerList != null && footerBannerProvider.footerBannerList!.length>1?
                             FooterBannersView(index: 1):SizedBox();
                           }),
                           SizedBox(height: Dimensions.HOME_PAGE_PADDING),
@@ -448,7 +450,7 @@ Future.delayed(Duration.zero ,
                               padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL,vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                               child: Row(children: [
                                 Expanded(child: Text(prodProvider.title == 'xyz' ?
-                                 getTranslated('new_arrival',context):prodProvider.title, style: titleHeader)),
+                                 getTranslated('new_arrival',context)!:prodProvider.title!, style: titleHeader)),
                                  
                                 prodProvider.latestProductList != null ? 
                                 
@@ -456,16 +458,16 @@ Future.delayed(Duration.zero ,
                                 PopupMenuButton(
                                   itemBuilder: (context) {
                                     return [
-                                      PopupMenuItem(value: ProductType.NEW_ARRIVAL, child: Text(getTranslated('new_arrival',context)), textStyle: robotoRegular.copyWith(
+                                      PopupMenuItem(value: ProductType.NEW_ARRIVAL, child: Text(getTranslated('new_arrival',context)!), textStyle: robotoRegular.copyWith(
                                         color: Theme.of(context).hintColor,
                                          )),
-                                      PopupMenuItem(value: ProductType.TOP_PRODUCT, child: Text(getTranslated('top_product',context)), textStyle: robotoRegular.copyWith(
+                                      PopupMenuItem(value: ProductType.TOP_PRODUCT, child: Text(getTranslated('top_product',context)!), textStyle: robotoRegular.copyWith(
                                         color: Theme.of(context).hintColor,
                                         )),
-                                      PopupMenuItem(value: ProductType.BEST_SELLING, child: Text(getTranslated('best_selling',context)), textStyle: robotoRegular.copyWith(
+                                      PopupMenuItem(value: ProductType.BEST_SELLING, child: Text(getTranslated('best_selling',context)!), textStyle: robotoRegular.copyWith(
                                         color: Theme.of(context).hintColor,
                                        )),
-                                      PopupMenuItem(value: ProductType.DISCOUNTED_PRODUCT, child: Text(getTranslated('discounted_product',context)), textStyle: robotoRegular.copyWith(
+                                      PopupMenuItem(value: ProductType.DISCOUNTED_PRODUCT, child: Text(getTranslated('discounted_product',context)!), textStyle: robotoRegular.copyWith(
                                         color: Theme.of(context).hintColor,
                                       )),
                                     ];
@@ -475,7 +477,7 @@ Future.delayed(Duration.zero ,
                                     padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL,vertical:Dimensions.PADDING_SIZE_SMALL ),
                                     child: Image.asset(Images.dropdown, scale: 3,),
                                   ),
-                                  onSelected: (value) {
+                                  onSelected: (dynamic value) {
                                     if(value == ProductType.NEW_ARRIVAL){
                                       Provider.of<ProductProvider>(context, listen: false).changeTypeOfProduct(value, types[0]);
                                     }else if(value == ProductType.TOP_PRODUCT){
@@ -515,13 +517,13 @@ Future.delayed(Duration.zero ,
                 ],
               ),
 
-              Provider.of<SplashProvider>(context, listen: false).configModel.announcement.status == '1'?
+              Provider.of<SplashProvider>(context, listen: false).configModel!.announcement!.status == '1'?
               Positioned(top: MediaQuery.of(context).size.height-128,
                 left: 0,right: 0,
                 child: Consumer<SplashProvider>(
                   builder: (context, announcement, _){
-                    return (announcement.configModel.announcement.announcement != null && announcement.onOff)?
-                    AnnouncementScreen(announcement: announcement.configModel.announcement):SizedBox();
+                    return (announcement.configModel!.announcement!.announcement != null && announcement.onOff)?
+                    AnnouncementScreen(announcement: announcement.configModel!.announcement):SizedBox();
                   },
 
                 ),
@@ -536,7 +538,7 @@ Future.delayed(Duration.zero ,
 
 class SliverDelegate extends SliverPersistentHeaderDelegate {
   Widget child;
-  SliverDelegate({@required this.child});
+  SliverDelegate({required this.child});
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {

@@ -9,9 +9,9 @@ class MyDialog extends StatelessWidget {
   final bool isFailed;
   final double rotateAngle;
   final IconData icon;
-  final String title;
-  final String description;
-  MyDialog({this.isFailed = false, this.rotateAngle = 0, @required this.icon, @required this.title, @required this.description});
+  final String? title;
+  final String? description;
+  MyDialog({this.isFailed = false, this.rotateAngle = 0, required this.icon, required this.title, required this.description});
 
   @override
   Widget build(BuildContext context) {
@@ -35,9 +35,9 @@ class MyDialog extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 40),
             child: Column(mainAxisSize: MainAxisSize.min, children: [
-              Text(title, style: robotoBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
+              Text(title!, style: robotoBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
               SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-              Text(description, textAlign: TextAlign.center, style: titilliumRegular),
+              Text(description!, textAlign: TextAlign.center, style: titilliumRegular),
               SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_LARGE),

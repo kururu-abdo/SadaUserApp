@@ -1,9 +1,9 @@
 class ResponseModel {
-  String _message;
+  String? _message;
   bool _isSuccess;
 
   ResponseModel(this._message, this._isSuccess);
 
   bool get isSuccess => _isSuccess;
-  String get message => _message;
+  String? get message => _message;
 }

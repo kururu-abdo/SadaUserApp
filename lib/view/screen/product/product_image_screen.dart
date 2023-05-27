@@ -10,21 +10,21 @@ import 'package:provider/provider.dart';
 class ProductImageScreen extends StatefulWidget {
   final String title;
   final List<String> imageList;
-  ProductImageScreen({@required this.title, @required this.imageList});
+  ProductImageScreen({required this.title, required this.imageList});
 
   @override
   _ProductImageScreenState createState() => _ProductImageScreenState();
 }
 
 class _ProductImageScreenState extends State<ProductImageScreen> {
-  int pageIndex;
-  PageController _pageController;
+  int? pageIndex;
+  PageController? _pageController;
 
   @override
   void initState() {
     super.initState();
     pageIndex = Provider.of<ProductDetailsProvider>(context, listen: false).imageSliderIndex;
-    _pageController = PageController(initialPage: pageIndex);
+    _pageController = PageController(initialPage: pageIndex!);
 
   }
 
@@ -42,7 +42,7 @@ class _ProductImageScreenState extends State<ProductImageScreen> {
                 scrollPhysics: const BouncingScrollPhysics(),
                 builder: (BuildContext context, int index) {
                   return PhotoViewGalleryPageOptions(
-                    imageProvider: NetworkImage('${Provider.of<SplashProvider>(context,listen: false).baseUrls.productImageUrl}/${widget.imageList[index]}'),
+                    imageProvider: NetworkImage('${Provider.of<SplashProvider>(context,listen: false).baseUrls!.productImageUrl}/${widget.imageList[index]}'),
                     initialScale: PhotoViewComputedScale.contained,
                     heroAttributes: PhotoViewHeroAttributes(tag: index.toString()),
                   );
@@ -54,7 +54,7 @@ class _ProductImageScreenState extends State<ProductImageScreen> {
                     width: 20.0,
                     height: 20.0,
                     child: CircularProgressIndicator(
-                      value: event == null ? 0 : event.cumulativeBytesLoaded / event.expectedTotalBytes,
+                      value: event == null ? 0 : event.cumulativeBytesLoaded / event.expectedTotalBytes!,
                         valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
                     ),
                   ),
@@ -77,8 +77,8 @@ class _ProductImageScreenState extends State<ProductImageScreen> {
                   ),
                   child: InkWell(
                     onTap: () {
-                      if(pageIndex > 0) {
-                        _pageController.animateToPage(pageIndex-1, duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+                      if(pageIndex! > 0) {
+                        _pageController!.animateToPage(pageIndex!-1, duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
                       }
                     },
                     child: Icon(Icons.chevron_left_outlined, size: 40),
@@ -96,8 +96,8 @@ class _ProductImageScreenState extends State<ProductImageScreen> {
                   ),
                   child: InkWell(
                     onTap: () {
-                      if(pageIndex < widget.imageList.length) {
-                        _pageController.animateToPage(pageIndex+1, duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+                      if(pageIndex! < widget.imageList.length) {
+                        _pageController!.animateToPage(pageIndex!+1, duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
                       }
                     },
                     child: Icon(Icons.chevron_right_outlined, size: 40),

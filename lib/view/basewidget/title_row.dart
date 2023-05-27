@@ -8,22 +8,22 @@ import 'package:eamar_user_app/utill/images.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class TitleRow extends StatelessWidget {
-  final String title;
-  final Function icon;
-  final Function onTap;
-  final Duration eventDuration;
-  final bool isDetailsPage;
+  final String? title;
+  final Function? icon;
+  final Function? onTap;
+  final Duration? eventDuration;
+  final bool? isDetailsPage;
   final bool isFlash;
-  TitleRow({@required this.title,this.icon, this.onTap, this.eventDuration, this.isDetailsPage, this.isFlash = false});
+  TitleRow({required this.title,this.icon, this.onTap, this.eventDuration, this.isDetailsPage, this.isFlash = false});
 
   @override
   Widget build(BuildContext context) {
-    int days, hours, minutes, seconds;
+    int? days, hours, minutes, seconds;
     if (eventDuration != null) {
-      days = eventDuration.inDays;
-      hours = eventDuration.inHours - days * 24;
-      minutes = eventDuration.inMinutes - (24 * days * 60) - (hours * 60);
-      seconds = eventDuration.inSeconds - (24 * days * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
+      days = eventDuration!.inDays;
+      hours = eventDuration!.inHours - days * 24;
+      minutes = eventDuration!.inMinutes - (24 * days * 60) - (hours * 60);
+      seconds = eventDuration!.inSeconds - (24 * days * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
     }
 
     return Container(
@@ -38,7 +38,7 @@ class TitleRow extends StatelessWidget {
               padding: isFlash?  EdgeInsets.only(left: Dimensions.PADDING_SIZE_EXTRA_SMALL):EdgeInsets.all(0),
               child: Image.asset(Images.flash_deal, scale: 4,),
             ):SizedBox(),
-            Text(title, style: titleHeader),
+            Text(title!, style: titleHeader),
             Spacer(),
             eventDuration == null
                 ? Expanded(child: SizedBox.shrink())
@@ -60,7 +60,7 @@ class TitleRow extends StatelessWidget {
             Spacer(),
             icon != null
                 ? InkWell(
-                onTap: icon,
+                onTap: icon as void Function()?,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child:  SvgPicture.asset(
@@ -75,7 +75,7 @@ class TitleRow extends StatelessWidget {
 
             onTap != null && isFlash?
             InkWell(
-              onTap: onTap,
+              onTap: onTap as void Function()?,
               child: Stack(
                 children: [
                   Container(
@@ -99,11 +99,11 @@ class TitleRow extends StatelessWidget {
               ),
             ) :onTap != null && !isFlash ?
             InkWell(
-              onTap: onTap,
+              onTap: onTap as void Function()?,
               child: Row(mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     isDetailsPage == null
-                        ? Text(getTranslated('VIEW_ALL', context),
+                        ? Text(getTranslated('VIEW_ALL', context)!,
                         style: titilliumRegular.copyWith(
                           color: ColorResources.getArrowButtonColor(context),
                           fontSize: Dimensions.FONT_SIZE_DEFAULT,
@@ -122,11 +122,11 @@ class TitleRow extends StatelessWidget {
 }
 
 class TimerBox extends StatelessWidget {
-  final int time;
+  final int? time;
   final bool isBorder;
-  final String day;
+  final String? day;
 
-  TimerBox({@required this.time, this.isBorder = false, this.day});
+  TimerBox({required this.time, this.isBorder = false, this.day});
 
   @override
   Widget build(BuildContext context) {
@@ -140,13 +140,13 @@ class TimerBox extends StatelessWidget {
       child: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center,crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(time < 10 ? '0$time' : time.toString(),
+            Text(time! < 10 ? '0$time' : time.toString(),
               style: robotoRegular.copyWith(
                 color: isBorder ? ColorResources.getPrimary(context) : Theme.of(context).highlightColor,
                 fontSize: Dimensions.FONT_SIZE_SMALL,
               ),
             ),
-            Text(day, style: titilliumRegular.copyWith(color: isBorder ?
+            Text(day!, style: titilliumRegular.copyWith(color: isBorder ?
             ColorResources.getPrimary(context) : Theme.of(context).highlightColor,
               fontSize: Dimensions.FONT_SIZE_SMALL,)),
           ],

@@ -1,18 +1,18 @@
 class ChosenShippingMethodModel {
-  int _id;
-  String _cartGroupId;
-  int _shippingMethodId;
-  double _shippingCost;
-  String _createdAt;
-  String _updatedAt;
+  int? _id;
+  String? _cartGroupId;
+  int? _shippingMethodId;
+  double? _shippingCost;
+  String? _createdAt;
+  String? _updatedAt;
 
   ChosenShippingMethodModel(
-      {int id,
-        String cartGroupId,
-        int shippingMethodId,
-        double shippingCost,
-        String createdAt,
-        String updatedAt}) {
+      {int? id,
+        String? cartGroupId,
+        int? shippingMethodId,
+        double? shippingCost,
+        String? createdAt,
+        String? updatedAt}) {
     this._id = id;
     this._cartGroupId = cartGroupId;
     this._shippingMethodId = shippingMethodId;
@@ -21,12 +21,12 @@ class ChosenShippingMethodModel {
     this._updatedAt = updatedAt;
   }
 
-  int get id => _id;
-  String get cartGroupId => _cartGroupId;
-  int get shippingMethodId => _shippingMethodId;
-  double get shippingCost => _shippingCost;
-  String get createdAt => _createdAt;
-  String get updatedAt => _updatedAt;
+  int? get id => _id;
+  String? get cartGroupId => _cartGroupId;
+  int? get shippingMethodId => _shippingMethodId;
+  double? get shippingCost => _shippingCost;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
 
   ChosenShippingMethodModel.fromJson(Map<String, dynamic> json) {
     _id = json['id'];

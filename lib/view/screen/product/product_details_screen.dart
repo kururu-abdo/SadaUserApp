@@ -32,13 +32,13 @@ import 'package:provider/provider.dart';
 import 'faq_and_review_screen.dart';
 
 class ProductDetails extends StatefulWidget {
-  final Product product;
+  final Product? product;
 
-  final String id;
-  final String slug;
-    final String seller;
+  final String? id;
+  final String? slug;
+    final String? seller;
 
-  ProductDetails({@required this.product, this.id ,this.slug  , this.seller});
+  ProductDetails({required this.product, this.id ,this.slug  , this.seller});
 
 
 
@@ -53,34 +53,34 @@ class _ProductDetailsState extends State<ProductDetails> {
       Provider.of<ProductDetailsProvider>(context, listen: false).initProduct(
         widget.product==null?
        null:
-        widget.product,
+        widget.product!,
 
      
 
        context);
       Provider.of<ProductProvider>(context, listen: false).removePrevRelatedProduct();
       Provider.of<ProductProvider>(context, listen: false).initRelatedProductList( widget.product==null?
-          widget.id:
-          widget.product.id.toString(), context);
+          widget.id!:
+          widget.product!.id.toString(), context);
       Provider.of<ProductDetailsProvider>(context, listen: false).getCount( widget.product==null?
-          widget.id:
-          widget.product.id.toString(), context);
+          widget.id!:
+          widget.product!.id.toString(), context);
       Provider.of<ProductDetailsProvider>(context, listen: false).getSharableLink(
         widget.product==null?
-          widget.slug:
-          widget.product.slug.toString(), context);
+          widget.slug!:
+          widget.product!.slug.toString(), context);
       if(Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
       
         Provider.of<WishListProvider>(context, listen: false).checkWishList(
           widget.product==null?
           widget.id:
-          widget.product.id.toString(), context);
+          widget.product!.id.toString(), context);
       }
       Provider.of<ProductProvider>(context, listen: false).initSellerProductList(
         
              widget.product!=null?
         
-        widget.product.userId.toString():widget.seller, 1, context);
+        widget.product!.userId.toString():widget.seller!, 1, context);
 
 
 
@@ -90,9 +90,9 @@ class _ProductDetailsState extends State<ProductDetails> {
   Widget build(BuildContext context) {
     ScrollController _scrollController = ScrollController();
     String ratting = widget.product != null &&
-      widget.product.rating != null &&
-     widget.product.rating.length != 0?
-    widget.product.rating[0].average.toString() : "0";
+      widget.product!.rating != null &&
+     widget.product!.rating!.length != 0?
+    widget.product!.rating![0].average.toString() : "0";
     _loadData(context);
     return widget.product != null?
     Consumer<ProductDetailsProvider>(
@@ -109,7 +109,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
 
 
-              Text(getTranslated('product_details', context),
+              Text(getTranslated('product_details', context)!,
                   style: robotoRegular.copyWith(fontSize: 20,
                       color: Theme.of(context).cardColor)),
             ]),
@@ -147,14 +147,20 @@ class _ProductDetailsState extends State<ProductDetails> {
 
 
 
-                    (widget.product.details != null && widget.product.details.isNotEmpty) ?
+                    (widget.product!.details != null && widget.product!.details!.isNotEmpty) ?
                     Container(height: 250,
                       margin: EdgeInsets.only(top: Dimensions.PADDING_SIZE_SMALL),
                       padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-                      child: ProductSpecification(productSpecification: widget.product.details ?? ''),) : SizedBox(),
 
-                    widget.product.videoUrl != null?
-                    YoutubeVideoWidget(url: widget.product.videoUrl):SizedBox(),
+                      child: ProductSpecification(productSpecification: widget.product!.details ?? ''),
+                      )
+                       :
+                       SizedBox(),
+
+                    widget.product!.videoUrl != null?
+                    YoutubeVideoWidget(url: widget.product!.videoUrl)
+                    :
+                    SizedBox(),
 
                     Container(padding: EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_DEFAULT,
                         horizontal: Dimensions.FONT_SIZE_DEFAULT),
@@ -165,8 +171,8 @@ class _ProductDetailsState extends State<ProductDetails> {
 
 
 
-                    widget.product.addedBy == 'seller' ? 
-                    SellerView(sellerId: widget.product.userId.toString()) :
+                    widget.product!.addedBy == 'seller' ? 
+                    SellerView(sellerId: widget.product!.userId.toString()) :
                      SizedBox.shrink(),
 
 
@@ -177,7 +183,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       padding: EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
                       color: Theme.of(context).cardColor,
                       child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                        Text(getTranslated('customer_reviews', context),
+                        Text(getTranslated('customer_reviews', context)!,
                           style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),),
                         SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT,),
                         Container(width: 230,height: 30,
@@ -195,15 +201,15 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ),
 
                       SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT),
-                      Text('${getTranslated('total', context)}' + ' '+'${details.reviewList != null ? details.reviewList.length : 0}' +' '+ '${getTranslated('reviews', context)}'),
+                      Text('${getTranslated('total', context)}' + ' '+'${details.reviewList != null ? details.reviewList!.length : 0}' +' '+ '${getTranslated('reviews', context)}'),
 
 
 
-                      details.reviewList != null ? details.reviewList.length != 0 ? ReviewWidget(reviewModel: details.reviewList[0])
+                      details.reviewList != null ? details.reviewList!.length != 0 ? ReviewWidget(reviewModel: details.reviewList![0])
                           : SizedBox() : ReviewShimmer(),
-                      details.reviewList != null ? details.reviewList.length > 1 ? ReviewWidget(reviewModel: details.reviewList[1])
+                      details.reviewList != null ? details.reviewList!.length > 1 ? ReviewWidget(reviewModel: details.reviewList![1])
                           : SizedBox() : ReviewShimmer(),
-                      details.reviewList != null ? details.reviewList.length > 2 ? ReviewWidget(reviewModel: details.reviewList[2])
+                      details.reviewList != null ? details.reviewList!.length > 2 ? ReviewWidget(reviewModel: details.reviewList![2])
                           : SizedBox() : ReviewShimmer(),
 
                       InkWell(
@@ -212,10 +218,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                             {Navigator.push(context, MaterialPageRoute(builder: (_) =>
                                 ReviewScreen(reviewList: details.reviewList)));}},
                           child: 
-                          details.reviewList != null && details.reviewList.length > 3?
+                          details.reviewList != null && details.reviewList!.length > 3?
 
 
-                          Text(getTranslated('view_more', context),
+                          Text(getTranslated('view_more', context)!,
                             style: 
                             titilliumRegular.copyWith(color: Theme.of(context).primaryColor),)
                             
@@ -228,15 +234,15 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ]),
                   ),
 
-                    widget.product.addedBy == 'seller' ?
+                    widget.product!.addedBy == 'seller' ?
                     Padding(padding: EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
                       child: TitleRow(title: getTranslated('more_from_the_shop', context), isDetailsPage: true),
                     ):SizedBox(),
 
-                    widget.product.addedBy == 'seller' ?
+                    widget.product!.addedBy == 'seller' ?
                     Padding(padding: EdgeInsets.all(Dimensions.PADDING_SIZE_EXTRA_SMALL),
                       child: ProductView(isHomePage: true, productType: ProductType.SELLER_PRODUCT,
-                          scrollController: _scrollController, sellerId: widget.product.userId.toString()),):SizedBox(),
+                          scrollController: _scrollController, sellerId: widget.product!.userId.toString()),):SizedBox(),
 
 
 

@@ -12,7 +12,7 @@ import 'package:shimmer/shimmer.dart';
 
 class ReviewWidget extends StatelessWidget {
   final ReviewModel reviewModel;
-  ReviewWidget({@required this.reviewModel});
+  ReviewWidget({required this.reviewModel});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class ReviewWidget extends StatelessWidget {
             child: FadeInImage.assetNetwork(
               placeholder: Images.placeholder, height: Dimensions.chooseReviewImageSize,
               width: Dimensions.chooseReviewImageSize, fit: BoxFit.cover,
-              image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls.customerImageUrl}/${reviewModel.customer.image}',
+              image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.customerImageUrl}/${reviewModel.customer!.image}',
               imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, height: Dimensions.chooseReviewImageSize,
                   width: Dimensions.chooseReviewImageSize, fit: BoxFit.cover),
             ),
@@ -36,7 +36,7 @@ class ReviewWidget extends StatelessWidget {
 
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Row(children: [
-              Text('${reviewModel.customer.fName??''} ${reviewModel.customer.lName??''}',
+              Text('${reviewModel.customer!.fName??''} ${reviewModel.customer!.lName??''}',
                 style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -48,7 +48,7 @@ class ReviewWidget extends StatelessWidget {
             Row(children: [
               Icon(Icons.star,color: Colors.orange),
 
-              Text('${reviewModel.rating.toDouble()}' + ' '+ '/5',
+              Text('${reviewModel.rating!.toDouble()}' + ' '+ '/5',
                 style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT),
                 maxLines: 1, overflow: TextOverflow.ellipsis,
               ),
@@ -66,12 +66,12 @@ class ReviewWidget extends StatelessWidget {
         ),
         SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
-        reviewModel.attachment.length > 0 ? SizedBox(
+        reviewModel.attachment!.length > 0 ? SizedBox(
           height: 40,
           child: ListView.builder(
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
-            itemCount: reviewModel.attachment.length,
+            itemCount: reviewModel.attachment!.length,
             itemBuilder: (context, index) {
               return Container(
                 margin: EdgeInsets.only(right: Dimensions.PADDING_SIZE_SMALL),
@@ -80,7 +80,7 @@ class ReviewWidget extends StatelessWidget {
                   child: FadeInImage.assetNetwork(
                     placeholder: Images.placeholder, height: Dimensions.chooseReviewImageSize,
                     width: Dimensions.chooseReviewImageSize, fit: BoxFit.cover,
-                    image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls.reviewImageUrl}/review/${reviewModel.attachment[index]}',
+                    image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.reviewImageUrl}/review/${reviewModel.attachment![index]}',
                     imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder,
                         height: Dimensions.chooseReviewImageSize, width: Dimensions.chooseReviewImageSize, fit: BoxFit.cover),
                   ),
@@ -98,8 +98,8 @@ class ReviewShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Colors.grey[300],
-      highlightColor: Colors.grey[100],
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
       enabled: Provider.of<ProductDetailsProvider>(context).reviewList == null,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(children: [

@@ -26,12 +26,12 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   final GlobalKey<ScaffoldMessengerState> _key = GlobalKey();
   final TextEditingController _numberController = TextEditingController();
   final FocusNode _numberFocus = FocusNode();
-  String _countryDialCode = '+880';
+  String? _countryDialCode = '+880';
 
   @override
   void initState() {
     _countryDialCode = CountryCode.fromCountryCode(
-        Provider.of<SplashProvider>(context, listen: false).configModel.countryCode).dialCode;
+        Provider.of<SplashProvider>(context, listen: false).configModel!.countryCode!).dialCode;
     super.initState();
   }
 
@@ -67,7 +67,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   padding: EdgeInsets.all(50),
                   child: Image.asset(Images.logo_with_name_image, height: 150, width: 200),
                 ),
-                Text(getTranslated('FORGET_PASSWORD', context), style: titilliumSemiBold),
+                Text(getTranslated('FORGET_PASSWORD', context)!, style: titilliumSemiBold),
 
 
                 Row(children: [
@@ -77,17 +77,17 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       color: Theme.of(context).primaryColor)),
                 ]),
 
-                Provider.of<SplashProvider>(context,listen: false).configModel.forgetPasswordVerification == "phone"?
-                Text(getTranslated('enter_phone_number_for_password_reset', context),
+                Provider.of<SplashProvider>(context,listen: false).configModel!.forgetPasswordVerification == "phone"?
+                Text(getTranslated('enter_phone_number_for_password_reset', context)!,
                     style: titilliumRegular.copyWith(color: Theme.of(context).hintColor,
                         fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL)):
-                Text(getTranslated('enter_email_for_password_reset', context),
+                Text(getTranslated('enter_email_for_password_reset', context)!,
                     style: titilliumRegular.copyWith(color: Theme.of(context).hintColor,
                         fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL)),
                 SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
 
 
-                Provider.of<SplashProvider>(context,listen: false).configModel.forgetPasswordVerification == "phone"?
+                Provider.of<SplashProvider>(context,listen: false).configModel!.forgetPasswordVerification == "phone"?
                 Row(children: [
                   CodePickerWidget(
                     onChanged: (CountryCode countryCode) {
@@ -98,7 +98,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     showDropDownButton: true,
                     padding: EdgeInsets.zero,
                     showFlagMain: true,
-                    textStyle: TextStyle(color: Theme.of(context).textTheme.headline1.color),
+                    textStyle: TextStyle(color: Theme.of(context).textTheme.headline1!.color),
                   ),
 
 
@@ -124,27 +124,27 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 Builder(
                   builder: (context) => !Provider.of<AuthProvider>(context).isLoading ?
                   CustomButton(
-                    buttonText: Provider.of<SplashProvider>(context,listen: false).configModel.forgetPasswordVerification == "phone"?
+                    buttonText: Provider.of<SplashProvider>(context,listen: false).configModel!.forgetPasswordVerification == "phone"?
                     getTranslated('send_otp', context):getTranslated('send_email', context),
                     onTap: () {
-                      if(Provider.of<SplashProvider>(context,listen: false).configModel.forgetPasswordVerification == "phone"){
+                      if(Provider.of<SplashProvider>(context,listen: false).configModel!.forgetPasswordVerification == "phone"){
                         if(_numberController.text.isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(getTranslated('PHONE_MUST_BE_REQUIRED', context)),
+                              SnackBar(content: Text(getTranslated('PHONE_MUST_BE_REQUIRED', context)!),
                                 backgroundColor: Colors.red,)
                           );
 
                         }else{
                           Provider.of<AuthProvider>(context, listen: false).
-                          forgetPassword(_countryDialCode+_numberController.text.trim()).then((value) {
+                          forgetPassword(_countryDialCode!+_numberController.text.trim()).then((value) {
                             if(value.isSuccess) {
                               Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
                                   builder: (_) => VerificationScreen('',
-                                      _countryDialCode+_numberController.text.trim(),'')),
+                                      _countryDialCode!+_numberController.text.trim(),'')),
                                       (route) => false);
                             }else {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text(getTranslated('input_valid_phone_number', context)),
+                                  SnackBar(content: Text(getTranslated('input_valid_phone_number', context)!),
                                     backgroundColor: Colors.red,)
                               );
 
@@ -155,7 +155,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       }else{
                         if(_controller.text.isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(getTranslated('EMAIL_MUST_BE_REQUIRED', context)),
+                              SnackBar(content: Text(getTranslated('EMAIL_MUST_BE_REQUIRED', context)!),
                                 backgroundColor: Colors.red,)
                           );
                         }
@@ -176,7 +176,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                               ), dismissible: false);
                             }else {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text(value.message),backgroundColor: Colors.red,)
+                                  SnackBar(content: Text(value.message!),backgroundColor: Colors.red,)
                               );
                             }
                           });

@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:eamar_user_app/view/screen/product/product_details_screen2.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/helper/price_converter.dart';
 import 'package:eamar_user_app/provider/flash_deal_provider.dart';
@@ -55,7 +56,7 @@ class FlashDealsView extends StatelessWidget {
                         onTap: () {
                           Navigator.push(context, PageRouteBuilder(
                             transitionDuration: Duration(milliseconds: 1000),
-                            pageBuilder: (context, anim1, anim2) => ProductDetails(product: megaProvider.flashDealList[index]),
+                            pageBuilder: (context, anim1, anim2) => ProductDetails2(product: megaProvider.flashDealList[index]),
                           ));
                         },
                         child: Container(
@@ -80,7 +81,7 @@ class FlashDealsView extends StatelessWidget {
                                     borderRadius: BorderRadius.all( Radius.circular(10)),
                                     child: FadeInImage.assetNetwork(
                                       placeholder: Images.placeholder, fit: BoxFit.cover,
-                                      image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls.productThumbnailUrl}'
+                                      image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.productThumbnailUrl}'
                                           '/${megaProvider.flashDealList[index].thumbnail}',
                                       imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder,
                                         fit: BoxFit.cover,height: _width*.50,),
@@ -94,7 +95,7 @@ class FlashDealsView extends StatelessWidget {
                                 child: Column(mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(megaProvider.flashDealList[index].name,
+                                    Text(megaProvider.flashDealList[index].name!,
                                       style: robotoRegular, maxLines: 2,
                                       overflow: TextOverflow.ellipsis, textAlign: TextAlign.center,
                                     ),
@@ -103,21 +104,21 @@ class FlashDealsView extends StatelessWidget {
 
                                     Row(children: [
                                       Text(
-                                        megaProvider.flashDealList[index].rating.length != 0 ?
-                                        double.parse(megaProvider.flashDealList[index].rating[0].average).toStringAsFixed(1) : '0.0',
+                                        megaProvider.flashDealList[index].rating!.length != 0 ?
+                                        double.parse(megaProvider.flashDealList[index].rating![0].average!).toStringAsFixed(1) : '0.0',
                                         style: robotoRegular.copyWith(color: Provider.of<ThemeProvider>(context).darkTheme ?
                                         Colors.white : Colors.orange, fontSize: Dimensions.FONT_SIZE_SMALL),
                                       ),
                                       Icon(Icons.star, color: Provider.of<ThemeProvider>(context).darkTheme ?
                                       Colors.white : Colors.orange, size: 15),
-                                      Text('(${megaProvider.flashDealList[index].reviewCount.toString() ?? 0})',
+                                      Text('(${megaProvider.flashDealList[index].reviewCount.toString()})',
                                           style: robotoRegular.copyWith(
                                             fontSize: Dimensions.FONT_SIZE_SMALL,
                                           )),
                                       Spacer(),
 
 
-                                      Text(megaProvider.flashDealList[index].discount > 0 ?
+                                      Text(megaProvider.flashDealList[index].discount! > 0 ?
                                         PriceConverter.convertPrice(context, megaProvider.flashDealList[index].unitPrice) : '',
                                         style: robotoBold.copyWith(
                                           color: ColorResources.HINT_TEXT_COLOR,
@@ -142,7 +143,7 @@ class FlashDealsView extends StatelessWidget {
                             ]),
 
 
-                            megaProvider.flashDealList[index].discount >= 1 ?
+                            megaProvider.flashDealList[index].discount! >= 1 ?
                             Positioned(top: 0, left: 0,
                               child: Container(
                                 padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL),
@@ -173,8 +174,8 @@ class FlashDealsView extends StatelessWidget {
 
                 ],
               ) : SizedBox() : Shimmer.fromColors(
-                baseColor: Colors.grey[300],
-                highlightColor: Colors.grey[100],
+                baseColor: Colors.grey[300]!,
+                highlightColor: Colors.grey[100]!,
                 enabled: megaProvider.flashDealList == null,
                 child: Container(margin: EdgeInsets.symmetric(horizontal: 10), decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
@@ -199,7 +200,7 @@ class FlashDealsView extends StatelessWidget {
               onTap: () {
                 Navigator.push(context, PageRouteBuilder(
                   transitionDuration: Duration(milliseconds: 1000),
-                  pageBuilder: (context, anim1, anim2) => ProductDetails(product: megaProvider.flashDealList[index]),
+                  pageBuilder: (context, anim1, anim2) => ProductDetails2(product: megaProvider.flashDealList[index]),
                 ));
               },
               child: Container(
@@ -223,7 +224,7 @@ class FlashDealsView extends StatelessWidget {
                         ),
                         child: FadeInImage.assetNetwork(
                           placeholder: Images.placeholder, fit: BoxFit.cover,
-                          image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls.productThumbnailUrl}'
+                          image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.productThumbnailUrl}'
                               '/${megaProvider.flashDealList[index].thumbnail}',
                           imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, fit: BoxFit.cover),
                         ),
@@ -238,7 +239,7 @@ class FlashDealsView extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
 
-                            Text(megaProvider.flashDealList[index].name,
+                            Text(megaProvider.flashDealList[index].name!,
                               style: robotoRegular,
                               maxLines: 2, overflow: TextOverflow.ellipsis,
                             ),
@@ -246,14 +247,14 @@ class FlashDealsView extends StatelessWidget {
 
 
                             Row(children: [
-                              Text(megaProvider.flashDealList[index].rating.length != 0 ?
-                                double.parse(megaProvider.flashDealList[index].rating[0].average).toStringAsFixed(1) : '0.0',
+                              Text(megaProvider.flashDealList[index].rating!.length != 0 ?
+                                double.parse(megaProvider.flashDealList[index].rating![0].average!).toStringAsFixed(1) : '0.0',
                                 style: robotoRegular.copyWith( fontSize: Dimensions.FONT_SIZE_SMALL),
                               ),
                               Icon(Icons.star, color: Provider.of<ThemeProvider>(context).darkTheme ?
                               Colors.white : Colors.orange, size: 15),
 
-                              Text('(${megaProvider.flashDealList[index].reviewCount.toString() ?? 0})',
+                              Text('(${megaProvider.flashDealList[index].reviewCount.toString() })',
                                   style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL,)),
                             ]),
                             SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT,),
@@ -261,7 +262,7 @@ class FlashDealsView extends StatelessWidget {
 
                             Row(
                               children: [
-                                Text(megaProvider.flashDealList[index].discount > 0 ?
+                                Text(megaProvider.flashDealList[index].discount! > 0 ?
                                   PriceConverter.convertPrice(context, megaProvider.flashDealList[index].unitPrice) : '',
                                   style: robotoRegular.copyWith(
                                     color: ColorResources.getRed(context),
@@ -287,7 +288,7 @@ class FlashDealsView extends StatelessWidget {
                   ]),
 
                   // Off
-                  megaProvider.flashDealList[index].discount >= 1 ?
+                  megaProvider.flashDealList[index].discount! >= 1 ?
                   Positioned(top: 0, left: 0,
                     child: Container(height: 20, alignment: Alignment.center,
                       decoration: BoxDecoration(

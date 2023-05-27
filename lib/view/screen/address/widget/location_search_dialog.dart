@@ -8,8 +8,8 @@ import 'package:provider/provider.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 class LocationSearchDialog extends StatelessWidget {
-  final GoogleMapController mapController;
-  LocationSearchDialog({@required this.mapController});
+  final GoogleMapController? mapController;
+  LocationSearchDialog({required this.mapController});
 
   @override
   Widget build(BuildContext context) {
@@ -33,13 +33,13 @@ class LocationSearchDialog extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(style: BorderStyle.none, width: 0),
               ),
-              hintStyle: Theme.of(context).textTheme.headline2.copyWith(
+              hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
                 fontSize: Dimensions.FONT_SIZE_DEFAULT, color: Theme.of(context).disabledColor,
               ),
               filled: true, fillColor: Theme.of(context).cardColor,
             ),
-            style: Theme.of(context).textTheme.headline2.copyWith(
-              color: Theme.of(context).textTheme.bodyText1.color, fontSize: Dimensions.FONT_SIZE_LARGE,
+            style: Theme.of(context).textTheme.headline2!.copyWith(
+              color: Theme.of(context).textTheme.bodyText1!.color, fontSize: Dimensions.FONT_SIZE_LARGE,
             ),
           ),
           suggestionsCallback: (pattern) async {
@@ -51,8 +51,8 @@ class LocationSearchDialog extends StatelessWidget {
               child: Row(children: [
                 Icon(Icons.location_on),
                 Expanded(
-                  child: Text(suggestion.description, maxLines: 1, overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.headline2.copyWith(
-                    color: Theme.of(context).textTheme.bodyText1.color, fontSize: Dimensions.FONT_SIZE_LARGE,
+                  child: Text(suggestion.description!, maxLines: 1, overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.headline2!.copyWith(
+                    color: Theme.of(context).textTheme.bodyText1!.color, fontSize: Dimensions.FONT_SIZE_LARGE,
                   )),
                 ),
               ]),

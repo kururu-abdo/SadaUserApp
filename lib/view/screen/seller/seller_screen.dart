@@ -21,8 +21,8 @@ import 'package:provider/provider.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 
 class SellerScreen extends StatefulWidget {
-  final SellerModel seller;
-  SellerScreen({@required this.seller});
+  final SellerModel? seller;
+  SellerScreen({required this.seller});
 
   @override
   State<SellerScreen> createState() => _SellerScreenState();
@@ -34,7 +34,7 @@ class _SellerScreenState extends State<SellerScreen> {
   void _load(){
     Provider.of<ProductProvider>(context, listen: false).removeFirstLoading();
     Provider.of<ProductProvider>(context, listen: false).clearSellerData();
-    Provider.of<ProductProvider>(context, listen: false).initSellerProductList(widget.seller.seller.id.toString(), 1, context);
+    Provider.of<ProductProvider>(context, listen: false).initSellerProductList(widget.seller!.seller!.id.toString(), 1, context);
   }
 
 
@@ -51,7 +51,7 @@ class _SellerScreenState extends State<SellerScreen> {
   Widget build(BuildContext context) {
 
 
-    String ratting = widget.seller != null && widget.seller.avgRating != null? widget.seller.avgRating.toString() : "0";
+    String ratting = widget.seller != null && widget.seller!.avgRating != null? widget.seller!.avgRating.toString() : "0";
 
 
 
@@ -60,7 +60,7 @@ class _SellerScreenState extends State<SellerScreen> {
 
       body: Column(
         children: [
-          CustomAppBar(title: '${widget.seller.seller.fName}'+' ''${widget.seller.seller.lName}'),
+          CustomAppBar(title: '${widget.seller!.seller!.fName}'+' ''${widget.seller!.seller!.lName}'),
 
           Expanded(
             child: ListView(
@@ -76,7 +76,7 @@ class _SellerScreenState extends State<SellerScreen> {
                     borderRadius: BorderRadius.circular(10),
                     child: FadeInImage.assetNetwork(
                       placeholder: Images.placeholder, height: 120, fit: BoxFit.cover,
-                      image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls.shopImageUrl}/banner/${widget.seller.seller.shop != null ? widget.seller.seller.shop.banner : ''}',
+                      image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.shopImageUrl}/banner/${widget.seller!.seller!.shop != null ? widget.seller!.seller!.shop!.banner : ''}',
                       imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, height: 120, fit: BoxFit.cover),
                     ),
                   ),
@@ -93,7 +93,7 @@ class _SellerScreenState extends State<SellerScreen> {
                         borderRadius: BorderRadius.circular(10),
                         child: FadeInImage.assetNetwork(
                           placeholder: Images.placeholder, height: 80, width: 80, fit: BoxFit.cover,
-                          image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls.shopImageUrl}/${widget.seller.seller.shop.image}',
+                          image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.shopImageUrl}/${widget.seller!.seller!.shop!.image}',
                           imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, height: 80, width: 80, fit: BoxFit.cover),
                         ),
                       ),
@@ -101,13 +101,13 @@ class _SellerScreenState extends State<SellerScreen> {
                       Expanded(
                         child: Column(mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(widget.seller.seller.shop.name, style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE), maxLines: 1, overflow: TextOverflow.ellipsis,),
+                            Text(widget.seller!.seller!.shop!.name!, style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE), maxLines: 1, overflow: TextOverflow.ellipsis,),
 
                             Row(
                               children: [
                                 RatingBar(rating: double.parse(ratting)),
                                 
-                                Text('(${widget.seller.totalReview.toString()})' , style: titilliumRegular.copyWith(), maxLines: 1, overflow: TextOverflow.ellipsis,),
+                                Text('(${widget.seller!.totalReview.toString()})' , style: titilliumRegular.copyWith(), maxLines: 1, overflow: TextOverflow.ellipsis,),
 
                               ],
                             ),
@@ -182,7 +182,7 @@ class _SellerScreenState extends State<SellerScreen> {
 
 
                                   },
-                                  child: Text(widget.seller.totalReview.toString() +' '+ '${getTranslated('reviews', context)}',
+                                  child: Text(widget.seller!.totalReview.toString() +' '+ '${getTranslated('reviews', context)}',
                                     style: titleRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
                                         color: ColorResources.getReviewRattingColor(context)),
                                     maxLines: 1, overflow: TextOverflow.ellipsis,),
@@ -192,7 +192,7 @@ class _SellerScreenState extends State<SellerScreen> {
                                 Text('|'),
                                 SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
 
-                                Text(widget.seller.totalProduct.toString() +' '+
+                                Text(widget.seller!.totalProduct.toString() +' '+
                                     '${getTranslated('products', context)}',
                                   style: titleRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
                                       color: ColorResources.getReviewRattingColor(context)),
@@ -235,7 +235,7 @@ class _SellerScreenState extends State<SellerScreen> {
                   child: ProductView(isHomePage: false,
                    productType: ProductType.SELLER_PRODUCT, scrollController:
                    _scrollController, sellerId: 
-                   widget.seller.seller.id.toString()),
+                   widget.seller!.seller!.id.toString()),
                 ),
 
               ],

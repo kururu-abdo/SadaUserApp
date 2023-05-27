@@ -15,9 +15,9 @@ import 'package:eamar_user_app/view/basewidget/textfield/custom_textfield.dart';
 import 'package:provider/provider.dart';
 
 class RefundBottomSheet extends StatefulWidget {
-  final Product product;
-  final int orderDetailsId;
-  RefundBottomSheet({@required this.product, @required this.orderDetailsId});
+  final Product? product;
+  final int? orderDetailsId;
+  RefundBottomSheet({required this.product, required this.orderDetailsId});
 
   @override
   _RefundBottomSheetState createState() => _RefundBottomSheetState();
@@ -60,7 +60,7 @@ class _RefundBottomSheetState extends State<RefundBottomSheet> {
                                               TextSpan(text: getTranslated('total_price', context), style: TextStyle(
                                                   fontWeight: FontWeight.bold)),
                                               TextSpan(text: PriceConverter.convertPrice(context,
-                                                  refund.refundInfoModel.refund.productPrice*refund.refundInfoModel.refund.quntity ),
+                                                  refund.refundInfoModel!.refund!.productPrice!*refund.refundInfoModel!.refund!.quntity! ),
                                                   style: TextStyle(fontWeight: FontWeight.w200)),
                                             ],
                                           ),
@@ -72,7 +72,7 @@ class _RefundBottomSheetState extends State<RefundBottomSheet> {
                                               TextSpan(text: getTranslated('product_discount', context),
                                                   style: TextStyle(fontWeight: FontWeight.bold)),
                                               TextSpan(text: PriceConverter.convertPrice(context,
-                                                  refund.refundInfoModel.refund.productTotalDiscount),
+                                                  refund.refundInfoModel!.refund!.productTotalDiscount),
                                                   style: TextStyle(fontWeight: FontWeight.w200)),
                                             ],
                                           ),
@@ -84,7 +84,7 @@ class _RefundBottomSheetState extends State<RefundBottomSheet> {
                                               TextSpan(text: getTranslated('tax', context), style: TextStyle(
                                                   fontWeight: FontWeight.bold)),
                                               TextSpan(text: PriceConverter.convertPrice(context,
-                                                  refund.refundInfoModel.refund.productTotalTax),
+                                                  refund.refundInfoModel!.refund!.productTotalTax),
                                                   style: TextStyle(fontWeight: FontWeight.w200)),
                                             ],
                                           ),
@@ -98,7 +98,7 @@ class _RefundBottomSheetState extends State<RefundBottomSheet> {
                                               TextSpan(text: getTranslated('sub_total', context),
                                                   style: TextStyle(fontWeight: FontWeight.bold)),
                                               TextSpan(text: PriceConverter.convertPrice(context,
-                                                  refund.refundInfoModel.refund.subtotal),
+                                                  refund.refundInfoModel!.refund!.subtotal),
                                                   style: TextStyle(fontWeight: FontWeight.w300)),
                                             ],
                                           ),
@@ -110,7 +110,7 @@ class _RefundBottomSheetState extends State<RefundBottomSheet> {
                                               TextSpan(text: getTranslated('coupon_discount', context),
                                                   style: TextStyle(fontWeight: FontWeight.bold)),
                                               TextSpan(text: PriceConverter.convertPrice(context,
-                                                  refund.refundInfoModel.refund.couponDiscount),
+                                                  refund.refundInfoModel!.refund!.couponDiscount),
                                                   style: TextStyle(fontWeight: FontWeight.w300)),
                                             ],
                                           ),
@@ -124,7 +124,7 @@ class _RefundBottomSheetState extends State<RefundBottomSheet> {
                                               TextSpan(text: getTranslated('total_refund_amount', context),
                                                   style: TextStyle(fontWeight: FontWeight.bold)),
                                               TextSpan(text: PriceConverter.convertPrice(context,
-                                                  refund.refundInfoModel.refund.refundAmount),
+                                                  refund.refundInfoModel!.refund!.refundAmount),
                                                   style: TextStyle(fontWeight: FontWeight.bold)),
                                             ],
                                           ),
@@ -162,7 +162,7 @@ class _RefundBottomSheetState extends State<RefundBottomSheet> {
                                           Container(width: 100, height: 100,
                                             child: ClipRRect(
                                               borderRadius: BorderRadius.all(Radius.circular(Dimensions.PADDING_SIZE_DEFAULT)),
-                                              child: Image.file(File(refundProvider.refundImage[index].path), width: 100, height: 100,
+                                              child: Image.file(File(refundProvider.refundImage[index]!.path), width: 100, height: 100,
                                                 fit: BoxFit.cover,
                                               ),
                                             ) ,
@@ -201,7 +201,7 @@ class _RefundBottomSheetState extends State<RefundBottomSheet> {
                             child: Container(height: 30,
                                 child: Row(mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    Text(getTranslated('upload_image', context)),
+                                    Text(getTranslated('upload_image', context)!),
                                     SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
                                     Image.asset(Images.upload_image),
                                   ],
@@ -217,18 +217,18 @@ class _RefundBottomSheetState extends State<RefundBottomSheet> {
                                 if(reason.isEmpty) {
                                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                     behavior: SnackBarBehavior.floating,
-                                    content: Text(getTranslated('reason_required', context)),
+                                    content: Text(getTranslated('reason_required', context)!),
                                     backgroundColor: Colors.red,
                                   ));
                                 }else {
                                   refundReq.refundRequest(context, widget.orderDetailsId,
-                                      refundReq.refundInfoModel.refund.refundAmount,reason,
+                                      refundReq.refundInfoModel!.refund!.refundAmount,reason,
                                       Provider.of<AuthProvider>(context, listen: false).getUserToken()).
                                   then((value) {
                                     if(value.statusCode==200){
                                       refundReq.getRefundReqInfo(context, widget.orderDetailsId);
                                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                        content: Text(getTranslated('successfully_requested_for_refund', context)),
+                                        content: Text(getTranslated('successfully_requested_for_refund', context)!),
                                         backgroundColor: Colors.green,
                                       ));
                                       Navigator.pop(context);

@@ -1,24 +1,24 @@
 class ShippingMethodModel {
-  int id;
-  int creatorId;
-  String creatorType;
-  String title;
-  double cost;
-  String duration;
-  int status;
-  String createdAt;
-  String updatedAt;
+  int? id;
+  int? creatorId;
+  String? creatorType;
+  String? title;
+  double? cost;
+  String? duration;
+  int? status;
+  String? createdAt;
+  String? updatedAt;
 
   ShippingMethodModel(
-      {int id,
-        int creatorId,
-        String creatorType,
-        String title,
-        double cost,
-        String duration,
-        int status,
-        String createdAt,
-        String updatedAt}) {
+      {int? id,
+        int? creatorId,
+        String? creatorType,
+        String? title,
+        double? cost,
+        String? duration,
+        int? status,
+        String? createdAt,
+        String? updatedAt}) {
     this.id = id;
     this.creatorId = creatorId;
     this.creatorType = creatorType;

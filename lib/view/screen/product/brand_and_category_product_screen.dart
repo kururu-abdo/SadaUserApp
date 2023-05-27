@@ -23,9 +23,9 @@ import 'package:provider/provider.dart';
 class BrandAndCategoryProductScreen extends StatefulWidget {
   final bool isBrand;
   final String id;
-  final String name;
-  final String image;
-  BrandAndCategoryProductScreen({@required this.isBrand, @required this.id, @required this.name, this.image});
+  final String? name;
+  final String? image;
+  BrandAndCategoryProductScreen({required this.isBrand, required this.id, required this.name, this.image});
 
   @override
   State<BrandAndCategoryProductScreen> createState() => _BrandAndCategoryProductScreenState();
@@ -85,13 +85,13 @@ Future.microtask(() {
                     crossAxisAlignment: CrossAxisAlignment.center, children: [
                     FadeInImage.assetNetwork(
                       placeholder: Images.placeholder, width: 80, height: 80, fit: BoxFit.cover,
-                      image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.brandImageUrl}/${widget.image}',
+                      image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.brandImageUrl}/${widget.image}',
                       imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, width: 80, height: 80, fit: BoxFit.cover),
                     ),
                     SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
 
 
-                    Text(widget.name, style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
+                    Text(widget.name!, style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
                   ]),
 
 
@@ -180,7 +180,7 @@ Consumer<CategoryProvider>(
                                .filterBrandAndCategoryProductList(context, 
                                categoryProvider.subCategroies[index].id);
                           setState(() {
-                            toggleSubCategries = categoryProvider.subCategroies[index].subSubCategories.length>0;
+                            toggleSubCategries = categoryProvider.subCategroies[index].subSubCategories!.length>0;
                           });
                           Provider.of<CategoryProvider>(context, listen: false).getSubSubCategries(categoryProvider.subCategroies[index].id);
                 

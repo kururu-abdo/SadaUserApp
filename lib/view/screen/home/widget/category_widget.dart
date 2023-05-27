@@ -8,7 +8,7 @@ import 'package:eamar_user_app/utill/images.dart';
 import 'package:provider/provider.dart';
 class CategoryWidget extends StatelessWidget {
   final Category category;
-  const CategoryWidget({Key key, @required this.category}) : super(key: key);
+  const CategoryWidget({Key? key, required this.category}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class CategoryWidget extends StatelessWidget {
           child: FadeInImage.assetNetwork(
             fit: BoxFit.cover,
             placeholder: Images.placeholder,
-            image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.categoryImageUrl}'
+            image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.categoryImageUrl}'
                 '/${category.icon}',
             imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, fit: BoxFit.cover,),
           ),
@@ -39,7 +39,7 @@ class CategoryWidget extends StatelessWidget {
       SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
       Container(
         child: Center(
-          child: Text(category.name,
+          child: Text(category.name!,
             textAlign: TextAlign.center,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,

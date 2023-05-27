@@ -35,11 +35,11 @@ class SignInWidget extends StatefulWidget {
 }
 
 class _SignInWidgetState extends State<SignInWidget> {
-  TextEditingController _emailController;
-    TextEditingController _phoneController;
+  TextEditingController? _emailController;
+    late TextEditingController _phoneController;
 
-  TextEditingController _passwordController;
-  GlobalKey<FormState> _formKeyLogin;
+  TextEditingController? _passwordController;
+  GlobalKey<FormState>? _formKeyLogin;
 
   @override
   void initState() {
@@ -48,14 +48,17 @@ class _SignInWidgetState extends State<SignInWidget> {
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
     _phoneController = TextEditingController();
-    _emailController.text = Provider.of<AuthProvider>(context, listen: false).getUserEmail() ?? null;
-    _passwordController.text = Provider.of<AuthProvider>(context, listen: false).getUserPassword() ?? null;
+    _emailController!.text = 
+    Provider.of<AuthProvider>(context, listen: false).getUserEmail() ?? "";
+
+
+    _passwordController!.text = Provider.of<AuthProvider>(context, listen: false).getUserPassword() ?? "";
   }
 
   @override
   void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
+    _emailController!.dispose();
+    _passwordController!.dispose();
     _phoneController.dispose();
     super.dispose();
   }
@@ -66,23 +69,23 @@ class _SignInWidgetState extends State<SignInWidget> {
   LoginModel loginBody = LoginModel();
 
   void loginUser() async {
-    if (_formKeyLogin.currentState.validate()) {
-      _formKeyLogin.currentState.save();
+    if (_formKeyLogin!.currentState!.validate()) {
+      _formKeyLogin!.currentState!.save();
      var ksaValidate =KsaNumber();
  String _email =_countryDialCode.trim()+
                     
-                    PhoneNumberUtils.getPhoneNumberFromInputs( _emailController.text.trim())
+                    PhoneNumberUtils.getPhoneNumberFromInputs( _emailController!.text.trim())
                     ;
-      String _password = _passwordController.text.trim();
+      String _password = _passwordController!.text.trim();
 print(_email.toString());
       if (_email.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('PHONE_MUST_BE_REQUIRED', context)),
+          content: Text(getTranslated('PHONE_MUST_BE_REQUIRED', context)!),
           backgroundColor: Colors.red,
         ));
       } else if (_password.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('PASSWORD_MUST_BE_REQUIRED', context)),
+          content: Text(getTranslated('PASSWORD_MUST_BE_REQUIRED', context)!),
           backgroundColor: Colors.red,
         ));
       } 
@@ -92,7 +95,7 @@ print(_email.toString());
 
  try {
    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('enter_valid_phone', context)),
+          content: Text(getTranslated('enter_valid_phone', context)!),
           backgroundColor: Colors.red,
         ));
  } catch (e) {
@@ -106,8 +109,8 @@ print(_email.toString());
       
       else {
 
-        if (Provider.of<AuthProvider>(context, listen: false).isRemember) {
-          Provider.of<AuthProvider>(context, listen: false).saveUserEmail(_emailController.text.trim(), _password);
+        if (Provider.of<AuthProvider>(context, listen: false).isRemember!) {
+          Provider.of<AuthProvider>(context, listen: false).saveUserEmail(_emailController!.text.trim(), _password);
         } else {
           Provider.of<AuthProvider>(context, listen: false).clearUserEmailAndPassword();
         }
@@ -124,18 +127,18 @@ print(_email.toString());
   route(bool isRoute, String token, String temporaryToken, String errorMessage) async {
     if (isRoute) {
       if(token==null || token.isEmpty){
-        if(Provider.of<SplashProvider>(context,listen: false).configModel.emailVerification){
-          Provider.of<AuthProvider>(context, listen: false).checkEmail(_emailController.text.toString(),
+        if(Provider.of<SplashProvider>(context,listen: false).configModel!.emailVerification!){
+          Provider.of<AuthProvider>(context, listen: false).checkEmail(_emailController!.text.toString(),
               temporaryToken).then((value) async {
             if (value.isSuccess) {
               // Provider.of<AuthProvider>(context, listen: false).setUserType('user');
-              Provider.of<AuthProvider>(context, listen: false).updateEmail(_emailController.text.toString());
+              Provider.of<AuthProvider>(context, listen: false).updateEmail(_emailController!.text.toString());
               Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => VerificationScreen(
-                  temporaryToken,'',_emailController.text.toString())), (route) => false);
+                  temporaryToken,'',_emailController!.text.toString())), (route) => false);
 
             }
           });
-        }else if(Provider.of<SplashProvider>(context,listen: false).configModel.phoneVerification){
+        }else if(Provider.of<SplashProvider>(context,listen: false).configModel!.phoneVerification!){
           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => MobileVerificationScreen(
               temporaryToken)), (route) => false);
         }
@@ -260,13 +263,13 @@ print(_email.toString());
                         onChanged: authProvider.updateRemember,),),
         
         
-                    Text(getTranslated('REMEMBER', context),
+                    Text(getTranslated('REMEMBER', context)!,
                      style: titilliumRegular),
                   ],),
         
                     InkWell(
                       onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ForgetPasswordScreen())),
-                      child: Text(getTranslated('FORGET_PASSWORD', context),
+                      child: Text(getTranslated('FORGET_PASSWORD', context)!,
                           style: titilliumRegular.copyWith(
                           color: ColorResources.getLightSkyBlue(context))),
                     ),
@@ -393,7 +396,7 @@ recognizer:   TapGestureRecognizer(
               // SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
         
         SizedBox(height: 20,),
-              Center(child: Text(getTranslated('OR', context),
+              Center(child: Text(getTranslated('OR', context)!,
                   style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT))),
         
         
@@ -415,7 +418,7 @@ recognizer:   TapGestureRecognizer(
                   width: double.infinity, height: 40, alignment: Alignment.center,
                   decoration: BoxDecoration(
                     color: Colors.transparent, borderRadius: BorderRadius.circular(6),),
-                  child: Text(getTranslated('CONTINUE_AS_GUEST', context),
+                  child: Text(getTranslated('CONTINUE_AS_GUEST', context)!,
                       style: titleHeader.copyWith(color: ColorResources.getPrimary(context))),
                 ),
               ),

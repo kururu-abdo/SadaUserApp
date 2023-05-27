@@ -3,16 +3,16 @@ class SelectedShippingType {
   String? _selectedShippingType;
 
   SelectedShippingType({int? sellerId, String? selectedShippingType}) {
-    if (sellerId != null) {
+    if (sellerId == null) {
       this._sellerId = sellerId;
     }
-    if (selectedShippingType != null) {
+    if (selectedShippingType == null) {
       this._selectedShippingType = selectedShippingType;
     }
   }
 
-  int get sellerId => _sellerId!;
-  String get selectedShippingType => _selectedShippingType!;
+  int? get sellerId => _sellerId;
+  String? get selectedShippingType => _selectedShippingType;
 
   SelectedShippingType.fromJson(Map<String, dynamic> json) {
     _sellerId = json['sellerId'];

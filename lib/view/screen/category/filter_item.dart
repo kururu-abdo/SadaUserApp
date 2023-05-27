@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class FilterDialogUser extends StatefulWidget {
- final List<Category>  cats;
-  FilterDialogUser({Key key, this.cats}) : super(key: key);
+ final List<Category>?  cats;
+  FilterDialogUser({Key? key, this.cats}) : super(key: key);
 
   @override
   State<FilterDialogUser> createState() => _FilterDialogUserState();
@@ -23,8 +23,8 @@ class _FilterDialogUserState extends State<FilterDialogUser> {
   void initState() {
     super.initState();
     // filters = widget.initialState;
-    isClickedCountry = List.filled(widget.cats.length, false);
-   widget.cats.forEach((element) {
+    isClickedCountry = List.filled(widget.cats!.length, false);
+   widget.cats!.forEach((element) {
       children.add(
         FilterItem(element.name,
         categoty: element.id
@@ -40,7 +40,7 @@ class _FilterDialogUserState extends State<FilterDialogUser> {
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-        title:  Text(getTranslated('filter_txt', context),
+        title:  Text(getTranslated('filter_txt', context)!,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 25,
@@ -83,7 +83,7 @@ index==_selectedIndex?
 
                           )) ,
                           
-                          Text(e.text),
+                          Text(e.text!),
                           const Spacer(),
 
                           TextButton(onPressed: ()async{
@@ -95,7 +95,7 @@ await
                              e.categoty);
 Navigator.pop(context);
 
-                          }, child: Text(getTranslated('show_txt', context)))
+                          }, child: Text(getTranslated('show_txt', context)!))
                         //  Checkbox(
                         //     value: e.selected,
                         //     onChanged: (value) => setState(() {
@@ -148,8 +148,8 @@ Navigator.pop(context);
 
 
 class FilterItem<T> {
-  final String text;
-  final int categoty;
+  final String? text;
+  final int? categoty;
   bool selected;
   List<FilterItem> subitems;
 

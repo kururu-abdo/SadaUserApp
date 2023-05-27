@@ -21,7 +21,7 @@ class NotLoggedInWidget extends StatelessWidget {
           children: [
             Image.asset(Images.login, height: _height*0.2, width: _width),
             SizedBox(height: _height*0.05),
-            Text(getTranslated('PLEASE_LOGIN_FIRST', context), textAlign: TextAlign.center, style: titilliumSemiBold.copyWith(fontSize: _height*0.017)),
+            Text(getTranslated('PLEASE_LOGIN_FIRST', context)!, textAlign: TextAlign.center, style: titilliumSemiBold.copyWith(fontSize: _height*0.017)),
             SizedBox(height: _height*0.05),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_LARGE),
@@ -40,7 +40,7 @@ class NotLoggedInWidget extends StatelessWidget {
               },
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: _height*0.02),
-                child: Text(getTranslated('create_new_account', context), style: titilliumRegular.copyWith(
+                child: Text(getTranslated('create_new_account', context)!, style: titilliumRegular.copyWith(
                   color: Theme.of(context).primaryColor,
                   fontSize: Dimensions.FONT_SIZE_SMALL,
                 )),

@@ -33,7 +33,7 @@ class _CartScreenState extends State<CartScreen> {
      await Provider.of<CartProvider>(context, listen: false).getCartDataAPI(context);
       Provider.of<CartProvider>(context, listen: false).setCartData();
 
-      if( Provider.of<SplashProvider>(context,listen: false).configModel.shippingMethod != 'sellerwise_shipping'){
+      if( Provider.of<SplashProvider>(context,listen: false).configModel!.shippingMethod != 'sellerwise_shipping'){
         Provider.of<CartProvider>(context, listen: false).getAdminShippingMethodList(context);
       }
 
@@ -60,8 +60,8 @@ class _CartScreenState extends State<CartScreen> {
 
 
 
-      List<String> orderTypeShipping = [];
-      List<String> sellerList = [];
+      List<String?> orderTypeShipping = [];
+      List<String?> sellerList = [];
       List<CartModel> sellerGroupList = [];
       List<List<CartModel>> cartProductList = [];
       List<List<int>> cartProductIndexList = [];
@@ -72,7 +72,7 @@ class _CartScreenState extends State<CartScreen> {
         }
       }
 
-      for(String seller in sellerList) {
+      for(String? seller in sellerList) {
         List<CartModel> cartLists = [];
         List<int> indexList = [];
         for(CartModel cart in cartList) {
@@ -92,7 +92,7 @@ class _CartScreenState extends State<CartScreen> {
       });
 
 
-      if(cart.getData && Provider.of<AuthProvider>(context, listen: false).isLoggedIn() && Provider.of<SplashProvider>(context,listen: false).configModel.shippingMethod =='sellerwise_shipping') {
+      if(cart.getData && Provider.of<AuthProvider>(context, listen: false).isLoggedIn() && Provider.of<SplashProvider>(context,listen: false).configModel!.shippingMethod =='sellerwise_shipping') {
 
         Provider.of<CartProvider>(context, listen: false).getShippingMethod(context, cartProductList);
 
@@ -101,12 +101,12 @@ class _CartScreenState extends State<CartScreen> {
       }
 
       for(int i=0;i<cart.cartList.length;i++){
-        amount += (cart.cartList[i].price - cart.cartList[i].discount) * cart.cartList[i].quantity;
-        discount += cart.cartList[i].discount * cart.cartList[i].quantity;
-        tax += cart.cartList[i].tax * cart.cartList[i].quantity;
+        amount += (cart.cartList[i].price! - cart.cartList[i].discount!) * cart.cartList[i].quantity!;
+        discount += cart.cartList[i].discount! * cart.cartList[i].quantity!;
+        tax += cart.cartList[i].tax! * cart.cartList[i].quantity!;
       }
       for(int i=0;i<cart.chosenShippingList.length;i++){
-        shippingAmount += cart.chosenShippingList[i].shippingCost;
+        shippingAmount += cart.chosenShippingList[i].shippingCost!;
       }
       for(int j = 0; j< cartList.length; j++){
         shippingAmount += cart.cartList[j].shippingCost??0;
@@ -143,13 +143,13 @@ class _CartScreenState extends State<CartScreen> {
                       print('===asd=>${orderTypeShipping.length}');
                       if (Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
                         if (cart.cartList.length == 0) {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('select_at_least_one_product', context)), backgroundColor: Colors.red,));
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('select_at_least_one_product', context)!), backgroundColor: Colors.red,));
                         } else if(cart.chosenShippingList.length < orderTypeShipping.length &&
-                            Provider.of<SplashProvider>(context,listen: false).configModel.shippingMethod =='sellerwise_shipping'){
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('select_all_shipping_method', context)), backgroundColor: Colors.red));
+                            Provider.of<SplashProvider>(context,listen: false).configModel!.shippingMethod =='sellerwise_shipping'){
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('select_all_shipping_method', context)!), backgroundColor: Colors.red));
                         }else if(cart.chosenShippingList.length < 1 &&
-                            Provider.of<SplashProvider>(context,listen: false).configModel.shippingMethod !='sellerwise_shipping' && Provider.of<SplashProvider>(context,listen: false).configModel.inHouseSelectedShippingType =='order_wise'){
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('select_all_shipping_method', context)), backgroundColor: Colors.red));
+                            Provider.of<SplashProvider>(context,listen: false).configModel!.shippingMethod !='sellerwise_shipping' && Provider.of<SplashProvider>(context,listen: false).configModel!.inHouseSelectedShippingType =='order_wise'){
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('select_all_shipping_method', context)!), backgroundColor: Colors.red));
                         }
 
 
@@ -179,7 +179,7 @@ class _CartScreenState extends State<CartScreen> {
 
 Icon(Icons.lock) ,
 
-                              Text(getTranslated('checkout', context),
+                              Text(getTranslated('checkout', context)!,
                                   style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT,
                                     color: Theme.of(context).cardColor,
                                   )),
@@ -225,9 +225,9 @@ Icon(Icons.lock) ,
                                 padding: EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_SMALL),
                                 child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      sellerGroupList[index].shopInfo.isNotEmpty ? Padding(
+                                      sellerGroupList[index].shopInfo!.isNotEmpty ? Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: Text(sellerGroupList[index].shopInfo,
+                                        child: Text(sellerGroupList[index].shopInfo!,
                                             textAlign: TextAlign.end, style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
                                             )),
                                       ) : SizedBox(),
@@ -253,7 +253,7 @@ Icon(Icons.lock) ,
                                               ),
 
                                               //Provider.of<SplashProvider>(context,listen: false).configModel.shippingMethod =='sellerwise_shipping'?
-                                              Provider.of<SplashProvider>(context,listen: false).configModel.shippingMethod =='sellerwise_shipping' && sellerGroupList[index].shippingType =='order_wise'?
+                                              Provider.of<SplashProvider>(context,listen: false).configModel!.shippingMethod =='sellerwise_shipping' && sellerGroupList[index].shippingType =='order_wise'?
                                               Padding(
                                                 padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_DEFAULT),
                                                 child: InkWell(
@@ -282,10 +282,10 @@ Icon(Icons.lock) ,
                                                     child: Padding(
                                                       padding: const EdgeInsets.all(8.0),
                                                       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                                                        Text(getTranslated('SHIPPING_PARTNER', context), style: titilliumRegular),
+                                                        Text(getTranslated('SHIPPING_PARTNER', context)!, style: titilliumRegular),
                                                         Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                                                          Text((cart.shippingList == null || cart.shippingList[index].shippingMethodList == null || cart.chosenShippingList.length == 0 || cart.shippingList[index].shippingIndex == -1) ? ''
-                                                                : '${cart.shippingList[index].shippingMethodList[cart.shippingList[index].shippingIndex].title.toString()}',
+                                                          Text((cart.shippingList == null || cart.shippingList![index].shippingMethodList == null || cart.chosenShippingList.length == 0 || cart.shippingList![index].shippingIndex == -1) ? ''
+                                                                : '${cart.shippingList![index].shippingMethodList![cart.shippingList![index].shippingIndex!].title.toString()}',
                                                             style: titilliumSemiBold.copyWith(color: ColorResources.getPrimary(context)),
                                                             maxLines: 1,
                                                             overflow: TextOverflow.ellipsis,
@@ -309,7 +309,7 @@ Icon(Icons.lock) ,
                           ),
                         ),
                       ),
-                      Provider.of<SplashProvider>(context,listen: false).configModel.shippingMethod !='sellerwise_shipping' && Provider.of<SplashProvider>(context,listen: false).configModel.inHouseSelectedShippingType =='order_wise'?
+                      Provider.of<SplashProvider>(context,listen: false).configModel!.shippingMethod !='sellerwise_shipping' && Provider.of<SplashProvider>(context,listen: false).configModel!.inHouseSelectedShippingType =='order_wise'?
                       InkWell(
                         onTap: () {
                           if(Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
@@ -329,11 +329,11 @@ Icon(Icons.lock) ,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                              Text(getTranslated('SHIPPING_PARTNER', context), style: titilliumRegular),
+                              Text(getTranslated('SHIPPING_PARTNER', context)!, style: titilliumRegular),
                               Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                                 Text(
-                                  (cart.shippingList == null ||cart.chosenShippingList.length == 0 || cart.shippingList.length==0 || cart.shippingList[0].shippingMethodList == null ||  cart.shippingList[0].shippingIndex == -1) ? ''
-                                      : '${cart.shippingList[0].shippingMethodList[cart.shippingList[0].shippingIndex].title.toString()}',
+                                  (cart.shippingList == null ||cart.chosenShippingList.length == 0 || cart.shippingList!.length==0 || cart.shippingList![0].shippingMethodList == null ||  cart.shippingList![0].shippingIndex == -1) ? ''
+                                      : '${cart.shippingList![0].shippingMethodList![cart.shippingList![0].shippingIndex!].title.toString()}',
                                   style: titilliumSemiBold.copyWith(color: ColorResources.getPrimary(context)),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,

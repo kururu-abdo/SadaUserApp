@@ -10,23 +10,23 @@ import 'package:provider/provider.dart';
 
 class MessageBubble extends StatelessWidget {
   final ChatModel chat;
-  final String sellerImage;
-  final Function onProfileTap;
-  MessageBubble({@required this.chat, @required this.sellerImage, this.onProfileTap});
+  final String? sellerImage;
+  final Function? onProfileTap;
+  MessageBubble({required this.chat, required this.sellerImage, this.onProfileTap});
 
   @override
   Widget build(BuildContext context) {
     bool isMe = chat.sentByCustomer == 1;
-    String dateTime = DateConverter.localDateToIsoStringAMPM(DateTime.parse(chat.createdAt));
+    String dateTime = DateConverter.localDateToIsoStringAMPM(DateTime.parse(chat.createdAt!));
     return Row(crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
-        isMe ? SizedBox.shrink() : InkWell(onTap: onProfileTap, child: ClipOval(child: Container(
+        isMe ? SizedBox.shrink() : InkWell(onTap: onProfileTap as void Function()?, child: ClipOval(child: Container(
           color: Theme.of(context).highlightColor,
           child: FadeInImage.assetNetwork(
             placeholder: Images.placeholder, height: 40, width: 40, fit: BoxFit.cover,
-            image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls.sellerImageUrl}/$sellerImage',
+            image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.sellerImageUrl}/$sellerImage',
             imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, height: 40, width: 40, fit: BoxFit.cover),
           ),
         ))),
@@ -48,7 +48,7 @@ class MessageBubble extends StatelessWidget {
                   fontSize: 8,
                   color: ColorResources.getHint(context),
                 )) : SizedBox.shrink(),
-                chat.message.isNotEmpty ? Text(chat.message, textAlign: TextAlign.justify,style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)) : SizedBox.shrink(),
+                chat.message!.isNotEmpty ? Text(chat.message!, textAlign: TextAlign.justify,style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)) : SizedBox.shrink(),
                 //chat.image != null ? Image.file(chat.image) : SizedBox.shrink(),
               ]),
           ),

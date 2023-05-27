@@ -1,12 +1,12 @@
 import 'package:eamar_user_app/data/model/response/product_model.dart';
 
 class WishListModel {
-  int id;
-  int customerId;
-  int productId;
-  String createdAt;
-  String updatedAt;
-  Product product;
+  int? id;
+  int? customerId;
+  int? productId;
+  String? createdAt;
+  String? updatedAt;
+  Product? product;
 
   WishListModel({this.id, this.customerId, this.productId, this.createdAt, this.updatedAt, this.product});
 
@@ -27,7 +27,7 @@ class WishListModel {
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     if (this.product != null) {
-      data['product'] = this.product.toJson();
+      data['product'] = this.product!.toJson();
     }
     return data;
   }

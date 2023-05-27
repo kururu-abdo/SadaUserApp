@@ -1,41 +1,41 @@
 import 'package:eamar_user_app/data/model/response/product_model.dart';
 
 class OrderDetailsModel {
-  int _id;
-  int _orderId;
-  int _productId;
-  int _sellerId;
-  Product _productDetails;
-  int _qty;
-  double _price;
-  double _tax;
-  double _discount;
-  String _deliveryStatus;
-  String _paymentStatus;
-  String _createdAt;
-  String _updatedAt;
-  int _shippingMethodId;
-  String _variant;
-  int _refundReq;
+  int? _id;
+  int? _orderId;
+  int? _productId;
+  int? _sellerId;
+  Product? _productDetails;
+  int? _qty;
+  double? _price;
+  double? _tax;
+  double? _discount;
+  String? _deliveryStatus;
+  String? _paymentStatus;
+  String? _createdAt;
+  String? _updatedAt;
+  int? _shippingMethodId;
+  String? _variant;
+  int? _refundReq;
   //List<Variation> _variation;
 
   OrderDetailsModel(
-      {int id,
-        int orderId,
-        int productId,
-        int sellerId,
-        Product productDetails,
-        int qty,
-        double price,
-        double tax,
-        double discount,
-        String deliveryStatus,
-        String paymentStatus,
-        String createdAt,
-        String updatedAt,
-        int shippingMethodId,
-        String variant,
-        int refundReq,
+      {int? id,
+        int? orderId,
+        int? productId,
+        int? sellerId,
+        Product? productDetails,
+        int? qty,
+        double? price,
+        double? tax,
+        double? discount,
+        String? deliveryStatus,
+        String? paymentStatus,
+        String? createdAt,
+        String? updatedAt,
+        int? shippingMethodId,
+        String? variant,
+        int? refundReq,
 
 
         //List<Variation> variation
@@ -59,22 +59,22 @@ class OrderDetailsModel {
     //this._variation = variation;
   }
 
-  int get id => _id;
-  int get orderId => _orderId;
-  int get productId => _productId;
-  int get sellerId => _sellerId;
-  Product get productDetails => _productDetails;
-  int get qty => _qty;
-  double get price => _price;
-  double get tax => _tax;
-  double get discount => _discount;
-  String get deliveryStatus => _deliveryStatus;
-  String get paymentStatus => _paymentStatus;
-  String get createdAt => _createdAt;
-  String get updatedAt => _updatedAt;
-  int get shippingMethodId => _shippingMethodId;
-  String get variant => _variant;
-  int get refundReq => _refundReq;
+  int? get id => _id;
+  int? get orderId => _orderId;
+  int? get productId => _productId;
+  int? get sellerId => _sellerId;
+  Product? get productDetails => _productDetails;
+  int? get qty => _qty;
+  double? get price => _price;
+  double? get tax => _tax;
+  double? get discount => _discount;
+  String? get deliveryStatus => _deliveryStatus;
+  String? get paymentStatus => _paymentStatus;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
+  int? get shippingMethodId => _shippingMethodId;
+  String? get variant => _variant;
+  int? get refundReq => _refundReq;
 
   OrderDetailsModel.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
@@ -110,7 +110,7 @@ class OrderDetailsModel {
     data['product_id'] = this._productId;
     data['seller_id'] = this._sellerId;
     if(this._productDetails != null) {
-      data['product_details'] = this._productDetails.toJson();
+      data['product_details'] = this._productDetails!.toJson();
     }
     data['qty'] = this._qty;
     data['price'] = this._price;

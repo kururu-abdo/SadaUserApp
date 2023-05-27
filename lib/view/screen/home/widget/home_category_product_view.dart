@@ -1,3 +1,4 @@
+import 'package:eamar_user_app/view/screen/product/product_details_screen2.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/provider/home_category_product_provider.dart';
 import 'package:eamar_user_app/utill/dimensions.dart';
@@ -9,7 +10,7 @@ import 'package:provider/provider.dart';
 
 class HomeCategoryProductView extends StatelessWidget {
   final bool isHomePage;
-  HomeCategoryProductView({@required this.isHomePage});
+  HomeCategoryProductView({required this.isHomePage});
 
   @override
   Widget build(BuildContext context) {
@@ -38,22 +39,22 @@ class HomeCategoryProductView extends StatelessWidget {
                             )
                           : SizedBox(),
                       ConstrainedBox(
-                        constraints: homeCategoryProductProvider.homeCategoryProductList[index].products.length > 0 ?
+                        constraints: homeCategoryProductProvider.homeCategoryProductList[index].products!.length > 0 ?
                         BoxConstraints(maxHeight: MediaQuery.of(context).size.width/1.45,):BoxConstraints(maxHeight: 0),
                         child: ListView.builder(
-                            itemCount: homeCategoryProductProvider.homeCategoryProductList[index].products.length,
+                            itemCount: homeCategoryProductProvider.homeCategoryProductList[index].products!.length,
                             padding: EdgeInsets.all(0),
                             scrollDirection: Axis.horizontal,
                             shrinkWrap: true,
                             itemBuilder: (BuildContext context, int i) {
                               return InkWell(
                                 onTap: () {Navigator.push(context, PageRouteBuilder(transitionDuration: Duration(milliseconds: 1000),
-                                        pageBuilder: (context, anim1, anim2) => ProductDetails(product: homeCategoryProductProvider.productList[i]),
+                                        pageBuilder: (context, anim1, anim2) => ProductDetails2(product: homeCategoryProductProvider.productList![i]),
                                       ));
                                 },
                                 child: Container(
                                   width: (MediaQuery.of(context).size.width/2)-20,
-                                  child: ProductWidget(productModel: homeCategoryProductProvider.homeCategoryProductList[index].products[i])
+                                  child: ProductWidget(productModel: homeCategoryProductProvider.homeCategoryProductList[index].products![i])
 
                                 ),
                               );

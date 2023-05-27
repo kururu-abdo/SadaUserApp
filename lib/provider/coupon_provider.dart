@@ -4,29 +4,29 @@ import 'package:eamar_user_app/data/model/response/coupon_model.dart';
 import 'package:eamar_user_app/data/repository/coupon_repo.dart';
 
 class CouponProvider extends ChangeNotifier {
-  final CouponRepo couponRepo;
-  CouponProvider({@required this.couponRepo});
+  final CouponRepo? couponRepo;
+  CouponProvider({required this.couponRepo});
 
-  CouponModel _coupon;
-  double _discount;
+  CouponModel? _coupon;
+  double? _discount;
   bool _isLoading = false;
-  CouponModel get coupon => _coupon;
-  double get discount => _discount;
+  CouponModel? get coupon => _coupon;
+  double? get discount => _discount;
   bool get isLoading => _isLoading;
 
-  Future<double> initCoupon(String coupon, double order) async {
+  Future<double?> initCoupon(String coupon, double order) async {
     _isLoading = true;
     _discount = 0;
     notifyListeners();
-    ApiResponse apiResponse = await couponRepo.getCoupon(coupon);
-    if (apiResponse.response != null && apiResponse.response.toString() != '{}' && apiResponse.response.statusCode == 200) {
-      _coupon = CouponModel.fromJson(apiResponse.response.data);
-      if (_coupon.minPurchase != null && _coupon.minPurchase < order) {
-        if(_coupon.discountType == 'percent' || _coupon.discountType == 'percentage' ) {
-          _discount = (_coupon.discount * order / 100) < _coupon.maxDiscount
-              ? (_coupon.discount * order / 100) : _coupon.maxDiscount;
+    ApiResponse apiResponse = await couponRepo!.getCoupon(coupon);
+    if (apiResponse.response != null && apiResponse.response.toString() != '{}' && apiResponse.response!.statusCode == 200) {
+      _coupon = CouponModel.fromJson(apiResponse.response!.data);
+      if (_coupon!.minPurchase != null && _coupon!.minPurchase! < order) {
+        if(_coupon!.discountType == 'percent' || _coupon!.discountType == 'percentage' ) {
+          _discount = (_coupon!.discount! * order / 100) < _coupon!.maxDiscount!
+              ? (_coupon!.discount! * order / 100) : _coupon!.maxDiscount;
         }else {
-          _discount = _coupon.discount;
+          _discount = _coupon!.discount;
         }
       } else {
         _discount = 0;
@@ -34,13 +34,13 @@ class CouponProvider extends ChangeNotifier {
     } 
     
    else  if (apiResponse.response != null && apiResponse.response.toString() != '{}' ) {
-      _coupon = CouponModel.fromJson(apiResponse.response.data);
-      if (_coupon.minPurchase != null && _coupon.minPurchase < order) {
-        if(_coupon.discountType == 'percent' || _coupon.discountType == 'percentage' ) {
-          _discount = (_coupon.discount * order / 100) < _coupon.maxDiscount
-              ? (_coupon.discount * order / 100) : _coupon.maxDiscount;
+      _coupon = CouponModel.fromJson(apiResponse.response!.data);
+      if (_coupon!.minPurchase != null && _coupon!.minPurchase! < order) {
+        if(_coupon!.discountType == 'percent' || _coupon!.discountType == 'percentage' ) {
+          _discount = (_coupon!.discount! * order / 100) < _coupon!.maxDiscount!
+              ? (_coupon!.discount! * order / 100) : _coupon!.maxDiscount;
         }else {
-          _discount = _coupon.discount;
+          _discount = _coupon!.discount;
         }
       } else {
         _discount = 0;

@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 
 class SupportConversationScreen extends StatelessWidget {
   final SupportTicketModel supportTicketModel;
-  SupportConversationScreen({@required this.supportTicketModel});
+  SupportConversationScreen({required this.supportTicketModel});
 
   final TextEditingController _controller = TextEditingController();
 
@@ -30,12 +30,12 @@ class SupportConversationScreen extends StatelessWidget {
 
         Expanded(child: Consumer<SupportTicketProvider>(builder: (context, support, child) {
           return support.supportReplyList != null ? ListView.builder(
-            itemCount: support.supportReplyList.length,
+            itemCount: support.supportReplyList!.length,
             reverse: true,
             itemBuilder: (context, index) {
-              bool _isMe = support.supportReplyList[index].customerMessage != null;
-              String _message = _isMe ? support.supportReplyList[index].customerMessage : support.supportReplyList[index].adminMessage;
-              String dateTime = DateConverter.localDateToIsoStringAMPM(DateTime.parse(support.supportReplyList[index].createdAt));
+              bool _isMe = support.supportReplyList![index].customerMessage != null;
+              String? _message = _isMe ? support.supportReplyList![index].customerMessage : support.supportReplyList![index].adminMessage;
+              String dateTime = DateConverter.localDateToIsoStringAMPM(DateTime.parse(support.supportReplyList![index].createdAt!));
 
               return Container(
                 margin: _isMe ?  EdgeInsets.fromLTRB(50, 5, 10, 5) : EdgeInsets.fromLTRB(10, 5, 50, 5),

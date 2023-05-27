@@ -5,8 +5,8 @@ class MarqueeWidget extends StatefulWidget {
   final Duration animationDuration, backDuration, pauseDuration;
 
   const MarqueeWidget({
-    Key key,
-    @required this.child,
+    Key? key,
+    required this.child,
     this.direction = Axis.horizontal,
     this.animationDuration = const Duration(milliseconds: 30000),
     this.backDuration = const Duration(milliseconds: 30000),
@@ -18,7 +18,7 @@ class MarqueeWidget extends StatefulWidget {
 }
 
 class _MarqueeWidgetState extends State<MarqueeWidget> {
-   ScrollController scrollController;
+   ScrollController? scrollController;
 
   @override
   void initState() {
@@ -29,7 +29,7 @@ class _MarqueeWidgetState extends State<MarqueeWidget> {
 
   @override
   void dispose() {
-    scrollController.dispose();
+    scrollController!.dispose();
     super.dispose();
   }
 
@@ -43,18 +43,18 @@ class _MarqueeWidgetState extends State<MarqueeWidget> {
   }
 
   void scroll(_) async {
-    while (scrollController.hasClients) {
+    while (scrollController!.hasClients) {
       await Future.delayed(widget.pauseDuration);
-      if (scrollController.hasClients) {
-        await scrollController.animateTo(
-          scrollController.position.maxScrollExtent,
+      if (scrollController!.hasClients) {
+        await scrollController!.animateTo(
+          scrollController!.position.maxScrollExtent,
           duration: widget.animationDuration,
           curve: Curves.ease,
         );
       }
       await Future.delayed(widget.pauseDuration);
-      if (scrollController.hasClients) {
-        await scrollController.animateTo(
+      if (scrollController!.hasClients) {
+        await scrollController!.animateTo(
           0.0,
           duration: widget.backDuration,
           curve: Curves.easeOut,

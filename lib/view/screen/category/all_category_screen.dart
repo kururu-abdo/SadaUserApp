@@ -49,7 +49,7 @@ class AllCategoryScreen extends StatelessWidget {
               return  InkWell(
                         onTap: () {
 
-                          if (_category.subCategories.length!=0) {
+                          if (_category.subCategories!.length!=0) {
                             //go to  subcategories
                             Navigator.of(context).push(
                               MaterialPageRoute(builder: (_)=>SubCategoriesScreen(
@@ -230,8 +230,8 @@ class AllCategoryScreen extends StatelessWidget {
               decoration: BoxDecoration(color: ColorResources.getPrimary(context), shape: BoxShape.circle),
             ),
             SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-            Flexible(child: Text(getTranslated('all', context), style: titilliumSemiBold.copyWith(
-                color: Theme.of(context).textTheme.bodyText1.color), maxLines: 2, overflow: TextOverflow.ellipsis,
+            Flexible(child: Text(getTranslated('all', context)!, style: titilliumSemiBold.copyWith(
+                color: Theme.of(context).textTheme.bodyText1!.color), maxLines: 2, overflow: TextOverflow.ellipsis,
             )),
           ],
         ),
@@ -244,7 +244,7 @@ class AllCategoryScreen extends StatelessWidget {
         },
       ),
     ));
-    for(int index=0; index < subCategory.subSubCategories.length; index++) {
+    for(int index=0; index < subCategory.subSubCategories!.length; index++) {
       _subSubCategories.add(Container(
         color: ColorResources.getIconBg(context),
         margin: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
@@ -257,16 +257,16 @@ class AllCategoryScreen extends StatelessWidget {
                 decoration: BoxDecoration(color: ColorResources.getPrimary(context), shape: BoxShape.circle),
               ),
               SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-              Flexible(child: Text(subCategory.subSubCategories[index].name, style: titilliumSemiBold.copyWith(
-                  color: Theme.of(context).textTheme.bodyText1.color), maxLines: 2, overflow: TextOverflow.ellipsis,
+              Flexible(child: Text(subCategory.subSubCategories![index].name!, style: titilliumSemiBold.copyWith(
+                  color: Theme.of(context).textTheme.bodyText1!.color), maxLines: 2, overflow: TextOverflow.ellipsis,
               )),
             ],
           ),
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (_) => BrandAndCategoryProductScreen(
               isBrand: false,
-              id: subCategory.subSubCategories[index].id.toString(),
-              name: subCategory.subSubCategories[index].name,
+              id: subCategory.subSubCategories![index].id.toString(),
+              name: subCategory.subSubCategories![index].name,
             )));
           },
         ),
@@ -277,10 +277,10 @@ class AllCategoryScreen extends StatelessWidget {
 }
 
 class CategoryItem extends StatelessWidget {
-  final String title;
-  final String icon;
+  final String? title;
+  final String? icon;
   final bool isSelected;
-  CategoryItem({@required this.title, @required this.icon, @required this.isSelected});
+  CategoryItem({required this.title, required this.icon, required this.isSelected});
 
   Widget build(BuildContext context) {
     return Card(
@@ -297,7 +297,7 @@ class CategoryItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 child: FadeInImage.assetNetwork(
                   placeholder: Images.placeholder, fit: BoxFit.cover,
-                  image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.categoryImageUrl}/$icon',
+                  image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.categoryImageUrl}/$icon',
                   imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, fit: BoxFit.cover),
                 ),
               ),
@@ -308,7 +308,7 @@ class CategoryItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(title, maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: titilliumSemiBold.copyWith(
+                Text(title!, maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: titilliumSemiBold.copyWith(
                 fontSize: Dimensions.FONT_SIZE_LARGE,
                 color: isSelected ? Theme.of(context).highlightColor : Theme.of(context).hintColor,
               )),
@@ -345,14 +345,14 @@ class CategoryItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               child: FadeInImage.assetNetwork(
                 placeholder: Images.placeholder, fit: BoxFit.cover,
-                image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.categoryImageUrl}/$icon',
+                image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.categoryImageUrl}/$icon',
                 imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, fit: BoxFit.cover),
               ),
             ),
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-            child: Text(title, maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: titilliumSemiBold.copyWith(
+            child: Text(title!, maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: titilliumSemiBold.copyWith(
               fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL,
               color: isSelected ? Theme.of(context).highlightColor : Theme.of(context).hintColor,
             )),

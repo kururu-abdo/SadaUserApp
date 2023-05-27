@@ -36,7 +36,7 @@ class _SearchFilterBottomSheetState extends State<SearchFilterBottomSheet> {
 
               SizedBox(child: Row(
                 children: [
-                  Text(getTranslated('PRICE_RANGE', context),
+                  Text(getTranslated('PRICE_RANGE', context)!,
                       style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
                     SizedBox(width: Dimensions.PADDING_SIZE_LARGE,),
 
@@ -58,7 +58,7 @@ class _SearchFilterBottomSheetState extends State<SearchFilterBottomSheet> {
                     ),
 
                   Padding(padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_DEFAULT),
-                      child: Text(getTranslated('to', context)),),
+                      child: Text(getTranslated('to', context)!),),
 
 
                   Expanded(child: Center(
@@ -86,7 +86,7 @@ class _SearchFilterBottomSheetState extends State<SearchFilterBottomSheet> {
               Divider(),
               SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
-              Text(getTranslated('SORT_BY', context),
+              Text(getTranslated('SORT_BY', context)!,
                 style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),
               ),
 
@@ -124,19 +124,19 @@ class _SearchFilterBottomSheetState extends State<SearchFilterBottomSheet> {
 }
 
 class MyCheckBox extends StatelessWidget {
-  final String title;
+  final String? title;
   final int index;
-  MyCheckBox({@required this.title, @required this.index});
+  MyCheckBox({required this.title, required this.index});
 
   @override
   Widget build(BuildContext context) {
     return CheckboxListTile(
-      title: Text(title, style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)),
+      title: Text(title!, style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)),
       checkColor: Theme.of(context).primaryColor,
       activeColor: Colors.transparent,
       value: Provider.of<SearchProvider>(context).filterIndex == index,
       onChanged: (isChecked) {
-        if(isChecked) {
+        if(isChecked!) {
           Provider.of<SearchProvider>(context, listen: false).setFilterIndex(index);
         }
       },

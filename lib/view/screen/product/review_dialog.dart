@@ -16,8 +16,8 @@ import 'package:provider/provider.dart';
 
 class ReviewBottomSheet extends StatefulWidget {
   final String productID;
-  final Function callback;
-  ReviewBottomSheet({@required this.productID, @required this.callback});
+  final Function? callback;
+  ReviewBottomSheet({required this.productID, required this.callback});
 
   @override
   _ReviewBottomSheetState createState() => _ReviewBottomSheetState();
@@ -45,13 +45,13 @@ class _ReviewBottomSheetState extends State<ReviewBottomSheet> {
           ),
         ),
 
-        Text(getTranslated('review_your_experience', context), style: titilliumRegular),
+        Text(getTranslated('review_your_experience', context)!, style: titilliumRegular),
         Divider(height: 5),
 
         Padding(
           padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
           child: Row(children: [
-            Expanded(child: Text(getTranslated('your_rating', context),
+            Expanded(child: Text(getTranslated('your_rating', context)!,
                 style: robotoBold.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL))),
             Container(
               height: 30,
@@ -93,7 +93,7 @@ class _ReviewBottomSheetState extends State<ReviewBottomSheet> {
         Padding(
           padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
           child: Row(children: [
-            Expanded(child: Text(getTranslated('upload_images', context),
+            Expanded(child: Text(getTranslated('upload_images', context)!,
                 style: robotoBold.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL))),
             SizedBox(
               height: 40,
@@ -109,7 +109,7 @@ class _ReviewBottomSheetState extends State<ReviewBottomSheet> {
                       onTap: () async {
                         if(index == 0 || _files[index-1].path.isNotEmpty) {
                           ImagePicker imagePicker = ImagePicker();
-                          PickedFile pickedFile = await imagePicker.getImage(source: ImageSource.gallery,
+                          PickedFile? pickedFile = await imagePicker.getImage(source: ImageSource.gallery,
                               maxWidth: 500, maxHeight: 500, imageQuality: 50);
                           if(pickedFile != null) {
                             _files[index] = File(pickedFile.path);
@@ -142,7 +142,7 @@ class _ReviewBottomSheetState extends State<ReviewBottomSheet> {
         ),
 
         Provider.of<ProductDetailsProvider>(context).errorText != null ?
-        Text(Provider.of<ProductDetailsProvider>(context).errorText,
+        Text(Provider.of<ProductDetailsProvider>(context).errorText!,
             style: titilliumRegular.copyWith(color: ColorResources.RED)) : SizedBox.shrink(),
 
         Builder(
@@ -166,7 +166,7 @@ class _ReviewBottomSheetState extends State<ReviewBottomSheet> {
                       _files, Provider.of<AuthProvider>(context, listen: false).getUserToken()).then((value) {
                     if(value.isSuccess) {
                       Navigator.pop(context);
-                      widget.callback();
+                      widget.callback!();
                       FocusScopeNode currentFocus = FocusScope.of(context);
                       if (!currentFocus.hasPrimaryFocus) {
                         currentFocus.unfocus();
@@ -189,17 +189,17 @@ class _ReviewBottomSheetState extends State<ReviewBottomSheet> {
 
 class MyPainter extends CustomPainter {
   Color lineColor =  Colors.transparent;
-  Color completeColor;
-  double width;
+  Color? completeColor;
+  double? width;
   MyPainter({this.completeColor, this.width});
 
   @override
   void paint(Canvas canvas, Size size) {
     Paint complete = new Paint()
-      ..color = completeColor
+      ..color = completeColor!
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
-      ..strokeWidth = width;
+      ..strokeWidth = width!;
 
     Offset center = new Offset(size.width / 2, size.height / 2);
     double radius = min(size.width / 2, size.height / 2);

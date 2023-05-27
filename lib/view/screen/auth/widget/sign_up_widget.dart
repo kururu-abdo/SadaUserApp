@@ -36,7 +36,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
   TextEditingController _phoneController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
-  GlobalKey<FormState> _formKey;
+  GlobalKey<FormState>? _formKey;
 
   FocusNode _fNameFocus = FocusNode();
   FocusNode _lNameFocus = FocusNode();
@@ -50,8 +50,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
 
 
   addUser() async {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
+    if (_formKey!.currentState!.validate()) {
+      _formKey!.currentState!.save();
       isEmailVerified = true;
      var ksaValidate =KsaNumber();
 
@@ -60,7 +60,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
       String _email = _emailController.text.trim();
       String _phone = _phoneController.text.trim();
      // String _phoneNumber = _countryDialCode+_phoneController.text.trim();
-  String _phoneNumber =_countryDialCode.trim()+
+  String _phoneNumber =_countryDialCode!.trim()+
                     
                     PhoneNumberUtils.getPhoneNumberFromInputs( _phoneController.text.trim())
                     ;
@@ -70,29 +70,29 @@ class _SignUpWidgetState extends State<SignUpWidget> {
 
       if (_firstName.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('first_name_field_is_required', context)),
+          content: Text(getTranslated('first_name_field_is_required', context)!),
           backgroundColor: Colors.red,
         ));
       }else if (_lastName.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('last_name_field_is_required', context)),
+          content: Text(getTranslated('last_name_field_is_required', context)!),
           backgroundColor: Colors.red,
         ));
       } else if (_email.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('EMAIL_MUST_BE_REQUIRED', context)),
+          content: Text(getTranslated('EMAIL_MUST_BE_REQUIRED', context)!),
           backgroundColor: Colors.red,
         ));
       }else if (EmailChecker.isNotValid(_email)) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('enter_valid_email_address', context)),
+          content: Text(getTranslated('enter_valid_email_address', context)!),
           backgroundColor: Colors.red,
         ));
       } 
       
       else if (_phone.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('PHONE_MUST_BE_REQUIRED', context)),
+          content: Text(getTranslated('PHONE_MUST_BE_REQUIRED', context)!),
           backgroundColor: Colors.red,
         ));
       } 
@@ -100,7 +100,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
          log('is not valid Number');
 try {
    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('enter_valid_phone', context)),
+          content: Text(getTranslated('enter_valid_phone', context)!),
           backgroundColor: Colors.red,
         ));
 } catch (e) {
@@ -112,22 +112,22 @@ try {
                     }
       else if (_password.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('PASSWORD_MUST_BE_REQUIRED', context)),
+          content: Text(getTranslated('PASSWORD_MUST_BE_REQUIRED', context)!),
           backgroundColor: Colors.red,
         ));
       } else if (_confirmPassword.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('CONFIRM_PASSWORD_MUST_BE_REQUIRED', context)),
+          content: Text(getTranslated('CONFIRM_PASSWORD_MUST_BE_REQUIRED', context)!),
           backgroundColor: Colors.red,
         ));
       } else if (_password != _confirmPassword) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('PASSWORD_DID_NOT_MATCH', context)),
+          content: Text(getTranslated('PASSWORD_DID_NOT_MATCH', context)!),
           backgroundColor: Colors.red,
         ));
       } else {
         register.fName = '${_firstNameController.text}';
-        register.lName = _lastNameController.text ?? " ";
+        register.lName = _lastNameController.text ;
         register.email = _emailController.text;
         register.phone = _phoneNumber;
         register.password = _passwordController.text;
@@ -139,9 +139,9 @@ try {
   }
 
   route(bool isRoute, String token, String tempToken, String errorMessage) async {
-    String _phone = _countryDialCode+_phoneController.text.trim();
+    String _phone = _countryDialCode!+_phoneController.text.trim();
     if (isRoute) {
-      if(Provider.of<SplashProvider>(context,listen: false).configModel.emailVerification){
+      if(Provider.of<SplashProvider>(context,listen: false).configModel!.emailVerification!){
         Provider.of<AuthProvider>(context, listen: false).checkEmail(_emailController.text.toString(), tempToken).then((value) async {
           if (value.isSuccess) {
             Provider.of<AuthProvider>(context, listen: false).updateEmail(_emailController.text.toString());
@@ -149,7 +149,7 @@ try {
 
           }
         });
-      }else if(Provider.of<SplashProvider>(context,listen: false).configModel.phoneVerification){
+      }else if(Provider.of<SplashProvider>(context,listen: false).configModel!.phoneVerification!){
         Provider.of<AuthProvider>(context, listen: false).checkPhone(_phone,tempToken).then((value) async {
           if (value.isSuccess) {
             Provider.of<AuthProvider>(context, listen: false).updatePhone(_phone);
@@ -178,12 +178,12 @@ try {
     }
   }
 
-  String _countryDialCode = "+966";
+  String? _countryDialCode = "+966";
   @override
   void initState() {
     super.initState();
     Provider.of<SplashProvider>(context,listen: false).configModel;
-    _countryDialCode = CountryCode.fromCountryCode(Provider.of<SplashProvider>(context, listen: false).configModel.countryCode).dialCode;
+    _countryDialCode = CountryCode.fromCountryCode(Provider.of<SplashProvider>(context, listen: false).configModel!.countryCode!).dialCode;
 
 
     _formKey = GlobalKey<FormState>();

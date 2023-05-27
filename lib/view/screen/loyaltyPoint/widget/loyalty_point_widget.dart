@@ -5,13 +5,13 @@ import 'package:eamar_user_app/utill/color_resources.dart';
 import 'package:eamar_user_app/utill/custom_themes.dart';
 import 'package:eamar_user_app/utill/dimensions.dart';
 class LoyaltyPointWidget extends StatelessWidget {
-  final LoyaltyPointList loyaltyPointModel;
-  const LoyaltyPointWidget({Key key, this.loyaltyPointModel}) : super(key: key);
+  final LoyaltyPointList? loyaltyPointModel;
+  const LoyaltyPointWidget({Key? key, this.loyaltyPointModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String type = loyaltyPointModel.transactionType;
-    String reformatType;
+    String type = loyaltyPointModel!.transactionType!;
+    String? reformatType;
     if (type.contains('_')){
       reformatType = type.replaceAll('_', ' ');
     }
@@ -23,7 +23,7 @@ class LoyaltyPointWidget extends StatelessWidget {
             Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
               Row(
                 children: [
-                  Text('${loyaltyPointModel.credit > 0 ? loyaltyPointModel.credit: loyaltyPointModel.debit}',
+                  Text('${loyaltyPointModel!.credit! > 0 ? loyaltyPointModel!.credit: loyaltyPointModel!.debit}',
                     style: robotoRegular.copyWith(color: ColorResources.getTextTitle(context),
                         fontSize: Dimensions.FONT_SIZE_LARGE),
                   ),
@@ -43,13 +43,13 @@ class LoyaltyPointWidget extends StatelessWidget {
             Column(crossAxisAlignment: CrossAxisAlignment.end,children: [
               
               
-              Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(loyaltyPointModel.createdAt)),
+              Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(loyaltyPointModel!.createdAt!)),
                 style: robotoRegular.copyWith(color: ColorResources.getHint(context), fontSize: Dimensions.FONT_SIZE_SMALL),),
               SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL,),
 
 
-              Text( '${loyaltyPointModel.credit > 0 ? 'Credit': 'Debit'}',
-                style: robotoRegular.copyWith(color: loyaltyPointModel.credit > 0 ? Colors.green: Colors.red),
+              Text( '${loyaltyPointModel!.credit! > 0 ? 'Credit': 'Debit'}',
+                style: robotoRegular.copyWith(color: loyaltyPointModel!.credit! > 0 ? Colors.green: Colors.red),
               ),
             ],),
           ],),

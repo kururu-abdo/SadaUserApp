@@ -14,7 +14,7 @@ import 'package:eamar_user_app/view/screen/loyaltyPoint/widget/loyalty_point_lis
 import 'package:provider/provider.dart';
 class LoyaltyPointScreen extends StatefulWidget {
 
-  const LoyaltyPointScreen({Key key}) : super(key: key);
+  const LoyaltyPointScreen({Key? key}) : super(key: key);
 
   @override
   State<LoyaltyPointScreen> createState() => _LoyaltyPointScreenState();
@@ -72,8 +72,8 @@ class _LoyaltyPointScreenState extends State<LoyaltyPointScreen> {
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
 
-                                        Text('${(profile.userInfoModel != null && profile.userInfoModel.loyaltyPoint != null) ?
-                                        profile.userInfoModel.loyaltyPoint ?? 0 : 0}',
+                                        Text('${(profile.userInfoModel != null && profile.userInfoModel!.loyaltyPoint != null) ?
+                                        profile.userInfoModel!.loyaltyPoint ?? 0 : 0}',
                                             style: robotoBold.copyWith(color: ColorResources.getTextTitle(context),
                                                 fontSize: Dimensions.FONT_SIZE_OVER_LARGE)),
                                         SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_EXTRA_SMALL),
@@ -99,7 +99,7 @@ class _LoyaltyPointScreenState extends State<LoyaltyPointScreen> {
                                     context: context,
                                     isScrollControlled: true,
                                     backgroundColor: Colors.transparent,
-                                    builder: (con) => LoyaltyPointConverterBottomSheet(myPoint:  profile.userInfoModel.loyaltyPoint ?? 0)
+                                    builder: (con) => LoyaltyPointConverterBottomSheet(myPoint:  profile.userInfoModel!.loyaltyPoint ?? 0)
                                 );
                               },
                               child: Container(child: Row(

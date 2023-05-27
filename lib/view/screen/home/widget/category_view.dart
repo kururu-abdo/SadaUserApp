@@ -11,7 +11,7 @@ import 'category_shimmer.dart';
 
 class CategoryView extends StatelessWidget {
   final bool isHomePage;
-  CategoryView({@required this.isHomePage});
+  CategoryView({required this.isHomePage});
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +59,7 @@ class CategoryView extends StatelessWidget {
 
 
 
-if (categoryProvider.categoryList[index].subCategories.length>0) {
+if (categoryProvider.categoryList[index].subCategories!.length>0) {
     //  Navigator.push(context, MaterialPageRoute(builder: (_) =>
     //                CategoryDetailsScreen(
     //                 isBrand: false,

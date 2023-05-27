@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:eamar_user_app/utill/custom_themes.dart';
 
 class CustomPasswordTextField extends StatefulWidget {
-  final TextEditingController controller;
-  final String hintTxt;
-  final FocusNode focusNode;
-  final FocusNode nextNode;
-  final TextInputAction textInputAction;
+  final TextEditingController? controller;
+  final String? hintTxt;
+  final FocusNode? focusNode;
+  final FocusNode? nextNode;
+  final TextInputAction? textInputAction;
 
   CustomPasswordTextField({this.controller, this.hintTxt, this.focusNode, this.nextNode, this.textInputAction});
 

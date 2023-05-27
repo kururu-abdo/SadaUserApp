@@ -1,14 +1,14 @@
 class LoyaltyPointModel {
-  int _limit;
-  int _offset;
-  int _totalLoyaltyPoint;
-  List<LoyaltyPointList> _loyaltyPointList;
+  int? _limit;
+  int? _offset;
+  int? _totalLoyaltyPoint;
+  List<LoyaltyPointList>? _loyaltyPointList;
 
   LoyaltyPointModel(
-      {int limit,
-        int offset,
-        int totalLoyaltyPoint,
-        List<LoyaltyPointList> loyaltyPointList}) {
+      {int? limit,
+        int? offset,
+        int? totalLoyaltyPoint,
+        List<LoyaltyPointList>? loyaltyPointList}) {
     if (limit != null) {
       this._limit = limit;
     }
@@ -23,10 +23,10 @@ class LoyaltyPointModel {
     }
   }
 
-  int get limit => _limit;
-  int get offset => _offset;
-  int get totalLoyaltyPoint => _totalLoyaltyPoint;
-  List<LoyaltyPointList> get loyaltyPointList => _loyaltyPointList;
+  int? get limit => _limit;
+  int? get offset => _offset;
+  int? get totalLoyaltyPoint => _totalLoyaltyPoint;
+  List<LoyaltyPointList>? get loyaltyPointList => _loyaltyPointList;
 
 
   LoyaltyPointModel.fromJson(Map<String, dynamic> json) {
@@ -36,7 +36,7 @@ class LoyaltyPointModel {
     if (json['loyalty_point_list'] != null) {
       _loyaltyPointList = <LoyaltyPointList>[];
       json['loyalty_point_list'].forEach((v) {
-        _loyaltyPointList.add(new LoyaltyPointList.fromJson(v));
+        _loyaltyPointList!.add(new LoyaltyPointList.fromJson(v));
       });
     }
   }
@@ -48,35 +48,35 @@ class LoyaltyPointModel {
     data['total_loyalty_point'] = this._totalLoyaltyPoint;
     if (this._loyaltyPointList != null) {
       data['loyalty_point_list'] =
-          this._loyaltyPointList.map((v) => v.toJson()).toList();
+          this._loyaltyPointList!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class LoyaltyPointList {
-  int _id;
-  int _userId;
-  String _transactionId;
-  int _credit;
-  int _debit;
-  int _balance;
-  String _reference;
-  String _transactionType;
-  String _createdAt;
-  String _updatedAt;
+  int? _id;
+  int? _userId;
+  String? _transactionId;
+  int? _credit;
+  int? _debit;
+  int? _balance;
+  String? _reference;
+  String? _transactionType;
+  String? _createdAt;
+  String? _updatedAt;
 
   LoyaltyPointList(
-      {int id,
-        int userId,
-        String transactionId,
-        int credit,
-        int debit,
-        int balance,
-        String reference,
-        String transactionType,
-        String createdAt,
-        String updatedAt}) {
+      {int? id,
+        int? userId,
+        String? transactionId,
+        int? credit,
+        int? debit,
+        int? balance,
+        String? reference,
+        String? transactionType,
+        String? createdAt,
+        String? updatedAt}) {
     if (id != null) {
       this._id = id;
     }
@@ -109,16 +109,16 @@ class LoyaltyPointList {
     }
   }
 
-  int get id => _id;
-  int get userId => _userId;
-  String get transactionId => _transactionId;
-  int get credit => _credit;
-  int get debit => _debit;
-  int get balance => _balance;
-  String get reference => _reference;
-  String get transactionType => _transactionType;
-  String get createdAt => _createdAt;
-  String get updatedAt => _updatedAt;
+  int? get id => _id;
+  int? get userId => _userId;
+  String? get transactionId => _transactionId;
+  int? get credit => _credit;
+  int? get debit => _debit;
+  int? get balance => _balance;
+  String? get reference => _reference;
+  String? get transactionType => _transactionType;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
 
 
   LoyaltyPointList.fromJson(Map<String, dynamic> json) {

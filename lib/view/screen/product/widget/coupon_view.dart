@@ -9,7 +9,7 @@ class CouponView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text(getTranslated('coupon_voucher', context), style: robotoBold),
+      Text(getTranslated('coupon_voucher', context)!, style: robotoBold),
       SizedBox(height: 10),
       Stack(fit: StackFit.loose, children: [
         Image.asset(Images.coupon_banner_image, fit: BoxFit.contain),
@@ -41,7 +41,7 @@ class CouponView extends StatelessWidget {
                   margin: EdgeInsets.only(right: 10),
                   alignment: Alignment.center,
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(50), color: ColorResources.WHITE),
-                  child: Text(getTranslated('grab_now', context), style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL)),
+                  child: Text(getTranslated('grab_now', context)!, style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL)),
                 ),
               ),
             ),

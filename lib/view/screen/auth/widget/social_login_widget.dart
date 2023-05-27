@@ -27,7 +27,7 @@ class _SocialLoginWidgetState extends State<SocialLoginWidget> {
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => DashBoardScreen()), (route) => false);
 
       }else if(temporaryToken != null && temporaryToken.isNotEmpty){
-        if(Provider.of<SplashProvider>(context,listen: false).configModel.emailVerification){
+        if(Provider.of<SplashProvider>(context,listen: false).configModel!.emailVerification!){
           Provider.of<AuthProvider>(context, listen: false).checkEmail(socialLogin.email.toString(),
               temporaryToken).then((value) async {
             if (value.isSuccess) {
@@ -56,10 +56,10 @@ class _SocialLoginWidgetState extends State<SocialLoginWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Provider.of<SplashProvider>(context,listen: false).configModel.socialLogin[0].status?
-       Provider.of<SplashProvider>(context,listen: false).configModel.socialLogin[1].status?
-        Center(child: Text(getTranslated('social_login', context)))
-        :Center(child: Text(getTranslated('social_login', context))):SizedBox(),
+        Provider.of<SplashProvider>(context,listen: false).configModel!.socialLogin![0].status!?
+       Provider.of<SplashProvider>(context,listen: false).configModel!.socialLogin![1].status!?
+        Center(child: Text(getTranslated('social_login', context)!))
+        :Center(child: Text(getTranslated('social_login', context)!)):SizedBox(),
 
 
         Container(
@@ -67,15 +67,15 @@ class _SocialLoginWidgetState extends State<SocialLoginWidget> {
           //  Theme.of(context).canvasColor : Colors.transparent,
           child: Row(mainAxisAlignment: MainAxisAlignment.center,
             children: [
-             Provider.of<SplashProvider>(context,listen: false).configModel.socialLogin[0].status?
+             Provider.of<SplashProvider>(context,listen: false).configModel!.socialLogin![0].status!?
 
               InkWell(
                 onTap: () async{
                   await Provider.of<GoogleSignInProvider>(context, listen: false).login();
-                  String id,token,email, medium;
+                  String? id,token,email, medium;
                   if(Provider.of<GoogleSignInProvider>(context,listen: false).googleAccount != null){
-                    id = Provider.of<GoogleSignInProvider>(context,listen: false).googleAccount.id;
-                    email = Provider.of<GoogleSignInProvider>(context,listen: false).googleAccount.email;
+                    id = Provider.of<GoogleSignInProvider>(context,listen: false).googleAccount!.id;
+                    email = Provider.of<GoogleSignInProvider>(context,listen: false).googleAccount!.email;
                     token = Provider.of<GoogleSignInProvider>(context,listen: false).auth.accessToken;
                     medium = 'google';
                     socialLogin.email = email;
@@ -105,15 +105,15 @@ class _SocialLoginWidgetState extends State<SocialLoginWidget> {
               ) :SizedBox(),
 
 
-              Provider.of<SplashProvider>(context,listen: false).configModel.socialLogin[1].status?
+              Provider.of<SplashProvider>(context,listen: false).configModel!.socialLogin![1].status!?
               InkWell(
                 onTap: () async{
                   await Provider.of<FacebookLoginProvider>(context, listen: false).login();
-                  String id,token,email, medium;
+                  String? id,token,email, medium;
                   if(Provider.of<FacebookLoginProvider>(context,listen: false).userData != null){
-                    id = Provider.of<FacebookLoginProvider>(context,listen: false).result.accessToken.userId;
-                    email = Provider.of<FacebookLoginProvider>(context,listen: false).userData['email'];
-                    token = Provider.of<FacebookLoginProvider>(context,listen: false).result.accessToken.token;
+                    id = Provider.of<FacebookLoginProvider>(context,listen: false).result.accessToken!.userId;
+                    email = Provider.of<FacebookLoginProvider>(context,listen: false).userData!['email'];
+                    token = Provider.of<FacebookLoginProvider>(context,listen: false).result.accessToken!.token;
                     medium = 'facebook';
                     socialLogin.email = email;
                     socialLogin.medium = medium;

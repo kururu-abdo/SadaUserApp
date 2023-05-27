@@ -26,7 +26,7 @@ import 'dart:ui' as ui;
 class ProductImageDownload extends StatefulWidget {
 String imageUrl;
 
-  ProductImageDownload({@required this.imageUrl});
+  ProductImageDownload({required this.imageUrl});
 
   @override
   State<ProductImageDownload> createState() => _ProductImageDownloadState();
@@ -34,13 +34,13 @@ String imageUrl;
 
 class _ProductImageDownloadState extends State<ProductImageDownload> {
   final PageController _controller = PageController();
- Offset _startingFocalPoint;
+ late Offset _startingFocalPoint;
 
-   Offset _previousOffset;
+   late Offset _previousOffset;
 
   Offset _offset = Offset.zero;
 
-   double _previousZoom;
+   late double _previousZoom;
 
   double _zoom = 1.0;
  void _handleScaleStart(ScaleStartDetails details) {
@@ -103,7 +103,7 @@ class _ProductImageDownloadState extends State<ProductImageDownload> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-          getTranslated('dowlonad_image' , context),
+          getTranslated('dowlonad_image' , context)!,
 
              style: robotoRegular.copyWith(fontSize: 20,
                       color: Theme.of(context).cardColor)
@@ -126,7 +126,7 @@ class _ProductImageDownloadState extends State<ProductImageDownload> {
                     decoration: BoxDecoration(
                       color: Colors.black,
                       borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
-                      boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 700 : 300],
+                      boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 700 : 300]!,
                           spreadRadius: 1, blurRadius: 5)],
                       gradient: Provider.of<ThemeProvider>(context).darkTheme ? null : LinearGradient(
                         colors: [ColorResources.WHITE, ColorResources.IMAGE_BG],
@@ -165,7 +165,7 @@ class _ProductImageDownloadState extends State<ProductImageDownload> {
                                       alignment: Alignment.center,
                                       child: Transform.rotate(angle: 120,
                                       child: Text(
-                                     getTranslated('sada' , context)      
+                                     getTranslated('sada' , context)!      
                                       ,
                                       
                                       style: TextStyle(
@@ -251,7 +251,7 @@ class _ProductImageDownloadState extends State<ProductImageDownload> {
                     await _downloadImage();
                               },
                               child: Center(
-                                child: Text(    getTranslated('dowload' , context)      
+                                child: Text(    getTranslated('dowload' , context)!      
                                       ,
                                 
                                      style: TextStyle(
@@ -324,9 +324,9 @@ if (await Permission.location.isRestricted) {
 
 _downloadImage()async{
   RenderRepaintBoundary boundary =
-                    _repaintKey.currentContext.findRenderObject();
+                    _repaintKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
 ui.Image image = await boundary.toImage();
-ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+ByteData byteData = (await image.toByteData(format: ui.ImageByteFormat.png))!;
 Uint8List pngBytes = byteData.buffer.asUint8List();
 
 final String path =await   AppPathProvider.createFolderInAppDocDir("screenshots");
@@ -375,23 +375,23 @@ class _GesturePainter extends CustomPainter {
      this.longPressEnabled,
   });
 
-  final double zoom;
-  final Offset offset;
-  final MaterialColor swatch;
-  final bool forward;
-  final bool scaleEnabled;
-  final bool tapEnabled;
-  final bool doubleTapEnabled;
-  final bool longPressEnabled;
+  final double? zoom;
+  final Offset? offset;
+  final MaterialColor? swatch;
+  final bool? forward;
+  final bool? scaleEnabled;
+  final bool? tapEnabled;
+  final bool? doubleTapEnabled;
+  final bool? longPressEnabled;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Offset center = size.center(Offset.zero) * zoom + offset;
-    final double radius = size.width / 2.0 * zoom;
+    final Offset center = size.center(Offset.zero) * zoom! + offset!;
+    final double radius = size.width / 2.0 * zoom!;
     final Gradient gradient = RadialGradient(
-      colors: forward
-        ? <Color>[swatch.shade50, swatch.shade900]
-        : <Color>[swatch.shade900, swatch.shade50],
+      colors: forward!
+        ? <Color>[swatch!.shade50, swatch!.shade900]
+        : <Color>[swatch!.shade900, swatch!.shade50],
     );
     final Paint paint = Paint()
       ..shader = gradient.createShader(Rect.fromCircle(

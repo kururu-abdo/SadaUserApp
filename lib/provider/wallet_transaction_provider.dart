@@ -7,42 +7,42 @@ import 'package:eamar_user_app/helper/api_checker.dart';
 import 'package:eamar_user_app/localization/language_constrants.dart';
 
 class WalletTransactionProvider extends ChangeNotifier {
-  final WalletTransactionRepo transactionRepo;
+  final WalletTransactionRepo? transactionRepo;
   bool _isLoading = false;
   bool _firstLoading = false;
   bool _isConvert = false;
   bool get isConvert => _isConvert;
   bool get isLoading => _isLoading;
   bool get firstLoading => _firstLoading;
-  int _transactionPageSize;
-  int get transactionPageSize=> _transactionPageSize;
-  TransactionModel _walletBalance;
-  TransactionModel get walletBalance => _walletBalance;
+  int? _transactionPageSize;
+  int? get transactionPageSize=> _transactionPageSize;
+  TransactionModel? _walletBalance;
+  TransactionModel? get walletBalance => _walletBalance;
 
-  int _loyaltyPointPageSize;
-  int get loyaltyPointPageSize=> _loyaltyPointPageSize;
+  int? _loyaltyPointPageSize;
+  int? get loyaltyPointPageSize=> _loyaltyPointPageSize;
 
-  WalletTransactionProvider({@required this.transactionRepo});
+  WalletTransactionProvider({required this.transactionRepo});
 
-  List<WalletTransactioList> _transactionList;
-  List<WalletTransactioList> get transactionList => _transactionList;
+  List<WalletTransactioList>? _transactionList;
+  List<WalletTransactioList>? get transactionList => _transactionList;
 
-  List<LoyaltyPointList> _loyaltyPointList;
-  List<LoyaltyPointList> get loyaltyPointList => _loyaltyPointList;
+  List<LoyaltyPointList>? _loyaltyPointList;
+  List<LoyaltyPointList>? get loyaltyPointList => _loyaltyPointList;
 
   Future<void> getTransactionList(BuildContext context, int offset) async {
-    ApiResponse apiResponse = await transactionRepo.getWalletTransactionList(offset);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-      _walletBalance = TransactionModel.fromJson(apiResponse.response.data);
+    ApiResponse apiResponse = await transactionRepo!.getWalletTransactionList(offset);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      _walletBalance = TransactionModel.fromJson(apiResponse.response!.data);
       _transactionList = [];
-      _transactionList.addAll(TransactionModel.fromJson(apiResponse.response.data).walletTransactioList);
-      _transactionPageSize = TransactionModel.fromJson(apiResponse.response.data).totalWalletTransactio;
+      _transactionList!.addAll(TransactionModel.fromJson(apiResponse.response!.data).walletTransactioList!);
+      _transactionPageSize = TransactionModel.fromJson(apiResponse.response!.data).totalWalletTransactio;
     }
     else  if (apiResponse.response != null ) {
-      _walletBalance = TransactionModel.fromJson(apiResponse.response.data);
+      _walletBalance = TransactionModel.fromJson(apiResponse.response!.data);
       _transactionList = [];
-      _transactionList.addAll(TransactionModel.fromJson(apiResponse.response.data).walletTransactioList);
-      _transactionPageSize = TransactionModel.fromJson(apiResponse.response.data).totalWalletTransactio;
+      _transactionList!.addAll(TransactionModel.fromJson(apiResponse.response!.data).walletTransactioList!);
+      _transactionPageSize = TransactionModel.fromJson(apiResponse.response!.data).totalWalletTransactio;
     }
     
      else {
@@ -53,17 +53,17 @@ class WalletTransactionProvider extends ChangeNotifier {
 
 
   Future<void> getLoyaltyPointList(BuildContext context, int offset) async {
-    ApiResponse apiResponse = await transactionRepo.getLoyaltyPointList(offset);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await transactionRepo!.getLoyaltyPointList(offset);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _loyaltyPointList = [];
-      _loyaltyPointList.addAll(LoyaltyPointModel.fromJson(apiResponse.response.data).loyaltyPointList);
-      _loyaltyPointPageSize = LoyaltyPointModel.fromJson(apiResponse.response.data).totalLoyaltyPoint;
+      _loyaltyPointList!.addAll(LoyaltyPointModel.fromJson(apiResponse.response!.data).loyaltyPointList!);
+      _loyaltyPointPageSize = LoyaltyPointModel.fromJson(apiResponse.response!.data).totalLoyaltyPoint;
     }
     
   else   if (apiResponse.response != null ) {
       _loyaltyPointList = [];
-      _loyaltyPointList.addAll(LoyaltyPointModel.fromJson(apiResponse.response.data).loyaltyPointList);
-      _loyaltyPointPageSize = LoyaltyPointModel.fromJson(apiResponse.response.data).totalLoyaltyPoint;
+      _loyaltyPointList!.addAll(LoyaltyPointModel.fromJson(apiResponse.response!.data).loyaltyPointList!);
+      _loyaltyPointPageSize = LoyaltyPointModel.fromJson(apiResponse.response!.data).totalLoyaltyPoint;
     }
     
      else {
@@ -76,8 +76,8 @@ class WalletTransactionProvider extends ChangeNotifier {
   Future convertPointToCurrency(BuildContext context, int point) async {
     _isConvert = true;
     notifyListeners();
-    ApiResponse apiResponse = await transactionRepo.convertPointToCurrency(point);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+    ApiResponse apiResponse = await transactionRepo!.convertPointToCurrency(point);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _isConvert = false;
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         backgroundColor:Colors.green,

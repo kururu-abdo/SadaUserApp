@@ -1,16 +1,16 @@
 import 'package:eamar_user_app/data/model/response/product_model.dart';
 
 class HomeCategoryProduct {
-  int id;
-  String name;
-  String slug;
-  String icon;
-  int parentId;
-  int position;
-  String createdAt;
-  String updatedAt;
-  List<Product> products;
-  List<dynamic> translations;
+  int? id;
+  String? name;
+  String? slug;
+  String? icon;
+  int? parentId;
+  int? position;
+  String? createdAt;
+  String? updatedAt;
+  List<Product>? products;
+  List<dynamic>? translations;
 
   HomeCategoryProduct(
       {this.id,
@@ -35,12 +35,12 @@ class HomeCategoryProduct {
     updatedAt = json['updated_at'];
     if (json['products'] != null) {
       products = [];
-      json['products'].forEach((v) { products.add(new Product.fromJson(v)); });
+      json['products'].forEach((v) { products!.add(new Product.fromJson(v)); });
     }
 
     if (json['translations'] != null) {
       translations = [];
-      translations = List<dynamic>.from(translations.map((x) => x));
+      translations = List<dynamic>.from(translations!.map((x) => x));
     }
 
   }
@@ -56,11 +56,11 @@ class HomeCategoryProduct {
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     if (this.products != null) {
-      data['products'] = this.products.map((v) => v.toJson()).toList();
+      data['products'] = this.products!.map((v) => v.toJson()).toList();
     }
 
     if (this.translations != null) {
-      data['translations'] = this.translations.map((v) => v.toJson()).toList();
+      data['translations'] = this.translations!.map((v) => v.toJson()).toList();
     }
     return data;
   }

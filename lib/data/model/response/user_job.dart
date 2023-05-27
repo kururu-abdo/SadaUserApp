@@ -1,16 +1,16 @@
 class UserJob {
-  int id;
-  String name;
-  int userJobId;
-  String profilePhoto;
-  String des;
-  String phoneNumber;
-  String email;
-  int isActive;
-  String job;
-  String city;
-  String region;
-  int cityId;
+  int? id;
+  String? name;
+  int? userJobId;
+  String? profilePhoto;
+  String? des;
+  String? phoneNumber;
+  String? email;
+  int? isActive;
+  String? job;
+  String? city;
+  String? region;
+  int? cityId;
 
   UserJob(
       {this.id,

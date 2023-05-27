@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
@@ -35,7 +36,7 @@ import '../../../data/model/response/new_job_model.dart';
 class AddJobPage extends StatefulWidget {
     final bool isBacButtonExist;
 
-  const AddJobPage({ Key key, this.isBacButtonExist=true }) : super(key: key);
+  const AddJobPage({ Key? key, this.isBacButtonExist=true }) : super(key: key);
 
   @override
   _AddJobPageState createState() => _AddJobPageState();
@@ -96,8 +97,8 @@ await Provider.of<JobsProvider>(context, listen: false).getJobs( context ,
  final Geolocator geolocator = Geolocator()
  
  ;
-  LatLng _currentPosition;
-  String _currentAddress;
+  LatLng? _currentPosition;
+  String? _currentAddress;
 
 
 
@@ -105,16 +106,16 @@ await Provider.of<JobsProvider>(context, listen: false).getJobs( context ,
 
 
 
-City  city;
-Region  regoin
+City?  city;
+Region?  regoin
 ;
 
 var  _cityFocus =FocusNode();
 
-Job job;
+Job? job;
 
 var  _jobFocus =FocusNode();
-  XFile _image;
+  XFile? _image;
 
  _getCurrentLocation() {
     Geolocator
@@ -137,7 +138,7 @@ var  _jobFocus =FocusNode();
       GeocodingPlatform.instance
       
       .placemarkFromCoordinates(
-          _currentPosition.latitude, _currentPosition.longitude);
+          _currentPosition!.latitude, _currentPosition!.longitude);
 
       Placemark place = p[0];
 
@@ -145,7 +146,7 @@ var  _jobFocus =FocusNode();
         _currentAddress =
             "${place.locality}, ${place.postalCode}, ${place.country}";
       });
-      _locationController.text=_currentAddress;
+      _locationController.text=_currentAddress!;
     } catch (e) {
       print(e);
     }
@@ -173,8 +174,8 @@ var  _jobFocus =FocusNode();
 
 
   addUser() async {
-    if (_fromKey.currentState.validate()) {
-      _fromKey.currentState.save();
+    if (_fromKey.currentState!.validate()) {
+      _fromKey.currentState!.save();
 
       // isEmailVerified = true;
      var ksaValidate =KsaNumber();
@@ -193,25 +194,25 @@ var  _jobFocus =FocusNode();
 
       if (_name.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('name_field_required_txt', context)),
+          content: Text(getTranslated('name_field_required_txt', context)!),
           backgroundColor: Colors.red,
         ));
       }else if (_email.isEmpty) { 
 
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('email_field_required_txt', context)),
+          content: Text(getTranslated('email_field_required_txt', context)!),
           backgroundColor: Colors.red,
         ));
       }else if (EmailChecker.isNotValid(_email)) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('enter_valid_email_address', context)),
+          content: Text(getTranslated('enter_valid_email_address', context)!),
           backgroundColor: Colors.red,
         ));
       } 
       
       else if (_phone.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('phone_field_required_txt', context)),
+          content: Text(getTranslated('phone_field_required_txt', context)!),
           backgroundColor: Colors.red,
         ));
       } 
@@ -219,7 +220,7 @@ var  _jobFocus =FocusNode();
          log('is not valid Number');
 try {
    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('enter_valid_phone', context)),
+          content: Text(getTranslated('enter_valid_phone', context)!),
           backgroundColor: Colors.red,
         ));
 } catch (e) {
@@ -232,26 +233,26 @@ try {
                       
       else if (job==null) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('job_field_required_txt', context)),
+          content: Text(getTranslated('job_field_required_txt', context)!),
           backgroundColor: Colors.red,
         ));
       } 
       
       else if (city==null) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('city_field_required_txt', context)),
+          content: Text(getTranslated('city_field_required_txt', context)!),
           backgroundColor: Colors.red,
         ));
       } 
        else if (regoin==null) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('area_field_required_txt', context)),
+          content: Text(getTranslated('area_field_required_txt', context)!),
           backgroundColor: Colors.red,
         ));
       } 
        else if (_image==null) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('img_field_required_txt', context)),
+          content: Text(getTranslated('img_field_required_txt', context)!),
           backgroundColor: Colors.red,
         ));
       } 
@@ -264,13 +265,13 @@ try {
         register.email = _emailController.text.trim();
         
         register.phoneNumber = PhoneNumberUtils.getPhoneNumberFromInputs( _phoneController.text.trim());
-        register.cityId = city.id;
-        register.jobId= job.id;
+        register.cityId = city!.id;
+        register.jobId= job!.id;
         register.desc=_descController.text.trim();
           if (_image!= null) {
                    
 
-          register.profilePhoto=FileConverter.getBase64FormateFile(_image.path);
+          register.profilePhoto=FileConverter.getBase64FormateFile(_image!.path);
         }else{
            register.profilePhoto=null;
         }
@@ -352,7 +353,7 @@ children: [
                                   height: 180.0,
                                   child: (_image!=null)?
                                   Image.file(
-                                    File(_image.path),
+                                    File(_image!.path),
                                     fit: BoxFit.fill,
                                   ):
                                   Image.asset(
@@ -420,12 +421,13 @@ SizedBox(height: 10,),
                         right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL),
                           child: GestureDetector(
                             onTap: ()async{
-                              LocationResult result = await Navigator.of(context).push(MaterialPageRoute(
+                              LocationResult result = await (Navigator.of(context).push(MaterialPageRoute(
         builder: (context) =>
-            PlacePicker(AppConstants.GOOGLE_MAP_KEY??LatLng(45, 27),
+            PlacePicker(AppConstants.GOOGLE_MAP_KEY
+          ,
                         displayLocation: _currentPosition,
-                        )));
-                        _currentPosition=LatLng(result.latLng.latitude, result.latLng.longitude);
+                        ))) as FutureOr<LocationResult>);
+                        _currentPosition=LatLng(result.latLng!.latitude, result.latLng!.longitude);
                         setState(() {
                           
                         });
@@ -474,7 +476,7 @@ Container(
                           child: CustomDropdown<Region>(
                             
                                 child: Text(
-                                 getTranslated('choose_region_txt' ,context),
+                                 getTranslated('choose_region_txt' ,context)!,
                                   style: titilliumRegular.copyWith(color: Theme.of(context).hintColor),
                                 ),
                                 leadingIcon: true,
@@ -486,7 +488,7 @@ Container(
 
                                   });
 await Provider.of<JobsProvider>(context, listen: false).getCities( context ,
-regoin.id,
+regoin!.id,
     Provider.of<LocalizationProvider>(context, listen: false).locale.languageCode
     ,reload: false
     
@@ -529,7 +531,7 @@ regoin.id,
 
                                             left: 18,right: 18 ,bottom: 18
                                           ),
-                                          child: Text(item.name,
+                                          child: Text(item.name!,
                                               style:
                                                   TextStyle(color: Color(0xFF6F6E6E),
                                                   fontSize: 12,fontWeight: 
@@ -555,7 +557,7 @@ regoin.id,
 
                          CustomDropdown<int>(
                                 child: Text(
-                                 getTranslated('choose_city_txt' ,context),
+                                 getTranslated('choose_city_txt' ,context)!,
                                    style: titilliumRegular.copyWith(color: Theme.of(context).hintColor),
                                 ),
                                 leadingIcon: true,
@@ -612,7 +614,7 @@ regoin.id,
     
                CustomDropdown<City>(
                                 child: Text(
-                                 getTranslated('choose_city_txt' ,context),
+                                 getTranslated('choose_city_txt' ,context)!,
                                    style: titilliumRegular.copyWith(color: Theme.of(context).hintColor),
                                 ),
                                 leadingIcon: true,
@@ -660,7 +662,7 @@ regoin.id,
 
 
                                             left: 18,right: 18 ,bottom: 18                                          ),
-                                          child: Text(item.name,
+                                          child: Text(item.name!,
                                               style:
                                                   TextStyle(color: Color(0xFF6F6E6E),
                                                   fontSize: 12,fontWeight: 
@@ -691,7 +693,7 @@ regoin.id,
                          
 CustomDropdown<int>(
                                 child: Text(
-                                 getTranslated('choose_job_txt' ,context),
+                                 getTranslated('choose_job_txt' ,context)!,
                                    style: titilliumRegular.copyWith(color: Theme.of(context).hintColor),
                                 ),
                                 leadingIcon: true,
@@ -753,7 +755,7 @@ CustomDropdown<int>(
 
 CustomDropdown<Job>(
                                 child: Text(
-                                 getTranslated('choose_job_txt' ,context),
+                                 getTranslated('choose_job_txt' ,context)!,
                                    style: titilliumRegular.copyWith(color: Theme.of(context).hintColor),
                                 ),
                                 leadingIcon: true,
@@ -798,7 +800,7 @@ CustomDropdown<Job>(
 
 
                                             left: 18,right: 18 ,bottom: 18                                          ),
-                                          child: Text(item.name,
+                                          child: Text(item.name!,
                                               style:
                                                   TextStyle(color: Color(0xFF6F6E6E),
                                                   fontSize: 12,fontWeight: 
@@ -888,7 +890,7 @@ await
                                                
                                                child: provider.isAddJobLoading?
                                              CircularProgressIndicator(color: Colors.white,):Text(
-                                                     getTranslated('add_job_btn_txt', context) ,
+                                                     getTranslated('add_job_btn_txt', context)! ,
                                        
                                                      style: TextStyle(
                                                        fontWeight: FontWeight.w500,

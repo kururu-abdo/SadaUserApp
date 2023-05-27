@@ -20,7 +20,7 @@ class CurrencyDialog extends StatelessWidget {
   CurrencyDialog({this.isCurrency = true});
   @override
   Widget build(BuildContext context) {
-    int index;
+    int? index;
     if(isCurrency) {
       index = Provider.of<SplashProvider>(context, listen: false).currencyIndex;
     }else {
@@ -34,14 +34,14 @@ class CurrencyDialog extends StatelessWidget {
 
         Padding(
           padding: EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
-          child: Text(isCurrency ? getTranslated('currency', context) : getTranslated('language', context),
+          child: Text(isCurrency ? getTranslated('currency', context)! : getTranslated('language', context)!,
               style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),),
 
         SizedBox(height: 150, child: Consumer<SplashProvider>(
           builder: (context, splash, child) {
-            List<String> _valueList = [];
+            List<String?> _valueList = [];
             if(isCurrency) {
-              splash.configModel.currencyList.forEach((currency) => _valueList.add(currency.name));
+              splash.configModel!.currencyList!.forEach((currency) => _valueList.add(currency.name));
             }else {
               AppConstants.languages.forEach((language) => _valueList.add(language.languageName));
             }
@@ -49,12 +49,12 @@ class CurrencyDialog extends StatelessWidget {
               itemExtent: 40,
               useMagnifier: true,
               magnification: 1.2,
-              scrollController: FixedExtentScrollController(initialItem: index),
+              scrollController: FixedExtentScrollController(initialItem: index!),
               onSelectedItemChanged: (int i) {
                 index = i;
               },
               children: _valueList.map((value) {
-                return Center(child: Text(value, style: TextStyle(color: Theme.of(context).textTheme.bodyText1.color)));
+                return Center(child: Text(value!, style: TextStyle(color: Theme.of(context).textTheme.bodyText1!.color)));
               }).toList(),
             );
           },
@@ -64,7 +64,7 @@ class CurrencyDialog extends StatelessWidget {
         Row(children: [
           Expanded(child: TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text(getTranslated('CANCEL', context), style: robotoRegular.copyWith(color: ColorResources.getYellow(context))),
+            child: Text(getTranslated('CANCEL', context)!, style: robotoRegular.copyWith(color: ColorResources.getYellow(context))),
           )),
           Container(
             height: 50,
@@ -74,11 +74,11 @@ class CurrencyDialog extends StatelessWidget {
           Expanded(child: TextButton(
             onPressed: () {
               if(isCurrency) {
-                Provider.of<SplashProvider>(context, listen: false).setCurrency(index);
+                Provider.of<SplashProvider>(context, listen: false).setCurrency(index!);
               }else {
                 Provider.of<LocalizationProvider>(context, listen: false).setLanguage(Locale(
-                  AppConstants.languages[index].languageCode,
-                  AppConstants.languages[index].countryCode,
+                  AppConstants.languages[index!].languageCode!,
+                  AppConstants.languages[index!].countryCode,
                 ));
                 Provider.of<CategoryProvider>(context, listen: false).getCategoryList(true, context);
                 Provider.of<HomeCategoryProductProvider>(context, listen: false).getHomeCategoryProductList(true, context);
@@ -91,7 +91,7 @@ class CurrencyDialog extends StatelessWidget {
               }
               Navigator.pop(context);
             },
-            child: Text(getTranslated('ok', context), style: robotoRegular.copyWith(color: ColorResources.getGreen(context))),
+            child: Text(getTranslated('ok', context)!, style: robotoRegular.copyWith(color: ColorResources.getGreen(context))),
           )),
         ]),
 

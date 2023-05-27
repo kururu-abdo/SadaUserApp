@@ -13,7 +13,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class ProductSpecification extends StatelessWidget {
   final String productSpecification;
-  ProductSpecification({@required this.productSpecification});
+  ProductSpecification({required this.productSpecification});
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class ProductSpecification extends StatelessWidget {
 
         InkWell(
             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => SpecificationScreen(specification: productSpecification))),
-            child: Text(getTranslated('view_full_detail', context),
+            child: Text(getTranslated('view_full_detail', context)!,
               style: titleRegular.copyWith(color: Theme.of(context).primaryColor),))
 
       ],

@@ -2,16 +2,16 @@ class NewJobModel {
   
 
 
-  String name;
-  int jobId;
+  String? name;
+  int? jobId;
 
-  String email;
-  String phoneNumber;
+  String? email;
+  String? phoneNumber;
 
-  String desc;
-  int cityId;
+  String? desc;
+  int? cityId;
 
-  String profilePhoto; //base64
+  String? profilePhoto; //base64
 
 
 

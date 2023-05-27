@@ -21,9 +21,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class CartBottomSheet extends StatefulWidget {
-  final Product product;
-  final Function callback;
-  CartBottomSheet({@required this.product, this.callback});
+  final Product? product;
+  final Function? callback;
+  CartBottomSheet({required this.product, this.callback});
 
   @override
   _CartBottomSheetState createState() => _CartBottomSheetState();
@@ -43,7 +43,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<ProductDetailsProvider>(context, listen: false).initData(widget.product);
+    Provider.of<ProductDetailsProvider>(context, listen: false).initData(widget.product!);
 
 
 
@@ -58,11 +58,11 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
           ),
           child: Consumer<ProductDetailsProvider>(
             builder: (ctx, details, child) {
-              Variation _variation;
-              String _variantName = widget.product.colors.length != 0 ? widget.product.colors[details.variantIndex].name : null;
+              Variation? _variation;
+              String? _variantName = widget.product!.colors!.length != 0 ? widget.product!.colors![details.variantIndex!].name : null;
               List<String> _variationList = [];
-              for(int index=0; index < widget.product.choiceOptions.length; index++) {
-                _variationList.add(widget.product.choiceOptions[index].options[details.variationIndex[index]].trim());
+              for(int index=0; index < widget.product!.choiceOptions!.length; index++) {
+                _variationList.add(widget.product!.choiceOptions![index].options![details.variationIndex![index]].trim());
 
               }
               String variationType = '';
@@ -81,10 +81,10 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                   }
                 });
               }
-              double price = widget.product.unitPrice;
-              int _stock = widget.product.currentStock;
+              double? price = widget.product!.unitPrice;
+              int? _stock = widget.product!.currentStock;
               variationType = variationType.replaceAll(' ', '');
-              for(Variation variation in widget.product.variation) {
+              for(Variation variation in widget.product!.variation!) {
                 if(variation.type == variationType) {
                   price = variation.price;
                   _variation = variation;
@@ -92,9 +92,9 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                   break;
                 }
               }
-              double priceWithDiscount = PriceConverter.convertWithDiscount(context, price, widget.product.discount, widget.product.discountType);
+              double priceWithDiscount = PriceConverter.convertWithDiscount(context, price, widget.product!.discount, widget.product!.discountType)!;
               double priceWithQuantity = priceWithDiscount * details.quantity;
-              String ratting = widget.product.rating != null && widget.product.rating.length != 0? widget.product.rating[0].average : "0";
+              String ratting = widget.product!.rating != null && widget.product!.rating!.length != 0? widget.product!.rating![0].average! : "0";
 
 
               return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -106,7 +106,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                     width: 25,
                     height: 25,
                     decoration: BoxDecoration(shape: BoxShape.circle, color: Theme.of(context).highlightColor, boxShadow: [BoxShadow(
-                      color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 700 : 200],
+                      color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 700 : 200]!,
                       spreadRadius: 1,
                       blurRadius: 5,
                     )]),
@@ -131,7 +131,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                           borderRadius: BorderRadius.circular(5),
                           child: FadeInImage.assetNetwork(
                             placeholder: Images.placeholder,
-                            image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.productThumbnailUrl}/${widget.product.thumbnail}',
+                            image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.productThumbnailUrl}/${widget.product!.thumbnail}',
                             imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder),
                           ),
                         ),
@@ -140,7 +140,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                       Expanded(
                         child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                          Text(widget.product.name ?? '',
+                          Text(widget.product!.name ?? '',
                               style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),
                               maxLines: 2, overflow: TextOverflow.ellipsis),
 
@@ -165,7 +165,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                     ]),
                     Row(
                       children: [
-                        widget.product.discount > 0 ?
+                        widget.product!.discount! > 0 ?
                         Container(
                           margin: EdgeInsets.only(top: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                           padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
@@ -177,22 +177,22 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              PriceConverter.percentageCalculation(context, widget.product.unitPrice,
-                                  widget.product.discount, widget.product.discountType),
+                              PriceConverter.percentageCalculation(context, widget.product!.unitPrice,
+                                  widget.product!.discount, widget.product!.discountType),
                               style: titilliumRegular.copyWith(color: Theme.of(context).cardColor,
                                   fontSize: Dimensions.FONT_SIZE_DEFAULT),
                             ),
                           ),
                         ) : SizedBox(width: 93),
                         SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
-                        widget.product.discount > 0 ? Text(
-                          PriceConverter.convertPrice(context, widget.product.unitPrice),
+                        widget.product!.discount! > 0 ? Text(
+                          PriceConverter.convertPrice(context, widget.product!.unitPrice),
                           style: titilliumRegular.copyWith(color: ColorResources.getRed(context),
                               decoration: TextDecoration.lineThrough),
                         ) : SizedBox(),
                         SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
                         Text(
-                          PriceConverter.convertPrice(context, widget.product.unitPrice, discountType: widget.product.discountType, discount: widget.product.discount),
+                          PriceConverter.convertPrice(context, widget.product!.unitPrice, discountType: widget.product!.discountType, discount: widget.product!.discount),
                           style: titilliumRegular.copyWith(color: ColorResources.getPrimary(context), fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE),
                         ),
 
@@ -204,7 +204,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
 
                 SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                 // Variant
-                widget.product.colors.length > 0 ?
+                widget.product!.colors!.length > 0 ?
                 Row( children: [
                   Text('${getTranslated('select_variant', context)} : ',
                       style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
@@ -212,11 +212,11 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                   SizedBox(
                     height: 40,
                     child: ListView.builder(
-                      itemCount: widget.product.colors.length,
+                      itemCount: widget.product!.colors!.length,
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (ctx, index) {
-                        String colorString = '0xff' + widget.product.colors[index].code.substring(1, 7);
+                        String colorString = '0xff' + widget.product!.colors![index].code!.substring(1, 7);
                         return InkWell(
                           onTap: () {
                             Provider.of<ProductDetailsProvider>(context, listen: false).setCartVariantIndex(index);
@@ -243,17 +243,17 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                     ),
                   ),
                 ]) : SizedBox(),
-                widget.product.colors.length > 0 ? SizedBox(height: Dimensions.PADDING_SIZE_SMALL) : SizedBox(),
+                widget.product!.colors!.length > 0 ? SizedBox(height: Dimensions.PADDING_SIZE_SMALL) : SizedBox(),
 
 
                 // Variation
                 ListView.builder(
                   shrinkWrap: true,
-                  itemCount: widget.product.choiceOptions.length,
+                  itemCount: widget.product!.choiceOptions!.length,
                   physics: NeverScrollableScrollPhysics(),
                   itemBuilder: (ctx, index) {
                     return Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                      Text('${getTranslated('available', context)} '+' '+'${widget.product.choiceOptions[index].title} : ',
+                      Text('${getTranslated('available', context)} '+' '+'${widget.product!.choiceOptions![index].title} : ',
                           style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
                       SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
@@ -269,20 +269,20 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                             ),
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
-                            itemCount: widget.product.choiceOptions[index].options.length,
+                            itemCount: widget.product!.choiceOptions![index].options!.length,
                             itemBuilder: (ctx, i) {
                               return InkWell(
                                 onTap: () => Provider.of<ProductDetailsProvider>(context, listen: false).setCartVariationIndex(index, i),
                                 child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(5),
-                                    border: details.variationIndex[index] != i ?  null:
+                                    border: details.variationIndex![index] != i ?  null:
                                     Border.all(color: Theme.of(context).primaryColor,),),
                                   child: Center(
-                                    child: Text(widget.product.choiceOptions[index].options[i].trim(), maxLines: 1,
+                                    child: Text(widget.product!.choiceOptions![index].options![i].trim(), maxLines: 1,
                                         overflow: TextOverflow.ellipsis, style: titilliumRegular.copyWith(
                                       fontSize: Dimensions.FONT_SIZE_DEFAULT,
-                                      color: details.variationIndex[index] != i ?
+                                      color: details.variationIndex![index] != i ?
                                       ColorResources.getTextTitle(context) : Theme.of(context).primaryColor,
                                     )),
                                   ),
@@ -301,7 +301,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                 // Quantity
                 
                 Row(children: [
-                  Text(getTranslated('quantity', context), style: robotoBold),
+                  Text(getTranslated('quantity', context)!, style: robotoBold),
                   QuantityButton(isIncrement: false, quantity: details.quantity, stock: _stock),
                   Text(details.quantity.toString(), style: titilliumSemiBold),
                   QuantityButton(isIncrement: true, quantity: details.quantity, stock: _stock),
@@ -314,7 +314,7 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
 
 
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  Text(getTranslated('total_price', context), style: robotoBold),
+                  Text(getTranslated('total_price', context)!, style: robotoBold),
                   SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
                   Text(PriceConverter.convertPrice(context, priceWithQuantity),
                     style: titilliumBold.copyWith(color: ColorResources.getPrimary(context), fontSize: Dimensions.FONT_SIZE_LARGE),
@@ -334,24 +334,24 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                   ) :
 
                   Expanded(
-                    child: CustomButton(buttonText: getTranslated(_stock < 1 ?
+                    child: CustomButton(buttonText: getTranslated(_stock! < 1 ?
                     'out_of_stock' : 'add_to_cart', context),
                         onTap: _stock < 1  ? null :() {
-                          if(_stock > 0 ) {
+                          if(_stock! > 0 ) {
 
                             
                             CartModel cart = CartModel(
-                                widget.product.id, widget.product.thumbnail, widget.product.name,
-                                widget.product.addedBy == 'seller' ?
-                                '${Provider.of<SellerProvider>(context, listen: false).sellerModel.seller.fName} '
-                                    '${Provider.of<SellerProvider>(context, listen: false).sellerModel.seller.lName}' : 'admin',
+                                widget.product!.id, widget.product!.thumbnail, widget.product!.name,
+                                widget.product!.addedBy == 'seller' ?
+                                '${Provider.of<SellerProvider>(context, listen: false).sellerModel!.seller!.fName} '
+                                    '${Provider.of<SellerProvider>(context, listen: false).sellerModel!.seller!.lName}' : 'admin',
                                 price, priceWithDiscount, details.quantity, _stock,
-                                widget.product.colors.length > 0 ? widget.product.colors[details.variantIndex].name : '',
-                                widget.product.colors.length > 0 ? widget.product.colors[details.variantIndex].code : '',
-                                _variation, widget.product.discount, widget.product.discountType, widget.product.tax,
-                                widget.product.taxType, 1, '',widget.product.userId,'','','', widget.product.choiceOptions,
+                                widget.product!.colors!.length > 0 ? widget.product!.colors![details.variantIndex!].name : '',
+                                widget.product!.colors!.length > 0 ? widget.product!.colors![details.variantIndex!].code : '',
+                                _variation, widget.product!.discount, widget.product!.discountType, widget.product!.tax,
+                                widget.product!.taxType, 1, '',widget.product!.userId,'','','', widget.product!.choiceOptions,
                                 Provider.of<ProductDetailsProvider>(context, listen: false).variationIndex,
-                                widget.product.isMultiPly==1? widget.product.shippingCost*details.quantity : widget.product.shippingCost ??0
+                                widget.product!.isMultiPly==1? widget.product!.shippingCost!*details.quantity : widget.product!.shippingCost ??0
                             );
 
 
@@ -359,13 +359,13 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                             // cart.variations = _variation;
                             if(Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
                               Provider.of<CartProvider>(context, listen: false).addToCartAPI(
-                                cart, route, context, widget.product.choiceOptions,
+                                cart, route, context, widget.product!.choiceOptions!,
                                 Provider.of<ProductDetailsProvider>(context, listen: false).variationIndex,
                               );
                             }else {
                               Provider.of<CartProvider>(context, listen: false).addToCart(cart);
                               Navigator.pop(context);
-                              showCustomSnackBar(getTranslated('added_to_cart', context), context, isError: false);
+                              showCustomSnackBar(getTranslated('added_to_cart', context)!, context, isError: false);
                             }
 
                           }}),),
@@ -375,31 +375,31 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
                   Provider.of<CartProvider>(context).isLoading ? SizedBox() :
                   Expanded(
                     child: CustomButton(isBuy:true,
-                        buttonText: getTranslated(_stock < 1 ? 'out_of_stock' : 'buy_now', context),
+                        buttonText: getTranslated(_stock! < 1 ? 'out_of_stock' : 'buy_now', context),
                         onTap: _stock < 1  ? null :() {
-                          if(_stock > 0 ) {
+                          if(_stock! > 0 ) {
                             CartModel cart = CartModel(
-                                widget.product.id, widget.product.thumbnail, widget.product.name,
-                                widget.product.addedBy == 'seller' ?
-                                '${Provider.of<SellerProvider>(context, listen: false).sellerModel.seller.fName} '
-                                    '${Provider.of<SellerProvider>(context, listen: false).sellerModel.seller.lName}' : 'admin',
+                                widget.product!.id, widget.product!.thumbnail, widget.product!.name,
+                                widget.product!.addedBy == 'seller' ?
+                                '${Provider.of<SellerProvider>(context, listen: false).sellerModel!.seller!.fName} '
+                                    '${Provider.of<SellerProvider>(context, listen: false).sellerModel!.seller!.lName}' : 'admin',
                                 price, priceWithDiscount, details.quantity, _stock,
-                                widget.product.colors.length > 0 ? widget.product.colors[details.variantIndex].name : '',
-                                widget.product.colors.length > 0 ? widget.product.colors[details.variantIndex].code : '',
-                                _variation, widget.product.discount, widget.product.discountType, widget.product.tax,
-                                widget.product.taxType, 1, '',widget.product.userId,'','','', widget.product.choiceOptions,
+                                widget.product!.colors!.length > 0 ? widget.product!.colors![details.variantIndex!].name : '',
+                                widget.product!.colors!.length > 0 ? widget.product!.colors![details.variantIndex!].code : '',
+                                _variation, widget.product!.discount, widget.product!.discountType, widget.product!.tax,
+                                widget.product!.taxType, 1, '',widget.product!.userId,'','','', widget.product!.choiceOptions,
                                 Provider.of<ProductDetailsProvider>(context, listen: false).variationIndex,
-                                widget.product.isMultiPly==1? widget.product.shippingCost*details.quantity : widget.product.shippingCost ??0
+                                widget.product!.isMultiPly==1? widget.product!.shippingCost!*details.quantity : widget.product!.shippingCost ??0
                             );
 
 
                             // cart.variations = _variation;
                             if(Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
                               Provider.of<CartProvider>(context, listen: false).addToCartAPI(
-                                cart, route, context, widget.product.choiceOptions,
+                                cart, route, context, widget.product!.choiceOptions!,
                                 Provider.of<ProductDetailsProvider>(context, listen: false).variationIndex,).
                               then((value) {
-                                if(value.response.statusCode == 200){
+                                if(value.response!.statusCode == 200){
                                   _navigateToNextScreen(context);
                                 }
 
@@ -439,12 +439,12 @@ class QuantityButton extends StatelessWidget {
   final bool isIncrement;
   final int quantity;
   final bool isCartWidget;
-  final int stock;
+  final int? stock;
 
   QuantityButton({
-    @required this.isIncrement,
-    @required this.quantity,
-    @required this.stock,
+    required this.isIncrement,
+    required this.quantity,
+    required this.stock,
     this.isCartWidget = false,
   });
 
@@ -454,7 +454,7 @@ class QuantityButton extends StatelessWidget {
       onPressed: () {
         if (!isIncrement && quantity > 1) {
           Provider.of<ProductDetailsProvider>(context, listen: false).setQuantity(quantity - 1);
-        } else if (isIncrement && quantity < stock) {
+        } else if (isIncrement && quantity < stock!) {
           Provider.of<ProductDetailsProvider>(context, listen: false).setQuantity(quantity + 1);
         }
       },
@@ -467,7 +467,7 @@ class QuantityButton extends StatelessWidget {
         child: Icon(
           isIncrement ? Icons.add : Icons.remove,
           color: isIncrement
-              ? quantity >= stock ? ColorResources.getLowGreen(context) : ColorResources.getPrimary(context)
+              ? quantity >= stock! ? ColorResources.getLowGreen(context) : ColorResources.getPrimary(context)
               : quantity > 1
               ? ColorResources.getPrimary(context)
               : ColorResources.getTextTitle(context),

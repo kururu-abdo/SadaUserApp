@@ -10,8 +10,8 @@ import 'package:eamar_user_app/view/basewidget/button/custom_button.dart';
 import 'package:eamar_user_app/view/basewidget/textfield/custom_textfield.dart';
 import 'package:provider/provider.dart';
 class LoyaltyPointConverterBottomSheet extends StatefulWidget {
-  final double myPoint;
-  const LoyaltyPointConverterBottomSheet({Key key, this.myPoint}) : super(key: key);
+  final double? myPoint;
+  const LoyaltyPointConverterBottomSheet({Key? key, this.myPoint}) : super(key: key);
 
   @override
   State<LoyaltyPointConverterBottomSheet> createState() => _LoyaltyPointConverterBottomSheetState();
@@ -22,8 +22,8 @@ class _LoyaltyPointConverterBottomSheetState extends State<LoyaltyPointConverter
   @override
   Widget build(BuildContext context) {
 
-    int exchangeRate = Provider.of<SplashProvider>(context,listen: false).configModel.loyaltyPointExchangeRate;
-    int min = Provider.of<SplashProvider>(context,listen: false).configModel.loyaltyPointMinimumPoint;
+    int? exchangeRate = Provider.of<SplashProvider>(context,listen: false).configModel!.loyaltyPointExchangeRate;
+    int? min = Provider.of<SplashProvider>(context,listen: false).configModel!.loyaltyPointMinimumPoint;
     return Padding(
       padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Container(
@@ -75,7 +75,7 @@ class _LoyaltyPointConverterBottomSheetState extends State<LoyaltyPointConverter
               onTap: (){
 
                 int point = int.parse(_convertPointAmountController.text.trim());
-                if(point< min){
+                if(point< min!){
                   Navigator.pop(context);
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     behavior: SnackBarBehavior.floating,
@@ -84,7 +84,7 @@ class _LoyaltyPointConverterBottomSheetState extends State<LoyaltyPointConverter
                   ));
 
                 }
-                else if(point.toDouble() > widget.myPoint){
+                else if(point.toDouble() > widget.myPoint!){
                   Navigator.pop(context);
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     behavior: SnackBarBehavior.floating,

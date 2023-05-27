@@ -3,33 +3,33 @@ import 'package:eamar_user_app/provider/splash_provider.dart';
 import 'package:provider/provider.dart';
 
 class PriceConverter {
-  static String convertPrice(BuildContext context, double price, {double discount, String discountType}) {
+  static String convertPrice(BuildContext context, double? price, {double? discount, String? discountType}) {
     if(discount != null && discountType != null){
       if(discountType == 'amount' || discountType == 'flat') {
-        price = price - discount;
+        price = price! - discount;
       }else if(discountType == 'percent' || discountType == 'percentage') {
-        price = price - ((discount / 100) * price);
+        price = price! - ((discount / 100) * price);
       }
     }
-    bool _singleCurrency = Provider.of<SplashProvider>(context, listen: false).configModel.currencyModel == 'single_currency';
-    bool _inRight = Provider.of<SplashProvider>(context, listen: false).configModel.currencySymbolPosition == 'right';
+    bool _singleCurrency = Provider.of<SplashProvider>(context, listen: false).configModel!.currencyModel == 'single_currency';
+    bool _inRight = Provider.of<SplashProvider>(context, listen: false).configModel!.currencySymbolPosition == 'right';
 
     return '${_inRight ? 
     '' : 
 
-    Provider.of<SplashProvider>(context, listen: false).myCurrency.symbol}'
+    Provider.of<SplashProvider>(context, listen: false).myCurrency!.symbol}'
     
-        '${(_singleCurrency? price : price * Provider.of<SplashProvider>(context, listen: false).myCurrency.exchangeRate
+        '${(_singleCurrency? price : price! * Provider.of<SplashProvider>(context, listen: false).myCurrency!.exchangeRate!
 
-        * (1/Provider.of<SplashProvider>(context, listen: false).usdCurrency.exchangeRate)).toStringAsFixed(Provider.of<SplashProvider>(context,listen: false).configModel.decimalPointSetting??1).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}'
-        '${ _inRight ? Provider.of<SplashProvider>(context, listen: false).myCurrency.symbol  : ''}';
+        * (1/Provider.of<SplashProvider>(context, listen: false).usdCurrency!.exchangeRate!))!.toStringAsFixed(Provider.of<SplashProvider>(context,listen: false).configModel!.decimalPointSetting??1).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}'
+        '${ _inRight ? Provider.of<SplashProvider>(context, listen: false).myCurrency!.symbol  : ''}';
   }
 
-  static double convertWithDiscount(BuildContext context, double price, double discount, String discountType) {
+  static double? convertWithDiscount(BuildContext context, double? price, double? discount, String? discountType) {
     if(discountType == 'amount' || discountType == 'flat') {
-      price = price - discount;
+      price = price! - discount!;
     }else if(discountType == 'percent' || discountType == 'percentage') {
-      price = price - ((discount / 100) * price);
+      price = price! - ((discount! / 100) * price);
     }
     return price;
   }
@@ -44,7 +44,7 @@ class PriceConverter {
     return calculatedAmount;
   }
 
-  static String percentageCalculation(BuildContext context, double price, double discount, String discountType) {
+  static String percentageCalculation(BuildContext context, double? price, double? discount, String? discountType) {
     return '${(discountType == 'percent' || discountType == 'percentage') ? '$discount %'
         : convertPrice(context, discount)} OFF';
   }

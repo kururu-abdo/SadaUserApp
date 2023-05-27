@@ -12,25 +12,25 @@ import 'package:provider/provider.dart';
 class ProductView extends StatelessWidget {
   final bool isHomePage;
   final ProductType productType;
-  final ScrollController scrollController;
-  final String sellerId;
-  ProductView({@required this.isHomePage, @required this.productType, this.scrollController, this.sellerId});
+  final ScrollController? scrollController;
+  final String? sellerId;
+  ProductView({required this.isHomePage, required this.productType, this.scrollController, this.sellerId});
 
   @override
   Widget build(BuildContext context) {
     int offset = 1;
     scrollController?.addListener(() {
-      if(scrollController.position.maxScrollExtent == scrollController.position.pixels
-          && Provider.of<ProductProvider>(context, listen: false).latestProductList.length != 0
+      if(scrollController!.position.maxScrollExtent == scrollController!.position.pixels
+          && Provider.of<ProductProvider>(context, listen: false).latestProductList!.length != 0
           && !Provider.of<ProductProvider>(context, listen: false).filterIsLoading) {
-        int pageSize;
+        late int pageSize;
         if(productType == ProductType.BEST_SELLING || productType == ProductType.TOP_PRODUCT || productType == ProductType.NEW_ARRIVAL ) {
-          pageSize = (Provider.of<ProductProvider>(context, listen: false).latestPageSize/10).ceil();
+          pageSize = (Provider.of<ProductProvider>(context, listen: false).latestPageSize!/10).ceil();
           offset = Provider.of<ProductProvider>(context, listen: false).lOffset;
         }
 
         else if(productType == ProductType.SELLER_PRODUCT) {
-          pageSize = (Provider.of<ProductProvider>(context, listen: false).sellerPageSize/10).ceil();
+          pageSize = (Provider.of<ProductProvider>(context, listen: false).sellerPageSize!/10).ceil();
           offset = Provider.of<ProductProvider>(context, listen: false).sellerOffset;
         }
         if(offset < pageSize) {
@@ -42,7 +42,7 @@ class ProductView extends StatelessWidget {
 
 
           if(productType == ProductType.SELLER_PRODUCT) {
-            Provider.of<ProductProvider>(context, listen: false).initSellerProductList(sellerId, offset, context);
+            Provider.of<ProductProvider>(context, listen: false).initSellerProductList(sellerId!, offset, context);
           }else{
             Provider.of<ProductProvider>(context, listen: false).getLatestProductList(offset, context);
           }
@@ -56,7 +56,7 @@ class ProductView extends StatelessWidget {
 
     return Consumer<ProductProvider>(
       builder: (context, prodProvider, child) {
-        List<Product> productList = [];
+        List<Product>? productList = [];
         if(productType == ProductType.LATEST_PRODUCT) {
           productList = prodProvider.lProductList;
         }
@@ -75,7 +75,7 @@ class ProductView extends StatelessWidget {
           print('==========>Product List ==${prodProvider.firstLoading}====>${productList.length}');
         }
 
-        print('========hello hello===>${productList.length}');
+        print('========hello hello===>${productList!.length}');
 
         return Column(children: [
 
@@ -92,7 +92,7 @@ class ProductView extends StatelessWidget {
             shrinkWrap: true,
             staggeredTileBuilder: (int index) => StaggeredTile.fit(1),
             itemBuilder: (BuildContext context, int index) {
-              return ProductWidget(productModel: productList[index]);
+              return ProductWidget(productModel: productList![index]);
             },
           ) : NoInternetOrDataScreen(isNoInternet: false):
 

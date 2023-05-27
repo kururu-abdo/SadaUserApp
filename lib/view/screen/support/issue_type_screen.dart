@@ -20,12 +20,12 @@ class IssueTypeScreen extends StatelessWidget {
 
       Padding(
         padding: EdgeInsets.only(top: Dimensions.PADDING_SIZE_LARGE, left: Dimensions.PADDING_SIZE_LARGE),
-        child: Text(getTranslated('add_new_ticket', context), style: titilliumSemiBold.copyWith(fontSize: 20)),
+        child: Text(getTranslated('add_new_ticket', context)!, style: titilliumSemiBold.copyWith(fontSize: 20)),
       ),
 
       Padding(
         padding: EdgeInsets.only(left: Dimensions.PADDING_SIZE_LARGE, bottom: Dimensions.PADDING_SIZE_LARGE),
-        child: Text(getTranslated('select_your_category', context), style: titilliumRegular),
+        child: Text(getTranslated('select_your_category', context)!, style: titilliumRegular),
       ),
 
       Expanded(child: ListView.builder(

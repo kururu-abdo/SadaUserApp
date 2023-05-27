@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 
 class TrackingResultScreen extends StatelessWidget {
   final String orderID;
-  TrackingResultScreen({@required this.orderID});
+  TrackingResultScreen({required this.orderID});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class TrackingResultScreen extends StatelessWidget {
           Expanded(
             child: Consumer<OrderProvider>(
               builder: (context, tracking, child) {
-                String status = tracking.trackingModel != null ? tracking.trackingModel.orderStatus : '';
+                String? status = tracking.trackingModel != null ? tracking.trackingModel!.orderStatus : '';
                 return tracking.trackingModel != null ? _statusList.contains(status) ?
                 ListView(
                   physics: BouncingScrollPhysics(),
@@ -44,7 +44,7 @@ class TrackingResultScreen extends StatelessWidget {
                               vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                             child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(getTranslated('PARCEL_STATUS', context), style: titilliumSemiBold),
+                                Text(getTranslated('PARCEL_STATUS', context)!, style: titilliumSemiBold),
                                 RichText(text: TextSpan(text: getTranslated('ORDER_ID', context),
                                   style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL),
                                   children: <TextSpan>[
@@ -108,7 +108,7 @@ class TrackingResultScreen extends StatelessWidget {
                 Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => DashBoardScreen()), (route) => false),
               child: Container(width: double.infinity,
                 alignment: Alignment.center,
-                child: Text(getTranslated('ORDER_MORE', context),
+                child: Text(getTranslated('ORDER_MORE', context)!,
                   style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
                       color: ColorResources.getPrimary(context)),
                 ),
@@ -122,10 +122,10 @@ class TrackingResultScreen extends StatelessWidget {
 }
 
 class CustomStepper extends StatelessWidget {
-  final String title;
+  final String? title;
   final Color color;
   final bool isLastItem;
-  CustomStepper({@required this.title, @required this.color, this.isLastItem = false});
+  CustomStepper({required this.title, required this.color, this.isLastItem = false});
 
   @override
   Widget build(BuildContext context) {
@@ -147,7 +147,7 @@ class CustomStepper extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL),
                 child: CircleAvatar(backgroundColor: myColor, radius: 10.0),
               ),
-              Text(title, style: titilliumRegular)
+              Text(title!, style: titilliumRegular)
             ],
           ),
           isLastItem

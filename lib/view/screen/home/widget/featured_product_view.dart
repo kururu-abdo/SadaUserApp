@@ -8,23 +8,23 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 
 class FeaturedProductView extends StatelessWidget {
-  final ScrollController scrollController;
+  final ScrollController? scrollController;
   final bool isHome;
 
-  FeaturedProductView({ this.scrollController, @required this.isHome});
+  FeaturedProductView({ this.scrollController, required this.isHome});
 
   @override
   Widget build(BuildContext context) {
     int offset = 1;
     scrollController?.addListener(() {
-      if(scrollController.position.maxScrollExtent == scrollController.position.pixels
+      if(scrollController!.position.maxScrollExtent == scrollController!.position.pixels
           && Provider.of<ProductProvider>(context, listen: false).featuredProductList.length != 0
           && !Provider.of<ProductProvider>(context, listen: false).isFeaturedLoading) {
-        int pageSize;
+        int? pageSize;
 
           pageSize = Provider.of<ProductProvider>(context, listen: false).featuredPageSize;
 
-        if(offset < pageSize) {
+        if(offset < pageSize!) {
           offset++;
           print('end of the page');
           Provider.of<ProductProvider>(context, listen: false).showBottomLoader();

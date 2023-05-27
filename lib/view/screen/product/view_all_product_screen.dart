@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 class AllProductScreen extends StatelessWidget {
   final ScrollController _scrollController = ScrollController();
   final ProductType productType;
-  AllProductScreen({@required this.productType});
+  AllProductScreen({required this.productType});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class AllProductScreen extends StatelessWidget {
         child: RefreshIndicator(
           backgroundColor: Theme.of(context).primaryColor,
           onRefresh: () async {
-            return true;
+            // return true;
           },
           child: CustomScrollView(
             controller: _scrollController,

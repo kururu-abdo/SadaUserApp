@@ -7,7 +7,7 @@ import 'dart:math' as math;
 
 
 class FAQPage extends StatefulWidget {
-  const FAQPage({ Key key }) : super(key: key);
+  const FAQPage({ Key? key }) : super(key: key);
 
   @override
   _FAQPageState createState() => _FAQPageState();
@@ -209,13 +209,13 @@ class Card2 extends StatelessWidget {
                   Builder(
                     builder: (context) {
                       var controller =
-                          ExpandableController.of(context, required: true);
+                          ExpandableController.of(context, required: true)!;
                       return TextButton(
                         child: Text(
                           controller.expanded ? "COLLAPSE" : "EXPAND",
                           style: Theme.of(context)
                               .textTheme
-                              .button
+                              .button!
                               .copyWith(color: Colors.deepPurple),
                         ),
                         onPressed: () {
@@ -365,7 +365,7 @@ class Card3 extends StatelessWidget {
                             "Items",
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText1
+                                .bodyText1!
                                 .copyWith(color: Colors.white),
                           ),
                         ),

@@ -5,29 +5,29 @@ import 'package:eamar_user_app/data/repository/top_seller_repo.dart';
 import 'package:eamar_user_app/helper/api_checker.dart';
 
 class TopSellerProvider extends ChangeNotifier {
-  final TopSellerRepo topSellerRepo;
+  final TopSellerRepo? topSellerRepo;
 
-  TopSellerProvider({@required this.topSellerRepo});
+  TopSellerProvider({required this.topSellerRepo});
 
   List<TopSellerModel> _topSellerList = [];
-  int _topSellerSelectedIndex;
+  int? _topSellerSelectedIndex;
 
   List<TopSellerModel> get topSellerList => _topSellerList;
-  int get topSellerSelectedIndex => _topSellerSelectedIndex;
+  int? get topSellerSelectedIndex => _topSellerSelectedIndex;
 
   Future<void> getTopSellerList(bool reload, BuildContext context) async {
     if (_topSellerList.length == 0 || reload) {
-      ApiResponse apiResponse = await topSellerRepo.getTopSeller();
-      if (apiResponse.response != null && apiResponse.response.statusCode == 200 && 
-      apiResponse.response.data.toString() != '{}') 
+      ApiResponse apiResponse = await topSellerRepo!.getTopSeller();
+      if (apiResponse.response != null && apiResponse.response!.statusCode == 200 && 
+      apiResponse.response!.data.toString() != '{}') 
       {
         _topSellerList.clear();
-        apiResponse.response.data.forEach((category) => _topSellerList.add(TopSellerModel.fromJson(category)));
+        apiResponse.response!.data.forEach((category) => _topSellerList.add(TopSellerModel.fromJson(category)));
         _topSellerSelectedIndex = 0;
       }   else if(apiResponse.response != null  && 
-      apiResponse.response.data.toString() != '{}'){
+      apiResponse.response!.data.toString() != '{}'){
          _topSellerList.clear();
-        apiResponse.response.data.forEach((category) => _topSellerList.add(TopSellerModel.fromJson(category)));
+        apiResponse.response!.data.forEach((category) => _topSellerList.add(TopSellerModel.fromJson(category)));
         _topSellerSelectedIndex = 0;
       }
       

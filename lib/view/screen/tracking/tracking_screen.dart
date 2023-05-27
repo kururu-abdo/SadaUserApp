@@ -11,7 +11,7 @@ import 'package:eamar_user_app/view/screen/tracking/tracking_result_screen.dart'
 
 class TrackingScreen extends StatelessWidget {
   final String orderID;
-  TrackingScreen({@required this.orderID});
+  TrackingScreen({required this.orderID});
 
   final TextEditingController _orderIdController = TextEditingController();
   final GlobalKey<ScaffoldMessengerState> _globalKey = GlobalKey();
@@ -40,7 +40,7 @@ class TrackingScreen extends StatelessWidget {
                       height: MediaQuery.of(context).size.height * 0.35,),
                       SizedBox(height: 50),
 
-                      Text(getTranslated('TRACK_ORDER', context), style: robotoBold),
+                      Text(getTranslated('TRACK_ORDER', context)!, style: robotoBold),
                       Stack(children: [
                         Container(width: double.infinity, height: 1,
                           margin: EdgeInsets.only(top: Dimensions.MARGIN_SIZE_SMALL),
@@ -70,7 +70,7 @@ class TrackingScreen extends StatelessWidget {
                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => TrackingResultScreen(
                                 orderID: _orderIdController.text)));
                           }else {
-                            _globalKey.currentState.showSnackBar(SnackBar(
+                            _globalKey.currentState!.showSnackBar(SnackBar(
                                 content: Text('Insert track ID'), backgroundColor: Colors.red));
                           }
                         },

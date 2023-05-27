@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 
 class AddTicketScreen extends StatefulWidget {
   final String type;
-  AddTicketScreen({@required this.type});
+  AddTicketScreen({required this.type});
 
   @override
   _AddTicketScreenState createState() => _AddTicketScreenState();
@@ -41,7 +41,7 @@ class _AddTicketScreenState extends State<AddTicketScreen> {
           physics: BouncingScrollPhysics(),
           padding: EdgeInsets.all(Dimensions.PADDING_SIZE_LARGE), children: [
 
-        Text(getTranslated('add_new_ticket', context), style: titilliumSemiBold.copyWith(fontSize: 20)),
+        Text(getTranslated('add_new_ticket', context)!, style: titilliumSemiBold.copyWith(fontSize: 20)),
         SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_LARGE),
 
 
@@ -93,7 +93,7 @@ class _AddTicketScreenState extends State<AddTicketScreen> {
     );
   }
 
-  void callback (bool isSuccess, String message) {
+  void callback (bool isSuccess, String? message) {
     print(message);
     if (isSuccess) {
       _subjectController.text = '';

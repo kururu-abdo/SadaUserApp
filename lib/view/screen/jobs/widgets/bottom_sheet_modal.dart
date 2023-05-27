@@ -9,7 +9,7 @@ import 'package:eamar_user_app/view/basewidget/textfield/dropdown_field.dart';
 import 'package:provider/provider.dart';
 
 class FilterBottomSheet extends StatefulWidget {
-  const FilterBottomSheet({ Key key }) : super(key: key);
+  const FilterBottomSheet({ Key? key }) : super(key: key);
 
   @override
   _FilterBottomSheetState createState() => _FilterBottomSheetState();
@@ -17,17 +17,17 @@ class FilterBottomSheet extends StatefulWidget {
 
 class _FilterBottomSheetState extends State<FilterBottomSheet> {
 
-  City  city;
-  Region region;
-  Job job;
+  City?  city;
+  late Region region;
+  Job? job;
 
 var _fromKey= GlobalKey<FormState>();
 _filter()async{
 
   try {
    await  Provider.of<JobsProvider>(context, listen: false).searchAJob(context ,
-      city!=null?  city.id:null
-        ,job!=null? job.id:null ,
+      city!=null?  city!.id:null
+        ,job!=null? job!.id:null ,
         
          Provider.of<LocalizationProvider>(context, listen: false).locale.languageCode
         );
@@ -85,7 +85,7 @@ void initState() {
 provider.jobs.length<1?
 CustomDropdown<int>(
                                 child: Text(
-                                 getTranslated('choose_job_txt' ,context),
+                                 getTranslated('choose_job_txt' ,context)!,
                                   style: TextStyle(color: Colors.grey),
                                 ),
                                 // leadingIcon: true,
@@ -152,7 +152,7 @@ CustomDropdown<int>(
 :
 CustomDropdown<Job>(
                                 child: Text(
-                                 getTranslated('choose_job_txt' ,context),
+                                 getTranslated('choose_job_txt' ,context)!,
                                   style: TextStyle(color: Colors.grey),
                                 ),
                                 leadingIcon: true,
@@ -212,7 +212,7 @@ CustomDropdown<Job>(
                    
 CustomDropdown<Region>(
                                 child: Text(
-                                 getTranslated('choose_region_txt' ,context),
+                                 getTranslated('choose_region_txt' ,context)!,
                                   style: TextStyle(color: Colors.grey),
                                 ),
                                 leadingIcon: true,
@@ -284,7 +284,7 @@ region.id,
 
           CustomDropdown<int>(
                                 child: Text(
-                                 getTranslated('choose_city_txt' ,context),
+                                 getTranslated('choose_city_txt' ,context)!,
                                   style: TextStyle(color: Colors.grey),
                                 ),
                                 leadingIcon: true,
@@ -346,7 +346,7 @@ region.id,
               
 CustomDropdown<City>(
                                 child: Text(
-                                 getTranslated('choose_city_txt' ,context),
+                                 getTranslated('choose_city_txt' ,context)!,
                                   style: TextStyle(color: Colors.grey),
                                 ),
                                 leadingIcon: true,
@@ -392,7 +392,7 @@ CustomDropdown<City>(
 
                                             left: 18,right: 18 , bottom: 18
                                           ),
-                                          child: Text(item.name,
+                                          child: Text(item.name!,
                                               style:
                                                   TextStyle(color: Color(0xFF6F6E6E),
                                                   fontSize: 12,
@@ -440,7 +440,7 @@ CustomDropdown<City>(
                                         CircularProgressIndicator(color: Colors.white,):
                                         
                                         Text(
-                                          getTranslated('search_txt', context) ,
+                                          getTranslated('search_txt', context)! ,
                             
                                           style: TextStyle(
                                             color: Theme.of(context).cardColor,

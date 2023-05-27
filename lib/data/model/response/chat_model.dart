@@ -1,30 +1,30 @@
 class ChatModel {
-  int _id;
-  int _userId;
-  int _sellerId;
-  String _message;
-  int _sentByCustomer;
-  int _sentBySeller;
-  int _seenByCustomer;
-  int _seenBySeller;
-  int _status;
-  String _createdAt;
-  String _updatedAt;
-  int _shopId;
+  int? _id;
+  int? _userId;
+  int? _sellerId;
+  String? _message;
+  int? _sentByCustomer;
+  int? _sentBySeller;
+  int? _seenByCustomer;
+  int? _seenBySeller;
+  int? _status;
+  String? _createdAt;
+  String? _updatedAt;
+  int? _shopId;
 
   ChatModel(
-      {int id,
-        int userId,
-        int sellerId,
-        String message,
-        int sentByCustomer,
-        int sentBySeller,
-        int seenByCustomer,
-        int seenBySeller,
-        int status,
-        String createdAt,
-        String updatedAt,
-        int shopId}) {
+      {int? id,
+        int? userId,
+        int? sellerId,
+        String? message,
+        int? sentByCustomer,
+        int? sentBySeller,
+        int? seenByCustomer,
+        int? seenBySeller,
+        int? status,
+        String? createdAt,
+        String? updatedAt,
+        int? shopId}) {
     this._id = id;
     this._userId = userId;
     this._sellerId = sellerId;
@@ -39,18 +39,18 @@ class ChatModel {
     this._shopId = shopId;
   }
 
-  int get id => _id;
-  int get userId => _userId;
-  int get sellerId => _sellerId;
-  String get message => _message;
-  int get sentByCustomer => _sentByCustomer;
-  int get sentBySeller => _sentBySeller;
-  int get seenByCustomer => _seenByCustomer;
-  int get seenBySeller => _seenBySeller;
-  int get status => _status;
-  String get createdAt => _createdAt;
-  String get updatedAt => _updatedAt;
-  int get shopId => _shopId;
+  int? get id => _id;
+  int? get userId => _userId;
+  int? get sellerId => _sellerId;
+  String? get message => _message;
+  int? get sentByCustomer => _sentByCustomer;
+  int? get sentBySeller => _sentBySeller;
+  int? get seenByCustomer => _seenByCustomer;
+  int? get seenBySeller => _seenBySeller;
+  int? get status => _status;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
+  int? get shopId => _shopId;
 
   ChatModel.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
@@ -86,20 +86,20 @@ class ChatModel {
 }
 
 class SellerInfo {
-  int _id;
-  String _fName;
-  String _lName;
-  String _phone;
-  String _image;
-  String _email;
+  int? _id;
+  String? _fName;
+  String? _lName;
+  String? _phone;
+  String? _image;
+  String? _email;
 
   SellerInfo(
-      {int id,
-        String fName,
-        String lName,
-        String phone,
-        String image,
-        String email,
+      {int? id,
+        String? fName,
+        String? lName,
+        String? phone,
+        String? image,
+        String? email,
        }) {
     if (id != null) {
       this._id = id;
@@ -122,12 +122,12 @@ class SellerInfo {
 
   }
 
-  int get id => _id;
-  String get fName => _fName;
-  String get lName => _lName;
-  String get phone => _phone;
-  String get image => _image;
-  String get email => _email;
+  int? get id => _id;
+  String? get fName => _fName;
+  String? get lName => _lName;
+  String? get phone => _phone;
+  String? get image => _image;
+  String? get email => _email;
 
 
 

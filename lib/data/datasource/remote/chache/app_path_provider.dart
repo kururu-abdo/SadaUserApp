@@ -5,9 +5,9 @@ import 'package:path_provider/path_provider.dart' as pp;
 class AppPathProvider {
   AppPathProvider._();
 
-  static String _path;
+  static String? _path;
 
-  static String get path {
+  static String? get path {
     if (_path != null) {
       return _path;
     } else {

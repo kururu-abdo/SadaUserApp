@@ -10,8 +10,8 @@ import 'package:eamar_user_app/view/screen/home/widget/top_seller_view.dart';
 import 'package:provider/provider.dart';
 
 class AllTopSellerScreen extends StatelessWidget {
-  final TopSellerModel topSeller;
-  AllTopSellerScreen({@required this.topSeller});
+  final TopSellerModel? topSeller;
+  AllTopSellerScreen({required this.topSeller});
   @override
   Widget build(BuildContext context) {
 
@@ -26,7 +26,7 @@ class AllTopSellerScreen extends StatelessWidget {
           icon: Icon(Icons.arrow_back_ios, size: 20, color: ColorResources.WHITE),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text(getTranslated('top_seller', context),
+        title: Text(getTranslated('top_seller', context)!,
             style: titilliumRegular.copyWith(fontSize: 20, color: ColorResources.WHITE)),
 
       ),

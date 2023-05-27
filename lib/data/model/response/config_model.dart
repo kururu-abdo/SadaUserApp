@@ -1,72 +1,72 @@
 class ConfigModel {
-  int _systemDefaultCurrency;
-  bool _digitalPayment;
-  bool _cod;
-  BaseUrls _baseUrls;
-  StaticUrls _staticUrls;
-  String _aboutUs;
-  String _privacyPolicy;
-  List<Faq> _faq;
-  String _termsConditions;
-  List<CurrencyList> _currencyList;
-  String _currencySymbolPosition;
-  bool _maintenanceMode;
-  List<String> _language;
-  List<Colors> _colors;
-  List<String> _unit;
-  String _shippingMethod;
-  String _currencyModel;
-  bool _emailVerification;
-  bool _phoneVerification;
-  String _countryCode;
-  List<SocialLogin> _socialLogin;
-  String _forgetPasswordVerification;
-  Announcement _announcement;
-  String _version;
-  String _businessMode;
-  int _decimalPointSetting;
-  String _inHouseSelectedShippingType;
-  int _billingAddress;
-  int _walletStatus;
-  int _loyaltyPointStatus;
-  int _loyaltyPointExchangeRate;
-  int _loyaltyPointMinimumPoint;
+  int? _systemDefaultCurrency;
+  bool? _digitalPayment;
+  bool? _cod;
+  BaseUrls? _baseUrls;
+  StaticUrls? _staticUrls;
+  String? _aboutUs;
+  String? _privacyPolicy;
+  List<Faq>? _faq;
+  String? _termsConditions;
+  List<CurrencyList>? _currencyList;
+  String? _currencySymbolPosition;
+  bool? _maintenanceMode;
+  List<String>? _language;
+  List<Colors>? _colors;
+  List<String>? _unit;
+  String? _shippingMethod;
+  String? _currencyModel;
+  bool? _emailVerification;
+  bool? _phoneVerification;
+  String? _countryCode;
+  List<SocialLogin>? _socialLogin;
+  String? _forgetPasswordVerification;
+  Announcement? _announcement;
+  String? _version;
+  String? _businessMode;
+  int? _decimalPointSetting;
+  String? _inHouseSelectedShippingType;
+  int? _billingAddress;
+  int? _walletStatus;
+  int? _loyaltyPointStatus;
+  int? _loyaltyPointExchangeRate;
+  int? _loyaltyPointMinimumPoint;
 
 
 
   ConfigModel(
-      {int systemDefaultCurrency,
-        bool digitalPayment,
-        bool cod,
-        BaseUrls baseUrls,
-        StaticUrls staticUrls,
-        String aboutUs,
-        String privacyPolicy,
-        List<Faq> faq,
-        String termsConditions,
-        List<CurrencyList> currencyList,
-        String currencySymbolPosition,
-        bool maintenanceMode,
-        List<String> language,
-        List<Colors> colors,
-        List<String> unit,
-        String shippingMethod,
-        String currencyModel,
-        bool emailVerification,
-        bool phoneVerification,
-        String countryCode,
-        List<SocialLogin> socialLogin,
-        String forgetPasswordVerification,
-        Announcement announcement,
-        String version,
-        String businessMode,
-        int decimalPointSetting,
-        String inHouseSelectedShippingType,
-        int billingAddress,
-        int walletStatus,
-        int loyaltyPointStatus,
-        int loyaltyPointExchangeRate,
-        int loyaltyPointMinimumPoint
+      {int? systemDefaultCurrency,
+        bool? digitalPayment,
+        bool? cod,
+        BaseUrls? baseUrls,
+        StaticUrls? staticUrls,
+        String? aboutUs,
+        String? privacyPolicy,
+        List<Faq>? faq,
+        String? termsConditions,
+        List<CurrencyList>? currencyList,
+        String? currencySymbolPosition,
+        bool? maintenanceMode,
+        List<String>? language,
+        List<Colors>? colors,
+        List<String>? unit,
+        String? shippingMethod,
+        String? currencyModel,
+        bool? emailVerification,
+        bool? phoneVerification,
+        String? countryCode,
+        List<SocialLogin>? socialLogin,
+        String? forgetPasswordVerification,
+        Announcement? announcement,
+        String? version,
+        String? businessMode,
+        int? decimalPointSetting,
+        String? inHouseSelectedShippingType,
+        int? billingAddress,
+        int? walletStatus,
+        int? loyaltyPointStatus,
+        int? loyaltyPointExchangeRate,
+        int? loyaltyPointMinimumPoint
 
       }) {
     this._systemDefaultCurrency = systemDefaultCurrency;
@@ -111,38 +111,38 @@ class ConfigModel {
     }
   }
 
-  int get systemDefaultCurrency => _systemDefaultCurrency;
-  bool get digitalPayment => _digitalPayment;
-  bool get cod => _cod;
-  BaseUrls get baseUrls => _baseUrls;
-  StaticUrls get staticUrls => _staticUrls;
-  String get aboutUs => _aboutUs;
-  String get privacyPolicy => _privacyPolicy;
-  List<Faq> get faq => _faq;
-  String get termsConditions => _termsConditions;
-  List<CurrencyList> get currencyList => _currencyList;
-  String get currencySymbolPosition => _currencySymbolPosition;
-  bool get maintenanceMode => _maintenanceMode;
-  List<String> get language => _language;
-  List<Colors> get colors => _colors;
-  List<String> get unit => _unit;
-  String get shippingMethod => _shippingMethod;
-  String get currencyModel => _currencyModel;
-  bool get emailVerification => _emailVerification;
-  bool get phoneVerification => _phoneVerification;
-  String get countryCode =>_countryCode;
-  List<SocialLogin> get socialLogin => _socialLogin;
-  String get forgetPasswordVerification => _forgetPasswordVerification;
-  Announcement get announcement => _announcement;
-  String get version => _version;
-  String get businessMode => _businessMode;
-  int get decimalPointSetting => _decimalPointSetting;
-  String get inHouseSelectedShippingType => _inHouseSelectedShippingType;
-  int get billingAddress => _billingAddress;
-  int get walletStatus => _walletStatus;
-  int get loyaltyPointStatus => _loyaltyPointStatus;
-  int get loyaltyPointExchangeRate => _loyaltyPointExchangeRate;
-  int get loyaltyPointMinimumPoint => _loyaltyPointMinimumPoint;
+  int? get systemDefaultCurrency => _systemDefaultCurrency;
+  bool? get digitalPayment => _digitalPayment;
+  bool? get cod => _cod;
+  BaseUrls? get baseUrls => _baseUrls;
+  StaticUrls? get staticUrls => _staticUrls;
+  String? get aboutUs => _aboutUs;
+  String? get privacyPolicy => _privacyPolicy;
+  List<Faq>? get faq => _faq;
+  String? get termsConditions => _termsConditions;
+  List<CurrencyList>? get currencyList => _currencyList;
+  String? get currencySymbolPosition => _currencySymbolPosition;
+  bool? get maintenanceMode => _maintenanceMode;
+  List<String>? get language => _language;
+  List<Colors>? get colors => _colors;
+  List<String>? get unit => _unit;
+  String? get shippingMethod => _shippingMethod;
+  String? get currencyModel => _currencyModel;
+  bool? get emailVerification => _emailVerification;
+  bool? get phoneVerification => _phoneVerification;
+  String? get countryCode =>_countryCode;
+  List<SocialLogin>? get socialLogin => _socialLogin;
+  String? get forgetPasswordVerification => _forgetPasswordVerification;
+  Announcement? get announcement => _announcement;
+  String? get version => _version;
+  String? get businessMode => _businessMode;
+  int? get decimalPointSetting => _decimalPointSetting;
+  String? get inHouseSelectedShippingType => _inHouseSelectedShippingType;
+  int? get billingAddress => _billingAddress;
+  int? get walletStatus => _walletStatus;
+  int? get loyaltyPointStatus => _loyaltyPointStatus;
+  int? get loyaltyPointExchangeRate => _loyaltyPointExchangeRate;
+  int? get loyaltyPointMinimumPoint => _loyaltyPointMinimumPoint;
 
 
   ConfigModel.fromJson(Map<String, dynamic> json) {
@@ -159,13 +159,13 @@ class ConfigModel {
     _privacyPolicy = json['privacy_policy'];
    if (json['faq'] != null) {
       _faq = [];
-      json['faq'].forEach((v) {_faq.add(new Faq.fromJson(v));
+      json['faq'].forEach((v) {_faq!.add(new Faq.fromJson(v));
       });
     }
     _termsConditions = json['terms_&_conditions'];
     if (json['currency_list'] != null) {
       _currencyList = [];
-      json['currency_list'].forEach((v) {_currencyList.add(new CurrencyList.fromJson(v));
+      json['currency_list'].forEach((v) {_currencyList!.add(new CurrencyList.fromJson(v));
       });
     }
     _currencySymbolPosition = json['currency_symbol_position'];
@@ -173,7 +173,7 @@ class ConfigModel {
     _language = json['language'].cast<String>();
     if (json['colors'] != null) {
       _colors = [];
-      json['colors'].forEach((v) {_colors.add(new Colors.fromJson(v));
+      json['colors'].forEach((v) {_colors!.add(new Colors.fromJson(v));
       });
     }
 
@@ -185,7 +185,7 @@ class ConfigModel {
     _countryCode = json['country_code'];
     if (json['social_login'] != null) {
       _socialLogin = [];
-      json['social_login'].forEach((v) { _socialLogin.add(new SocialLogin.fromJson(v)); });
+      json['social_login'].forEach((v) { _socialLogin!.add(new SocialLogin.fromJson(v)); });
     }
     _forgetPasswordVerification = json['forgot_password_verification'];
     _announcement = json['announcement'] != null
@@ -230,26 +230,26 @@ class ConfigModel {
     data['digital_payment'] = this._digitalPayment;
     data['cash_on_delivery'] = this._cod;
     if (this._baseUrls != null) {
-      data['base_urls'] = this._baseUrls.toJson();
+      data['base_urls'] = this._baseUrls!.toJson();
     }
     if (this._staticUrls != null) {
-      data['static_urls'] = this._staticUrls.toJson();
+      data['static_urls'] = this._staticUrls!.toJson();
     }
     data['about_us'] = this._aboutUs;
     data['privacy_policy'] = this._privacyPolicy;
     if (this._faq != null) {
-      data['faq'] = this._faq.map((v) => v.toJson()).toList();
+      data['faq'] = this._faq!.map((v) => v.toJson()).toList();
     }
     data['terms_&_conditions'] = this._termsConditions;
     if (this._currencyList != null) {
       data['currency_list'] =
-          this._currencyList.map((v) => v.toJson()).toList();
+          this._currencyList!.map((v) => v.toJson()).toList();
     }
     data['currency_symbol_position'] = this._currencySymbolPosition;
     data['maintenance_mode'] = this._maintenanceMode;
     data['language'] = this._language;
     if (this._colors != null) {
-      data['colors'] = this._colors.map((v) => v.toJson()).toList();
+      data['colors'] = this._colors!.map((v) => v.toJson()).toList();
     }
     data['unit'] = this._unit;
     data['shipping_method'] = this._shippingMethod;
@@ -258,11 +258,11 @@ class ConfigModel {
     data['phone_verification'] = this._phoneVerification;
     data['country_code'] = this._countryCode;
     if (this._socialLogin != null) {
-      data['social_login'] = this._socialLogin.map((v) => v.toJson()).toList();
+      data['social_login'] = this._socialLogin!.map((v) => v.toJson()).toList();
     }
     data['forgot_password_verification'] = this._forgetPasswordVerification;
     if (this._announcement != null) {
-      data['announcement'] = this._announcement.toJson();
+      data['announcement'] = this._announcement!.toJson();
     }
     if (this._version != null) {
       data['software_version'] = this._version;
@@ -286,28 +286,28 @@ class ConfigModel {
 }
 
 class BaseUrls {
-  String _productImageUrl;
-  String _productThumbnailUrl;
-  String _brandImageUrl;
-  String _customerImageUrl;
-  String _bannerImageUrl;
-  String _categoryImageUrl;
-  String _reviewImageUrl;
-  String _sellerImageUrl;
-  String _shopImageUrl;
-  String _notificationImageUrl;
+  String? _productImageUrl;
+  String? _productThumbnailUrl;
+  String? _brandImageUrl;
+  String? _customerImageUrl;
+  String? _bannerImageUrl;
+  String? _categoryImageUrl;
+  String? _reviewImageUrl;
+  String? _sellerImageUrl;
+  String? _shopImageUrl;
+  String? _notificationImageUrl;
 
   BaseUrls(
-      {String productImageUrl,
-        String productThumbnailUrl,
-        String brandImageUrl,
-        String customerImageUrl,
-        String bannerImageUrl,
-        String categoryImageUrl,
-        String reviewImageUrl,
-        String sellerImageUrl,
-        String shopImageUrl,
-        String notificationImageUrl}) {
+      {String? productImageUrl,
+        String? productThumbnailUrl,
+        String? brandImageUrl,
+        String? customerImageUrl,
+        String? bannerImageUrl,
+        String? categoryImageUrl,
+        String? reviewImageUrl,
+        String? sellerImageUrl,
+        String? shopImageUrl,
+        String? notificationImageUrl}) {
     this._productImageUrl = productImageUrl;
     this._productThumbnailUrl = productThumbnailUrl;
     this._brandImageUrl = brandImageUrl;
@@ -320,16 +320,16 @@ class BaseUrls {
     this._notificationImageUrl = notificationImageUrl;
   }
 
-  String get productImageUrl => _productImageUrl;
-  String get productThumbnailUrl => _productThumbnailUrl;
-  String get brandImageUrl => _brandImageUrl;
-  String get customerImageUrl => _customerImageUrl;
-  String get bannerImageUrl => _bannerImageUrl;
-  String get categoryImageUrl => _categoryImageUrl;
-  String get reviewImageUrl => _reviewImageUrl;
-  String get sellerImageUrl => _sellerImageUrl;
-  String get shopImageUrl => _shopImageUrl;
-  String get notificationImageUrl => _notificationImageUrl;
+  String? get productImageUrl => _productImageUrl;
+  String? get productThumbnailUrl => _productThumbnailUrl;
+  String? get brandImageUrl => _brandImageUrl;
+  String? get customerImageUrl => _customerImageUrl;
+  String? get bannerImageUrl => _bannerImageUrl;
+  String? get categoryImageUrl => _categoryImageUrl;
+  String? get reviewImageUrl => _reviewImageUrl;
+  String? get sellerImageUrl => _sellerImageUrl;
+  String? get shopImageUrl => _shopImageUrl;
+  String? get notificationImageUrl => _notificationImageUrl;
 
 
   BaseUrls.fromJson(Map<String, dynamic> json) {
@@ -362,26 +362,26 @@ class BaseUrls {
 }
 
 class StaticUrls {
-  String _contactUs;
-  String _brands;
-  String _categories;
-  String _customerAccount;
+  String? _contactUs;
+  String? _brands;
+  String? _categories;
+  String? _customerAccount;
 
   StaticUrls(
-      {String contactUs,
-        String brands,
-        String categories,
-        String customerAccount}) {
+      {String? contactUs,
+        String? brands,
+        String? categories,
+        String? customerAccount}) {
     this._contactUs = contactUs;
     this._brands = brands;
     this._categories = categories;
     this._customerAccount = customerAccount;
   }
 
-  String get contactUs => _contactUs;
-  String get brands => _brands;
-  String get categories => _categories;
-  String get customerAccount => _customerAccount;
+  String? get contactUs => _contactUs;
+  String? get brands => _brands;
+  String? get categories => _categories;
+  String? get customerAccount => _customerAccount;
 
 
   StaticUrls.fromJson(Map<String, dynamic> json) {
@@ -402,16 +402,16 @@ class StaticUrls {
 }
 
 class SocialLogin {
-  String _loginMedium;
-  bool _status;
+  String? _loginMedium;
+  bool? _status;
 
-  SocialLogin({String loginMedium, bool status}) {
+  SocialLogin({String? loginMedium, bool? status}) {
     this._loginMedium = loginMedium;
     this._status = status;
   }
 
-  String get loginMedium => _loginMedium;
-  bool get status => _status;
+  String? get loginMedium => _loginMedium;
+  bool? get status => _status;
 
   SocialLogin.fromJson(Map<String, dynamic> json) {
     _loginMedium = json['login_medium'];
@@ -427,22 +427,22 @@ class SocialLogin {
 }
 
 class Faq {
-  int _id;
-  String _question;
-  String _answer;
-  int _ranking;
-  int _status;
-  String _createdAt;
-  String _updatedAt;
+  int? _id;
+  String? _question;
+  String? _answer;
+  int? _ranking;
+  int? _status;
+  String? _createdAt;
+  String? _updatedAt;
 
   Faq(
-      {int id,
-        String question,
-        String answer,
-        int ranking,
-        int status,
-        String createdAt,
-        String updatedAt}) {
+      {int? id,
+        String? question,
+        String? answer,
+        int? ranking,
+        int? status,
+        String? createdAt,
+        String? updatedAt}) {
     this._id = id;
     this._question = question;
     this._answer = answer;
@@ -452,13 +452,13 @@ class Faq {
     this._updatedAt = updatedAt;
   }
 
-  int get id => _id;
-  String get question => _question;
-  String get answer => _answer;
-  int get ranking => _ranking;
-  int get status => _status;
-  String get createdAt => _createdAt;
-  String get updatedAt => _updatedAt;
+  int? get id => _id;
+  String? get question => _question;
+  String? get answer => _answer;
+  int? get ranking => _ranking;
+  int? get status => _status;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
 
 
   Faq.fromJson(Map<String, dynamic> json) {
@@ -485,24 +485,24 @@ class Faq {
 }
 
 class CurrencyList {
-  int _id;
-  String _name;
-  String _symbol;
-  String _code;
-  double _exchangeRate;
-  int _status;
-  String _createdAt;
-  String _updatedAt;
+  int? _id;
+  String? _name;
+  String? _symbol;
+  String? _code;
+  double? _exchangeRate;
+  int? _status;
+  String? _createdAt;
+  String? _updatedAt;
 
   CurrencyList(
-      {int id,
-        String name,
-        String symbol,
-        String code,
-        double exchangeRate,
-        int status,
-        String createdAt,
-        String updatedAt}) {
+      {int? id,
+        String? name,
+        String? symbol,
+        String? code,
+        double? exchangeRate,
+        int? status,
+        String? createdAt,
+        String? updatedAt}) {
     this._id = id;
     this._name = name;
     this._symbol = symbol;
@@ -513,14 +513,14 @@ class CurrencyList {
     this._updatedAt = updatedAt;
   }
 
-  int get id => _id;
-  String get name => _name;
-  String get symbol => _symbol;
-  String get code => _code;
-  double get exchangeRate => _exchangeRate;
-  int get status => _status;
-  String get createdAt => _createdAt;
-  String get updatedAt => _updatedAt;
+  int? get id => _id;
+  String? get name => _name;
+  String? get symbol => _symbol;
+  String? get code => _code;
+  double? get exchangeRate => _exchangeRate;
+  int? get status => _status;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
 
 
   CurrencyList.fromJson(Map<String, dynamic> json) {
@@ -549,14 +549,14 @@ class CurrencyList {
 }
 
 class Colors {
-  int _id;
-  String _name;
-  String _code;
-  String _createdAt;
-  String _updatedAt;
+  int? _id;
+  String? _name;
+  String? _code;
+  String? _createdAt;
+  String? _updatedAt;
 
   Colors(
-      {int id, String name, String code, String createdAt, String updatedAt}) {
+      {int? id, String? name, String? code, String? createdAt, String? updatedAt}) {
     this._id = id;
     this._name = name;
     this._code = code;
@@ -564,11 +564,11 @@ class Colors {
     this._updatedAt = updatedAt;
   }
 
-  int get id => _id;
-  String get name => _name;
-  String get code => _code;
-  String get createdAt => _createdAt;
-  String get updatedAt => _updatedAt;
+  int? get id => _id;
+  String? get name => _name;
+  String? get code => _code;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
 
 
   Colors.fromJson(Map<String, dynamic> json) {
@@ -590,12 +590,12 @@ class Colors {
   }
 }
 class Announcement {
-  String _status;
-  String _color;
-  String _textColor;
-  String _announcement;
+  String? _status;
+  String? _color;
+  String? _textColor;
+  String? _announcement;
 
-  Announcement({String status, String color,String textColor, String announcement}) {
+  Announcement({String? status, String? color,String? textColor, String? announcement}) {
     if (status != null) {
       this._status = status;
     }
@@ -610,10 +610,10 @@ class Announcement {
     }
   }
 
-  String get status => _status;
-  String get color => _color;
-  String get textColor => _textColor;
-  String get announcement => _announcement;
+  String? get status => _status;
+  String? get color => _color;
+  String? get textColor => _textColor;
+  String? get announcement => _announcement;
   Announcement.fromJson(Map<String, dynamic> json) {
     _status = json['status'];
     _color = json['color'];

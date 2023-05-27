@@ -14,21 +14,21 @@ import 'dart:ui';
 
 class MapWidget extends StatefulWidget {
   final AddressModel address;
-  MapWidget({@required this.address});
+  MapWidget({required this.address});
 
   @override
   _MapWidgetState createState() => _MapWidgetState();
 }
 
 class _MapWidgetState extends State<MapWidget> {
-  LatLng _latLng;
+  late LatLng _latLng;
   Set<Marker> _markers = Set.of([]);
 
   @override
   void initState() {
     super.initState();
 
-    _latLng = LatLng(double.parse(widget.address.latitude), double.parse(widget.address.longitude));
+    _latLng = LatLng(double.parse(widget.address.latitude!), double.parse(widget.address.longitude!));
     _setMarker();
   }
 
@@ -53,7 +53,7 @@ class _MapWidgetState extends State<MapWidget> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
               color: Theme.of(context).cardColor,
-              boxShadow: [BoxShadow(color: Colors.grey[300], spreadRadius: 3, blurRadius: 10)],
+              boxShadow: [BoxShadow(color: Colors.grey[300]!, spreadRadius: 3, blurRadius: 10)],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,11 +71,11 @@ class _MapWidgetState extends State<MapWidget> {
                   Expanded(
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.center, children: [
 
-                      Text(widget.address.addressType, style: robotoRegular.copyWith(
+                      Text(widget.address.addressType!, style: robotoRegular.copyWith(
                         fontSize: Dimensions.FONT_SIZE_SMALL, color: ColorResources.getGrey(context),
                       )),
 
-                      Text(widget.address.address, style: robotoRegular),
+                      Text(widget.address.address!, style: robotoRegular),
 
                     ]),
                   ),
@@ -113,7 +113,7 @@ class _MapWidgetState extends State<MapWidget> {
     ByteData data = await rootBundle.load(imagePath);
     Codec codec = await instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
     FrameInfo fi = await codec.getNextFrame();
-    return (await fi.image.toByteData(format: ImageByteFormat.png)).buffer.asUint8List();
+    return (await fi.image.toByteData(format: ImageByteFormat.png))!.buffer.asUint8List();
   }
 
 }

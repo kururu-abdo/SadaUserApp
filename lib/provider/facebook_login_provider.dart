@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class FacebookLoginProvider with ChangeNotifier {
-  Map userData;
-  LoginResult result;
+  Map? userData;
+  late LoginResult result;
 
   Future<void> login() async {
     result = await FacebookAuth.instance.login(); // by default we request the email and the public profile

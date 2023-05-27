@@ -1,9 +1,9 @@
 class SupportReplyModel {
-  int id;
-  String customerMessage;
-  String adminMessage;
-  String createdAt;
-  String updatedAt;
+  int? id;
+  String? customerMessage;
+  String? adminMessage;
+  String? createdAt;
+  String? updatedAt;
 
   SupportReplyModel(
       {this.id,

@@ -11,7 +11,7 @@ import 'package:shimmer/shimmer.dart';
 
 class BrandView extends StatelessWidget {
   final bool isHomePage;
-  BrandView({@required this.isHomePage});
+  BrandView({required this.isHomePage});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,7 @@ class BrandView extends StatelessWidget {
                               child: FadeInImage.assetNetwork(
                                 fit: BoxFit.cover,
                                 placeholder: Images.placeholder,
-                                image: Provider.of<SplashProvider>(context,listen: false).baseUrls.brandImageUrl+'/'+brandProvider.brandList[index].image,
+                                image: Provider.of<SplashProvider>(context,listen: false).baseUrls!.brandImageUrl!+'/'+brandProvider.brandList[index].image!,
                                 imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder,  fit: BoxFit.cover,),
                               ),
                             ),
@@ -63,7 +63,7 @@ class BrandView extends StatelessWidget {
                             height: (MediaQuery.of(context).size.width/4) * 0.3,
                             width: MediaQuery.of(context).size.width/4.2,
                             child: Center(child: Text(
-                              brandProvider.brandList[index].name,
+                              brandProvider.brandList[index].name!,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.center,
@@ -120,7 +120,7 @@ class BrandView extends StatelessWidget {
                         child: FadeInImage.assetNetwork(
                           fit: BoxFit.cover,
                           placeholder: Images.placeholder,
-                          image: Provider.of<SplashProvider>(context,listen: false).baseUrls.brandImageUrl+'/'+brandProvider.brandList[index].image,
+                          image: Provider.of<SplashProvider>(context,listen: false).baseUrls!.brandImageUrl!+'/'+brandProvider.brandList[index].image!,
                           imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder,  fit: BoxFit.cover,),
                         ),
                       ),
@@ -129,7 +129,7 @@ class BrandView extends StatelessWidget {
                   SizedBox(
                     height: (MediaQuery.of(context).size.width/4) * 0.3,
                     child: Center(child: Text(
-                      brandProvider.brandList[index].name,
+                      brandProvider.brandList[index].name!,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
@@ -150,7 +150,7 @@ class BrandView extends StatelessWidget {
 
 class BrandShimmer extends StatelessWidget {
   final bool isHomePage;
-  BrandShimmer({@required this.isHomePage});
+  BrandShimmer({required this.isHomePage});
 
   @override
   Widget build(BuildContext context) {
@@ -167,8 +167,8 @@ class BrandShimmer extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
 
         return Shimmer.fromColors(
-          baseColor: Colors.grey[300],
-          highlightColor: Colors.grey[100],
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
           enabled: Provider.of<BrandProvider>(context).brandList.length == 0,
           child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             Expanded(child: Container(decoration: BoxDecoration(color: ColorResources.WHITE, shape: BoxShape.circle))),

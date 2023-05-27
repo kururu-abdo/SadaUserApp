@@ -31,7 +31,7 @@ import 'package:provider/provider.dart';
 class JobsPage extends StatefulWidget {
     final bool isBacButtonExist;
 
-  const JobsPage({ Key key  ,this.isBacButtonExist=true}) : super(key: key);
+  const JobsPage({ Key? key  ,this.isBacButtonExist=true}) : super(key: key);
 
   @override
   _JobsPageState createState() => _JobsPageState();
@@ -139,7 +139,6 @@ log(platformVersion);
             await _loadData(context, true);
             // await Provider.of<FlashDealProvider>(context, listen: false).getMegaDealList(true, context, false);
 
-            return true;
           },
 child: Stack(
             children: [ 
@@ -261,14 +260,14 @@ showModalBottomSheet(context: context,
                                  alignment: Alignment.centerLeft,
                                 decoration: BoxDecoration(color: Theme.of(context).cardColor,
                                   boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ?
-                                  900 : 200], spreadRadius: 1, blurRadius: 1)],
+                                  900 : 200]!, spreadRadius: 1, blurRadius: 1)],
                                   borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL),),
                                 child: Row(mainAxisAlignment :
                                  MainAxisAlignment.spaceBetween, children: [
 // TextFormField(
   
 // )
-                                  Text(getTranslated('search_job_txt', context),
+                                  Text(getTranslated('search_job_txt', context)!,
                                       style: robotoRegular.copyWith(color: Theme.of(context).hintColor)
                                       
                                       ),
@@ -375,7 +374,7 @@ Navigator.of(context).push(
 );
 
 
-  },label: Text(getTranslated('add_job_txt', context) ,
+  },label: Text(getTranslated('add_job_txt', context)! ,
   // style: TextStyle(
   //   color: Colors.white
   // ),
@@ -399,7 +398,7 @@ Navigator.of(context).push(
 
 class SliverDelegate extends SliverPersistentHeaderDelegate {
   Widget child;
-  SliverDelegate({@required this.child});
+  SliverDelegate({required this.child});
 
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
@@ -426,9 +425,9 @@ class SliverDelegate extends SliverPersistentHeaderDelegate {
 
 
 class SearchCitiesAlert extends StatefulWidget {
-  List<City>  cities;
-  Function(City) onCitySelcted;
-   SearchCitiesAlert({ Key key  ,this.cities ,this.onCitySelcted}) : super(key: key);
+  List<City>?  cities;
+  Function(City)? onCitySelcted;
+   SearchCitiesAlert({ Key? key  ,this.cities ,this.onCitySelcted}) : super(key: key);
 
   @override
   _SearchCitiesAlertState createState() => _SearchCitiesAlertState();
@@ -451,7 +450,7 @@ void initState() {
   super.initState();
   if(mounted){
    setState((){
-     duplicateItems.addAll(widget.cities);
+     duplicateItems.addAll(widget.cities!);
        items.addAll(duplicateItems);
    });
   }
@@ -471,7 +470,7 @@ void filterSearchResults(String query) {
   if(query.isNotEmpty) {
     List<City> dummyListData = <City>[];
     dummySearchList.forEach((item) {
-      if(item.name.contains(query)) {
+      if(item.name!.contains(query)) {
         dummyListData.add(item);
       }
     });
@@ -526,11 +525,11 @@ Column(
           itemBuilder: (BuildContext context, int index) {
             return ListTile(
               onTap: (){
-    widget.onCitySelcted(items[index]);
+    widget.onCitySelcted!(items[index]);
         Navigator.pop(context);
 
               },
-              title: Text(items[index].name),
+              title: Text(items[index].name!),
             );
           },
         ),
@@ -544,9 +543,9 @@ Column(
 
 
 class RegionListAlert extends StatefulWidget {
-  List<Region>  regions;
-  Function(Region) onRegionSelected;
-   RegionListAlert({ Key key , this.regions , this.onRegionSelected }) : super(key: key);
+  List<Region>?  regions;
+  Function(Region)? onRegionSelected;
+   RegionListAlert({ Key? key , this.regions , this.onRegionSelected }) : super(key: key);
 
   @override
   _RegionListAlertState createState() => _RegionListAlertState();
@@ -570,7 +569,7 @@ void initState() {
   super.initState();
   if(mounted){
    setState((){
-     duplicateItems.addAll(widget.regions);
+     duplicateItems.addAll(widget.regions!);
        items.addAll(duplicateItems);
    });
   }
@@ -590,7 +589,7 @@ void filterSearchResults(String query) {
   if(query.isNotEmpty) {
     List<Region> dummyListData = <Region>[];
     dummySearchList.forEach((item) {
-      if(item.name.contains(query)) {
+      if(item.name!.contains(query)) {
         dummyListData.add(item);
       }
     });
@@ -655,10 +654,10 @@ Column(
           itemBuilder: (BuildContext context, int index) {
             return ListTile(
               onTap: (){
-    widget.onRegionSelected(items[index]);
+    widget.onRegionSelected!(items[index]);
     Navigator.pop(context);
               },
-              title: Text(items[index].name),
+              title: Text(items[index].name!),
             );
           },
         ),

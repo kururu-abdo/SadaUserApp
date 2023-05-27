@@ -39,7 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
 
-  File file;
+  File? file;
   final picker = ImagePicker();
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
 
@@ -62,9 +62,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     String _password = _passwordController.text.trim();
     String _confirmPassword = _confirmPasswordController.text.trim();
 
-    if(Provider.of<ProfileProvider>(context, listen: false).userInfoModel.fName == _firstNameController.text
-        && Provider.of<ProfileProvider>(context, listen: false).userInfoModel.lName == _lastNameController.text
-        && Provider.of<ProfileProvider>(context, listen: false).userInfoModel.phone == _phoneController.text && file == null
+    if(Provider.of<ProfileProvider>(context, listen: false).userInfoModel!.fName == _firstNameController.text
+        && Provider.of<ProfileProvider>(context, listen: false).userInfoModel!.lName == _lastNameController.text
+        && Provider.of<ProfileProvider>(context, listen: false).userInfoModel!.phone == _phoneController.text && file == null
         && _passwordController.text.isEmpty && _confirmPasswordController.text.isEmpty) {
 
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Change something to update'),
@@ -72,17 +72,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
 
     else if (_firstName.isEmpty || _lastName.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('NAME_FIELD_MUST_BE_REQUIRED', context)),
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('NAME_FIELD_MUST_BE_REQUIRED', context)!),
           backgroundColor: ColorResources.RED));
     }
 
     else if (_email.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('EMAIL_MUST_BE_REQUIRED', context)),
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('EMAIL_MUST_BE_REQUIRED', context)!),
           backgroundColor: ColorResources.RED));
     }
 
     else if (_phoneNumber.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('PHONE_MUST_BE_REQUIRED', context)),
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('PHONE_MUST_BE_REQUIRED', context)!),
           backgroundColor: ColorResources.RED));
     }
 
@@ -93,17 +93,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
 
     else if(_password != _confirmPassword) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('PASSWORD_DID_NOT_MATCH', context)),
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('PASSWORD_DID_NOT_MATCH', context)!),
           backgroundColor: ColorResources.RED));
     }
 
     else {
-      UserInfoModel updateUserInfoModel = Provider.of<ProfileProvider>(context, listen: false).userInfoModel;
+      UserInfoModel updateUserInfoModel = Provider.of<ProfileProvider>(context, listen: false).userInfoModel!;
       updateUserInfoModel.method = 'put';
-      updateUserInfoModel.fName = _firstNameController.text ?? "";
-      updateUserInfoModel.lName = _lastNameController.text ?? "";
-      updateUserInfoModel.phone = _phoneController.text ?? '';
-      String pass = _passwordController.text ?? '';
+      updateUserInfoModel.fName = _firstNameController.text ;
+      updateUserInfoModel.lName = _lastNameController.text ;
+      updateUserInfoModel.phone = _phoneController.text ;
+      String pass = _passwordController.text ;
 
       await Provider.of<ProfileProvider>(context, listen: false).updateUserInfo(
         updateUserInfoModel, pass, file, Provider.of<AuthProvider>(context, listen: false).getUserToken(),
@@ -116,7 +116,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           _confirmPasswordController.clear();
           setState(() {});
         }else {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(response.message),
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(response.message!),
               backgroundColor: Colors.red));
         }
       });
@@ -131,13 +131,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
       key: _scaffoldKey,
       body: Consumer<ProfileProvider>(
         builder: (context, profile, child) {
-          _firstNameController.text = profile.userInfoModel.fName;
-          _lastNameController.text = profile.userInfoModel.lName;
-          _emailController.text = profile.userInfoModel.email;
-          _phoneController.text = profile.userInfoModel.phone;
+          _firstNameController.text = profile.userInfoModel!.fName!;
+          _lastNameController.text = profile.userInfoModel!.lName!;
+          _emailController.text = profile.userInfoModel!.email!;
+          _phoneController.text = profile.userInfoModel!.phone!;
 
 
-          print('wallet amount===>${profile.userInfoModel.walletBalance}');
+          print('wallet amount===>${profile.userInfoModel!.walletBalance}');
 
           return Stack(clipBehavior: Clip.none,
             children: [
@@ -151,7 +151,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     color: Colors.white,),
                   SizedBox(width: 10),
 
-                  Text(getTranslated('PROFILE', context),
+                  Text(getTranslated('PROFILE', context)!,
                       style: titilliumRegular.copyWith(fontSize: 20, color: Colors.white),
                       maxLines: 1, overflow: TextOverflow.ellipsis),
                 ]),
@@ -174,11 +174,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               FadeInImage.assetNetwork(
                                 placeholder: Images.placeholder, width: Dimensions.profileImageSize,
                                 height: Dimensions.profileImageSize, fit: BoxFit.cover,
-                                image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls.customerImageUrl}/${profile.userInfoModel.image}',
+                                image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.customerImageUrl}/${profile.userInfoModel!.image}',
                                 imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder,
                                     width: Dimensions.profileImageSize, height: Dimensions.profileImageSize, fit: BoxFit.cover),
                               ) :
-                              Image.file(file, width: Dimensions.profileImageSize,
+                              Image.file(file!, width: Dimensions.profileImageSize,
                                   height: Dimensions.profileImageSize, fit: BoxFit.fill),),
                             Positioned(bottom: 0, right: -10,
                               child: CircleAvatar(backgroundColor: ColorResources.LIGHT_SKY_BLUE,
@@ -191,7 +191,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
 
-                      Text('${profile.userInfoModel.fName} ${profile.userInfoModel.lName}',
+                      Text('${profile.userInfoModel!.fName} ${profile.userInfoModel!.lName}',
                         style: titilliumSemiBold.copyWith(color: ColorResources.WHITE, fontSize: 20.0),)
                     ],
                   ),
@@ -214,7 +214,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               children: [Row(children: [
                                 Icon(Icons.person, color: ColorResources.getLightSkyBlue(context), size: 20),
                                 SizedBox(width: Dimensions.MARGIN_SIZE_EXTRA_SMALL),
-                                Text(getTranslated('FIRST_NAME', context), style: titilliumRegular)
+                                Text(getTranslated('FIRST_NAME', context)!, style: titilliumRegular)
                               ],
                               ),
                                 SizedBox(height: Dimensions.MARGIN_SIZE_SMALL),
@@ -222,7 +222,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 CustomTextField(textInputType: TextInputType.name,
                                   focusNode: _fNameFocus,
                                   nextNode: _lNameFocus,
-                                  hintText: profile.userInfoModel.fName ?? '',
+                                  hintText: profile.userInfoModel!.fName ?? '',
                                   controller: _firstNameController,
                                 ),
                               ],
@@ -234,7 +234,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 Row(children: [
                                   Icon(Icons.person, color: ColorResources.getLightSkyBlue(context), size: 20),
                                   SizedBox(width: Dimensions.MARGIN_SIZE_EXTRA_SMALL),
-                                  Text(getTranslated('LAST_NAME', context), style: titilliumRegular)
+                                  Text(getTranslated('LAST_NAME', context)!, style: titilliumRegular)
                                 ],),
                                 SizedBox(height: Dimensions.MARGIN_SIZE_SMALL),
 
@@ -242,7 +242,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   textInputType: TextInputType.name,
                                   focusNode: _lNameFocus,
                                   nextNode: _emailFocus,
-                                  hintText: profile.userInfoModel.lName,
+                                  hintText: profile.userInfoModel!.lName,
                                   controller: _lastNameController,
                                 ),
                               ],
@@ -261,7 +261,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Row(children: [Icon(Icons.alternate_email,
                                 color: ColorResources.getLightSkyBlue(context), size: 20),
                                 SizedBox(width: Dimensions.MARGIN_SIZE_EXTRA_SMALL,),
-                                Text(getTranslated('EMAIL', context), style: titilliumRegular)
+                                Text(getTranslated('EMAIL', context)!, style: titilliumRegular)
                               ],
                             ),
                             SizedBox(height: Dimensions.MARGIN_SIZE_SMALL),
@@ -269,7 +269,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             CustomTextField(textInputType: TextInputType.emailAddress,
                               focusNode: _emailFocus,
                               nextNode: _phoneFocus,
-                              hintText: profile.userInfoModel.email ?? '',
+                              hintText: profile.userInfoModel!.email ?? '',
                               controller: _emailController,
                             ),
                           ],
@@ -285,13 +285,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Row(children: [
                               Icon(Icons.dialpad, color: ColorResources.getLightSkyBlue(context), size: 20),
                               SizedBox(width: Dimensions.MARGIN_SIZE_EXTRA_SMALL),
-                              Text(getTranslated('PHONE_NO', context), style: titilliumRegular)
+                              Text(getTranslated('PHONE_NO', context)!, style: titilliumRegular)
                             ],),
                             SizedBox(height: Dimensions.MARGIN_SIZE_SMALL),
 
                             CustomTextField(textInputType: TextInputType.number,
                               focusNode: _phoneFocus,
-                              hintText: profile.userInfoModel.phone ?? "",
+                              hintText: profile.userInfoModel!.phone ?? "",
                               nextNode: _addressFocus,
                               controller: _phoneController,
                               isPhoneNumber: true,
@@ -308,7 +308,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Row(children: [
                               Icon(Icons.lock_open, color: ColorResources.getPrimary(context), size: 20),
                               SizedBox(width: Dimensions.MARGIN_SIZE_EXTRA_SMALL),
-                              Text(getTranslated('PASSWORD', context), style: titilliumRegular)
+                              Text(getTranslated('PASSWORD', context)!, style: titilliumRegular)
                             ],),
                             SizedBox(height: Dimensions.MARGIN_SIZE_SMALL),
 
@@ -330,7 +330,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               children: [
                                 Icon(Icons.lock_open, color: ColorResources.getPrimary(context), size: 20),
                                 SizedBox(width: Dimensions.MARGIN_SIZE_EXTRA_SMALL),
-                                Text(getTranslated('RE_ENTER_PASSWORD', context), style: titilliumRegular)
+                                Text(getTranslated('RE_ENTER_PASSWORD', context)!, style: titilliumRegular)
                               ],),
                             SizedBox(height: Dimensions.MARGIN_SIZE_SMALL),
 

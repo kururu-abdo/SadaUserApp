@@ -32,9 +32,9 @@ class CheckoutScreen extends StatefulWidget {
   final double shippingFee;
   final double discount;
   final double tax;
-  final int sellerId;
+  final int? sellerId;
 
-  CheckoutScreen({@required this.cartList, this.fromProductDetails = false, @required this.discount, @required this.tax, @required this.totalOrderAmount, @required this.shippingFee, this.sellerId});
+  CheckoutScreen({required this.cartList, this.fromProductDetails = false, required this.discount, required this.tax, required this.totalOrderAmount, required this.shippingFee, this.sellerId});
 
 
   @override
@@ -47,9 +47,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   final TextEditingController _orderNoteController = TextEditingController();
   final FocusNode _orderNoteNode = FocusNode();
   double _order = 0;
-  bool _digitalPayment;
-  bool _cod;
-  bool _billingAddress;
+  bool? _digitalPayment;
+  bool? _cod;
+  late bool _billingAddress;
 
   @override
   void initState() {
@@ -59,9 +59,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     Provider.of<CouponProvider>(context, listen: false).removePrevCouponData();
     Provider.of<CartProvider>(context, listen: false).getCartDataAPI(context);
     Provider.of<CartProvider>(context, listen: false).getChosenShippingMethod(context);
-    _digitalPayment = Provider.of<SplashProvider>(context, listen: false).configModel.digitalPayment;
-    _cod = Provider.of<SplashProvider>(context, listen: false).configModel.cod;
-    _billingAddress = Provider.of<SplashProvider>(context, listen: false).configModel.billingAddress == 1;
+    _digitalPayment = Provider.of<SplashProvider>(context, listen: false).configModel!.digitalPayment;
+    _cod = Provider.of<SplashProvider>(context, listen: false).configModel!.cod;
+    _billingAddress = Provider.of<SplashProvider>(context, listen: false).configModel!.billingAddress == 1;
 
   }
 
@@ -85,9 +85,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               builder: (context) => InkWell(
                 onTap: () async {
                   if(Provider.of<OrderProvider>(context, listen: false).addressIndex == null) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('select_a_shipping_address', context)), backgroundColor: Colors.red));
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('select_a_shipping_address', context)!), backgroundColor: Colors.red));
                   }else if(Provider.of<OrderProvider>(context, listen: false).billingAddressIndex == null && _billingAddress){
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('select_a_billing_address', context)), backgroundColor: Colors.red));
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('select_a_billing_address', context)!), backgroundColor: Colors.red));
                   }
 
                   else {
@@ -104,37 +104,37 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     }
 
                     String orderNote = _orderNoteController.text.trim();
-                    double couponDiscount = Provider.of<CouponProvider>(context, listen: false).discount != null ? Provider.of<CouponProvider>(context, listen: false).discount : 0;
-                    String couponCode =Provider.of<CouponProvider>(context, listen: false).discount != null && Provider.of<CouponProvider>(context, listen: false).discount != 0? Provider.of<CouponProvider>(context, listen: false).coupon.code : '';
-                    if(_cod && Provider.of<OrderProvider>(context, listen: false).paymentMethodIndex == 0) {
+                    double? couponDiscount = Provider.of<CouponProvider>(context, listen: false).discount != null ? Provider.of<CouponProvider>(context, listen: false).discount : 0;
+                    String? couponCode =Provider.of<CouponProvider>(context, listen: false).discount != null && Provider.of<CouponProvider>(context, listen: false).discount != 0? Provider.of<CouponProvider>(context, listen: false).coupon!.code : '';
+                    if(_cod! && Provider.of<OrderProvider>(context, listen: false).paymentMethodIndex == 0) {
                       Provider.of<OrderProvider>(context, listen: false).placeOrder(OrderPlaceModel(
                         CustomerInfo(
-                          Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex].id.toString(),
-                          Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex].address,
-                         _billingAddress? Provider.of<ProfileProvider>(context, listen: false).billingAddressList[Provider.of<OrderProvider>(context, listen: false).billingAddressIndex].id.toString():
-                         Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex].id.toString(),
-                          _billingAddress? Provider.of<ProfileProvider>(context, listen: false).billingAddressList[Provider.of<OrderProvider>(context, listen: false).billingAddressIndex].address:
-                          Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex].address,
+                          Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex!].id.toString(),
+                          Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex!].address,
+                         _billingAddress? Provider.of<ProfileProvider>(context, listen: false).billingAddressList[Provider.of<OrderProvider>(context, listen: false).billingAddressIndex!].id.toString():
+                         Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex!].id.toString(),
+                          _billingAddress? Provider.of<ProfileProvider>(context, listen: false).billingAddressList[Provider.of<OrderProvider>(context, listen: false).billingAddressIndex!].address:
+                          Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex!].address,
                           orderNote
 
 
                         ),
                         _cartList, order.paymentMethodIndex == 0 ? 'cash_on_delivery' : '', couponDiscount,
                       ), _callback, _cartList,
-                          Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex].id.toString(),
+                          Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex!].id.toString(),
                           couponCode,
-                          _billingAddress? Provider.of<ProfileProvider>(context, listen: false).billingAddressList[Provider.of<OrderProvider>(context, listen: false).billingAddressIndex].id.toString():
-                          Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex].id.toString(),
+                          _billingAddress? Provider.of<ProfileProvider>(context, listen: false).billingAddressList[Provider.of<OrderProvider>(context, listen: false).billingAddressIndex!].id.toString():
+                          Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex!].id.toString(),
                           orderNote );
                     }
                     else {
                       String userID = await Provider.of<ProfileProvider>(context, listen: false).getUserInfo(context);
                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => PaymentScreen(
                         customerID: userID,
-                        addressID: Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex].id.toString(),
-                        couponCode: Provider.of<CouponProvider>(context, listen: false).discount != null ? Provider.of<CouponProvider>(context, listen: false).coupon.code : '',
-                        billingId: _billingAddress? Provider.of<ProfileProvider>(context, listen: false).billingAddressList[Provider.of<OrderProvider>(context, listen: false).billingAddressIndex].id.toString():
-                        Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex].id.toString(),
+                        addressID: Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex!].id.toString(),
+                        couponCode: Provider.of<CouponProvider>(context, listen: false).discount != null ? Provider.of<CouponProvider>(context, listen: false).coupon!.code : '',
+                        billingId: _billingAddress? Provider.of<ProfileProvider>(context, listen: false).billingAddressList[Provider.of<OrderProvider>(context, listen: false).billingAddressIndex!].id.toString():
+                        Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex!].id.toString(),
                         orderNote: orderNote,
 
                       )));
@@ -142,7 +142,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   }
                 },
 
-                child: Text(getTranslated('proceed', context), style: titilliumSemiBold.copyWith(
+                child: Text(getTranslated('proceed', context)!, style: titilliumSemiBold.copyWith(
                   fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE,
                   color: Theme.of(context).cardColor,
                 )),
@@ -203,7 +203,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                           Provider.of<OrderProvider>(context,listen: false).addressIndex == null ?
                                           '${getTranslated('address_type', context)}'
                                               : Provider.of<ProfileProvider>(context, listen: false).addressList[
-                                          Provider.of<OrderProvider>(context, listen: false).addressIndex].addressType,
+                                          Provider.of<OrderProvider>(context, listen: false).addressIndex!].addressType!,
                                           style: titilliumBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),
                                           maxLines: 3, overflow: TextOverflow.fade,
                                         ),
@@ -212,9 +212,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                       Container(
                                         child: Text(
                                           Provider.of<OrderProvider>(context,listen: false).addressIndex == null ?
-                                          getTranslated('add_your_address', context)
+                                          getTranslated('add_your_address', context)!
                                               : Provider.of<ProfileProvider>(context, listen: false).addressList[
-                                                shipping.addressIndex].address,
+                                                shipping.addressIndex!].address!,
                                           style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL),
                                           maxLines: 3, overflow: TextOverflow.fade,
                                         ),
@@ -257,7 +257,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                         child: Text(
                                           Provider.of<OrderProvider>(context).billingAddressIndex == null ? '${getTranslated('address_type', context)}'
                                               : Provider.of<ProfileProvider>(context, listen: false).billingAddressList[
-                                          Provider.of<OrderProvider>(context, listen: false).billingAddressIndex].addressType,
+                                          Provider.of<OrderProvider>(context, listen: false).billingAddressIndex!].addressType!,
                                           style: titilliumBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),
                                           maxLines: 1, overflow: TextOverflow.fade,
                                         ),
@@ -265,9 +265,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                       Divider(),
                                       Container(
                                         child: Text(
-                                          Provider.of<OrderProvider>(context).billingAddressIndex == null ? getTranslated('add_your_address', context)
+                                          Provider.of<OrderProvider>(context).billingAddressIndex == null ? getTranslated('add_your_address', context)!
                                               : Provider.of<ProfileProvider>(context, listen: false).billingAddressList[
-                                                shipping.billingAddressIndex].address,
+                                                shipping.billingAddressIndex!].address!,
                                           style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL),
                                           maxLines: 3, overflow: TextOverflow.fade,
                                         ),
@@ -286,7 +286,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               // Order Details
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_DEFAULT),
-                child: Text(getTranslated('ORDER_DETAILS', context),style: robotoBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),),
+                child: Text(getTranslated('ORDER_DETAILS', context)!,style: robotoBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),),
               ),
               Container(
                 transform: Matrix4.translationValues(0.0, -30.0, 0.0),
@@ -307,7 +307,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_EXTRA_EXTRA_SMALL),
                               child: FadeInImage.assetNetwork(
                                 placeholder: Images.placeholder, fit: BoxFit.cover, width: 50, height: 50,
-                                image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.productThumbnailUrl}'
+                                image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.productThumbnailUrl}'
                                     '/${Provider.of<CartProvider>(context,listen: false).cartList[index].thumbnail}',
                                 imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, fit: BoxFit.cover, width: 50, height: 50),
                               ),
@@ -321,7 +321,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      Provider.of<CartProvider>(context,listen: false).cartList[index].name,
+                                      Provider.of<CartProvider>(context,listen: false).cartList[index].name!,
                                       style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT,
                                           color: ColorResources.getPrimary(context)),
                                       maxLines: 2,
@@ -383,13 +383,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       onTap: () {
                         if(_controller.text.isNotEmpty) {
                           Provider.of<CouponProvider>(context, listen: false).initCoupon(_controller.text, _order).then((value) {
-                            if(value > 0) {
+                            if(value! > 0) {
                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:
                               Text('You got ${PriceConverter.convertPrice(context, value)} discount'), backgroundColor: Colors.green));
                             }else {
                               _controller.clear();
                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                content: Text(getTranslated('invalid_coupon_or', context)),
+                                content: Text(getTranslated('invalid_coupon_or', context)!),
                                 backgroundColor: Colors.red,
                               ));
                             }
@@ -403,7 +403,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                   topRight: Radius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL))
 
                           ),
-                          child: Center(child: Text(getTranslated('APPLY', context),
+                          child: Center(child: Text(getTranslated('APPLY', context)!,
                             style: titleRegular.copyWith(color: Theme.of(context).cardColor, fontSize: Dimensions.FONT_SIZE_LARGE),
                           ))),
                     ) : CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor)),
@@ -418,7 +418,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 decoration: BoxDecoration(
                   color: Theme.of(context).primaryColor.withOpacity(.055),
                 ),
-                child: Center(child: Text(getTranslated('order_summary', context),
+                child: Center(child: Text(getTranslated('order_summary', context)!,
                   style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),)),
               ),
               // Total bill
@@ -430,7 +430,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   builder: (context, order, child) {
                     //_shippingCost = order.shippingIndex != null ? order.shippingList[order.shippingIndex].cost : 0;
                     double _couponDiscount = Provider.of<CouponProvider>(context).discount != null ?
-                    Provider.of<CouponProvider>(context).discount : 0;
+                    Provider.of<CouponProvider>(context).discount! : 0;
 
                     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
 
@@ -456,14 +456,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 color: Theme.of(context).highlightColor,
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                  Text(getTranslated('payment_method', context), style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),),
+                  Text(getTranslated('payment_method', context)!, style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),),
                   SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                   Expanded(child: Row(children: [
                     //Text(getTranslated('payment_method', context), style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),),
-                    _cod? Expanded(child: CustomCheckBox(title: getTranslated('cash_on_delivery', context), index: 0)):  SizedBox(),
-                    _digitalPayment ? Expanded(
+                    _cod!? Expanded(child: CustomCheckBox(title: getTranslated('cash_on_delivery', context), index: 0)):  SizedBox(),
+                    _digitalPayment! ? Expanded(
                       child: Container(
-                          child: CustomCheckBox(title: getTranslated('digital_payment', context), index: !_cod ? 0 : 1)),
+                          child: CustomCheckBox(title: getTranslated('digital_payment', context), index: !_cod! ? 0 : 1)),
                     ) : SizedBox(),
                   ],)),
                   // _cod? CustomCheckBox(title: getTranslated('cash_on_delivery', context), index: 0):  SizedBox(),
@@ -532,13 +532,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
 class PaymentButton extends StatelessWidget {
   final String image;
-  final Function onTap;
-  PaymentButton({@required this.image, this.onTap});
+  final Function? onTap;
+  PaymentButton({required this.image, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: onTap as void Function()?,
       child: Container(
         height: 45,
         margin: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),

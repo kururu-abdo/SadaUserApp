@@ -22,22 +22,22 @@ class MobileVerificationScreen extends StatefulWidget {
 
 class _MobileVerificationScreenState extends State<MobileVerificationScreen> {
 
-  TextEditingController _numberController;
+  TextEditingController? _numberController;
   final FocusNode _numberFocus = FocusNode();
-  String _countryDialCode = '+880';
+  String? _countryDialCode = '+880';
 
   @override
   void initState() {
     super.initState();
     _numberController = TextEditingController();
-    _countryDialCode = CountryCode.fromCountryCode(Provider.of<SplashProvider>(context, listen: false).configModel.countryCode).dialCode;
+    _countryDialCode = CountryCode.fromCountryCode(Provider.of<SplashProvider>(context, listen: false).configModel!.countryCode!).dialCode;
   }
 
 
   @override
   Widget build(BuildContext context) {
-    final number = ModalRoute.of(context).settings.arguments;
-    _numberController.text = number;
+    final number = ModalRoute.of(context)!.settings.arguments!;
+    _numberController!.text = number as String;
     return Scaffold(
 
       body: SafeArea(
@@ -62,11 +62,11 @@ class _MobileVerificationScreenState extends State<MobileVerificationScreen> {
                       SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
 
 
-                      Center(child: Text(getTranslated('mobile_verification', context),)),
+                      Center(child: Text(getTranslated('mobile_verification', context)!,)),
                       SizedBox(height: Dimensions.PADDING_SIZE_Thirty_Five),
 
 
-                      Text(getTranslated('mobile_number', context),),
+                      Text(getTranslated('mobile_number', context)!,),
                       SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
 
@@ -84,7 +84,7 @@ class _MobileVerificationScreenState extends State<MobileVerificationScreen> {
                             showDropDownButton: true,
                             padding: EdgeInsets.zero,
                             showFlagMain: true,
-                            textStyle: TextStyle(color: Theme.of(context).textTheme.headline1.color),
+                            textStyle: TextStyle(color: Theme.of(context).textTheme.headline1!.color),
 
                           ),
 
@@ -107,11 +107,11 @@ class _MobileVerificationScreenState extends State<MobileVerificationScreen> {
                       CustomButton(
                         buttonText: getTranslated('continue', context),
                         onTap: () async {
-                          String _number = _countryDialCode+_numberController.text.trim();
-                          String _numberChk = _numberController.text.trim();
+                          String _number = _countryDialCode!+_numberController!.text.trim();
+                          String _numberChk = _numberController!.text.trim();
 
                           if (_numberChk.isEmpty) {
-                            showCustomSnackBar(getTranslated('enter_phone_number', context), context);
+                            showCustomSnackBar(getTranslated('enter_phone_number', context)!, context);
                           }
                           else {
                             authProvider.checkPhone(_number,widget.tempToken).then((value) async {
@@ -125,7 +125,7 @@ class _MobileVerificationScreenState extends State<MobileVerificationScreen> {
                                     ),), (route) => false);
                                 }
                               }else{
-                                final snackBar = SnackBar(content: Text(getTranslated('phone_number_already_exist', context)),
+                                final snackBar = SnackBar(content: Text(getTranslated('phone_number_already_exist', context)!),
                                   backgroundColor: Colors.red,);
                                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
 

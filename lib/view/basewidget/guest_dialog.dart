@@ -26,9 +26,9 @@ class GuestDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
 
-              Text(getTranslated('THIS_SECTION_IS_LOCK', context), style: robotoBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
+              Text(getTranslated('THIS_SECTION_IS_LOCK', context)!, style: robotoBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
               SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-              Text(getTranslated('GOTO_LOGIN_SCREEN_ANDTRYAGAIN', context), textAlign: TextAlign.center, style: titilliumRegular),
+              Text(getTranslated('GOTO_LOGIN_SCREEN_ANDTRYAGAIN', context)!, textAlign: TextAlign.center, style: titilliumRegular),
               SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
 
               Divider(height: 0, color: Theme.of(context).hintColor),
@@ -40,7 +40,7 @@ class GuestDialog extends StatelessWidget {
                     padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10))),
-                    child: Text(getTranslated('CANCEL', context), style: titilliumBold.copyWith(color: Theme.of(context).primaryColor)),
+                    child: Text(getTranslated('CANCEL', context)!, style: titilliumBold.copyWith(color: Theme.of(context).primaryColor)),
                   ),
                 )),
 
@@ -50,7 +50,7 @@ class GuestDialog extends StatelessWidget {
                     padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(color: Theme.of(context).primaryColor, borderRadius: BorderRadius.only(bottomRight: Radius.circular(10))),
-                    child: Text(getTranslated('LOGIN', context), style: titilliumBold.copyWith(color: Colors.white)),
+                    child: Text(getTranslated('LOGIN', context)!, style: titilliumBold.copyWith(color: Colors.white)),
                   ),
                 )),
 

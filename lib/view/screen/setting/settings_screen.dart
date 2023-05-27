@@ -30,7 +30,7 @@ class SettingsScreen extends StatelessWidget {
 
             Padding(padding: EdgeInsets.only(top: Dimensions.PADDING_SIZE_LARGE,
                 left: Dimensions.PADDING_SIZE_LARGE),
-              child: Text(getTranslated('settings', context),
+              child: Text(getTranslated('settings', context)!,
                   style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
             ),
 
@@ -40,7 +40,7 @@ class SettingsScreen extends StatelessWidget {
               children: [
                 SwitchListTile(value: Provider.of<ThemeProvider>(context).darkTheme,
                   onChanged: (bool isActive) =>Provider.of<ThemeProvider>(context, listen: false).toggleTheme(),
-                  title: Text(getTranslated('dark_theme', context),
+                  title: Text(getTranslated('dark_theme', context)!,
                       style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),),
 
                 TitleButton(image: Images.language,
@@ -48,7 +48,7 @@ class SettingsScreen extends StatelessWidget {
                   onTap: () => showAnimatedDialog(context, CurrencyDialog(isCurrency: false)),),
 
                 TitleButton(image: Images.currency,
-                  title: '${getTranslated('currency', context)} (${Provider.of<SplashProvider>(context).myCurrency.name})',
+                  title: '${getTranslated('currency', context)} (${Provider.of<SplashProvider>(context).myCurrency!.name})',
                   onTap: () => showAnimatedDialog(context, CurrencyDialog()),
                 ),
               ],
@@ -62,16 +62,16 @@ class SettingsScreen extends StatelessWidget {
 
 class TitleButton extends StatelessWidget {
   final String image;
-  final String title;
+  final String? title;
   final Function onTap;
-  TitleButton({@required this.image, @required this.title, @required this.onTap});
+  TitleButton({required this.image, required this.title, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: Image.asset(image, width: 25, height: 25, fit: BoxFit.fill, color: ColorResources.getPrimary(context)),
-      title: Text(title, style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
-      onTap: onTap,
+      title: Text(title!, style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
+      onTap: onTap as void Function()?,
     );
   }
 }

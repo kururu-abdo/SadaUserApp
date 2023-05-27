@@ -10,8 +10,8 @@ import 'package:eamar_user_app/view/screen/search/widget/search_filter_bottom_sh
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class SearchProductWidget extends StatelessWidget {
-  final bool isViewScrollable;
-  final List<Product> products;
+  final bool? isViewScrollable;
+  final List<Product>? products;
   SearchProductWidget({this.isViewScrollable, this.products});
 
   @override
@@ -27,7 +27,7 @@ class SearchProductWidget extends StatelessWidget {
                     style: robotoBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE,
                     color: ColorResources.getReviewRattingColor(context))),
 
-                TextSpan(text: '(${products.length} ' + '${getTranslated('item_found', context)})'),
+                TextSpan(text: '(${products!.length} ' + '${getTranslated('item_found', context)})'),
               ],
             ),
           ),
@@ -53,10 +53,10 @@ class SearchProductWidget extends StatelessWidget {
             physics: BouncingScrollPhysics(),
             padding: EdgeInsets.all(0),
             crossAxisCount: 2,
-            itemCount: products.length,
+            itemCount: products!.length,
             staggeredTileBuilder: (int index) => StaggeredTile.fit(1),
             itemBuilder: (BuildContext context, int index) {
-              return ProductWidget(productModel: products[index]);},
+              return ProductWidget(productModel: products![index]);},
             ),
           ),
         ],

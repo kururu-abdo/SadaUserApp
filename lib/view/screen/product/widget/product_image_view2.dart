@@ -29,8 +29,8 @@ import 'dart:ui' as ui;
 import '../../../../data/datasource/remote/chache/app_path_provider.dart';
 import '../../../../helper/firebase_dynamic_links_services.dart';
 class ProductImageView2 extends StatefulWidget {
-  final Product productModel;
-  ProductImageView2({@required this.productModel});
+  final Product? productModel;
+  ProductImageView2({required this.productModel});
 
   @override
   State<ProductImageView2> createState() => _ProductImageViewState();
@@ -38,13 +38,13 @@ class ProductImageView2 extends StatefulWidget {
 
 class _ProductImageViewState extends State<ProductImageView2>   with TickerProviderStateMixin {
 
-  TransformationController  transformationController;
+  late TransformationController  transformationController;
   final PageController _controller = PageController();
-AnimationController animationController;
-Animation<double> animation;
-Animation<Matrix4> animation2;
+late AnimationController animationController;
+Animation<double>? animation;
+late Animation<Matrix4> animation2;
 final _transformationController = TransformationController();
-TapDownDetails _doubleTapDetails;
+late TapDownDetails _doubleTapDetails;
 void _handleDoubleTapDown(TapDownDetails details) {
   _doubleTapDetails = details;
 }
@@ -63,13 +63,13 @@ void _handleDoubleTap() {
     // ..scale(2.0);
   }
 }
- Offset _startingFocalPoint;
+ late Offset _startingFocalPoint;
 
-   Offset _previousOffset;
+   late Offset _previousOffset;
 
   Offset _offset = Offset.zero;
 
-   double _previousZoom;
+   late double _previousZoom;
 
   double _zoom = 1.0;
 
@@ -183,6 +183,12 @@ void _handleDoubleTap() {
 void initState() { 
   super.initState();
   ;
+         transformationController = TransformationController();
+  animationController =
+       AnimationController(vsync: this, duration: const Duration(milliseconds: 200))
+       ..addListener(() {
+         transformationController.value = animation2.value;
+       });
    animation =
        CurveTween(curve: Curves.fastOutSlowIn).animate(animationController);
 
@@ -190,12 +196,7 @@ void initState() {
 
 
 
-       transformationController = TransformationController();
-  animationController =
-       AnimationController(vsync: this, duration: const Duration(milliseconds: 200))
-       ..addListener(() {
-         transformationController.value = animation2.value;
-       });
+
 }
 void _showOverlay(BuildContext context ,index) async {
    OverlayState overlayState = Overlay.of(context);
@@ -242,7 +243,7 @@ void dispose() {
       mainAxisSize: MainAxisSize.min,
       children: [
         InkWell(
-          child: widget.productModel.images !=null ?
+          child: widget.productModel!.images!.isNotEmpty ?
           Container(
             decoration: BoxDecoration(
               color: Colors.black,
@@ -258,16 +259,16 @@ void dispose() {
             child: Stack(children: [
               SizedBox(
                 height: MediaQuery.of(context).size.width,
-                child: widget.productModel.images != null?
+                child: widget.productModel!.images !.isNotEmpty?
 
                 PageView.builder(
                   controller: _controller,
-                  itemCount: widget.productModel.images.length,
+                  itemCount: widget.productModel!.images!.length,
                   itemBuilder: (context, index) {
 
                     return
                       Hero(
-                        tag: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.productImageUrl}/${widget.productModel.images[index]}',
+                        tag: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.productImageUrl}/${widget.productModel!.images![index]}',
                         child: 
                         _buildImage(index)
                      
@@ -332,7 +333,7 @@ void dispose() {
                     Provider.of<ProductDetailsProvider>(context).imageSliderIndex != null?
                     Padding(
                       padding: const EdgeInsets.only(right: Dimensions.PADDING_SIZE_DEFAULT,bottom: Dimensions.PADDING_SIZE_DEFAULT),
-                      child: Text('${Provider.of<ProductDetailsProvider>(context).imageSliderIndex+1}'+'/'+'${widget.productModel.images.length.toString()}'),
+                      child: Text('${Provider.of<ProductDetailsProvider>(context).imageSliderIndex!+1}'+'/'+'${widget.productModel!.images!.length.toString()}'),
                     ):SizedBox(),
                   ],
                 ),
@@ -344,7 +345,7 @@ void dispose() {
                       backgroundColor: ColorResources.getImageBg(context),
                       favColor: Colors.redAccent,
                       isSelected: Provider.of<WishListProvider>(context,listen: false).isWish,
-                      productId: widget.productModel.id,
+                      productId: widget.productModel!.id,
                     ),
                     SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
 
@@ -353,7 +354,7 @@ void dispose() {
                       onTap: () async{
 
 
-                        DymanicLinksServices.createDynamicLink(true, widget.productModel).then((value) async{
+                        DymanicLinksServices.createDynamicLink(true, widget.productModel!).then((value) async{
 
 
 
@@ -361,7 +362,7 @@ log(value);
 
 var result=await FirebaseAnalytics.instance
 
-.logShare(contentType: 'product', itemId: widget.productModel.id.toString(), method: 'share');
+.logShare(contentType: 'product', itemId: widget.productModel!.id.toString(), method: 'share');
 result;
   Share.share(value);
                           // Share.share(Provider.of<ProductDetailsProvider>(context, listen: false).sharableLink);
@@ -404,7 +405,7 @@ result;
 // _downloadImage( );
                         Navigator.of(context).push(
                           MaterialPageRoute(builder: (_)=> ProductImageDownload(
-                            imageUrl: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.productImageUrl}/${widget.productModel.images[_currentIndex]}'
+                            imageUrl: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.productImageUrl}/${widget.productModel!.images![_currentIndex]}'
                           )   )
                         );
                       },
@@ -428,7 +429,7 @@ result;
               ),
 
 
-              widget.productModel.unitPrice !=null && widget.productModel.discount != 0 ?
+              widget.productModel!.unitPrice !=null && widget.productModel!.discount != 0 ?
               Positioned(
                 left: 0,top: 0,
                 child: Column(
@@ -439,8 +440,8 @@ result;
                         color: Theme.of(context).primaryColor,
                         borderRadius: BorderRadius.only(bottomRight: Radius.circular(Dimensions.PADDING_SIZE_SMALL))
                       ),
-                      child: Text('${PriceConverter.percentageCalculation(context, widget.productModel.unitPrice,
-                          widget.productModel.discount, widget.productModel.discountType)}',
+                      child: Text('${PriceConverter.percentageCalculation(context, widget.productModel!.unitPrice,
+                          widget.productModel!.discount!, widget.productModel!.discountType)}',
                         style: titilliumRegular.copyWith(color: Theme.of(context).cardColor, fontSize: Dimensions.FONT_SIZE_LARGE),
                       ),
                     ),
@@ -458,7 +459,7 @@ result;
 
 
  Visibility(
-visible: widget.productModel.images.length>1,
+visible: widget.productModel!.images!.isNotEmpty,
 
    child: Container(
      height: 120,      color: Theme.of(context).cardColor,
@@ -470,7 +471,7 @@ visible: widget.productModel.images.length>1,
      ListView.builder(
        scrollDirection: Axis.horizontal,
          padding: const EdgeInsets.all(8),
-      itemCount: widget.productModel.images.length,
+      itemCount: widget.productModel!.images!.length,
       itemBuilder: (BuildContext context, int index) { 
  return 
          GestureDetector(
@@ -507,7 +508,7 @@ visible: widget.productModel.images.length>1,
               //  ]:null
               //  ,
               
-                 image: DecorationImage(image: NetworkImage('${Provider.of<SplashProvider>(context,listen: false).baseUrls.productImageUrl}/${ widget.productModel.images[index]}'),
+                 image: DecorationImage(image: NetworkImage('${Provider.of<SplashProvider>(context,listen: false).baseUrls!.productImageUrl}/${ widget.productModel!.images![index]}'),
                  fit: BoxFit.cover
                  
                  )
@@ -548,7 +549,7 @@ visible: widget.productModel.images.length>1,
 
   List<Widget> _indicators(BuildContext context) {
     List<Widget> indicators = [];
-    for (int index = 0; index < widget.productModel.images.length; index++) {
+    for (int index = 0; index < widget.productModel!.images!.length; index++) {
       indicators.add(TabPageSelectorIndicator(
         backgroundColor: index == Provider.of<ProductDetailsProvider>(context).imageSliderIndex ?
         Theme.of(context).primaryColor : ColorResources.WHITE,
@@ -624,9 +625,9 @@ log('HERE');
 try {
   
   RenderRepaintBoundary boundary =
-                    _repaintKey.currentContext.findRenderObject();
+                    _repaintKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
 ui.Image image = await boundary.toImage();
-ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+ByteData byteData = (await image.toByteData(format: ui.ImageByteFormat.png))!;
 Uint8List pngBytes = byteData.buffer.asUint8List();
 
 final String path =await   AppPathProvider.createFolderInAppDocDir("screenshots");
@@ -739,7 +740,7 @@ final double minScale=1;
                                  FadeInImage.assetNetwork(fit: BoxFit.cover,
                                   placeholder: Images.placeholder, height: MediaQuery.of(context).size.width,
                                   width: MediaQuery.of(context).size.width,
-                                  image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.productImageUrl}/${widget.productModel.images[index]}',
+                                  image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.productImageUrl}/${widget.productModel!.images![index]}',
                                   imageErrorBuilder: (c, o, s) => Image.asset(
                                     Images.placeholder, height: MediaQuery.of(context).size.width,
                                     width: MediaQuery.of(context).size.width,fit: BoxFit.cover,
@@ -767,23 +768,23 @@ class _GesturePainter extends CustomPainter {
      this.longPressEnabled,
   });
 
-  final double zoom;
-  final Offset offset;
-  final MaterialColor swatch;
-  final bool forward;
-  final bool scaleEnabled;
-  final bool tapEnabled;
-  final bool doubleTapEnabled;
-  final bool longPressEnabled;
+  final double? zoom;
+  final Offset? offset;
+  final MaterialColor? swatch;
+  final bool? forward;
+  final bool? scaleEnabled;
+  final bool? tapEnabled;
+  final bool? doubleTapEnabled;
+  final bool? longPressEnabled;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Offset center = size.center(Offset.zero) * zoom + offset;
-    final double radius = size.width / 2.0 * zoom;
+    final Offset center = size.center(Offset.zero) * zoom! + offset!;
+    final double radius = size.width / 2.0 * zoom!;
     final Gradient gradient = RadialGradient(
-      colors: forward
-        ? <Color>[swatch.shade50, swatch.shade900]
-        : <Color>[swatch.shade900, swatch.shade50],
+      colors: forward!
+        ? <Color>[swatch!.shade50, swatch!.shade900]
+        : <Color>[swatch!.shade900, swatch!.shade50],
     );
     final Paint paint = Paint()
       ..shader = gradient.createShader(Rect.fromCircle(

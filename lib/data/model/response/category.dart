@@ -30,15 +30,15 @@ class Category {
     this._subCategories = subCategories;
   }
 
-  int get id => _id!;
-  String get name => _name!;
-  String get slug => _slug!;
-  String get icon => _icon!;
-  int get parentId => _parentId!;
-  int get position => _position!;
-  String get createdAt => _createdAt!;
-  String get updatedAt => _updatedAt!;
-  List<SubCategory> get subCategories => _subCategories!;
+  int? get id => _id;
+  String? get name => _name;
+  String? get slug => _slug;
+  String? get icon => _icon;
+  int? get parentId => _parentId;
+  int? get position => _position;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
+  List<SubCategory>? get subCategories => _subCategories;
 
   Category.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
@@ -49,7 +49,7 @@ class Category {
     _position = json['position'];
     _createdAt = json['created_at'];
     _updatedAt = json['updated_at'];
-    if (json['childes'] != null) {
+    if (json['childes'] !=  null) {
       _subCategories = [];
       json['childes'].forEach((v) {
         _subCategories!.add(new SubCategory.fromJson(v));
@@ -67,7 +67,7 @@ class Category {
     data['position'] = this._position;
     data['created_at'] = this._createdAt;
     data['updated_at'] = this._updatedAt;
-    if (this._subCategories != null) {
+    if (this._subCategories !=  null) {
       data['childes'] = this._subCategories!.map((v) => v.toJson()).toList();
     }
     return data;
@@ -95,26 +95,26 @@ class SubCategory {
         String? createdAt,
         String? updatedAt,
         List<SubSubCategory>? subSubCategories}) {
-    this._id = id!;
-    this._name = name!;
-    this._slug = slug!;
-    this._icon = icon!;
-    this._parentId = parentId!;
-    this._position = position!;
-    this._createdAt = createdAt!;
-    this._updatedAt = updatedAt!;
-    this._subSubCategories = subSubCategories!;
+    this._id = id;
+    this._name = name;
+    this._slug = slug;
+    this._icon = icon;
+    this._parentId = parentId;
+    this._position = position;
+    this._createdAt = createdAt;
+    this._updatedAt = updatedAt;
+    this._subSubCategories = subSubCategories;
   }
 
-  int get id => _id!;
-  String get name => _name!;
-  String get slug => _slug!;
-  String get icon => _icon!;
-  int get parentId => _parentId!;
-  int get position => _position!;
-  String get createdAt => _createdAt!;
-  String get updatedAt => _updatedAt!;
-  List<SubSubCategory> get subSubCategories => _subSubCategories!;
+  int? get id => _id;
+  String? get name => _name;
+  String? get slug => _slug;
+  String? get icon => _icon;
+  int? get parentId => _parentId;
+  int? get position => _position;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
+  List<SubSubCategory>? get subSubCategories => _subSubCategories;
 
   SubCategory.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
@@ -125,7 +125,7 @@ class SubCategory {
     _position = json['position'];
     _createdAt = json['created_at'];
     _updatedAt = json['updated_at'];
-    if (json['childes'] != null) {
+    if (json['childes'] !=  null) {
       _subSubCategories = [];
       json['childes'].forEach((v) {
         _subSubCategories!.add(new SubSubCategory.fromJson(v));
@@ -143,7 +143,7 @@ class SubCategory {
     data['position'] = this._position;
     data['created_at'] = this._createdAt;
     data['updated_at'] = this._updatedAt;
-    if (this._subSubCategories != null) {
+    if (this._subSubCategories !=  null) {
       data['childes'] = this._subSubCategories!.map((v) => v.toJson()).toList();
     }
     return data;
@@ -179,14 +179,14 @@ class SubSubCategory {
     this._updatedAt = updatedAt;
   }
 
-  int get id => _id!;
-  String get name => _name!;
-  String get slug => _slug!;
-  String get icon => _icon!;
-  int get parentId => _parentId!;
-  int get position => _position!;
-  String get createdAt => _createdAt!;
-  String get updatedAt => _updatedAt!;
+  int? get id => _id;
+  String? get name => _name;
+  String? get slug => _slug;
+  String? get icon => _icon;
+  int? get parentId => _parentId;
+  int? get position => _position;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
 
   SubSubCategory.fromJson(Map<String, dynamic> json) {
     _id = json['id'];

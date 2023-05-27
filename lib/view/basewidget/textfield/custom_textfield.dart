@@ -11,17 +11,17 @@ extension EmailValidator on String {
 }
 
 class CustomTextField extends StatelessWidget {
-  final TextEditingController controller;
-  final String hintText;
-  final TextInputType textInputType;
-  final int maxLine;
-  final FocusNode focusNode;
-  final FocusNode nextNode;
-  final TextInputAction textInputAction;
+  final TextEditingController? controller;
+  final String? hintText;
+  final TextInputType? textInputType;
+  final int? maxLine;
+  final FocusNode? focusNode;
+  final FocusNode? nextNode;
+  final TextInputAction? textInputAction;
   final bool isPhoneNumber;
   final bool isValidator;
-  final String validatorMessage;
-  final Color fillColor;
+  final String? validatorMessage;
+  final Color? fillColor;
   final TextCapitalization capitalization;
   final bool isBorder;
 
@@ -90,7 +90,7 @@ class CustomTextField extends StatelessWidget {
         //autovalidate: true,
         inputFormatters: [isPhoneNumber ? FilteringTextInputFormatter.digitsOnly : FilteringTextInputFormatter.singleLineFormatter],
         validator: (input){
-          if(input.isEmpty){
+          if(input!.isEmpty){
             if(isValidator){
               return validatorMessage??"";
             }
@@ -125,7 +125,7 @@ hintTextDirection: TextDirection.ltr,
                       style: TextStyle(
                           // color: Colors.black
                           
-                   color:       Theme.of(context).textTheme.headline1.color ,
+                   color:       Theme.of(context).textTheme.headline1!.color ,
                    fontWeight: FontWeight.bold
                           
                           ),
@@ -146,7 +146,7 @@ hintTextDirection: TextDirection.ltr,
                       style: TextStyle(
                           // color: Colors.black
                           
-                   color:       Theme.of(context).textTheme.headline1.color ,
+                   color:       Theme.of(context).textTheme.headline1!.color ,
                    fontWeight: FontWeight.bold
                           
                           ),

@@ -6,12 +6,12 @@ import 'package:eamar_user_app/data/model/response/base/api_response.dart';
 import 'package:eamar_user_app/utill/app_constants.dart';
 
 class WalletTransactionRepo {
-  final DioClient dioClient;
-  WalletTransactionRepo({@required this.dioClient});
+  final DioClient? dioClient;
+  WalletTransactionRepo({required this.dioClient});
 
   Future<ApiResponse> getWalletTransactionList(int offset) async {
     try {
-      Response response = await dioClient.get('${AppConstants.WALLET_TRANSACTION_URI}$offset');
+      Response response = await dioClient!.get('${AppConstants.WALLET_TRANSACTION_URI}$offset');
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -20,7 +20,7 @@ class WalletTransactionRepo {
 
   Future<ApiResponse> getLoyaltyPointList(int offset) async {
     try {
-      Response response = await dioClient.get('${AppConstants.LOYALTY_POINT_URI}$offset');
+      Response response = await dioClient!.get('${AppConstants.LOYALTY_POINT_URI}$offset');
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -29,7 +29,7 @@ class WalletTransactionRepo {
 
   Future<ApiResponse> convertPointToCurrency(int point) async {
     try {
-      Response response = await dioClient.post(
+      Response response = await dioClient!.post(
         AppConstants.LOYALTY_POINT_CONVERT_URI,
         data: {"point": point},
       );

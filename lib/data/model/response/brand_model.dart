@@ -24,13 +24,13 @@ class BrandModel {
     this._brandProductsCount = brandProductsCount;
   }
 
-  int get id => _id!;
-  String get name => _name!;
-  String get image => _image!;
-  int get status => _status!;
-  String get createdAt => _createdAt!;
-  String get updatedAt => _updatedAt!;
-  int get brandProductsCount => _brandProductsCount!;
+  int? get id => _id;
+  String? get name => _name;
+  String? get image => _image;
+  int? get status => _status;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
+  int? get brandProductsCount => _brandProductsCount;
 
   BrandModel.fromJson(Map<String, dynamic> json) {
     _id = json['id'];

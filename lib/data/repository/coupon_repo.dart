@@ -5,12 +5,12 @@ import 'package:eamar_user_app/data/model/response/base/api_response.dart';
 import 'package:eamar_user_app/utill/app_constants.dart';
 
 class CouponRepo {
-  final DioClient dioClient;
-  CouponRepo({@required this.dioClient});
+  final DioClient? dioClient;
+  CouponRepo({required this.dioClient});
 
   Future<ApiResponse> getCoupon(String coupon) async {
     try {
-      final response = await dioClient.get('${AppConstants.COUPON_URI}$coupon');
+      final response = await dioClient!.get('${AppConstants.COUPON_URI}$coupon');
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));

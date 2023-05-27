@@ -10,17 +10,17 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
 class SelectLocationScreen extends StatefulWidget {
-  final GoogleMapController googleMapController;
-  SelectLocationScreen({@required this.googleMapController});
+  final GoogleMapController? googleMapController;
+  SelectLocationScreen({required this.googleMapController});
 
   @override
   _SelectLocationScreenState createState() => _SelectLocationScreenState();
 }
 
 class _SelectLocationScreenState extends State<SelectLocationScreen> {
-  GoogleMapController _controller;
+  GoogleMapController? _controller;
   TextEditingController _locationController = TextEditingController();
-  CameraPosition _cameraPosition;
+  CameraPosition? _cameraPosition;
 
   @override
   void initState() {
@@ -28,7 +28,7 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
     Provider.of<LocationProvider>(context, listen: false).setPickData();
   }
 
-  void _openSearchDialog(BuildContext context, GoogleMapController mapController) async {
+  void _openSearchDialog(BuildContext context, GoogleMapController? mapController) async {
     showDialog(context: context, builder: (context) => LocationSearchDialog(mapController: mapController));
   }
 

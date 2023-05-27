@@ -28,8 +28,8 @@ import 'dart:ui' as ui;
 import '../../../../data/datasource/remote/chache/app_path_provider.dart';
 import '../../../../helper/firebase_dynamic_links_services.dart';
 class ProductImageView extends StatefulWidget {
-  final Product productModel;
-  ProductImageView({@required this.productModel});
+  final Product? productModel;
+  ProductImageView({required this.productModel});
 
   @override
   State<ProductImageView> createState() => _ProductImageViewState();
@@ -37,20 +37,20 @@ class ProductImageView extends StatefulWidget {
 
 class _ProductImageViewState extends State<ProductImageView>   with TickerProviderStateMixin {
 
-  TransformationController  transformationController;
+  TransformationController?  transformationController;
   final PageController _controller = PageController();
-AnimationController animationController;
-Animation<double> animation;
-Animation<Matrix4> animation2;
+late AnimationController animationController;
+Animation<double>? animation;
+late Animation<Matrix4> animation2;
 
 
- Offset _startingFocalPoint;
+ late Offset _startingFocalPoint;
 
-   Offset _previousOffset;
+   late Offset _previousOffset;
 
   Offset _offset = Offset.zero;
 
-   double _previousZoom;
+   late double _previousZoom;
 
   double _zoom = 1.0;
 
@@ -175,7 +175,7 @@ void initState() {
   animationController =
        AnimationController(vsync: this, duration: const Duration(milliseconds: 200))
        ..addListener(() {
-         transformationController.value = animation2.value;
+         transformationController!.value = animation2.value;
        });
 }
 void _showOverlay(BuildContext context ,index) async {
@@ -211,7 +211,7 @@ var size  =  MediaQuery.of(context).size;
 @override
 void dispose() { 
     animationController.dispose();
-  transformationController.dispose();
+  transformationController!.dispose();
   super.dispose();
 
 }
@@ -223,12 +223,12 @@ void dispose() {
       mainAxisSize: MainAxisSize.min,
       children: [
         InkWell(
-          child: widget.productModel.images !=null ?
+          child: widget.productModel!.images !=null ?
           Container(
             decoration: BoxDecoration(
               color: Colors.black,
               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
-              boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 700 : 300],
+              boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ? 700 : 300]!,
                   spreadRadius: 1, blurRadius: 5)],
               gradient: Provider.of<ThemeProvider>(context).darkTheme ? null : LinearGradient(
                 colors: [ColorResources.WHITE, ColorResources.IMAGE_BG],
@@ -239,16 +239,16 @@ void dispose() {
             child: Stack(children: [
               SizedBox(
                 height: MediaQuery.of(context).size.width,
-                child: widget.productModel.images != null?
+                child: widget.productModel!.images != null?
 
                 PageView.builder(
                   controller: _controller,
-                  itemCount: widget.productModel.images.length,
+                  itemCount: widget.productModel!.images!.length,
                   itemBuilder: (context, index) {
 
                     return
                       Hero(
-                        tag: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.productImageUrl}/${widget.productModel.images[index]}',
+                        tag: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.productImageUrl}/${widget.productModel!.images![index]}',
                         child: 
                         _buildImage(index)
                      
@@ -313,7 +313,7 @@ void dispose() {
                     Provider.of<ProductDetailsProvider>(context).imageSliderIndex != null?
                     Padding(
                       padding: const EdgeInsets.only(right: Dimensions.PADDING_SIZE_DEFAULT,bottom: Dimensions.PADDING_SIZE_DEFAULT),
-                      child: Text('${Provider.of<ProductDetailsProvider>(context).imageSliderIndex+1}'+'/'+'${widget.productModel.images.length.toString()}'),
+                      child: Text('${Provider.of<ProductDetailsProvider>(context).imageSliderIndex!+1}'+'/'+'${widget.productModel!.images!.length.toString()}'),
                     ):SizedBox(),
                   ],
                 ),
@@ -325,7 +325,7 @@ void dispose() {
                       backgroundColor: ColorResources.getImageBg(context),
                       favColor: Colors.redAccent,
                       isSelected: Provider.of<WishListProvider>(context,listen: false).isWish,
-                      productId: widget.productModel.id,
+                      productId: widget.productModel!.id,
                     ),
                     SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
 
@@ -334,7 +334,7 @@ void dispose() {
                       onTap: () {
 
 
-                        DymanicLinksServices.createDynamicLink(true, widget.productModel).then((value) {
+                        DymanicLinksServices.createDynamicLink(true, widget.productModel!).then((value) {
 
 
 
@@ -382,7 +382,7 @@ log(value);
 // _downloadImage( );
                         Navigator.of(context).push(
                           MaterialPageRoute(builder: (_)=> ProductImageDownload(
-                            imageUrl: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.productImageUrl}/${widget.productModel.images[_currentIndex]}'
+                            imageUrl: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.productImageUrl}/${widget.productModel!.images![_currentIndex]}'
                           )   )
                         );
                       },
@@ -406,7 +406,7 @@ log(value);
               ),
 
 
-              widget.productModel.unitPrice !=null && widget.productModel.discount != 0 ?
+              widget.productModel!.unitPrice !=null && widget.productModel!.discount != 0 ?
               Positioned(
                 left: 0,top: 0,
                 child: Column(
@@ -417,8 +417,8 @@ log(value);
                         color: Theme.of(context).primaryColor,
                         borderRadius: BorderRadius.only(bottomRight: Radius.circular(Dimensions.PADDING_SIZE_SMALL))
                       ),
-                      child: Text('${PriceConverter.percentageCalculation(context, widget.productModel.unitPrice,
-                          widget.productModel.discount, widget.productModel.discountType)}',
+                      child: Text('${PriceConverter.percentageCalculation(context, widget.productModel!.unitPrice,
+                          widget.productModel!.discount, widget.productModel!.discountType)}',
                         style: titilliumRegular.copyWith(color: Theme.of(context).cardColor, fontSize: Dimensions.FONT_SIZE_LARGE),
                       ),
                     ),
@@ -439,7 +439,7 @@ log(value);
 
   List<Widget> _indicators(BuildContext context) {
     List<Widget> indicators = [];
-    for (int index = 0; index < widget.productModel.images.length; index++) {
+    for (int index = 0; index < widget.productModel!.images!.length; index++) {
       indicators.add(TabPageSelectorIndicator(
         backgroundColor: index == Provider.of<ProductDetailsProvider>(context).imageSliderIndex ?
         Theme.of(context).primaryColor : ColorResources.WHITE,
@@ -515,9 +515,9 @@ log('HERE');
 try {
   
   RenderRepaintBoundary boundary =
-                    _repaintKey.currentContext.findRenderObject();
+                    _repaintKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
 ui.Image image = await boundary.toImage();
-ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+ByteData byteData = (await image.toByteData(format: ui.ImageByteFormat.png))!;
 Uint8List pngBytes = byteData.buffer.asUint8List();
 
 final String path =await   AppPathProvider.createFolderInAppDocDir("screenshots");
@@ -561,7 +561,7 @@ onIneractionEnd(){
 
 
   animation2 =  Matrix4Tween(
-    begin: transformationController.value ,
+    begin: transformationController!.value ,
     end:Matrix4.identity()
   ).animate(
 
@@ -625,7 +625,7 @@ onIneractionEnd();
                                FadeInImage.assetNetwork(fit: BoxFit.cover,
                                 placeholder: Images.placeholder, height: MediaQuery.of(context).size.width,
                                 width: MediaQuery.of(context).size.width,
-                                image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.productImageUrl}/${widget.productModel.images[index]}',
+                                image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.productImageUrl}/${widget.productModel!.images![index]}',
                                 imageErrorBuilder: (c, o, s) => Image.asset(
                                   Images.placeholder, height: MediaQuery.of(context).size.width,
                                   width: MediaQuery.of(context).size.width,fit: BoxFit.cover,
@@ -652,23 +652,23 @@ class _GesturePainter extends CustomPainter {
      this.longPressEnabled,
   });
 
-  final double zoom;
-  final Offset offset;
-  final MaterialColor swatch;
-  final bool forward;
-  final bool scaleEnabled;
-  final bool tapEnabled;
-  final bool doubleTapEnabled;
-  final bool longPressEnabled;
+  final double? zoom;
+  final Offset? offset;
+  final MaterialColor? swatch;
+  final bool? forward;
+  final bool? scaleEnabled;
+  final bool? tapEnabled;
+  final bool? doubleTapEnabled;
+  final bool? longPressEnabled;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Offset center = size.center(Offset.zero) * zoom + offset;
-    final double radius = size.width / 2.0 * zoom;
+    final Offset center = size.center(Offset.zero) * zoom! + offset!;
+    final double radius = size.width / 2.0 * zoom!;
     final Gradient gradient = RadialGradient(
-      colors: forward
-        ? <Color>[swatch.shade50, swatch.shade900]
-        : <Color>[swatch.shade900, swatch.shade50],
+      colors: forward!
+        ? <Color>[swatch!.shade50, swatch!.shade900]
+        : <Color>[swatch!.shade900, swatch!.shade50],
     );
     final Paint paint = Paint()
       ..shader = gradient.createShader(Rect.fromCircle(

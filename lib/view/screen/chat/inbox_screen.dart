@@ -71,7 +71,7 @@ class InboxScreen extends StatelessWidget {
                   },
                 )
                     :Text(
-                  getTranslated('inbox', context),
+                  getTranslated('inbox', context)!,
                   style: titilliumRegular.copyWith(fontSize: 20, color: ColorResources.WHITE),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -97,9 +97,9 @@ class InboxScreen extends StatelessWidget {
               },
               child: Consumer<ChatProvider>(
                 builder: (context, chat, child) {
-                  return chat.chatInfoModel != null ? chat.uniqueShopList.length != 0 ? ListView.builder(
+                  return chat.chatInfoModel != null ? chat.uniqueShopList!.length != 0 ? ListView.builder(
                     //physics: BouncingScrollPhysics(),
-                    itemCount: chat.uniqueShopList.length,
+                    itemCount: chat.uniqueShopList!.length,
                     padding: EdgeInsets.all(0),
                     itemBuilder: (context, index) {
                       return Column(
@@ -110,27 +110,27 @@ class InboxScreen extends StatelessWidget {
                                 color: Theme.of(context).highlightColor,
                                 child: FadeInImage.assetNetwork(
                                   placeholder: Images.placeholder, fit: BoxFit.cover, height: 50, width: 50,
-                                  image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls.sellerImageUrl}'
-                                      '/${chat.uniqueShopList[index].sellerInfo != null ? chat.uniqueShopList[index].sellerInfo.image : ''}',
+                                  image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.sellerImageUrl}'
+                                      '/${chat.uniqueShopList![index].sellerInfo != null ? chat.uniqueShopList![index].sellerInfo!.image : ''}',
                                   imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, fit: BoxFit.cover, height: 50, width: 50),
                                 ),
                               ),
                             ),
                             title: Text(
-                              chat.uniqueShopList[index].sellerInfo != null ? chat.uniqueShopList[index].shop.name ?? '' : '',
+                              chat.uniqueShopList![index].sellerInfo != null ? chat.uniqueShopList![index].shop!.name ?? '' : '',
                               style: titilliumSemiBold,
                             ),
-                            subtitle: Container(child: Text(chat.uniqueShopList[index].message,maxLines: 4,overflow: TextOverflow.ellipsis, style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL))),
+                            subtitle: Container(child: Text(chat.uniqueShopList![index].message!,maxLines: 4,overflow: TextOverflow.ellipsis, style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL))),
                             trailing: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                              Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(chat.uniqueShopList[index].createdAt)),
+                              Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(chat.uniqueShopList![index].createdAt!)),
                                   style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL)),
 
                             ]),
                             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) {
                               //SellerModel sellerModel = Provider.of<ChatProvider>(context).uniqueShopList[index].sellerInfo;
                               //sellerModel.seller.shop = Provider.of<ChatProvider>(context).uniqueShopList[index].shop;
-                              return ChatScreen(seller: null,shopId: chat.uniqueShopList[index].shopId,shopName : chat.uniqueShopList[index].shop.name,
-                                  image: chat.uniqueShopList[index].sellerInfo.image);
+                              return ChatScreen(seller: null,shopId: chat.uniqueShopList![index].shopId,shopName : chat.uniqueShopList![index].shop!.name,
+                                  image: chat.uniqueShopList![index].sellerInfo!.image);
                             })),
                           ),
                           Divider(height: 2, color: ColorResources.CHAT_ICON_COLOR),
@@ -156,8 +156,8 @@ class InboxShimmer extends StatelessWidget {
       padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
       itemBuilder: (context, index) {
         return Shimmer.fromColors(
-          baseColor: Colors.grey[300],
-          highlightColor: Colors.grey[100],
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
           enabled: Provider.of<ChatProvider>(context).uniqueShopList == null,
           child: Padding(
             padding: EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_SMALL),

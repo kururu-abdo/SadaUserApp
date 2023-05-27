@@ -8,9 +8,9 @@ import 'package:eamar_user_app/data/repository/category_repo.dart';
 import 'package:eamar_user_app/helper/api_checker.dart';
 
 class CategoryProvider extends ChangeNotifier {
-  final CategoryRepo categoryRepo;
+  final CategoryRepo? categoryRepo;
 
-  CategoryProvider({@required this.categoryRepo});
+  CategoryProvider({required this.categoryRepo});
 
 List<Product> _brandOrCategoryProductList = [];
 List<Product> get brandOrCategoryProductList =>_brandOrCategoryProductList;
@@ -24,40 +24,40 @@ List<Product> get brandOrCategoryProductList =>_brandOrCategoryProductList;
   List<SubCategory> _subCategroies = [];
     List<SubSubCategory> _subSubCategory = [];
  List<SubSubCategory>    get subSubCategroies   => _subSubCategory;
- bool _hasData;
+ bool? _hasData;
  List<SubCategory>    get subCategroies   => _subCategroies;
   List<Category> get categoryList => _categoryList;
 
-  int _categorySelectedIndex;
-  int get categorySelectedIndex => _categorySelectedIndex;
+  int? _categorySelectedIndex;
+  int? get categorySelectedIndex => _categorySelectedIndex;
 
 
 
 
 
- int _subCategorySelectedIndex;
-  int get subCategorySelectedIndex => _subCategorySelectedIndex;
+ int? _subCategorySelectedIndex;
+  int? get subCategorySelectedIndex => _subCategorySelectedIndex;
 
-int _subSubCategorySelectedIndex;
-  int get subSubCategorySelectedIndex => _subSubCategorySelectedIndex;
+int? _subSubCategorySelectedIndex;
+  int? get subSubCategorySelectedIndex => _subSubCategorySelectedIndex;
 
 
- bool _isLoading;
-  bool get isLoading => _isLoading;
+ bool? _isLoading;
+  bool? get isLoading => _isLoading;
 
 
 
 
   Future<void> getCategoryList(bool reload, BuildContext context) async {
     if (_categoryList.length == 0 || reload) {
-      ApiResponse apiResponse = await categoryRepo.getCategoryList();
-      if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+      ApiResponse apiResponse = await categoryRepo!.getCategoryList();
+      if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
         _categoryList.clear();
-        apiResponse.response.data.forEach((category) => _categoryList.add(Category.fromJson(category)));
+        apiResponse.response!.data.forEach((category) => _categoryList.add(Category.fromJson(category)));
         _categorySelectedIndex = 0;
       }  else  if (apiResponse.response != null){
          _categoryList.clear();
-        apiResponse.response.data.forEach((category) => _categoryList.add(Category.fromJson(category)));
+        apiResponse.response!.data.forEach((category) => _categoryList.add(Category.fromJson(category)));
         _categorySelectedIndex = 0;
       }
       
@@ -72,7 +72,7 @@ int _subSubCategorySelectedIndex;
 
 Future<void>  getSubCategries()async{
   try {
-    var data= _categoryList[_categorySelectedIndex].subCategories;
+    var data= _categoryList[_categorySelectedIndex!].subCategories!;
 _subCategroies.clear();
     _subCategroies.addAll(data);
 
@@ -91,20 +91,20 @@ Future<void>  initSubCategory(
   Category category
 )async{
   try {
-    var data= category.subCategories;
+    var data= category.subCategories!;
 _subCategroies.clear();
     _subCategroies.addAll(data);
 
      if (_subCategroies.length>0) {
 
-if (    _subCategroies.first.subSubCategories.length>0) {
+if (    _subCategroies.first.subSubCategories!.length>0) {
 
 _subSubCategory.clear();
         
-_subSubCategory.addAll( _subCategroies.first.subSubCategories);
+_subSubCategory.addAll( _subCategroies.first.subSubCategories!);
 // getSubSubCategries(category.id);
   log('There is Sub Categories');
-        filterBrandAndCategoryProductList(context, _subCategroies.first.subSubCategories.first.id);
+        filterBrandAndCategoryProductList(context, _subCategroies.first.subSubCategories!.first.id);
       
       }else {
         log('There NOOOO Sub Categories');
@@ -127,12 +127,12 @@ _subSubCategory.addAll( _subCategroies.first.subSubCategories);
 
 
 
-getSubSubCategries(int sub){
+getSubSubCategries(int? sub){
   try {
     var data= _subCategroies.where((element) => element.id==sub).first;
 
 _subSubCategory.clear();
-    _subSubCategory.addAll(data.subSubCategories);
+    _subSubCategory.addAll(data.subSubCategories!);
     print("BRAND"+_subSubCategory.length.toString());
     notifyListeners();
   } catch (e) {
@@ -169,9 +169,9 @@ void changeSelectedSubSubCategory(int index){
     _hasData = true;
       notifyListeners();
 
-    ApiResponse apiResponse = await  categoryRepo.getBrandOrCategoryProductList(isBrand, id);
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
-      apiResponse.response.data.forEach((product) => 
+    ApiResponse apiResponse = await  categoryRepo!.getBrandOrCategoryProductList(isBrand, id);
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      apiResponse.response!.data.forEach((product) => 
       
       _brandOrCategoryProductList.add(Product.fromJson(product)));
       _hasData = _brandOrCategoryProductList.length > 1;
@@ -189,17 +189,17 @@ void changeSelectedSubSubCategory(int index){
   }
 
 
-filterBrandAndCategoryProductList(BuildContext context,int category)async{
+filterBrandAndCategoryProductList(BuildContext context,int? category)async{
   _brandOrCategoryProductList.clear();
     _hasData = true;
     _isLoading=true;
-    ApiResponse apiResponse = await categoryRepo.getProductsById(category.toString());
+    ApiResponse apiResponse = await categoryRepo!.getProductsById(category.toString());
    
    
-       log(apiResponse.response.statusCode.toString());
-    if (apiResponse.response != null && apiResponse.response.statusCode == 200) {
+       log(apiResponse.response!.statusCode.toString());
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
    _brandOrCategoryProductList.clear();
-      apiResponse.response.data['products'].forEach((product) => 
+      apiResponse.response!.data['products'].forEach((product) => 
       _brandOrCategoryProductList.add(Product.fromJson(product)));
       _hasData = _brandOrCategoryProductList.length > 1;
       List<Product> _products = [];
@@ -215,7 +215,7 @@ filterBrandAndCategoryProductList(BuildContext context,int category)async{
 
     } else  if (apiResponse.response != null){
 _brandOrCategoryProductList.clear();
-      apiResponse.response.data['products'].forEach((product) => 
+      apiResponse.response!.data['products'].forEach((product) => 
       _brandOrCategoryProductList.add(Product.fromJson(product)));
       _hasData = _brandOrCategoryProductList.length > 1;
       List<Product> _products = [];

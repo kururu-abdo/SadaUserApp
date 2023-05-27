@@ -54,7 +54,7 @@ class OrderScreen extends StatelessWidget {
           Provider.of<OrderProvider>(context).pendingList != null ?
           Consumer<OrderProvider>(
             builder: (context, order, child) {
-              List<OrderModel> orderList = [];
+              List<OrderModel>? orderList = [];
               if (Provider.of<OrderProvider>(context, listen: false).orderTypeIndex == 0) {
                 orderList = order.pendingList;
               }
@@ -73,9 +73,9 @@ class OrderScreen extends StatelessWidget {
                     await Provider.of<OrderProvider>(context, listen: false).initOrderList(context);
                     },
                   child: ListView.builder(
-                    itemCount: orderList.length,
+                    itemCount: orderList!.length,
                     padding: EdgeInsets.all(0),
-                    itemBuilder: (context, index) => OrderWidget(orderModel: orderList[index]),
+                    itemBuilder: (context, index) => OrderWidget(orderModel: orderList![index]),
                   ),),);},)
               : Expanded(child: OrderShimmer()),
         ],
@@ -96,8 +96,8 @@ class OrderShimmer extends StatelessWidget {
           padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
           color: Theme.of(context).highlightColor,
           child: Shimmer.fromColors(
-            baseColor: Colors.grey[300],
-            highlightColor: Colors.grey[100],
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -137,11 +137,11 @@ class OrderShimmer extends StatelessWidget {
 }
 
 class OrderTypeButton extends StatelessWidget {
-  final String text;
+  final String? text;
   final int index;
-  final List<OrderModel> orderList;
+  final List<OrderModel>? orderList;
 
-  OrderTypeButton({@required this.text, @required this.index, @required this.orderList});
+  OrderTypeButton({required this.text, required this.index, required this.orderList});
 
   @override
   Widget build(BuildContext context) {
@@ -156,7 +156,7 @@ class OrderTypeButton extends StatelessWidget {
             color: Provider.of<OrderProvider>(context, listen: false).orderTypeIndex == index ? ColorResources.getPrimary(context) : Theme.of(context).highlightColor,
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Text(text + '(${orderList.length})',
+          child: Text(text! + '(${orderList!.length})',
               style: titilliumBold.copyWith(color: Provider.of<OrderProvider>(context, listen: false).orderTypeIndex == index
                   ? Theme.of(context).highlightColor : ColorResources.getPrimary(context))),
         ),

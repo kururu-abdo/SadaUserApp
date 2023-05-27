@@ -22,14 +22,14 @@ class DashBoardScreen extends StatefulWidget {
 class _DashBoardScreenState extends State<DashBoardScreen> {
   PageController _pageController = PageController();
   int _pageIndex = 0;
-  List<Widget> _screens ;
+  late List<Widget> _screens ;
   GlobalKey<ScaffoldMessengerState> _scaffoldKey = GlobalKey();
 
   bool singleVendor = false;
   @override
   void initState() {
     super.initState();
-    singleVendor = Provider.of<SplashProvider>(context, listen: false).configModel.businessMode == "single";
+    singleVendor = Provider.of<SplashProvider>(context, listen: false).configModel!.businessMode == "single";
 
 
 
@@ -88,7 +88,7 @@ log(singleVendor.toString());
         // backgroundColor: Colors.transparent,
         bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: Theme.of(context).primaryColor,
-          unselectedItemColor: Theme.of(context).textTheme.bodyText1.color,
+          unselectedItemColor: Theme.of(context).textTheme.bodyText1!.color,
           showUnselectedLabels: true,
           currentIndex: _pageIndex,
           type: BottomNavigationBarType.fixed,
@@ -109,11 +109,11 @@ log(singleVendor.toString());
     );
   }
 
-  BottomNavigationBarItem _barItem(String icon, String label, int index) {
+  BottomNavigationBarItem _barItem(String icon, String? label, int index) {
     return BottomNavigationBarItem(
       icon: Image.asset(icon, color: index == _pageIndex ?
       Theme.of(context).primaryColor :
-       Theme.of(context).textTheme.bodyText1.color.withOpacity(0.5),
+       Theme.of(context).textTheme.bodyText1!.color!.withOpacity(0.5),
         height: 25, width: 25,
       ),
       label: label,

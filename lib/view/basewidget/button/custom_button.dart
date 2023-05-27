@@ -6,16 +6,16 @@ import 'package:eamar_user_app/utill/dimensions.dart';
 import 'package:provider/provider.dart';
 
 class CustomButton extends StatelessWidget {
-  final Function onTap;
-  final String buttonText;
+  final Function? onTap;
+  final String? buttonText;
   final bool isBuy;
   final bool isBorder;
-  CustomButton({this.onTap, @required this.buttonText, this.isBuy= false, this.isBorder = false});
+  CustomButton({this.onTap, required this.buttonText, this.isBuy= false, this.isBorder = false});
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: onTap,
+      onPressed: onTap as void Function()?,
       style: TextButton.styleFrom(padding: EdgeInsets.all(0)),
       child: Container(
         height: 45,
@@ -38,7 +38,7 @@ class CustomButton extends StatelessWidget {
               Theme.of(context).primaryColor,
             ]),
             borderRadius: BorderRadius.circular(isBorder? Dimensions.PADDING_SIZE_EXTRA_SMALL : Dimensions.PADDING_SIZE_SMALL)),
-        child: Text(buttonText,
+        child: Text(buttonText!,
             style: titilliumSemiBold.copyWith(
               fontSize: 16,
               color: Theme.of(context).highlightColor,

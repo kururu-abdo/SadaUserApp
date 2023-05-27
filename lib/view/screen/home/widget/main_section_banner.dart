@@ -1,3 +1,4 @@
+import 'package:eamar_user_app/view/screen/product/product_details_screen2.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/product_model.dart';
 import 'package:eamar_user_app/provider/banner_provider.dart';
@@ -11,10 +12,10 @@ import 'package:eamar_user_app/view/screen/product/product_details_screen.dart';
 import 'package:eamar_user_app/view/screen/topSeller/top_seller_product_screen.dart';
 import 'package:provider/provider.dart';
 class MainSectionBannersView extends StatelessWidget {
-  final int index;
-  const MainSectionBannersView({Key key, this.index}) : super(key: key);
+  final int? index;
+  const MainSectionBannersView({Key? key, this.index}) : super(key: key);
 
-  _clickBannerRedirect(BuildContext context, int id, Product product,  String type){
+  _clickBannerRedirect(BuildContext context, int? id, Product? product,  String? type){
 
     final cIndex =  Provider.of<CategoryProvider>(context, listen: false).categoryList.indexWhere((element) => element.id == id);
     final bIndex =  Provider.of<BrandProvider>(context, listen: false).brandList.indexWhere((element) => element.id == id);
@@ -31,8 +32,8 @@ class MainSectionBannersView extends StatelessWidget {
       }
 
     }else if(type == 'product'){
-      Navigator.push(context, MaterialPageRoute(builder: (_) => ProductDetails(
-        product: product,
+      Navigator.push(context, MaterialPageRoute(builder: (_) => ProductDetails2(
+        product: product!,
       )));
 
     }else if(type == 'brand'){
@@ -65,10 +66,10 @@ class MainSectionBannersView extends StatelessWidget {
             return InkWell(
               onTap: () {
                 _clickBannerRedirect(context,
-                    footerBannerProvider.mainSectionBannerList[index].resourceId,
-                    footerBannerProvider.mainSectionBannerList[index].resourceType =='product'?
-                    footerBannerProvider.mainSectionBannerList[index].product : null,
-                    footerBannerProvider.mainSectionBannerList[index].resourceType);
+                    footerBannerProvider.mainSectionBannerList![index!].resourceId,
+                    footerBannerProvider.mainSectionBannerList![index!].resourceType =='product'?
+                    footerBannerProvider.mainSectionBannerList![index!].product : null,
+                    footerBannerProvider.mainSectionBannerList![index!].resourceType);
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 2.0),
@@ -80,8 +81,8 @@ class MainSectionBannersView extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                     child: FadeInImage.assetNetwork(
                       placeholder: Images.placeholder, fit: BoxFit.cover,
-                      image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.bannerImageUrl}'
-                          '/${footerBannerProvider.mainSectionBannerList[index].photo}',
+                      image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.bannerImageUrl}'
+                          '/${footerBannerProvider.mainSectionBannerList![index!].photo}',
                       imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, fit: BoxFit.cover),
                     ),
                   ),

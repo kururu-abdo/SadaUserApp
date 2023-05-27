@@ -46,17 +46,17 @@ class SupportTicketScreen extends StatelessWidget {
 
             Padding(
               padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_DEFAULT),
-              child: Text(getTranslated('new_ticket', context),
+              child: Text(getTranslated('new_ticket', context)!,
                   style: titilliumSemiBold.copyWith(color: Colors.white, fontSize: Dimensions.FONT_SIZE_LARGE)),),
           ]),
         ),
       ),
 
       child: Provider.of<SupportTicketProvider>(context).supportTicketList != null
-          ? Provider.of<SupportTicketProvider>(context).supportTicketList.length != 0
+          ? Provider.of<SupportTicketProvider>(context).supportTicketList!.length != 0
           ? Consumer<SupportTicketProvider>(
           builder: (context, support, child) {
-            List<SupportTicketModel> supportTicketList = support.supportTicketList.reversed.toList();
+            List<SupportTicketModel> supportTicketList = support.supportTicketList!.reversed.toList();
             return RefreshIndicator(
               backgroundColor: Theme.of(context).primaryColor,
               onRefresh: () async {
@@ -79,16 +79,16 @@ class SupportTicketScreen extends StatelessWidget {
                         border: Border.all(color: ColorResources.getSellerTxt(context), width: 2),
                       ),
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        Text('Place date: ${DateConverter.localDateToIsoStringAMPM(DateTime.parse(supportTicketList[index].createdAt))}',
+                        Text('Place date: ${DateConverter.localDateToIsoStringAMPM(DateTime.parse(supportTicketList[index].createdAt!))}',
                           style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL),
                         ),
-                        Text(supportTicketList[index].subject, style: titilliumSemiBold),
+                        Text(supportTicketList[index].subject!, style: titilliumSemiBold),
 
 
                         Row(children: [
                           Icon(Icons.notifications, color: ColorResources.getPrimary(context), size: 20),
                           SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-                          Expanded(child: Text(supportTicketList[index].type, style: titilliumSemiBold)),
+                          Expanded(child: Text(supportTicketList[index].type!, style: titilliumSemiBold)),
                           TextButton(onPressed: null,
                             style: TextButton.styleFrom(
                               backgroundColor: supportTicketList[index].status == 'open' ?
@@ -96,7 +96,7 @@ class SupportTicketScreen extends StatelessWidget {
 
                             child: Text(
                               supportTicketList[index].status == 'pending' ?
-                              getTranslated('pending', context) : getTranslated('solved', context),
+                              getTranslated('pending', context)! : getTranslated('solved', context)!,
                               style: titilliumSemiBold.copyWith(color: Colors.white),
                             ),
                           ),
@@ -131,8 +131,8 @@ class SupportTicketShimmer extends StatelessWidget {
             border: Border.all(color: ColorResources.SELLER_TXT, width: 2),
           ),
           child: Shimmer.fromColors(
-            baseColor: Colors.grey[300],
-            highlightColor: Colors.grey[100],
+            baseColor: Colors.grey[300]!,
+            highlightColor: Colors.grey[100]!,
             enabled: Provider.of<SupportTicketProvider>(context).supportTicketList == null,
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Container(height: 10, width: 100, color: ColorResources.WHITE),

@@ -18,10 +18,10 @@ class SubSubCategoriesScreen extends StatelessWidget {
 
 final
 
-List<SubSubCategory> subCategories;
-final SubCategory subCategory;
+List<SubSubCategory>? subCategories;
+final SubCategory? subCategory;
 
-  const SubSubCategoriesScreen({Key key, this.subCategories, this.subCategory}) : super(key: key);
+  const SubSubCategoriesScreen({Key? key, this.subCategories, this.subCategory}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ final SubCategory subCategory;
       body: Column(
         children: [
 
-          CustomAppBar(title:subCategory.name
+          CustomAppBar(title:subCategory!.name
           
           // getTranslated('CATEGORY', context)
           
@@ -44,7 +44,7 @@ final SubCategory subCategory;
               return
               
               
-               subCategories.length != 0 ? 
+               subCategories!.length != 0 ? 
               GridView.builder(
             gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
@@ -54,9 +54,9 @@ final SubCategory subCategory;
                 crossAxisSpacing: 20,
                 mainAxisSpacing: 20),
                 
-            itemCount: subCategories.length,
+            itemCount: subCategories!.length,
             itemBuilder: (BuildContext ctx, index) {
-              SubSubCategory _category  = subCategories[index];
+              SubSubCategory _category  = subCategories![index];
        
               
               return  InkWell(
@@ -238,8 +238,8 @@ Navigator.push(context, MaterialPageRoute(builder: (_) => AllProductsByCategory(
               decoration: BoxDecoration(color: ColorResources.getPrimary(context), shape: BoxShape.circle),
             ),
             SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-            Flexible(child: Text(getTranslated('all', context), style: titilliumSemiBold.copyWith(
-                color: Theme.of(context).textTheme.bodyText1.color), maxLines: 2, 
+            Flexible(child: Text(getTranslated('all', context)!, style: titilliumSemiBold.copyWith(
+                color: Theme.of(context).textTheme.bodyText1!.color), maxLines: 2, 
                 overflow: TextOverflow.ellipsis,
             )),
           ],
@@ -253,7 +253,7 @@ Navigator.push(context, MaterialPageRoute(builder: (_) => AllProductsByCategory(
         },
       ),
     ));
-    for(int index=0; index < subCategory.subSubCategories.length; index++) {
+    for(int index=0; index < subCategory.subSubCategories!.length; index++) {
       _subSubCategories.add(Container(
         color: ColorResources.getIconBg(context),
         margin: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
@@ -266,16 +266,16 @@ Navigator.push(context, MaterialPageRoute(builder: (_) => AllProductsByCategory(
                 decoration: BoxDecoration(color: ColorResources.getPrimary(context), shape: BoxShape.circle),
               ),
               SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-              Flexible(child: Text(subCategory.subSubCategories[index].name, style: titilliumSemiBold.copyWith(
-                  color: Theme.of(context).textTheme.bodyText1.color), maxLines: 2, overflow: TextOverflow.ellipsis,
+              Flexible(child: Text(subCategory.subSubCategories![index].name!, style: titilliumSemiBold.copyWith(
+                  color: Theme.of(context).textTheme.bodyText1!.color), maxLines: 2, overflow: TextOverflow.ellipsis,
               )),
             ],
           ),
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (_) => BrandAndCategoryProductScreen(
               isBrand: false,
-              id: subCategory.subSubCategories[index].id.toString(),
-              name: subCategory.subSubCategories[index].name,
+              id: subCategory.subSubCategories![index].id.toString(),
+              name: subCategory.subSubCategories![index].name,
             )));
           },
         ),
@@ -288,10 +288,10 @@ Navigator.push(context, MaterialPageRoute(builder: (_) => AllProductsByCategory(
 }
 
 class CategoryItem extends StatelessWidget {
-  final String title;
-  final String icon;
+  final String? title;
+  final String? icon;
   final bool isSelected;
-  CategoryItem({@required this.title, @required this.icon, @required this.isSelected});
+  CategoryItem({required this.title, required this.icon, required this.isSelected});
 
   Widget build(BuildContext context) {
 
@@ -309,7 +309,7 @@ class CategoryItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 child: FadeInImage.assetNetwork(
                   placeholder: Images.placeholder, fit: BoxFit.cover,
-                  image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.categoryImageUrl}/$icon',
+                  image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.categoryImageUrl}/$icon',
                   imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, fit: BoxFit.cover),
                 ),
               ),
@@ -320,7 +320,7 @@ class CategoryItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(title, maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: titilliumSemiBold.copyWith(
+                Text(title!, maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: titilliumSemiBold.copyWith(
                 fontSize: Dimensions.FONT_SIZE_LARGE,
                 color: isSelected ? Theme.of(context).highlightColor : Theme.of(context).hintColor,
               )),
@@ -355,21 +355,21 @@ class CategoryItem extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: 
-              icon.startsWith('assets')?
+              icon!.startsWith('assets')?
               
-                FadeInImage(image: AssetImage(icon), placeholder: AssetImage(Images.placeholder),
+                FadeInImage(image: AssetImage(icon!), placeholder: AssetImage(Images.placeholder),
 
                 ):
               FadeInImage.assetNetwork(
                 placeholder: Images.placeholder, fit: BoxFit.cover,
-                image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.categoryImageUrl}/$icon',
+                image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.categoryImageUrl}/$icon',
                 imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, fit: BoxFit.cover),
               ),
             ),
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-            child: Text(title, maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: titilliumSemiBold.copyWith(
+            child: Text(title!, maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: titilliumSemiBold.copyWith(
               fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL,
               color: 
               // isSelected ? Theme.of(context).highlightColor : 

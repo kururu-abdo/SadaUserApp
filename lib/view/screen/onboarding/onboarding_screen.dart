@@ -136,7 +136,7 @@ Container(
                         child: Container(
                           width: double.infinity,
                           alignment: Alignment.center,
-                          child:Text(  getTranslated('GET_STARTED', context) ,
+                          child:Text(  getTranslated('GET_STARTED', context)! ,
                               style: titilliumSemiBold.copyWith(color: Colors.white, fontSize: Dimensions.FONT_SIZE_LARGE)),
                         ),
                       ),

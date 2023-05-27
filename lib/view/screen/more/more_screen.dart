@@ -41,8 +41,8 @@ class MoreScreen extends StatefulWidget {
 }
 
 class _MoreScreenState extends State<MoreScreen> {
-  bool isGuestMode;
-  String version;
+  late bool isGuestMode;
+  String? version;
   bool singleVendor = false;
   @override
   void initState() {
@@ -52,19 +52,19 @@ class _MoreScreenState extends State<MoreScreen> {
       Provider.of<WishListProvider>(context, listen: false).initWishList(
         context, Provider.of<LocalizationProvider>(context, listen: false).locale.countryCode,
       );
-      version = Provider.of<SplashProvider>(context,listen: false).configModel.version != null?
-      Provider.of<SplashProvider>(context,listen: false).configModel.version:'version';
+      version = Provider.of<SplashProvider>(context,listen: false).configModel!.version != null?
+      Provider.of<SplashProvider>(context,listen: false).configModel!.version:'version';
       Provider.of<ProfileProvider>(context, listen: false).getUserInfo(context);
-      if(Provider.of<SplashProvider>(context,listen: false).configModel.walletStatus == 1){
+      if(Provider.of<SplashProvider>(context,listen: false).configModel!.walletStatus == 1){
         Provider.of<WalletTransactionProvider>(context, listen: false).getTransactionList(context,1);
       }
-      if(Provider.of<SplashProvider>(context,listen: false).configModel.loyaltyPointStatus == 1){
+      if(Provider.of<SplashProvider>(context,listen: false).configModel!.loyaltyPointStatus == 1){
         Provider.of<WalletTransactionProvider>(context, listen: false).getLoyaltyPointList(context,1);
       }
 
 
     }
-    singleVendor = Provider.of<SplashProvider>(context, listen: false).configModel.businessMode == "single";
+    singleVendor = Provider.of<SplashProvider>(context, listen: false).configModel!.businessMode == "single";
 
     super.initState();
   }
@@ -110,7 +110,7 @@ class _MoreScreenState extends State<MoreScreen> {
                   },
                   child: Row(children: [
                     Text(!isGuestMode ? profile.userInfoModel != null ?
-                    '${profile.userInfoModel.fName} ${profile.userInfoModel.lName}' : 'Full Name' : 'Guest',
+                    '${profile.userInfoModel!.fName} ${profile.userInfoModel!.lName}' : 'Full Name' : 'Guest',
                         style: titilliumRegular.copyWith(color: ColorResources.WHITE)),
                     SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
 
@@ -121,8 +121,8 @@ class _MoreScreenState extends State<MoreScreen> {
                       borderRadius: BorderRadius.circular(15),
                       child: FadeInImage.assetNetwork(
                         placeholder: Images.logo_image, width: 35, height: 35, fit: BoxFit.fill,
-                        image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.customerImageUrl}/'
-                            '${profile.userInfoModel.image}',
+                        image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.customerImageUrl}/'
+                            '${profile.userInfoModel!.image}',
                         imageErrorBuilder: (c, o, s) => CircleAvatar(child: Icon(Icons.person, size: 35)),
                       ),
                     ),
@@ -157,12 +157,12 @@ class _MoreScreenState extends State<MoreScreen> {
                             child: ListView(scrollDirection:Axis.horizontal,
                                 physics: BouncingScrollPhysics(),
                                 children: [
-                                  Provider.of<SplashProvider>(context,listen: false).configModel.walletStatus ==1?
+                                  Provider.of<SplashProvider>(context,listen: false).configModel!.walletStatus ==1?
                                   SquareButton(image: Images.wallet, title: getTranslated('wallet', context),
                                     navigateTo: WalletScreen(),count: 1,hasCount: false):SizedBox(),
 
 
-                                  Provider.of<SplashProvider>(context,listen: false).configModel.loyaltyPointStatus ==1?
+                                  Provider.of<SplashProvider>(context,listen: false).configModel!.loyaltyPointStatus ==1?
                                   SquareButton(image: Images.loyalty_point, title: getTranslated('loyalty_point', context),
                                     navigateTo: LoyaltyPointScreen(),count: 1,hasCount: false,):SizedBox(),
 
@@ -181,8 +181,8 @@ class _MoreScreenState extends State<MoreScreen> {
                                     navigateTo: WishListScreen(),
                                     count: Provider.of<AuthProvider>(context, listen: false).isLoggedIn() &&
                                     Provider.of<WishListProvider>(context, listen: false).wishList != null &&
-                                    Provider.of<WishListProvider>(context, listen: false).wishList.length > 0 ?
-                                    Provider.of<WishListProvider>(context, listen: false).wishList.length : 0, hasCount: false,),
+                                    Provider.of<WishListProvider>(context, listen: false).wishList!.length > 0 ?
+                                    Provider.of<WishListProvider>(context, listen: false).wishList!.length : 0, hasCount: false,),
                                 ]),
                           ),
                           Icon(Icons.arrow_forward_ios,color: Theme.of(context).primaryColor,),
@@ -228,35 +228,35 @@ class _MoreScreenState extends State<MoreScreen> {
 
                   TitleButton(image: Images.term_condition, title: getTranslated('terms_condition', context),
                       navigateTo: HtmlViewScreen(title: getTranslated('terms_condition', context),
-                        url: Provider.of<SplashProvider>(context, listen: false).configModel.termsConditions,)),
+                        url: Provider.of<SplashProvider>(context, listen: false).configModel!.termsConditions,)),
 
                   TitleButton(image: Images.privacy_policy, title: getTranslated('privacy_policy', context),
                       navigateTo: HtmlViewScreen(title: getTranslated('privacy_policy', context),
-                        url: Provider.of<SplashProvider>(context, listen: false).configModel.termsConditions,)),
+                        url: Provider.of<SplashProvider>(context, listen: false).configModel!.termsConditions,)),
 
                   TitleButton(image: Images.help_center, title: getTranslated('faq', context),
                       navigateTo: FaqScreen(title: getTranslated('faq', context),)),
 
                   TitleButton(image: Images.about_us, title: getTranslated('about_us', context),
                       navigateTo: HtmlViewScreen(title: getTranslated('about_us', context),
-                        url: Provider.of<SplashProvider>(context, listen: false).configModel.aboutUs,)),
+                        url: Provider.of<SplashProvider>(context, listen: false).configModel!.aboutUs,)),
 
                   TitleButton(image: Images.contact_us, title: getTranslated('contact_us', context),
                       navigateTo: WebViewScreen(title: getTranslated('contact_us', context),
-                        url: Provider.of<SplashProvider>(context, listen: false).configModel.staticUrls.contactUs,
+                        url: Provider.of<SplashProvider>(context, listen: false).configModel!.staticUrls!.contactUs,
                   )),
 
                   ListTile(
                     leading: Image.asset(Images.logo_image, width: 25, height: 25, fit: BoxFit.fill,
                         color: ColorResources.getPrimary(context)),
-                    title: Text(getTranslated('app_info', context),
+                    title: Text(getTranslated('app_info', context)!,
                         style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
                     trailing: Text(version??''),
                   ),
 
                   isGuestMode ? SizedBox() : ListTile(
                     leading: Icon(Icons.exit_to_app, color: ColorResources.getPrimary(context), size: 25),
-                    title: Text(getTranslated('sign_out', context),
+                    title: Text(getTranslated('sign_out', context)!,
                         style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
                     onTap: () => showAnimatedDialog(context, SignOutConfirmationDialog(), isFlip: true),
                   ),
@@ -270,13 +270,13 @@ class _MoreScreenState extends State<MoreScreen> {
 
 class SquareButton extends StatelessWidget {
   final String image;
-  final String title;
+  final String? title;
   final Widget navigateTo;
   final int count;
   final bool hasCount;
 
 
-  SquareButton({@required this.image, @required this.title, @required this.navigateTo, @required this.count, @required this.hasCount});
+  SquareButton({required this.image, required this.title, required this.navigateTo, required this.count, required this.hasCount});
 
   @override
   Widget build(BuildContext context) {
@@ -315,7 +315,7 @@ class SquareButton extends StatelessWidget {
         ),
         Align(
           alignment: Alignment.center,
-          child: Text(title, style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
+          child: Text(title!, style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
         ),
       ]),
     );
@@ -324,16 +324,16 @@ class SquareButton extends StatelessWidget {
 
 class TitleButton extends StatelessWidget {
   final String image;
-  final String title;
+  final String? title;
   final Widget navigateTo;
-  TitleButton({@required this.image, @required this.title, @required this.navigateTo});
+  TitleButton({required this.image, required this.title, required this.navigateTo});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: Image.asset(image, width: 25, height: 25, fit: BoxFit.fill,
           color: ColorResources.getPrimary(context)),
-      title: Text(title, style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
+      title: Text(title!, style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
       onTap: () => Navigator.push(
         context, MaterialPageRoute(builder: (_) => navigateTo),
       ),

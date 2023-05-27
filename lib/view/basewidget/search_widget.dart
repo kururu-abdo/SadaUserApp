@@ -6,12 +6,12 @@ import 'package:eamar_user_app/utill/dimensions.dart';
 import 'package:provider/provider.dart';
 
 class SearchWidget extends StatelessWidget {
-  final String hintText;
-  final Function onTextChanged;
+  final String? hintText;
+  final Function? onTextChanged;
   final Function onClearPressed;
-  final Function onSubmit;
+  final Function? onSubmit;
   final bool isSeller;
-  SearchWidget({@required this.hintText, this.onTextChanged, @required this.onClearPressed, this.onSubmit, this.isSeller= false});
+  SearchWidget({required this.hintText, this.onTextChanged, required this.onClearPressed, this.onSubmit, this.isSeller= false});
 
   @override
   Widget build(BuildContext context) {
@@ -42,10 +42,10 @@ class SearchWidget extends StatelessWidget {
                   child: TextFormField(
                     controller: _controller,
                     onFieldSubmitted: (query) {
-                      onSubmit(query);
+                      onSubmit!(query);
                     },
                     onChanged: (query) {
-                      onTextChanged(query);
+                      onTextChanged!(query);
                     },
                     textInputAction: TextInputAction.search,
                     maxLines: 1,

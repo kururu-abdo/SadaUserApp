@@ -18,7 +18,7 @@ class AppInfoDialog extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(getTranslated('app_info', context), style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
+                Text(getTranslated('app_info', context)!, style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
                 InkWell(
                   onTap: () {
                     Navigator.pop(context);
@@ -38,15 +38,15 @@ class AppInfoDialog extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(getTranslated('VERSION_NAME', context), style: titilliumRegular),
-                Text(Provider.of<SplashProvider>(context, listen: false).packageInfo.buildNumber, style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
+                Text(getTranslated('VERSION_NAME', context)!, style: titilliumRegular),
+                Text(Provider.of<SplashProvider>(context, listen: false).packageInfo!.buildNumber, style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
               ],
             ),
             Divider(thickness: .1, color: Theme.of(context).primaryColor),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(getTranslated('RELEASE_DATE', context), style: titilliumRegular),
+                Text(getTranslated('RELEASE_DATE', context)!, style: titilliumRegular),
                 Text('01 Jan 2021', style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
               ],
             ),

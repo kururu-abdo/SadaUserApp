@@ -10,7 +10,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class SpecificationScreen extends StatelessWidget {
   final String specification;
-  SpecificationScreen({@required this.specification});
+  SpecificationScreen({required this.specification});
 
   @override
   Widget build(BuildContext context) {

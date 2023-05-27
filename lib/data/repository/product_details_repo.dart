@@ -10,12 +10,12 @@ import 'package:eamar_user_app/utill/app_constants.dart';
 import 'package:http/http.dart' as http;
 
 class ProductDetailsRepo {
-  final DioClient dioClient;
-  ProductDetailsRepo({@required this.dioClient});
+  final DioClient? dioClient;
+  ProductDetailsRepo({required this.dioClient});
 
-  Future<ApiResponse> getProduct(String productID, String languageCode) async {
+  Future<ApiResponse> getProduct(String productID, String? languageCode) async {
     try {
-      final response = await dioClient.get(
+      final response = await dioClient!.get(
         AppConstants.PRODUCT_DETAILS_URI+productID, options: Options(headers: {AppConstants.LANG_KEY: languageCode}),
       );
       return ApiResponse.withSuccess(response);
@@ -27,7 +27,7 @@ class ProductDetailsRepo {
 
   Future<ApiResponse> getReviews(String productID) async {
     try {
-      final response = await dioClient.get(AppConstants.PRODUCT_REVIEW_URI+productID);
+      final response = await dioClient!.get(AppConstants.PRODUCT_REVIEW_URI+productID);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -36,7 +36,7 @@ class ProductDetailsRepo {
 
   Future<ApiResponse> getCount(String productID) async {
     try {
-      final response = await dioClient.get(AppConstants.COUNTER_URI+productID);
+      final response = await dioClient!.get(AppConstants.COUNTER_URI+productID);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -45,7 +45,7 @@ class ProductDetailsRepo {
 
   Future<ApiResponse> getSharableLink(String productID) async {
     try {
-      final response = await dioClient.get(AppConstants.SOCIAL_LINK_URI+productID);
+      final response = await dioClient!.get(AppConstants.SOCIAL_LINK_URI+productID);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -54,7 +54,7 @@ class ProductDetailsRepo {
 
 Future<ApiResponse> getProductDetails(String productID) async {
     try {
-      final response = await dioClient.get('${AppConstants.PRODUCT_DETAILS_URI}$productID');
+      final response = await dioClient!.get('${AppConstants.PRODUCT_DETAILS_URI}$productID');
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -73,7 +73,7 @@ Future<ApiResponse> getProductDetails(String productID) async {
         ));
       }
     }
-    request.fields.addAll(<String, String>{'product_id': reviewBody.productId, 'comment': reviewBody.comment, 'rating': reviewBody.rating});
+    request.fields.addAll(<String, String>{'product_id': reviewBody.productId!, 'comment': reviewBody.comment!, 'rating': reviewBody.rating!});
     http.StreamedResponse response = await request.send();
     print(response.reasonPhrase);
     return response;

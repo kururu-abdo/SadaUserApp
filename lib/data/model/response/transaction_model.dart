@@ -1,16 +1,16 @@
 class TransactionModel {
-  int _limit;
-  int _offset;
-  double _totalWalletBalance;
-  int _totalWalletTransactio;
-  List<WalletTransactioList> _walletTransactioList;
+  int? _limit;
+  int? _offset;
+  double? _totalWalletBalance;
+  int? _totalWalletTransactio;
+  List<WalletTransactioList>? _walletTransactioList;
 
   TransactionModel(
-      {int limit,
-        int offset,
-        double totalWalletBalance,
-        int totalWalletTransactio,
-        List<WalletTransactioList> walletTransactioList}) {
+      {int? limit,
+        int? offset,
+        double? totalWalletBalance,
+        int? totalWalletTransactio,
+        List<WalletTransactioList>? walletTransactioList}) {
     if (limit != null) {
       this._limit = limit;
     }
@@ -28,11 +28,11 @@ class TransactionModel {
     }
   }
 
-  int get limit => _limit;
-  int get offset => _offset;
-  double get totalWalletBalance => _totalWalletBalance;
-  int get totalWalletTransactio => _totalWalletTransactio;
-  List<WalletTransactioList> get walletTransactioList => _walletTransactioList;
+  int? get limit => _limit;
+  int? get offset => _offset;
+  double? get totalWalletBalance => _totalWalletBalance;
+  int? get totalWalletTransactio => _totalWalletTransactio;
+  List<WalletTransactioList>? get walletTransactioList => _walletTransactioList;
 
 
   TransactionModel.fromJson(Map<String, dynamic> json) {
@@ -48,7 +48,7 @@ class TransactionModel {
     if (json['wallet_transactio_list'] != null) {
       _walletTransactioList = <WalletTransactioList>[];
       json['wallet_transactio_list'].forEach((v) {
-        _walletTransactioList.add(new WalletTransactioList.fromJson(v));
+        _walletTransactioList!.add(new WalletTransactioList.fromJson(v));
       });
     }
   }
@@ -61,37 +61,37 @@ class TransactionModel {
     data['total_wallet_transactio'] = this._totalWalletTransactio;
     if (this._walletTransactioList != null) {
       data['wallet_transactio_list'] =
-          this._walletTransactioList.map((v) => v.toJson()).toList();
+          this._walletTransactioList!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class WalletTransactioList {
-  int _id;
-  int _userId;
-  String _transactionId;
-  double _credit;
-  double _debit;
-  double _adminBonus;
-  double _balance;
-  String _transactionType;
-  String _reference;
-  String _createdAt;
-  String _updatedAt;
+  int? _id;
+  int? _userId;
+  String? _transactionId;
+  double? _credit;
+  double? _debit;
+  double? _adminBonus;
+  double? _balance;
+  String? _transactionType;
+  String? _reference;
+  String? _createdAt;
+  String? _updatedAt;
 
   WalletTransactioList(
-      {int id,
-        int userId,
-        String transactionId,
-        double credit,
-        double debit,
-        double adminBonus,
-        double balance,
-        String transactionType,
-        String reference,
-        String createdAt,
-        String updatedAt}) {
+      {int? id,
+        int? userId,
+        String? transactionId,
+        double? credit,
+        double? debit,
+        double? adminBonus,
+        double? balance,
+        String? transactionType,
+        String? reference,
+        String? createdAt,
+        String? updatedAt}) {
     if (id != null) {
       this._id = id;
     }
@@ -127,17 +127,17 @@ class WalletTransactioList {
     }
   }
 
-  int get id => _id;
-  int get userId => _userId;
-  String get transactionId => _transactionId;
-  double get credit => _credit;
-  double get debit => _debit;
-  double get adminBonus => _adminBonus;
-  double get balance => _balance;
-  String get transactionType => _transactionType;
-  String get reference => _reference;
-  String get createdAt => _createdAt;
-  String get updatedAt => _updatedAt;
+  int? get id => _id;
+  int? get userId => _userId;
+  String? get transactionId => _transactionId;
+  double? get credit => _credit;
+  double? get debit => _debit;
+  double? get adminBonus => _adminBonus;
+  double? get balance => _balance;
+  String? get transactionType => _transactionType;
+  String? get reference => _reference;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
 
   WalletTransactioList.fromJson(Map<String, dynamic> json) {
     _id = json['id'];

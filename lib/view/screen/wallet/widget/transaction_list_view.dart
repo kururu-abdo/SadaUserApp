@@ -9,20 +9,20 @@ import 'package:eamar_user_app/view/screen/wallet/widget/transaction_widget.dart
 import 'package:provider/provider.dart';
 
 class TransactionListView extends StatelessWidget {
-  final ScrollController scrollController;
+  final ScrollController? scrollController;
   TransactionListView({ this.scrollController});
 
   @override
   Widget build(BuildContext context) {
     int offset = 1;
     scrollController?.addListener(() {
-      if(scrollController.position.maxScrollExtent == scrollController.position.pixels
-          && Provider.of<WalletTransactionProvider>(context, listen: false).transactionList.length != 0
+      if(scrollController!.position.maxScrollExtent == scrollController!.position.pixels
+          && Provider.of<WalletTransactionProvider>(context, listen: false).transactionList!.length != 0
           && !Provider.of<WalletTransactionProvider>(context, listen: false).isLoading) {
-        int pageSize;
+        int? pageSize;
         pageSize = Provider.of<WalletTransactionProvider>(context, listen: false).transactionPageSize;
 
-        if(offset < pageSize) {
+        if(offset < pageSize!) {
           offset++;
           print('end of the page');
           Provider.of<WalletTransactionProvider>(context, listen: false).showBottomLoader();
@@ -34,7 +34,7 @@ class TransactionListView extends StatelessWidget {
 
     return Consumer<WalletTransactionProvider>(
       builder: (context, transactionProvider, child) {
-        List<WalletTransactioList> transactionList;
+        List<WalletTransactioList>? transactionList;
         transactionList = transactionProvider.transactionList;
 
         return Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
@@ -54,7 +54,7 @@ class TransactionListView extends StatelessWidget {
                 itemCount: transactionList.length,
                 itemBuilder: (ctx,index){
                   return Container(width: (MediaQuery.of(context).size.width/2)-20,
-                      child: TransactionWidget(transactionModel: transactionList[index]));
+                      child: TransactionWidget(transactionModel: transactionList![index]));
 
                 }),
           ): SizedBox.shrink() : ProductShimmer(isHomePage: true ,isEnabled: transactionProvider.firstLoading),

@@ -11,7 +11,7 @@ class FavouriteButton extends StatelessWidget {
   final Color backgroundColor;
   final Color favColor;
   final bool isSelected;
-  final int productId;
+  final int? productId;
   FavouriteButton({this.backgroundColor = Colors.black, this.favColor = Colors.white, this.isSelected = false, this.productId});
 
   @override
@@ -59,7 +59,7 @@ class FavouriteButton2 extends StatelessWidget {
   final Color backgroundColor;
   final Color favColor;
   final bool isSelected;
-  final int productId;
+  final int? productId;
   FavouriteButton2({this.backgroundColor = Colors.black, this.favColor = Colors.white, this.isSelected = false, this.productId});
 
   @override

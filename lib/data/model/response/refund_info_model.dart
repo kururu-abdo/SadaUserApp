@@ -1,7 +1,7 @@
 class RefundInfoModel {
-  bool alreadyRequested;
-  bool expired;
-  Refund refund;
+  bool? alreadyRequested;
+  bool? expired;
+  Refund? refund;
 
   RefundInfoModel({this.alreadyRequested, this.expired, this.refund});
 
@@ -17,20 +17,20 @@ class RefundInfoModel {
     data['already_requested'] = this.alreadyRequested;
     data['expired'] = this.expired;
     if (this.refund != null) {
-      data['refund'] = this.refund.toJson();
+      data['refund'] = this.refund!.toJson();
     }
     return data;
   }
 }
 
 class Refund {
-  double productPrice;
-  int quntity;
-  double productTotalDiscount;
-  double productTotalTax;
-  double subtotal;
-  double couponDiscount;
-  double refundAmount;
+  double? productPrice;
+  int? quntity;
+  double? productTotalDiscount;
+  double? productTotalTax;
+  double? subtotal;
+  double? couponDiscount;
+  double? refundAmount;
 
   Refund(
       {this.productPrice,

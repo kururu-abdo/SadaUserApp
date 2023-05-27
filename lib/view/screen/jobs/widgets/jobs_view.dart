@@ -18,9 +18,9 @@ import 'package:provider/provider.dart';
 class JobsView extends StatelessWidget {
   final bool isJobsHome;
   // final Job job;
-  final ScrollController scrollController;
-  final String sellerId;
-  JobsView({@required this.isJobsHome, 
+  final ScrollController? scrollController;
+  final String? sellerId;
+  JobsView({required this.isJobsHome, 
   
   
   // @required this.job,

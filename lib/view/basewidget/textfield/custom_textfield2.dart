@@ -12,20 +12,20 @@ extension EmailValidator on String {
 }
 
 class NormalTextField extends StatelessWidget {
-  final TextEditingController controller;
-  final String hintText;
-  final TextInputType textInputType;
-  final int maxLine;
-  final FocusNode focusNode;
-  final FocusNode nextNode;
-  final TextInputAction textInputAction;
+  final TextEditingController? controller;
+  final String? hintText;
+  final TextInputType? textInputType;
+  final int? maxLine;
+  final FocusNode? focusNode;
+  final FocusNode? nextNode;
+  final TextInputAction? textInputAction;
   final bool isPhoneNumber;
   final bool isValidator;
-  final String validatorMessage;
-  final Color fillColor;
+  final String? validatorMessage;
+  final Color? fillColor;
   final TextCapitalization capitalization;
   final bool isBorder;
-  final Widget suffixIcon;
+  final Widget? suffixIcon;
 final bool  enabled;
   NormalTextField(
       {this.controller,
@@ -91,7 +91,7 @@ final bool  enabled;
         //autovalidate: true,
         inputFormatters: [isPhoneNumber ? FilteringTextInputFormatter.digitsOnly : FilteringTextInputFormatter.singleLineFormatter],
         validator: (input){
-          if(input.isEmpty){
+          if(input!.isEmpty){
             if(isValidator){
               return validatorMessage??"";
             }

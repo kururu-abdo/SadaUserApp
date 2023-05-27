@@ -11,11 +11,11 @@ import 'package:eamar_user_app/view/basewidget/not_loggedin_widget.dart';
 import 'package:provider/provider.dart';
 
 class CustomExpandedAppBar extends StatelessWidget {
-  final String title;
+  final String? title;
   final Widget child;
-  final Widget bottomChild;
+  final Widget? bottomChild;
   final bool isGuestCheck;
-  CustomExpandedAppBar({@required this.title, @required this.child, this.bottomChild, this.isGuestCheck = false});
+  CustomExpandedAppBar({required this.title, required this.child, this.bottomChild, this.isGuestCheck = false});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class CustomExpandedAppBar extends StatelessWidget {
               Provider.of<SplashProvider>(context, listen: false).setFromSetting(false);
               Navigator.pop(context);
             } ),
-            Text(title, style: titilliumRegular.copyWith(fontSize: 20, color: Colors.white), maxLines: 1, overflow: TextOverflow.ellipsis),
+            Text(title!, style: titilliumRegular.copyWith(fontSize: 20, color: Colors.white), maxLines: 1, overflow: TextOverflow.ellipsis),
           ]),
         ),
 

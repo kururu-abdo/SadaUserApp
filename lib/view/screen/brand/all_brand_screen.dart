@@ -24,26 +24,26 @@ class AllBrandScreen extends StatelessWidget {
           icon: Icon(Icons.arrow_back_ios, size: 20, color: ColorResources.WHITE),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text(getTranslated('all_brand', context), style: titilliumRegular.copyWith(fontSize: 20, color: ColorResources.WHITE)),
+        title: Text(getTranslated('all_brand', context)!, style: titilliumRegular.copyWith(fontSize: 20, color: ColorResources.WHITE)),
         actions: [
           PopupMenuButton(
           itemBuilder: (context) {
             return [
-              PopupMenuItem(enabled: false, child: Text(getTranslated('sort_by', context), style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL, color: ColorResources.HINT_TEXT_COLOR))),
+              PopupMenuItem(enabled: false, child: Text(getTranslated('sort_by', context)!, style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL, color: ColorResources.HINT_TEXT_COLOR))),
               CheckedPopupMenuItem(
                 value: 0,
                 checked: Provider.of<BrandProvider>(context, listen: false).isTopBrand,
-                child: Text(getTranslated('top_brand', context), style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)),
+                child: Text(getTranslated('top_brand', context)!, style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)),
               ),
               CheckedPopupMenuItem(
                 value: 1,
                 checked: Provider.of<BrandProvider>(context, listen: false).isAZ,
-                child: Text(getTranslated('alphabetically_az', context), style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)),
+                child: Text(getTranslated('alphabetically_az', context)!, style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)),
               ),
               CheckedPopupMenuItem(
                 value: 2,
                 checked: Provider.of<BrandProvider>(context, listen: false).isZA,
-                child: Text(getTranslated('alphabetically_za', context), style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)),
+                child: Text(getTranslated('alphabetically_za', context)!, style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)),
               ),
             ];
           },
@@ -53,7 +53,7 @@ class AllBrandScreen extends StatelessWidget {
             padding: EdgeInsets.all(Dimensions.PADDING_SIZE_LARGE),
             child: Image.asset(Images.filter_image, color: ColorResources.WHITE),
           ),
-          onSelected: (value) {
+          onSelected: (dynamic value) {
             Provider.of<BrandProvider>(context, listen: false).sortBrandLis(value);
           },
         )],

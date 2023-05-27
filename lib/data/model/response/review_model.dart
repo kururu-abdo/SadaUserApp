@@ -1,26 +1,26 @@
 class ReviewModel {
-  int _id;
-  int _productId;
-  int _customerId;
-  String _comment;
-  List<String> _attachment;
-  int _rating;
-  int _status;
-  String _createdAt;
-  String _updatedAt;
-  Customer _customer;
+  int? _id;
+  int? _productId;
+  int? _customerId;
+  String? _comment;
+  List<String>? _attachment;
+  int? _rating;
+  int? _status;
+  String? _createdAt;
+  String? _updatedAt;
+  Customer? _customer;
 
   ReviewModel(
-      {int id,
-        int productId,
-        int customerId,
-        String comment,
-        List<String> attachment,
-        int rating,
-        int status,
-        String createdAt,
-        String updatedAt,
-        Customer customer}) {
+      {int? id,
+        int? productId,
+        int? customerId,
+        String? comment,
+        List<String>? attachment,
+        int? rating,
+        int? status,
+        String? createdAt,
+        String? updatedAt,
+        Customer? customer}) {
     this._id = id;
     this._productId = productId;
     this._customerId = customerId;
@@ -33,16 +33,16 @@ class ReviewModel {
     this._customer = customer;
   }
 
-  int get id => _id;
-  int get productId => _productId;
-  int get customerId => _customerId;
-  String get comment => _comment;
-  List<String> get attachment => _attachment;
-  int get rating => _rating;
-  int get status => _status;
-  String get createdAt => _createdAt;
-  String get updatedAt => _updatedAt;
-  Customer get customer => _customer;
+  int? get id => _id;
+  int? get productId => _productId;
+  int? get customerId => _customerId;
+  String? get comment => _comment;
+  List<String>? get attachment => _attachment;
+  int? get rating => _rating;
+  int? get status => _status;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
+  Customer? get customer => _customer;
 
   ReviewModel.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
@@ -66,54 +66,54 @@ class ReviewModel {
     data['customer_id'] = this._customerId;
     data['comment'] = this._comment;
     if (this._customer != null) {
-      data['customer'] = this._customer.toJson();
+      data['customer'] = this._customer!.toJson();
     }
     data['rating'] = this._rating;
     data['status'] = this._status;
     data['created_at'] = this._createdAt;
     data['updated_at'] = this._updatedAt;
     if (this._customer != null) {
-      data['customer'] = this._customer.toJson();
+      data['customer'] = this._customer!.toJson();
     }
     return data;
   }
 }
 
 class Customer {
-  int _id;
-  String _name;
-  String _fName;
-  String _lName;
-  String _phone;
-  String _image;
-  String _email;
-  String _emailVerifiedAt;
-  String _createdAt;
-  String _updatedAt;
-  String _streetAddress;
-  String _country;
-  String _city;
-  String _zip;
-  String _houseNo;
-  String _apartmentNo;
+  int? _id;
+  String? _name;
+  String? _fName;
+  String? _lName;
+  String? _phone;
+  String? _image;
+  String? _email;
+  String? _emailVerifiedAt;
+  String? _createdAt;
+  String? _updatedAt;
+  String? _streetAddress;
+  String? _country;
+  String? _city;
+  String? _zip;
+  String? _houseNo;
+  String? _apartmentNo;
 
   Customer(
-      {int id,
-        String name,
-        String fName,
-        String lName,
-        String phone,
-        String image,
-        String email,
-        String emailVerifiedAt,
-        String createdAt,
-        String updatedAt,
-        String streetAddress,
-        String country,
-        String city,
-        String zip,
-        String houseNo,
-        String apartmentNo}) {
+      {int? id,
+        String? name,
+        String? fName,
+        String? lName,
+        String? phone,
+        String? image,
+        String? email,
+        String? emailVerifiedAt,
+        String? createdAt,
+        String? updatedAt,
+        String? streetAddress,
+        String? country,
+        String? city,
+        String? zip,
+        String? houseNo,
+        String? apartmentNo}) {
     this._id = id;
     this._name = name;
     this._fName = fName;
@@ -132,22 +132,22 @@ class Customer {
     this._apartmentNo = apartmentNo;
   }
 
-  int get id => _id;
-  String get name => _name;
-  String get fName => _fName;
-  String get lName => _lName;
-  String get phone => _phone;
-  String get image => _image;
-  String get email => _email;
-  String get emailVerifiedAt => _emailVerifiedAt;
-  String get createdAt => _createdAt;
-  String get updatedAt => _updatedAt;
-  String get streetAddress => _streetAddress;
-  String get country => _country;
-  String get city => _city;
-  String get zip => _zip;
-  String get houseNo => _houseNo;
-  String get apartmentNo => _apartmentNo;
+  int? get id => _id;
+  String? get name => _name;
+  String? get fName => _fName;
+  String? get lName => _lName;
+  String? get phone => _phone;
+  String? get image => _image;
+  String? get email => _email;
+  String? get emailVerifiedAt => _emailVerifiedAt;
+  String? get createdAt => _createdAt;
+  String? get updatedAt => _updatedAt;
+  String? get streetAddress => _streetAddress;
+  String? get country => _country;
+  String? get city => _city;
+  String? get zip => _zip;
+  String? get houseNo => _houseNo;
+  String? get apartmentNo => _apartmentNo;
 
   Customer.fromJson(Map<String, dynamic> json) {
     _id = json['id'];

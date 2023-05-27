@@ -15,10 +15,10 @@ class ReviewBody {
     this._fileUpload = fileUpload;
   }
 
-  String get productId => _productId!;
-  String get comment => _comment!;
-  String get rating => _rating!;
-  List<String> get fileUpload => _fileUpload!;
+  String? get productId => _productId;
+  String? get comment => _comment;
+  String? get rating => _rating;
+  List<String>? get fileUpload => _fileUpload;
 
   ReviewBody.fromJson(Map<String, dynamic> json) {
     _productId = json['product_id'];

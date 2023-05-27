@@ -10,7 +10,7 @@ import 'package:eamar_user_app/view/screen/auth/widget/sign_in_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 class SignupScreen extends StatefulWidget {
-const SignupScreen({ Key key }) : super(key: key);
+const SignupScreen({ Key? key }) : super(key: key);
 
   @override
   State<SignupScreen> createState() => _SignupScreenState();

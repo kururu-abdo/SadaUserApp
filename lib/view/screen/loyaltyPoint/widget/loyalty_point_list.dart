@@ -9,20 +9,20 @@ import 'package:eamar_user_app/view/screen/loyaltyPoint/widget/loyalty_point_wid
 import 'package:provider/provider.dart';
 
 class LoyaltyPointListView extends StatelessWidget {
-  final ScrollController scrollController;
-  const LoyaltyPointListView({Key key, this.scrollController}) : super(key: key);
+  final ScrollController? scrollController;
+  const LoyaltyPointListView({Key? key, this.scrollController}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     int offset = 1;
     scrollController?.addListener(() {
-      if(scrollController.position.maxScrollExtent == scrollController.position.pixels
-          && Provider.of<WalletTransactionProvider>(context, listen: false).loyaltyPointList.length != 0
+      if(scrollController!.position.maxScrollExtent == scrollController!.position.pixels
+          && Provider.of<WalletTransactionProvider>(context, listen: false).loyaltyPointList!.length != 0
           && !Provider.of<WalletTransactionProvider>(context, listen: false).isLoading) {
-        int pageSize;
+        int? pageSize;
         pageSize = Provider.of<WalletTransactionProvider>(context, listen: false).loyaltyPointPageSize;
 
-        if(offset < pageSize) {
+        if(offset < pageSize!) {
           offset++;
           print('end of the page');
           Provider.of<WalletTransactionProvider>(context, listen: false).showBottomLoader();
@@ -34,7 +34,7 @@ class LoyaltyPointListView extends StatelessWidget {
 
     return Consumer<WalletTransactionProvider>(
       builder: (context, loyaltyProvider, child) {
-        List<LoyaltyPointList> loyaltyPointList;
+        List<LoyaltyPointList>? loyaltyPointList;
         loyaltyPointList = loyaltyProvider.loyaltyPointList;
 
         return Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
@@ -54,7 +54,7 @@ class LoyaltyPointListView extends StatelessWidget {
                 itemCount: loyaltyPointList.length,
                 itemBuilder: (ctx,index){
                   return Container(width: (MediaQuery.of(context).size.width/2)-20,
-                      child: LoyaltyPointWidget(loyaltyPointModel: loyaltyPointList[index]));
+                      child: LoyaltyPointWidget(loyaltyPointModel: loyaltyPointList![index]));
 
                 }),
           ): SizedBox.shrink() : ProductShimmer(isHomePage: true ,isEnabled: loyaltyProvider.firstLoading),

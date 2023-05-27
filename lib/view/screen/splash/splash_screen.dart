@@ -30,10 +30,10 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   GlobalKey<ScaffoldMessengerState> _globalKey = GlobalKey();
-  StreamSubscription<ConnectivityResult> _onConnectivityChanged;
- Uri _initialUri;
-  Uri _latestUri;
-  Object _err;
+  late StreamSubscription<ConnectivityResult> _onConnectivityChanged;
+ Uri? _initialUri;
+  Uri? _latestUri;
+  Object? _err;
 
 
 
@@ -52,7 +52,7 @@ class _SplashScreenState extends State<SplashScreen> {
 Future<void> initUniLinks() async {
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
-      final initialLink = await getInitialLink();
+      final initialLink = (await getInitialLink())!;
       // Parse the link and warn the user, if it is not correct,
       // but keep in mind it could be `null`.
 if (initialLink.contains('product')) {
@@ -87,7 +87,7 @@ if (initialLink.contains('product')) {
           backgroundColor: isNotConnected ? Colors.red : Colors.green,
           duration: Duration(seconds: isNotConnected ? 6000 : 3),
           content: Text(
-            isNotConnected ? getTranslated('no_connection', context) : getTranslated('connected', context),
+            isNotConnected ? getTranslated('no_connection', context)! : getTranslated('connected', context)!,
             textAlign: TextAlign.center,
           ),
         ));
@@ -118,7 +118,7 @@ if (initialLink.contains('product')) {
       if(isSuccess) {
         Provider.of<SplashProvider>(context, listen: false).initSharedPrefData();
         Timer(Duration(seconds: 1), () {
-          if(Provider.of<SplashProvider>(context, listen: false).configModel.maintenanceMode) {
+          if(Provider.of<SplashProvider>(context, listen: false).configModel!.maintenanceMode!) {
             Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => MaintenanceScreen()));
           }else {
 
@@ -137,7 +137,7 @@ if (initialLink.contains('product')) {
               Provider.of<ProfileProvider>(context, listen: false).getUserInfo(context);
               Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => DashBoardScreen()));
             } else {
-              if(Provider.of<SplashProvider>(context, listen: false).showIntro()) {
+              if(Provider.of<SplashProvider>(context, listen: false).showIntro()!) {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => OnBoardingScreen(
                   indicatorColor: ColorResources.GREY, selectedIndicatorColor: Theme.of(context).primaryColor,
                 )));

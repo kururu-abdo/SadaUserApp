@@ -2,8 +2,8 @@ import 'package:eamar_user_app/data/model/response/category.dart';
 import 'package:flutter/material.dart';
 
 class FilterDialogUser extends StatefulWidget {
- final List<SubSubCategory>  cats;
-  FilterDialogUser({Key key, this.cats}) : super(key: key);
+ final List<SubSubCategory>?  cats;
+  FilterDialogUser({Key? key, this.cats}) : super(key: key);
 
   @override
   State<FilterDialogUser> createState() => _FilterDialogUserState();
@@ -19,8 +19,8 @@ class _FilterDialogUserState extends State<FilterDialogUser> {
   void initState() {
     super.initState();
     // filters = widget.initialState;
-    isClickedCountry = List.filled(widget.cats.length, false);
-   widget.cats.forEach((element) {
+    isClickedCountry = List.filled(widget.cats!.length, false);
+   widget.cats!.forEach((element) {
       children.add(
         FilterItem(element.name,
         // subitems: element.map((e) => FilterItem(e.name ,)).toList()
@@ -63,14 +63,14 @@ class _FilterDialogUserState extends State<FilterDialogUser> {
                               ? const Icon(Icons.arrow_circle_up)
                               : const Icon(Icons.arrow_circle_down),
                           
-                          Text(e.text),
+                          Text(e.text!),
                           const Spacer(),
                          Checkbox(
                             value: e.selected,
                             onChanged: (value) => setState(() {
                               e.subitems.forEach((element) =>
-                                  element.selected = value as bool);
-                              e.selected = value as bool;
+                                  element.selected = value as bool?);
+                              e.selected = value as bool?;
                             }),
                           ),
                         ],
@@ -87,10 +87,10 @@ class _FilterDialogUserState extends State<FilterDialogUser> {
                                     Checkbox(
                                       value: e.selected,
                                       onChanged: (value) => setState(() {
-                                        e.selected = value as bool;
+                                        e.selected = value as bool?;
                                       }),
                                     ),
-                                    Text(e.text),
+                                    Text(e.text!),
                                   ]);
                                 }).toList(),
                               ),
@@ -109,8 +109,8 @@ class _FilterDialogUserState extends State<FilterDialogUser> {
 
 
 class FilterItem {
-  final String text;
-  bool selected;
+  final String? text;
+  bool? selected;
   List<FilterItem> subitems;
 
   FilterItem(

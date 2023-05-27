@@ -1,6 +1,6 @@
 class Job {
-  int id;
-  String name;
+  int? id;
+  String? name;
 
   Job({this.id, this.name});
 

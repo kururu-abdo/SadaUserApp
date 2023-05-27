@@ -2,14 +2,14 @@
 import 'package:eamar_user_app/data/model/response/product_model.dart';
 
 class FeaturedDealModel {
-  int id;
-  int flashDealId;
-  int productId;
-  int discount;
+  int? id;
+  int? flashDealId;
+  int? productId;
+  int? discount;
   dynamic discountType;
-  String createdAt;
-  String updatedAt;
-  Product product;
+  String? createdAt;
+  String? updatedAt;
+  Product? product;
 
   FeaturedDealModel(
       {this.id,
@@ -42,7 +42,7 @@ class FeaturedDealModel {
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     if (this.product != null) {
-      data['product'] = this.product.toJson();
+      data['product'] = this.product!.toJson();
     }
     return data;
   }

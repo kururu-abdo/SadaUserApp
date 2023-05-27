@@ -13,9 +13,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class ProfileRepo {
-  final DioClient dioClient;
-  final SharedPreferences sharedPreferences;
-  ProfileRepo({@required this.dioClient, @required this.sharedPreferences});
+  final DioClient? dioClient;
+  final SharedPreferences? sharedPreferences;
+  ProfileRepo({required this.dioClient, required this.sharedPreferences});
 
   Future<ApiResponse> getAddressTypeList() async {
     try {
@@ -34,7 +34,7 @@ class ProfileRepo {
 
   Future<ApiResponse> getUserInfo() async {
     try {
-      final response = await dioClient.get(AppConstants.CUSTOMER_URI);
+      final response = await dioClient!.get(AppConstants.CUSTOMER_URI);
       log(response.data.toString());
       return ApiResponse.withSuccess(response);
     } catch (e) {
@@ -44,16 +44,16 @@ class ProfileRepo {
 
   Future<ApiResponse> getAllAddress() async {
     try {
-      final response = await dioClient.get(AppConstants.ADDRESS_LIST_URI);
+      final response = await dioClient!.get(AppConstants.ADDRESS_LIST_URI);
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
 
-  Future<ApiResponse> removeAddressByID(int id) async {
+  Future<ApiResponse> removeAddressByID(int? id) async {
     try {
-      final response = await dioClient.delete('${AppConstants.REMOVE_ADDRESS_URI}$id');
+      final response = await dioClient!.delete('${AppConstants.REMOVE_ADDRESS_URI}$id');
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
@@ -62,7 +62,7 @@ class ProfileRepo {
 
   Future<ApiResponse> addAddress(AddressModel addressModel) async {
     try {
-      Response response = await dioClient.post(
+      Response response = await dioClient!.post(
         AppConstants.ADD_ADDRESS_URI,
         data: addressModel.toJson(),
       );
@@ -72,7 +72,7 @@ class ProfileRepo {
     }
   }
 
-  Future<http.StreamedResponse> updateProfile(UserInfoModel userInfoModel, String pass, File file, String token) async {
+  Future<http.StreamedResponse> updateProfile(UserInfoModel userInfoModel, String pass, File? file, String token) async {
     http.MultipartRequest request = http.MultipartRequest('POST', Uri.parse('${AppConstants.BASE_URL}${AppConstants.UPDATE_PROFILE_URI}'));
     request.headers.addAll(<String,String>{'Authorization': 'Bearer $token'});
     if(file != null){
@@ -81,11 +81,11 @@ class ProfileRepo {
      Map<String, String> _fields = Map();
     if(pass.isEmpty) {
       _fields.addAll(<String, String>{
-        '_method': 'put', 'f_name': userInfoModel.fName, 'l_name': userInfoModel.lName, 'phone': userInfoModel.phone
+        '_method': 'put', 'f_name': userInfoModel.fName!, 'l_name': userInfoModel.lName!, 'phone': userInfoModel.phone!
       });
     }else {
       _fields.addAll(<String, String>{
-        '_method': 'put', 'f_name': userInfoModel.fName, 'l_name': userInfoModel.lName, 'phone': userInfoModel.phone, 'password': pass
+        '_method': 'put', 'f_name': userInfoModel.fName!, 'l_name': userInfoModel.lName!, 'phone': userInfoModel.phone!, 'password': pass
       });
     }
     request.fields.addAll(_fields);
@@ -97,34 +97,34 @@ class ProfileRepo {
   // for save home address
   Future<void> saveHomeAddress(String homeAddress) async {
     try {
-      await sharedPreferences.setString(AppConstants.HOME_ADDRESS, homeAddress);
+      await sharedPreferences!.setString(AppConstants.HOME_ADDRESS, homeAddress);
     } catch (e) {
       throw e;
     }
   }
 
   String getHomeAddress() {
-    return sharedPreferences.getString(AppConstants.HOME_ADDRESS) ?? "";
+    return sharedPreferences!.getString(AppConstants.HOME_ADDRESS) ?? "";
   }
 
   Future<bool> clearHomeAddress() async {
-    return sharedPreferences.remove(AppConstants.HOME_ADDRESS);
+    return sharedPreferences!.remove(AppConstants.HOME_ADDRESS);
   }
 
   // for save office address
   Future<void> saveOfficeAddress(String officeAddress) async {
     try {
-      await sharedPreferences.setString(AppConstants.OFFICE_ADDRESS, officeAddress);
+      await sharedPreferences!.setString(AppConstants.OFFICE_ADDRESS, officeAddress);
     } catch (e) {
       throw e;
     }
   }
 
   String getOfficeAddress() {
-    return sharedPreferences.getString(AppConstants.OFFICE_ADDRESS) ?? "";
+    return sharedPreferences!.getString(AppConstants.OFFICE_ADDRESS) ?? "";
   }
 
   Future<bool> clearOfficeAddress() async {
-    return sharedPreferences.remove(AppConstants.OFFICE_ADDRESS);
+    return sharedPreferences!.remove(AppConstants.OFFICE_ADDRESS);
   }
 }

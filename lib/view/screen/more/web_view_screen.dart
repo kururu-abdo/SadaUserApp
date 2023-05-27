@@ -7,9 +7,9 @@ import 'package:eamar_user_app/view/basewidget/custom_loader.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewScreen extends StatefulWidget {
-  final String title;
-  final String url;
-  WebViewScreen({@required this.url, @required this.title});
+  final String? title;
+  final String? url;
+  WebViewScreen({required this.url, required this.title});
 
   @override
   _WebViewScreenState createState() => _WebViewScreenState();
@@ -17,7 +17,7 @@ class WebViewScreen extends StatefulWidget {
 
 class _WebViewScreenState extends State<WebViewScreen> {
   final Completer<WebViewController> _controller = Completer<WebViewController>();
-  WebViewController controllerGlobal;
+  WebViewController? controllerGlobal;
   bool _isLoading = true;
 
   @override
@@ -75,8 +75,8 @@ class _WebViewScreenState extends State<WebViewScreen> {
 
   Future<bool> _exitApp() async {
     if(controllerGlobal != null) {
-      if (await controllerGlobal.canGoBack()) {
-        controllerGlobal.goBack();
+      if (await controllerGlobal!.canGoBack()) {
+        controllerGlobal!.goBack();
         return Future.value(false);
       } else {
         return Future.value(true);

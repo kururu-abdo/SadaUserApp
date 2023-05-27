@@ -12,14 +12,14 @@ class RelatedProductView extends StatelessWidget {
       builder: (context, prodProvider, child) {
         return Column(children: [
 
-          prodProvider.relatedProductList != null ? prodProvider.relatedProductList.length != 0 ? StaggeredGridView.countBuilder(
+          prodProvider.relatedProductList != null ? prodProvider.relatedProductList!.length != 0 ? StaggeredGridView.countBuilder(
             crossAxisCount: 2,
-            itemCount: prodProvider.relatedProductList.length,
+            itemCount: prodProvider.relatedProductList!.length,
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             staggeredTileBuilder: (int index) => StaggeredTile.fit(1),
             itemBuilder: (BuildContext context, int index) {
-              return ProductWidget(productModel: prodProvider.relatedProductList[index]);
+              return ProductWidget(productModel: prodProvider.relatedProductList![index]);
             },
           ): Center(child: Text('No related Product')) :
           ProductShimmer(isHomePage: false, isEnabled: Provider.of<ProductProvider>(context).relatedProductList == null),

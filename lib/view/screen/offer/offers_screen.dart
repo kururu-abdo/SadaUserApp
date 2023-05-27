@@ -19,18 +19,18 @@ class OffersScreen extends StatelessWidget {
 
     return CustomExpandedAppBar(title: getTranslated('offers', context), child: Consumer<BannerProvider>(
       builder: (context, banner, child) {
-        return banner.footerBannerList != null ? banner.footerBannerList.length != 0 ? RefreshIndicator(
+        return banner.footerBannerList != null ? banner.footerBannerList!.length != 0 ? RefreshIndicator(
           backgroundColor: Theme.of(context).primaryColor,
           onRefresh: () async {
             await Provider.of<BannerProvider>(context, listen: false).getFooterBannerList( context);
           },
           child: ListView.builder(
             padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-            itemCount: Provider.of<BannerProvider>(context).footerBannerList.length,
+            itemCount: Provider.of<BannerProvider>(context).footerBannerList!.length,
             itemBuilder: (context, index) {
 
               return InkWell(
-                onTap: () => _launchUrl(banner.footerBannerList[index].url),
+                onTap: () => _launchUrl(banner.footerBannerList![index].url!),
                 child: Container(
                   margin: EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_SMALL),
                   decoration: BoxDecoration(
@@ -41,8 +41,8 @@ class OffersScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     child: FadeInImage.assetNetwork(
                       placeholder: Images.placeholder, fit: BoxFit.fill, height: 150,
-                      image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls.bannerImageUrl}'
-                          '/${banner.footerBannerList[index].photo}',
+                      image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.bannerImageUrl}'
+                          '/${banner.footerBannerList![index].photo}',
                       imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, fit: BoxFit.fill, height: 150),
                     ),
                   ),
@@ -72,8 +72,8 @@ class OfferShimmer extends StatelessWidget {
       physics: BouncingScrollPhysics(),
       itemBuilder: (context, index) {
         return Shimmer.fromColors(
-          baseColor: Colors.grey[300],
-          highlightColor: Colors.grey[100],
+          baseColor: Colors.grey[300]!,
+          highlightColor: Colors.grey[100]!,
           enabled: Provider.of<BannerProvider>(context).footerBannerList == null,
           child: Container(
             height: 100,
