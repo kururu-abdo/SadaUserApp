@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/city.dart';
 import 'package:eamar_user_app/data/model/response/job_model.dart';
@@ -216,12 +218,14 @@ CustomDropdown<Region>(
                                   style: TextStyle(color: Colors.grey),
                                 ),
                                 leadingIcon: true,
-                                onChange: (Region value, int index)async {
+                                onChange: (Region? value, int? index)async {
                               setState(() {
                                     
-                                region=value;
+                                region=value!;
 
                               });
+                              log('NO EXCEPTION');
+                        
 await Provider.of<JobsProvider>(context, listen: false).getCities( context ,
 region.id,
     Provider.of<LocalizationProvider>(context, listen: false).locale.languageCode

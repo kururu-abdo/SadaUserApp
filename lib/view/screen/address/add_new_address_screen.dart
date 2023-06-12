@@ -409,10 +409,12 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                           ],
                         ),
 
+
                         Container(
                           height: 50.0,
                           margin: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-                          child: !locationProvider.isLoading ? CustomButton(
+                          child: !locationProvider.isLoading ?
+                           CustomButton(
                             buttonText: widget.isEnableUpdate ? getTranslated('update_address', context) : getTranslated('save_location', context),
                             onTap: locationProvider.loading ? null : () { AddressModel addressModel = AddressModel(
                               addressType: locationProvider.getAllAddressType[locationProvider.selectAddressIndex],
@@ -460,6 +462,8 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                 valueColor: new AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
                               )),
                         )
+                   
+                   
                       ],
                     ),
                   );

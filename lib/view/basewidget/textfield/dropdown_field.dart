@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -261,6 +263,7 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T?>>
   }
 
   void _toggleDropdown({bool close = false}) async {
+    log(close.toString());
     if (_isOpen || close) {
       await _animationController.reverse();
       this._overlayEntry.remove();

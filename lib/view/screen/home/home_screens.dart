@@ -133,6 +133,8 @@ Future.delayed(Duration.zero ,
     if(Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
       Provider.of<CartProvider>(context, listen: false).uploadToServer(context);
       Provider.of<CartProvider>(context, listen: false).getCartDataAPI(context);
+            Provider.of<AuthProvider>(context, listen: false).updateDeviceToken();
+
     }else {
       Provider.of<CartProvider>(context, listen: false).getCartData();
     }

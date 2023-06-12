@@ -3,23 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>975837518429-q55pudr659qujnlnkajhaeesqpqf1slk.apps.googleusercontent.com</string>
+	<string>715551820384-rlopli676tv3qepl269tn1n91q1l9qe0.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.975837518429-q55pudr659qujnlnkajhaeesqpqf1slk</string>
-	<key>ANDROID_CLIENT_ID</key>
-	<string>975837518429-c373gg0tgmoihfavv7glcfq717i2vcvl.apps.googleusercontent.com</string>
+	<string>com.googleusercontent.apps.715551820384-rlopli676tv3qepl269tn1n91q1l9qe0</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCpwXU-LIhoOnCp6h1Ixn0joCMrYtvF4Z0</string>
+	<string>AIzaSyDULqI0U9DA_QQdz4NnwR0DP-2dj2zyZag</string>
 	<key>GCM_SENDER_ID</key>
-	<string>975837518429</string>
+	<string>715551820384</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.sixamtech.sixValley</string>
+	<string>com.eamar.user</string>
 	<key>PROJECT_ID</key>
-	<string>sixvally-ecommerce</string>
+	<string>eamar-ecda8</string>
 	<key>STORAGE_BUCKET</key>
-	<string>sixvally-ecommerce.appspot.com</string>
+	<string>eamar-ecda8.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:975837518429:ios:1ca748007153e5909f0bb4</string>
+	<string>1:715551820384:ios:d44e1eafd5df922f61d105</string>
 </dict>
 </plist>

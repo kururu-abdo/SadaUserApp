@@ -78,19 +78,21 @@ class _SignUpWidgetState extends State<SignUpWidget> {
           content: Text(getTranslated('last_name_field_is_required', context)!),
           backgroundColor: Colors.red,
         ));
-      } else if (_email.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('EMAIL_MUST_BE_REQUIRED', context)!),
-          backgroundColor: Colors.red,
-        ));
-      }else if (EmailChecker.isNotValid(_email)) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('enter_valid_email_address', context)!),
-          backgroundColor: Colors.red,
-        ));
-      } 
+      }
       
-      else if (_phone.isEmpty) {
+      //  else if (_email.isEmpty) {
+      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //     content: Text(getTranslated('EMAIL_MUST_BE_REQUIRED', context)!),
+      //     backgroundColor: Colors.red,
+      //   ));
+      // }else if (EmailChecker.isNotValid(_email)) {
+      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //     content: Text(getTranslated('enter_valid_email_address', context)!),
+      //     backgroundColor: Colors.red,
+      //   ));
+      // } 
+      
+      else if (_phoneController.text.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(getTranslated('PHONE_MUST_BE_REQUIRED', context)!),
           backgroundColor: Colors.red,
@@ -128,7 +130,7 @@ try {
       } else {
         register.fName = '${_firstNameController.text}';
         register.lName = _lastNameController.text ;
-        register.email = _emailController.text;
+        register.email = _phoneNumber;
         register.phone = _phoneNumber;
         register.password = _passwordController.text;
         await Provider.of<AuthProvider>(context, listen: false).registration(register, route);
@@ -335,7 +337,7 @@ try {
                                         hintText: getTranslated('ENTER_MOBILE_NUMBER', context),
                                         focusNode: _phoneFocus,
                                         nextNode: _passwordFocus,
-                                        controller: _emailController,
+                                        controller: _phoneController,
                                         
                                         isPhoneNumber: true,
                                         textInputAction: TextInputAction.next,

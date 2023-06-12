@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:eamar_user_app/view/screen/product/gallery_show.dart';
 import 'package:eamar_user_app/view/screen/product/widget/download_image_page.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -409,14 +410,19 @@ result;
                           )   )
                         );
                       },
-                      child: Card(
+                      child: 
+                      Card(
                         elevation: 2,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+                        shape: RoundedRectangleBorder(borderRadius: 
+                        BorderRadius.circular(50)),
                         child: Container(width: 50, height: 50,
                           decoration: BoxDecoration(color: Theme.of(context).primaryColor,
                             shape: BoxShape.circle,
                           ),
-                          child: Icon(Icons.download, color: Theme.of(context).cardColor, size: Dimensions.ICON_SIZE_SMALL),
+                          child:
+                           Icon(Icons.download,
+                            color: Theme.of(context).cardColor, 
+                            size: Dimensions.ICON_SIZE_SMALL),
                         ),
                       ),
                     )
@@ -458,91 +464,94 @@ result;
  
 
 
- Visibility(
-visible: widget.productModel!.images!.isNotEmpty,
+//  Visibility(
+// visible: widget.productModel!.images!.isNotEmpty,
 
-   child: Container(
-     height: 120,      color: Theme.of(context).cardColor,
-     width: double.infinity,
-     child: 
+//    child: Container(
+//      height: 120,      color: Theme.of(context).cardColor,
+//      width: double.infinity,
+//      child: 
      
      
      
-     ListView.builder(
-       scrollDirection: Axis.horizontal,
-         padding: const EdgeInsets.all(8),
-      itemCount: widget.productModel!.images!.length,
-      itemBuilder: (BuildContext context, int index) { 
- return 
-         GestureDetector(
-           onTap: (){   
-              setState(() {
-                          _currentIndex=index;
-                      });
-                   _controller.jumpToPage(_currentIndex);
-                      Provider.of<ProductDetailsProvider>(context, listen: false).setImageSliderSelectedIndex(index);
-           },
-           child: Card(
-         shape: RoundedRectangleBorder(
-              borderRadius:
-                 index == Provider.of<ProductDetailsProvider>(context).imageSliderIndex?
-                  BorderRadius.circular(20):   BorderRadius.zero ,
-         ),
+//      ListView.builder(
+//        scrollDirection: Axis.horizontal,
+//          padding: const EdgeInsets.all(8),
+//       itemCount: widget.productModel!.images!.length,
+//       itemBuilder: (BuildContext context, int index) { 
+//  return 
+//          GestureDetector(
+//            onTap: (){   
+//               setState(() {
+//                           _currentIndex=index;
+//                       });
+//                    _controller.jumpToPage(_currentIndex);
+//                       Provider.of<ProductDetailsProvider>(context, listen: false).setImageSliderSelectedIndex(index);
+//            },
+//            child: Card(
+//          shape: RoundedRectangleBorder(
+//               borderRadius:
+//                  index == Provider.of<ProductDetailsProvider>(context).imageSliderIndex?
+//                   BorderRadius.circular(20):   BorderRadius.zero ,
+//          ),
          
-             elevation:index == Provider.of<ProductDetailsProvider>(context).imageSliderIndex ?2:0 ,
-             child: Container(
-               width: 100,
-               height: 100, 
+//              elevation:index == Provider.of<ProductDetailsProvider>(context).imageSliderIndex ?2:0 ,
+//              child: Container(
+//                width: 100,
+//                height: 100, 
                 
-               decoration: BoxDecoration( color: Theme.of(context).highlightColor,
-              //  boxShadow: index == Provider.of<ProductDetailsProvider>(context).imageSliderIndex ?
-               borderRadius:   BorderRadius.circular(20),
-              //  [
-              //    BoxShadow(
-              //      blurRadius: 1 ,
-              //      offset: Offset(0, 1),
-              //      spreadRadius: 1 ,
-              //     //  color: Theme.of(context).colorScheme.shadow,
+//                decoration: BoxDecoration( color: Theme.of(context).highlightColor,
+//               //  boxShadow: index == Provider.of<ProductDetailsProvider>(context).imageSliderIndex ?
+//                borderRadius:   BorderRadius.circular(20),
+//               //  [
+//               //    BoxShadow(
+//               //      blurRadius: 1 ,
+//               //      offset: Offset(0, 1),
+//               //      spreadRadius: 1 ,
+//               //     //  color: Theme.of(context).colorScheme.shadow,
                   
-              //    )
-              //  ]:null
-              //  ,
+//               //    )
+//               //  ]:null
+//               //  ,
               
-                 image: DecorationImage(image: NetworkImage('${Provider.of<SplashProvider>(context,listen: false).baseUrls!.productImageUrl}/${ widget.productModel!.images![index]}'),
-                 fit: BoxFit.cover
+//                  image: DecorationImage(image: NetworkImage('${Provider.of<SplashProvider>(context,listen: false).baseUrls!.productImageUrl}/${ widget.productModel!.images![index]}'),
+//                  fit: BoxFit.cover
                  
-                 )
-               ),
-               margin: EdgeInsets.all(10),
-              //  padding:
-              //  EdgeInsets.all(10), 
-             ),
-           ),
-         );
-      })
-      //  children: widget.productModel.images.map((e) => 
+//                  )
+//                ),
+//                margin: EdgeInsets.all(10),
+//               //  padding:
+//               //  EdgeInsets.all(10), 
+//              ),
+//            ),
+//          );
+//       })
+//       //  children: widget.productModel.images.map((e) => 
        
-      //  Center(
-      //    child: 
+//       //  Center(
+//       //    child: 
  
-      //    Container(
-      //      width: 100,
-      //      height: 100, 
+//       //    Container(
+//       //      width: 100,
+//       //      height: 100, 
        
-      //      decoration: BoxDecoration( color: Theme.of(context).highlightColor,
-      //        borderRadius: BorderRadius.circular(20) ,
-      //        image: DecorationImage(image: NetworkImage('${Provider.of<SplashProvider>(context,listen: false).baseUrls.productImageUrl}/${e}'))
-      //      ),
-      //      margin: EdgeInsets.all(10),
-      //      padding:
-      //      EdgeInsets.all(10), 
-      //    ),
+//       //      decoration: BoxDecoration( color: Theme.of(context).highlightColor,
+//       //        borderRadius: BorderRadius.circular(20) ,
+//       //        image: DecorationImage(image: NetworkImage('${Provider.of<SplashProvider>(context,listen: false).baseUrls.productImageUrl}/${e}'))
+//       //      ),
+//       //      margin: EdgeInsets.all(10),
+//       //      padding:
+//       //      EdgeInsets.all(10), 
+//       //    ),
        
-      //  )
-      //  ).toList(),
-    //  ),
-   ),
- )
+//       //  )
+//       //  ).toList(),
+//     //  ),
+//    ),
+//  )
+   
+   
+   
       ],
     );
   }
@@ -705,8 +714,34 @@ final double minScale=1;
             Builder(
               builder: (context) {
                 return GestureDetector(
-                     onDoubleTapDown: _handleDoubleTapDown,
-    onDoubleTap: _handleDoubleTap,
+// onPanStart:(details){
+//   _handleDoubleTap();
+// } ,
+// onVerticalDragStart: (details){
+//   _handleDoubleTap();
+// },
+
+
+//                      onDoubleTapDown: _handleDoubleTapDown,
+//     onDoubleTap: _handleDoubleTap,
+
+
+onTap: (){
+  Navigator.of(context).push(
+    MaterialPageRoute(builder: 
+    (_)=> 
+    MyAppGalleryView(
+
+      product: widget.productModel!.name,
+      images: widget.productModel!.images,
+
+
+    )
+    )
+  );
+},
+
+
     // onHorizontalDragStart: (),
     
                   child: InteractiveViewer(
