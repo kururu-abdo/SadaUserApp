@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/top_seller_model.dart';
 
@@ -18,6 +19,7 @@ import 'package:eamar_user_app/view/basewidget/rating_bar.dart';
 import 'package:eamar_user_app/view/basewidget/search_widget.dart';
 import 'package:eamar_user_app/view/screen/chat/top_seller_chat_screen.dart';
 import 'package:eamar_user_app/view/screen/home/widget/products_view.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class TopSellerProductScreen extends StatefulWidget {
@@ -43,6 +45,14 @@ class _TopSellerProductScreenState extends State<TopSellerProductScreen> {
   @override
   void initState() {
     super.initState();
+
+     FirebaseAnalytics.instance.logEvent(
+    name: "store_viewed",
+    parameters: {
+        "store":widget.topSeller.name,
+        "date": DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now()),
+    },
+);
     _load();
   }
 

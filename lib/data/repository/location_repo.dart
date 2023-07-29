@@ -5,6 +5,7 @@ import 'package:eamar_user_app/data/datasource/remote/exception/api_error_handle
 import 'package:eamar_user_app/data/model/response/address_model.dart';
 import 'package:eamar_user_app/data/model/response/base/api_response.dart';
 import 'package:eamar_user_app/utill/app_constants.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -73,7 +74,15 @@ class LocationRepo {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
+Future<String?> getAddressFromGeocode2(double lat,double lng)async{
+  List<Placemark> placemarks = await placemarkFromCoordinates(lat, lng);
+ Placemark place = placemarks[0];
 
+ return 
+ '${place.country}, ${place.name},${place.subLocality}, ${place.street}';
+
+
+}
   Future<ApiResponse> searchLocation(String text) async {
     try {
       Response response = await dioClient!.get('${AppConstants.SEARCH_LOCATION_URI}?search_text=$text');

@@ -5,6 +5,7 @@ import 'package:eamar_user_app/view/screen/home/widget/category_shimmer.dart';
 import 'package:eamar_user_app/view/screen/home/widget/category_widget.dart';
 import 'package:eamar_user_app/view/screen/home/widget/subSubcategory_widget.dart';
 import 'package:eamar_user_app/view/screen/home/widget/subcategory_widget.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/provider/product_provider.dart';
@@ -18,6 +19,7 @@ import 'package:eamar_user_app/view/basewidget/no_internet_screen.dart';
 import 'package:eamar_user_app/view/basewidget/product_shimmer.dart';
 import 'package:eamar_user_app/view/basewidget/product_widget.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class BrandAndCategoryProductScreen extends StatefulWidget {
@@ -42,6 +44,16 @@ void initState() {
   super.initState();
   
 Future.microtask(() {
+
+    FirebaseAnalytics.instance.logEvent(
+    name:widget.isBrand?'brand_viewed': "category_viewed",
+    parameters: {
+   widget.isBrand?"brand":     "category_name"
+        
+        :widget.name,
+        "date": DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now()),
+    },
+);
  if (mounted) {
       Future.wait([
          Provider.of<ProductProvider>(context, listen: false)

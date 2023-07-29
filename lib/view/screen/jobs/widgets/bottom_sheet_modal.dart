@@ -70,7 +70,14 @@ void initState() {
                     color: Colors.transparent, //could change this to Color(0xFF737373), 
                                //so you don't have to change MaterialApp canvasColor
                     child: new Container(
-                      padding: EdgeInsets.all(20),
+                      padding:
+                      
+                      EdgeInsets.symmetric(
+                        vertical: 25 ,horizontal: 20
+                      ),
+                      // EdgeInsets.all(20),
+
+
                         decoration: new BoxDecoration(
                             color: Theme.of(context).highlightColor,
                             
@@ -158,7 +165,7 @@ CustomDropdown<Job>(
                                   style: TextStyle(color: Colors.grey),
                                 ),
                                 leadingIcon: true,
-                                onChange: (Job value, int index)async {
+                                onChange: (Job? value, int index)async {
                               setState(() {
                                     
                                 job=value;
@@ -292,7 +299,7 @@ region.id,
                                   style: TextStyle(color: Colors.grey),
                                 ),
                                 leadingIcon: true,
-                                onChange: (int value, int index)async {
+                                onChange: (int? value, int index)async {
                               // setState(() {
                                     
                               //   city=value;
@@ -354,7 +361,7 @@ CustomDropdown<City>(
                                   style: TextStyle(color: Colors.grey),
                                 ),
                                 leadingIcon: true,
-                                onChange: (City value, int index)async {
+                                onChange: (City? value, int index)async {
                               setState(() {
                                     
                                 city=value;

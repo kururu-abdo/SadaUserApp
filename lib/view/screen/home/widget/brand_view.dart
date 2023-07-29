@@ -15,13 +15,19 @@ class BrandView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
     return Consumer<BrandProvider>(
       builder: (context, brandProvider, child) {
 
         return brandProvider.brandList.length != 0 ?
         isHomePage?
         ConstrainedBox(
-          constraints: brandProvider.brandList.length > 0 ? BoxConstraints(maxHeight: 130):BoxConstraints(maxHeight: 0),
+          constraints: brandProvider.brandList.length > 0 ?
+          
+          
+           BoxConstraints(maxHeight: (height/ 4))
+         
+          :BoxConstraints(maxHeight: 0),
           child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: brandProvider.brandList.length,

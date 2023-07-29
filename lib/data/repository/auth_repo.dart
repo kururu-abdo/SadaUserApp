@@ -238,5 +238,15 @@ class AuthRepo {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));
     }
   }
+  Future<ApiResponse> deleteAccount(
+  String temporaryToken) async {
+    try {
+      Response response = await dioClient!.post(AppConstants.REMOVE_ACCOUNT, data: {
+       "temporary_token" : temporaryToken});
+        return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
 
 }

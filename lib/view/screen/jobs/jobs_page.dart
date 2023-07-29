@@ -157,6 +157,12 @@ child: Stack(
                     elevation: 0,
                     toolbarHeight: 100,
                     centerTitle: false,
+                    leading: 
+                    widget.isBacButtonExist?
+                    IconButton(onPressed: (){
+Navigator.pop(context); 
+                    }, icon: Icon(Icons.arrow_back_ios)):null ,
+                    
                     automaticallyImplyLeading: false,
                     backgroundColor: Theme.of(context).highlightColor,
                     title: Image.asset(Images.logo_with_name_image, height: 100 ,scale: 1.2,),

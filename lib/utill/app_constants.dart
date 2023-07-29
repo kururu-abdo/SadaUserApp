@@ -3,10 +3,14 @@ import 'package:eamar_user_app/data/model/response/language_model.dart';
 class AppConstants {
   static const String APP_NAME = 'Eamar';
   static const String BASE_URL = 'https://echoemaar.com';
+
+
   static const String USER_ID = 'userId';
   static const String NAME = 'name';
   static const String CATEGORIES_URI = '/api/v1/categories';
   static const String BRANDS_URI = '/api/v1/brands';
+  static const String DELETE_ACCOUNT ="/api/v1/customer/delete_customer";
+
   static const String BRAND_PRODUCT_URI = '/api/v1/brands/products/';
   static const String CATEGORY_PRODUCT_URI = '/api/v1/categories/products/';
   static const String REGISTRATION_URI = '/api/v1/auth/register';
@@ -26,6 +30,8 @@ class AppConstants {
   static const String REMOVE_WISH_LIST_URI = '/api/v1/customer/wish-list/remove?product_id=';
   static const String UPDATE_PROFILE_URI = '/api/v1/customer/update-profile';
   static const String CUSTOMER_URI = '/api/v1/customer/info';
+  static const String REMOVE_ACCOUNT='/api/v1/auth/suspend_account';
+
   static const String ADDRESS_LIST_URI = '/api/v1/customer/address/list';
   static const String REMOVE_ADDRESS_URI = '/api/v1/customer/address?address_id=';
   static const String ADD_ADDRESS_URI = '/api/v1/customer/address/add';

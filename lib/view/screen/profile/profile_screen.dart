@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:eamar_user_app/view/basewidget/animated_custom_dialog.dart';
+import 'package:eamar_user_app/view/screen/more/widget/delete_account_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/user_info_model.dart';
@@ -129,7 +131,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      body: Consumer<ProfileProvider>(
+      body: 
+      
+      
+      Consumer<ProfileProvider>(
         builder: (context, profile, child) {
           _firstNameController.text = profile.userInfoModel!.fName!;
           _lastNameController.text = profile.userInfoModel!.lName!;
@@ -345,6 +350,48 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   ),
+
+
+                                                SizedBox(height: Dimensions.MARGIN_SIZE_LARGE),
+
+                            Center(
+  child: InkWell(
+    onTap: () =>                    showAnimatedDialog(context, 
+    DeleteAccountConfirmationDialog()
+    , isFlip: true),
+
+    
+    // async{
+    //                 Provider.of<ProfileProvider>(context, listen: false).deleteAccount(context);
+
+    // },
+    child: Container(
+      margin: EdgeInsets.symmetric(horizontal: Dimensions.MARGIN_SIZE_LARGE,
+                      vertical: Dimensions.MARGIN_SIZE_SMALL),
+   width:MediaQuery.of(context).size.width ,height:45 ,
+   padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+       color: Colors.red ,
+       borderRadius: BorderRadius.circular(10)
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+  
+  
+  Icon(Icons.dangerous , color: Colors.white,),
+  SizedBox(width: 15,) ,
+          Text(getTranslated('DELETE_ACCOUNT', context)! , style: TextStyle(
+            color: Colors.white
+          ),)
+        ],
+      ),
+    ),
+  )
+)
+                  
+                        ,
+                      
                   Container(margin: EdgeInsets.symmetric(horizontal: Dimensions.MARGIN_SIZE_LARGE,
                       vertical: Dimensions.MARGIN_SIZE_SMALL),
                     child: !Provider.of<ProfileProvider>(context).isLoading ?

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/address_model.dart';
 import 'package:eamar_user_app/data/model/response/base/api_response.dart';
@@ -101,15 +102,22 @@ class LocationProvider with ChangeNotifier {
       notifyListeners();
       try {
         if (fromAddress) {
+                    log('UPDAYE MY PO1');
+
           _position = Position(
             latitude: position!.target.latitude, longitude: position.target.longitude, timestamp: DateTime.now(),
             heading: 1, accuracy: 1, altitude: 1, speedAccuracy: 1, speed: 1,
           );
+          notifyListeners();
         } else {
+
+          log('UPDAYE MY PO2');
           _pickPosition = Position(
             latitude: position!.target.latitude, longitude: position.target.longitude, timestamp: DateTime.now(),
             heading: 1, accuracy: 1, altitude: 1, speedAccuracy: 1, speed: 1,
           );
+                    notifyListeners();
+
         }
         if (_changeAddress) {
             String _addresss = await getAddressFromGeocode(LatLng(position.target.latitude, position.target.longitude), context);
@@ -127,8 +135,11 @@ class LocationProvider with ChangeNotifier {
       _loading = false;
       notifyListeners();
     }else {
+
+     
       _updateAddAddressData = true;
     }
+    notifyListeners();
   }
 
   // End Address Position
@@ -356,18 +367,25 @@ class LocationProvider with ChangeNotifier {
   }
 
   Future<String> getAddressFromGeocode(LatLng latLng, BuildContext context) async {
-    ApiResponse response = await locationRepo!.getAddressFromGeocode(latLng);
+    String? response = await locationRepo!.getAddressFromGeocode2(
+      latLng.latitude ,latLng.latitude
+    );
     String _address = 'Unknown Location Found';
-    if(response.response!.statusCode == 200 && response.response!.data['status'] == 'OK') {
-      _address = response.response!.data['results'][0]['formatted_address'].toString();
-    }
-    else  if( response.response!.data['status'] == 'OK') {
-      _address = response.response!.data['results'][0]['formatted_address'].toString();
-    }
+    // if(response.response!.statusCode == 200 && response.response!.data['status'] == 'OK') {
+    //   _address = response.response!.data['results'][0]['formatted_address'].toString();
+    // }
+    // else  if( response.response!.data['status'] == 'OK') {
+    //   _address = response.response!.data['results'][0]['formatted_address'].toString();
+    // }
     
-    else {
-      ApiChecker.checkApi(context, response);
-    }
+    // else {
+    //   ApiChecker.checkApi(context, response);
+    // }
+if (response!=null) {
+  _address = response;
+}
+
+
     return _address;
   }
 

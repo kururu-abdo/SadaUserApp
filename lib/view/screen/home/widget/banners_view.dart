@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eamar_user_app/view/screen/product/product_details_screen2.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/product_model.dart';
 import 'package:eamar_user_app/provider/banner_provider.dart';
@@ -12,6 +13,7 @@ import 'package:eamar_user_app/utill/images.dart';
 import 'package:eamar_user_app/view/screen/product/brand_and_category_product_screen.dart';
 import 'package:eamar_user_app/view/screen/product/product_details_screen.dart';
 import 'package:eamar_user_app/view/screen/topSeller/top_seller_product_screen.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 class BannersView extends StatelessWidget {
@@ -25,6 +27,10 @@ class BannersView extends StatelessWidget {
 
     if(type != 'category'){
       if(Provider.of<CategoryProvider>(context, listen: false).categoryList[cIndex].name != null){
+       
+      
+       
+       
         Navigator.push(context, MaterialPageRoute(builder: (_) => BrandAndCategoryProductScreen(
           isBrand: false,
           id: id.toString(),
@@ -33,6 +39,9 @@ class BannersView extends StatelessWidget {
       }
 
     }else if(type != 'product'){
+
+         
+      
       Navigator.push(context, MaterialPageRoute(builder: (_) => ProductDetails2(
         product: product!,
       )));
@@ -65,6 +74,8 @@ class BannersView extends StatelessWidget {
           builder: (context, bannerProvider, child) {
 
             double _width = MediaQuery.of(context).size.width;
+                        double _height = MediaQuery.of(context).size.height;
+
             return Container(
               width: _width,
               height: _width * 0.4,

@@ -29,7 +29,9 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   Future<void> _loadData()async{
-    if(Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
+    Future.microtask(()async {
+
+if(Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
      await Provider.of<CartProvider>(context, listen: false).getCartDataAPI(context);
       Provider.of<CartProvider>(context, listen: false).setCartData();
 
@@ -38,12 +40,15 @@ class _CartScreenState extends State<CartScreen> {
       }
 
     }
+
+    });
   }
 
   @override
   void initState() {
-    _loadData();
+ 
     super.initState();
+       _loadData();
   }
 
   @override
@@ -116,7 +121,8 @@ class _CartScreenState extends State<CartScreen> {
 
       return Scaffold(
         bottomNavigationBar: (!widget.fromCheckout && !cart.isLoading)
-            ? Container(height: 80, padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_LARGE,
+            ? 
+            Container(height: 80, padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_LARGE,
             vertical: Dimensions.PADDING_SIZE_DEFAULT),
 
           decoration: BoxDecoration(color: Theme.of(context).cardColor,
@@ -195,9 +201,14 @@ Icon(Icons.lock) ,
             : null,
         body: Column(
             children: [
+            
+            
               CustomAppBar(title: getTranslated('CART', context)),
 
-              cart.isLoading ? Padding(
+              cart.isCartLoading
+        
+              
+              ? Padding(
                 padding: const EdgeInsets.only(top: 200.0),
                 child: Center(child: CircularProgressIndicator(
                   valueColor: new AlwaysStoppedAnimation<Color>(
@@ -205,7 +216,10 @@ Icon(Icons.lock) ,
                   ),
                 ),
                 ),
-              ) :sellerList.length != 0 ? Expanded(
+              ) :
+              sellerList.isNotEmpty
+            
+               ? Expanded(
                 child: Container(
                   child: Column(
                     children: [
@@ -344,13 +358,18 @@ Icon(Icons.lock) ,
                             ]),
                           ),
                         ),
-                      ):SizedBox(),
+                      ):
+                      SizedBox()
+                      ,
 
 
                     ],
                   ),
                 ),
               ) : Expanded(child: NoInternetOrDataScreen(isNoInternet: false)),
+            
+            
+            
             ]),
       );
     });

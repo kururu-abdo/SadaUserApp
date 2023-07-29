@@ -1,6 +1,7 @@
 
 import 'package:eamar_user_app/data/model/response/category.dart';
 import 'package:eamar_user_app/view/basewidget/textfield/dropdown_field.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/localization/language_constrants.dart';
 import 'package:eamar_user_app/provider/search_provider.dart';
@@ -12,6 +13,7 @@ import 'package:eamar_user_app/view/basewidget/product_shimmer.dart';
 import 'package:eamar_user_app/view/basewidget/search_widget.dart';
 import 'package:eamar_user_app/view/screen/search/widget/search_product_widget.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class SearchScreen extends StatelessWidget {
@@ -43,6 +45,16 @@ Provider.of<SearchProvider>(context, listen: false).getCategoryList(false ,conte
                     child: SearchWidget(
                       hintText: getTranslated('SEARCH_HINT', context),
                       onSubmit: (String text) {
+
+                         FirebaseAnalytics.instance.logEvent(
+    name: "search_txt",
+    parameters: {
+        "search_word":text,
+        "date": DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now()),
+    },
+);
+
+
                         Provider.of<SearchProvider>(context, listen: false).searchProduct(text, context);
                         Provider.of<SearchProvider>(context, listen: false).saveSearchAddress(text);
                         },
@@ -264,9 +276,9 @@ Provider.of<SearchProvider>(context, listen: false).getCategoryList(false ,conte
                                   ),
                                   leadingIcon: true,
                                   
-                                  onChange: (Category value, int index)async {
+                                  onChange: (Category? value, int index)async {
                                     
-                              searchProvider.setCategory( value);
+                              searchProvider.setCategory( value!);
                                   
                                     //fetch region cities
                               
@@ -391,9 +403,26 @@ if (str!.isEmpty) {
                               
                               if (searchProvider.category ==null) {
                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('category_field_required', context)!),
+
        backgroundColor: Colors.red));
                               }else{
                                  if (_vormKey.currentState!.validate()) {
+
+                                   FirebaseAnalytics.instance.logEvent(
+    name: "search_category",
+    parameters: {
+        "category_name":searchProvider.category!.name,
+        "date": DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now()),
+    },
+);
+
+ FirebaseAnalytics.instance.logEvent(
+    name: "search_amount",
+    parameters: {
+        "amount":num.parse(_firstPriceController.text),
+        "date": DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now()),
+    },
+);
                                 await 
                                 searchProvider.filterByBudgetAndCategory(searchProvider.category!, num.parse(_firstPriceController.text), context);
                               }

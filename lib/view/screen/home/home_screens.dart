@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:eamar_user_app/view/screen/notification/notification_screen.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 
@@ -126,6 +129,10 @@ Future.delayed(Duration.zero ,
     
    Future.microtask(() {
  singleVendor = Provider.of<SplashProvider>(context, listen: false).configModel!.businessMode == "single";
+setState(() {
+  
+});
+ log("MODE" + Provider.of<SplashProvider>(context, listen: false).configModel!.businessMode.toString());
     Provider.of<FlashDealProvider>(context, listen: false).getMegaDealList(true, context, true);
 
     _loadData(context, false);
@@ -178,6 +185,22 @@ Future.delayed(Duration.zero ,
                     backgroundColor: Theme.of(context).highlightColor,
                     title: Image.asset(Images.logo_with_name_image, height: 100 ,scale: 1.2,),
                     actions: [
+
+
+                      
+                      Padding(
+                        padding: const EdgeInsets.only(right: 12.0),
+                        child: IconButton(
+                          onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (_) => NotificationScreen()));
+                          },
+                          icon: 
+                     Icon(   Icons.notifications)
+                       
+                       
+                        ),
+                      ),
+
+
                       Padding(
                         padding: const EdgeInsets.only(right: 12.0),
                         child: IconButton(
@@ -273,7 +296,9 @@ Future.delayed(Duration.zero ,
 
    //brands view
                           BannersView(),
-                          SizedBox(height: Dimensions.HOME_PAGE_PADDING),
+                          SizedBox(height: 
+                          
+                          Dimensions.HOME_PAGE_PADDING),
 
 
                           // Mega Deal

@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:eamar_user_app/utill/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/address_model.dart';
 import 'package:eamar_user_app/localization/language_constrants.dart';
@@ -16,6 +19,9 @@ import 'package:geolocator/geolocator.dart';
 
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:place_picker/entities/localization_item.dart';
+import 'package:place_picker/entities/location_result.dart';
+import 'package:place_picker/widgets/place_picker.dart';
 import 'package:provider/provider.dart';
 
 class AddNewAddressScreen extends StatefulWidget {
@@ -116,12 +122,79 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                                 target: widget.isEnableUpdate
                                                     ? LatLng(double.parse(widget.address!.latitude!)
                                                     , double.parse(widget.address!.longitude!) )
+                                                    
                                                     : LatLng(locationProvider.position.latitude , 
                                                     locationProvider.position.longitude ),
                                                 zoom: 17,
                                               ),
-                                              onTap: (latLng) {
-                                                Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => SelectLocationScreen(googleMapController: _controller)));
+                                              onTap: (latLng)async {
+                                               
+                                               
+                                               
+                                                // Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => SelectLocationScreen(googleMapController: _controller)));
+                                              
+
+           LocationResult? result =
+                            await Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) =>
+              PlacePicker(AppConstants.GOOGLE_MAP_KEY,
+
+
+
+
+              
+                        localizationItem: LocalizationItem( 
+languageCode: getLang(context)=="ar"?"ar":"en"  ,
+
+tapToSelectLocation:  getLang(context)=="ar"?"اضغط هنا لاختيار المكان":"Tap to select this location" 
+
+
+
+                        ),
+                            
+            displayLocation: latLng,                
+            
+                        // defaultLocation: 
+                        
+                        // LatLng(
+                        //   supplierUserLocation!=null?
+                        //   supplierUserLocation!.lat!
+                        //   :22.0
+                        //   ,
+                        //     supplierUserLocation!=null?
+                        //   supplierUserLocation!.lng!
+                        //   :45.0
+                          
+                          // ),
+                          )
+                          )
+                          
+                          );
+
+if (result!=null) {
+  
+
+
+log(result.city!.name.toString());
+
+  Provider.of<LocationProvider>(context, listen: false).
+  updatePosition(
+  
+  CameraPosition(target: LatLng(result.latLng!.latitude
+, result.latLng!.longitude)), 
+
+true, null, context);
+// Provider.of<LocationProvider>(context, listen: false).updateAddress(context, addressModel: addressModel)
+
+                // locationProvider.updatePosition(_cameraPosition, false, null, context);
+  Provider.of<LocationProvider>(context, listen: false).setAddAddressData();
+            // Provider.of<LocationProvider>(context, listen: false).setLocation(suggestion.placeId, suggestion.description, mapController);
+}
+
+
+
+
+                                              
                                               },
                                               zoomControlsEnabled: false,
                                               compassEnabled: false,
@@ -180,10 +253,70 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
                                               top: 10,
                                               right: 0,
                                               child: InkWell(
-                                                onTap: () {
+                                                onTap: () async{
 
-                                                  Navigator.of(context).push(MaterialPageRoute(
-                                                      builder: (BuildContext context) => SelectLocationScreen(googleMapController: _controller)));
+                                                  // Navigator.of(context).push(MaterialPageRoute(
+                                                  //     builder: (BuildContext context) =>
+                                                  //      SelectLocationScreen(googleMapController: _controller)));
+
+
+
+
+                   LocationResult? result =
+                            await Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) =>
+              PlacePicker(AppConstants.GOOGLE_MAP_KEY,
+                        localizationItem: LocalizationItem( 
+languageCode: getLang(context)=="ar"?"ar":"en"  ,
+
+tapToSelectLocation:  getLang(context)=="ar"?"اضغط هنا لاختيار المكان":"Tap to select this location" 
+                        ),
+                            
+                            
+            
+                        // defaultLocation: 
+                        
+                        // LatLng(
+                        //   supplierUserLocation!=null?
+                        //   supplierUserLocation!.lat!
+                        //   :22.0
+                        //   ,
+                        //     supplierUserLocation!=null?
+                        //   supplierUserLocation!.lng!
+                        //   :45.0
+                          
+                          // ),
+                          )
+                          )
+                          
+                          );
+
+if (result!=null) {
+  
+
+
+log(result.city!.name.toString());
+
+  Provider.of<LocationProvider>(context, listen: false).
+  updatePosition(
+  
+  CameraPosition(target: LatLng(result.latLng!.latitude
+, result.latLng!.longitude)), 
+
+true, null, context);
+// Provider.of<LocationProvider>(context, listen: false).updateAddress(context, addressModel: addressModel)
+
+                // locationProvider.updatePosition(_cameraPosition, false, null, context);
+  Provider.of<LocationProvider>(context, listen: false).setAddAddressData();
+            // Provider.of<LocationProvider>(context, listen: false).setLocation(suggestion.placeId, suggestion.description, mapController);
+
+}
+
+            
+                                              
+                                              
+                                              
+                                              
                                                 },
                                                 child: Container(
                                                   width: 30,

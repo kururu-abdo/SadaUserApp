@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:eamar_user_app/view/screen/cart/cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/helper/network_info.dart';
 import 'package:eamar_user_app/provider/splash_provider.dart';
@@ -9,7 +10,6 @@ import 'package:eamar_user_app/utill/images.dart';
 import 'package:eamar_user_app/view/screen/home/home_screens.dart';
 import 'package:eamar_user_app/view/screen/jobs/jobs_page.dart';
 import 'package:eamar_user_app/view/screen/more/more_screen.dart';
-import 'package:eamar_user_app/view/screen/notification/notification_screen.dart';
 import 'package:eamar_user_app/view/screen/order/order_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -45,18 +45,20 @@ log(singleVendor.toString());
       // singleVendor? 
       // NotificationScreen(isBacButtonExist: false):
       //  OrderScreen(isBacButtonExist: false),
+// SizedBox(width: 40,),
 
            JobsPage(isBacButtonExist: false),
-
-     singleVendor? 
-      NotificationScreen(isBacButtonExist: false):
-       OrderScreen(isBacButtonExist: false),
-
+    //  singleVendor? 
+    //   NotificationScreen(isBacButtonExist: false):
+    //    OrderScreen(isBacButtonExist: false),
 
 
-      singleVendor? MoreScreen():
-       NotificationScreen(isBacButtonExist: false),
-      singleVendor?SizedBox(): MoreScreen()
+
+    //   singleVendor? MoreScreen():
+    //    NotificationScreen(isBacButtonExist: false),
+      // singleVendor?SizedBox(): 
+      
+      MoreScreen()
 
       // singleVendor?OrderScreen(isBacButtonExist: false): InboxScreen(isBackButtonExist: false) ,
 
@@ -85,18 +87,123 @@ log(singleVendor.toString());
       },
       child: Scaffold(
         key: _scaffoldKey,
+
+floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+floatingActionButton: FloatingActionButton( onPressed:(){
+
+
+Navigator.of(context) 
+.push(
+  MaterialPageRoute(builder: 
+  
+  (_)=>CartScreen()
+  )
+);
+
+},
+
+child: Center(
+  child: ImageIcon(
+    AssetImage(Images.cart_image),color: Colors.white,
+  ),
+),
+
+),
+
         // backgroundColor: Colors.transparent,
-        bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: Theme.of(context).primaryColor,
-          unselectedItemColor: Theme.of(context).textTheme.bodyText1!.color,
-          showUnselectedLabels: true,
-          currentIndex: _pageIndex,
-          type: BottomNavigationBarType.fixed,
-          items: _getBottomWidget(singleVendor),
-          onTap: (int index) {
-            _setPage(index);
-          },
-        ),
+        bottomNavigationBar:
+        
+BottomAppBar(
+          shape: CircularNotchedRectangle(),
+          height: 100,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+children:  [
+
+
+  IconButton(
+                icon: ImageIcon(
+                  AssetImage(Images.home_image ,
+                  
+                  
+                  ),
+                  color: Theme.of(context).primaryColor,
+
+                  size: 30,
+                ),
+                color: Colors.black,
+                onPressed: () {
+                  _setPage(0);
+                },
+              ),
+            
+            
+            
+            
+             IconButton(
+                icon: ImageIcon(
+                  AssetImage(Images.shopping_image ,)
+                  ,color: Theme.of(context).primaryColor,
+                ),
+                color: Colors.black,
+                onPressed: () {
+                  _setPage(1);
+                },
+              )
+            
+           
+              
+              ,
+              SizedBox(
+                width: 40,
+              ),
+               IconButton(
+                icon: ImageIcon(
+                  AssetImage(Images.jobs_icon ,)
+                  ,color: Theme.of(context).primaryColor,
+                ),
+                color: Colors.black,
+                onPressed: () {
+                  _setPage(2);
+                },
+              )
+            
+           
+              
+              
+              ,
+                IconButton(
+                icon: ImageIcon(
+                  AssetImage(Images.more_image ,)
+                  ,color: Theme.of(context).primaryColor,
+                ),
+                color: Colors.black,
+                onPressed: () {
+                  _setPage(3);
+                },
+              )
+            
+           ,
+]
+          )
+          
+          ),
+
+        //  BottomNavigationBar(
+        //   selectedItemColor: Theme.of(context).primaryColor,
+        //   unselectedItemColor: Theme.of(context).textTheme.bodyText1!.color,
+        //   showUnselectedLabels: true,
+        //   currentIndex: _pageIndex,
+        //   type: BottomNavigationBarType.fixed,
+        //   items: _getBottomWidget(singleVendor),
+        //   onTap: (int index) {
+        //     _setPage(index);
+        //   },
+        // ),
+      
+      
+      
+      
         body: PageView.builder(
           controller: _pageController,
           itemCount: _screens.length,
@@ -113,7 +220,7 @@ log(singleVendor.toString());
     return BottomNavigationBarItem(
       icon: Image.asset(icon, color: index == _pageIndex ?
       Theme.of(context).primaryColor :
-       Theme.of(context).textTheme.bodyText1!.color!.withOpacity(0.5),
+       Theme.of(context).textTheme.bodyLarge!.color!.withOpacity(0.5),
         height: 25, width: 25,
       ),
       label: label,
@@ -143,10 +250,15 @@ log(singleVendor.toString());
     }else{
       _list.add(_barItem(Images.home_image, getTranslated('home', context), 0));
       _list.add(_barItem(Images.shopping_image, getTranslated('orders', context), 1));
-      _list.add(_barItem('assets/images/office.png', getTranslated('jobs_txt', context), 2));
+      _list.add(_barItem('assets/images/office.png',
+       getTranslated('jobs_txt', context), 2));
 
-      _list.add(_barItem(Images.notification, getTranslated('notification', context), 3));
+      // _list.add(_barItem(Images.notification, getTranslated('notification', context), 3));
       _list.add(_barItem(Images.more_image, getTranslated('more', context), 4));
+
+
+
+      
     }
 
     return _list;

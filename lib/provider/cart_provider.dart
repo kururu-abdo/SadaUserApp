@@ -30,6 +30,7 @@ class CartProvider extends ChangeNotifier {
   double _amount = 0.0;
   bool _isSelectAll = true;
   bool _isLoading = false;
+  bool isCartLoading=false;
   CartModel? cart;
   String? _updateQuantityErrorText;
   String? get addOrderStatusErrorText => _updateQuantityErrorText;
@@ -117,20 +118,35 @@ class CartProvider extends ChangeNotifier {
 
   void setCartData(){
     _getData = true;
+    notifyListeners();
   }
 
   Future<ApiResponse> getCartDataAPI(BuildContext context) async {
-    _isLoading = true;
+    isCartLoading = true;
+    notifyListeners();
     ApiResponse apiResponse = await cartRepo!.getCartListData();
+  log('GETTING CART');
+   
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-      _cartList = [];
+        log('CART DATA LOADED');
+      
+      _cartList.clear();
+       isCartLoading = false;
+       notifyListeners();
       apiResponse.response!.data.forEach((cart) => _cartList.add(CartModel.fromJson(cart)));
+       log('CART DATA SHOWN');
+       
          notifyListeners();
     }  else if (apiResponse.response != null ){
-      log('NO CART DATA YET');
-      log(apiResponse.response!.data.toString());
-      _cartList = [];
+      // log('NO CART DATA YET');
+      // log(apiResponse.response!.data.toString());
+      log('NO CART DATA YET2');
+      _cartList.clear();
+      isCartLoading = false;
       apiResponse.response!.data.forEach((cart) => _cartList.add(CartModel.fromJson(cart)));
+         
+
+ 
    notifyListeners();
     }
     
@@ -138,7 +154,7 @@ class CartProvider extends ChangeNotifier {
      else {
       ApiChecker.checkApi(context, apiResponse);
     }
-    _isLoading = false;
+    isCartLoading = false;
     notifyListeners();
     return apiResponse;
   }
@@ -432,6 +448,7 @@ class CartProvider extends ChangeNotifier {
     else {
       ApiChecker.checkApi(context, apiResponse);
     }
+       _getData = true;
     _isLoading = false;
     notifyListeners();
 

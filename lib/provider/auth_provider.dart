@@ -182,7 +182,7 @@ class AuthProvider with ChangeNotifier {
         await authRepo!.updateToken();
       }
 
-      callback(true, token, temporaryToken, message);
+      callback(true, token??'', temporaryToken??'', message??'');
       notifyListeners();
     } else {
       String? errorMessage;
@@ -215,6 +215,8 @@ try {
   }
 
   //email
+
+
   Future<ResponseModel> checkEmail(String email, String temporaryToken) async {
     _isPhoneNumberVerificationButtonLoading = true;
     _verificationMsg = '';
@@ -241,6 +243,41 @@ try {
     notifyListeners();
     return responseModel;
   }
+
+
+
+//account
+
+  
+  Future<ResponseModel> removeAccount( String temporaryToken) async {
+    _isPhoneNumberVerificationButtonLoading = true;
+    _verificationMsg = '';
+    notifyListeners();
+    ApiResponse apiResponse = await authRepo!.deleteAccount(temporaryToken);
+    _isPhoneNumberVerificationButtonLoading = false;
+    notifyListeners();
+    ResponseModel responseModel;
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      responseModel = ResponseModel(apiResponse.response!.data['token'], true);
+    } else {
+      String? errorMessage;
+      if (apiResponse.error is String) {
+        print(apiResponse.error.toString());
+        errorMessage = apiResponse.error.toString();
+      } else {
+        ErrorResponse errorResponse = apiResponse.error;
+        print(errorResponse.errors![0].message);
+        errorMessage = errorResponse.errors![0].message;
+      }
+      responseModel = ResponseModel(errorMessage,false);
+      _verificationMsg = errorMessage;
+    }
+    notifyListeners();
+    return responseModel;
+  }
+
+
+
 
   Future<ResponseModel> verifyEmail(String email, String token) async {
     _isPhoneNumberVerificationButtonLoading = true;
