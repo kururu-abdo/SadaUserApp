@@ -3,6 +3,10 @@
   "VALLEY": "valley",
   "app_name":"Eamar",
   "on_boarding_title_one": "Welcome to",
+  "DELETE_ACCOUNT":"Delete Account" ,
+  "DELETE_CONFIRMATION":"Caution. Do you want to delete Account? \n  This action is final " ,
+
+  "DELETE_DONE":"Account Deleted!"  ,
   "on_boarding_title_two": "Easy and Secure Checkout",
   "on_boarding_title_three": "Fastest Delivery",
   "on_boarding_description_one": "Here shopping is easy and fun with 50 thousands products, exclusive deals, offers and promotions.",

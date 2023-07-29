@@ -30,6 +30,7 @@ import 'package:eamar_user_app/view/screen/product/widget/product_title_view.dar
 import 'package:eamar_user_app/view/screen/product/widget/related_product_view.dart';
 import 'package:eamar_user_app/view/screen/product/widget/review_widget.dart';
 import 'package:eamar_user_app/view/screen/product/widget/youtube_video_widget.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 
@@ -73,12 +74,14 @@ class _ProductDetailsState extends State<ProductDetails2> {
 );
 
 
-
-await FirebaseAnalytics.instance.logSelectItem(
-    itemListId: "${widget.product!.slug}",
-    itemListName: "Common products",
-    items: [product],
+  FirebaseAnalytics.instance.logEvent(
+    name: "product_viewed",
+    parameters: {
+        "product_name": product.itemName,
+        "date": DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now()),
+    },
 );
+
     }
       Provider.of<ProductDetailsProvider>(context, listen: false).removePrevReview();
 

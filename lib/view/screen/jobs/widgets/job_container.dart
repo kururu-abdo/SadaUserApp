@@ -7,7 +7,7 @@ import 'package:eamar_user_app/provider/splash_provider.dart';
 import 'package:eamar_user_app/utill/app_constants.dart';
 import 'package:eamar_user_app/utill/images.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:open_whatsapp/open_whatsapp.dart';
+// import 'package:open_whatsapp/open_whatsapp.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -144,12 +144,12 @@ var encoded = Uri.encodeFull("whatsapp://send?phone=+966${phone}");
 
 await _launchWhatsapp(encoded);
 try {
-  log('Pressed');
+  // log('Pressed');
   
-      FlutterOpenWhatsapp.sendSingleMessage("966${phone}", "Hello").then((value) {
-        log(value.toString());
-      } as FutureOr<void> Function(Null));
-        log('After Lauch');
+  //     FlutterOpenWhatsapp.sendSingleMessage("966${phone}", "Hello").then((value) {
+  //       log(value.toString());
+  //     } as FutureOr<void> Function(Null));
+  //       log('After Lauch');
 
 
 } catch (e) {

@@ -207,7 +207,9 @@ class _MoreScreenState extends State<MoreScreen> {
                       ),
 
                   TitleButton(image: Images.jobs_icon, title: getTranslated('jobs_txt', context),
-                      navigateTo: JobsPage()
+                      navigateTo: JobsPage(
+                        isBacButtonExist: true,
+                      )
                       
                       ),
  

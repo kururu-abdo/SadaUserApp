@@ -28,18 +28,38 @@ class SupportTicketScreen extends StatelessWidget {
       }
     }
 
-    return CustomExpandedAppBar(
-      title: getTranslated('support_ticket', context),
-      isGuestCheck: true,
+return Scaffold(
+  appBar: AppBar(
+    backgroundColor: Theme.of(context).primaryColor,
+  title: Text(getTranslated('support_ticket', context)!,
+  
+  style: TextStyle(
+    color: Colors.white
+  ),
+  ),
+  centerTitle: true,
 
-      bottomChild: InkWell(
+
+leading: IconButton(onPressed: (){
+Navigator.pop(context);
+}, icon: Icon(Icons.arrow_back_ios , 
+
+color: Colors.white,
+)),
+  ),
+
+
+
+
+  floatingActionButton: 
+      InkWell(
         onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => IssueTypeScreen())),
-        child: Material(color: ColorResources.getColombiaBlue(context),
+        child: Material(color:  Theme.of(context).primaryColor.withOpacity(.40),
           elevation: 5,
           borderRadius: BorderRadius.circular(50),
           child: Row(mainAxisSize: MainAxisSize.min, children: [
             Container(padding: EdgeInsets.all(Dimensions.PADDING_SIZE_EXTRA_SMALL),
-              decoration: BoxDecoration(color: ColorResources.getFloatingBtn(context),
+              decoration: BoxDecoration(color: Theme.of(context).primaryColor,
                 shape: BoxShape.circle,),
               child: Icon(Icons.add, color: Colors.white, size: 35),),
 
@@ -51,8 +71,8 @@ class SupportTicketScreen extends StatelessWidget {
           ]),
         ),
       ),
-
-      child: Provider.of<SupportTicketProvider>(context).supportTicketList != null
+body: 
+ Provider.of<SupportTicketProvider>(context).supportTicketList != null
           ? Provider.of<SupportTicketProvider>(context).supportTicketList!.length != 0
           ? Consumer<SupportTicketProvider>(
           builder: (context, support, child) {
@@ -110,6 +130,105 @@ class SupportTicketScreen extends StatelessWidget {
             );
           },
         ) : NoInternetOrDataScreen(isNoInternet: false) : SupportTicketShimmer(),
+      
+
+
+
+
+);
+    return CustomExpandedAppBar(
+      title: getTranslated('support_ticket', context),
+      isGuestCheck: true,
+
+      bottomChild: 
+
+
+      InkWell(
+        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => IssueTypeScreen())),
+        child: Material(color:  Theme.of(context).primaryColor.withOpacity(.40),
+          elevation: 5,
+          borderRadius: BorderRadius.circular(50),
+          child: Row(mainAxisSize: MainAxisSize.min, children: [
+            Container(padding: EdgeInsets.all(Dimensions.PADDING_SIZE_EXTRA_SMALL),
+              decoration: BoxDecoration(color: Theme.of(context).primaryColor,
+                shape: BoxShape.circle,),
+              child: Icon(Icons.add, color: Colors.white, size: 35),),
+
+
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_DEFAULT),
+              child: Text(getTranslated('new_ticket', context)!,
+                  style: titilliumSemiBold.copyWith(color: Colors.white, fontSize: Dimensions.FONT_SIZE_LARGE)),),
+          ]),
+        ),
+      ),
+
+
+
+
+      child:
+
+       Provider.of<SupportTicketProvider>(context).supportTicketList != null
+          ? Provider.of<SupportTicketProvider>(context).supportTicketList!.length != 0
+          ? Consumer<SupportTicketProvider>(
+          builder: (context, support, child) {
+            List<SupportTicketModel> supportTicketList = support.supportTicketList!.reversed.toList();
+            return RefreshIndicator(
+              backgroundColor: Theme.of(context).primaryColor,
+              onRefresh: () async {
+                await support.getSupportTicketList(context);
+              },
+              child: ListView.builder(
+                padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
+                itemCount: supportTicketList.length,
+                itemBuilder: (context, index) {
+
+                  return InkWell(
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => SupportConversationScreen(
+                        supportTicketModel: supportTicketList[index],))),
+                    child: Container(
+                      padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
+                      margin: EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_SMALL),
+                      decoration: BoxDecoration(
+                        color: ColorResources.getImageBg(context),
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: ColorResources.getSellerTxt(context), width: 2),
+                      ),
+                      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                        Text('Place date: ${DateConverter.localDateToIsoStringAMPM(DateTime.parse(supportTicketList[index].createdAt!))}',
+                          style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL),
+                        ),
+                        Text(supportTicketList[index].subject!, style: titilliumSemiBold),
+
+
+                        Row(children: [
+                          Icon(Icons.notifications, color: ColorResources.getPrimary(context), size: 20),
+                          SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
+                          Expanded(child: Text(supportTicketList[index].type!, style: titilliumSemiBold)),
+                          TextButton(onPressed: null,
+                            style: TextButton.styleFrom(
+                              backgroundColor: supportTicketList[index].status == 'open' ?
+                              ColorResources.getGreen(context) : Theme.of(context).primaryColor,),
+
+                            child: Text(
+                              supportTicketList[index].status == 'pending' ?
+                              getTranslated('pending', context)! : getTranslated('solved', context)!,
+                              style: titilliumSemiBold.copyWith(color: Colors.white),
+                            ),
+                          ),
+                        ]),
+                      ]),
+                    ),
+                  );
+
+                },
+              ),
+            );
+          },
+        ) : NoInternetOrDataScreen(isNoInternet: false) : SupportTicketShimmer(),
+      
+      
+      
       );
   }
 }

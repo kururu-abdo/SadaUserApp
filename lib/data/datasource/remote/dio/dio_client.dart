@@ -199,7 +199,7 @@ final cacheOptions =  CacheOptions(
   // Overrides any HTTP directive to delete entry past this duration.
   // Useful only when origin server has no cache config or custom behaviour is desired.
   // Defaults to [null].
-  maxStale: const Duration(minutes: 10),
+  maxStale: const Duration(minutes: 3),
   // Default. Allows 3 cache sets and ease cleanup.
   priority: CachePriority.high,
   // Default. Body and headers encryption with your own algorithm.

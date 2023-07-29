@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:eamar_user_app/view/screen/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/base/api_response.dart';
 import 'package:eamar_user_app/provider/auth_provider.dart';
@@ -15,7 +16,7 @@ class ApiChecker {
       Provider.of<ProfileProvider>(context,listen: false).clearHomeAddress();
       Provider.of<ProfileProvider>(context,listen: false).clearOfficeAddress();
       Provider.of<AuthProvider>(context,listen: false).clearSharedData();
-      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => AuthScreen()), (route) => false);
+      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => LoginScreen()), (route) => false);
     }else {
       String? _errorMessage;
       if (apiResponse.error is String) {

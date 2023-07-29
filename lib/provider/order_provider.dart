@@ -15,6 +15,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class OrderProvider with ChangeNotifier {
   final OrderRepo? orderRepo;
@@ -143,7 +144,25 @@ await FirebaseAnalytics.instance
   currency: 'SAR' ,
   paymentType: orderPlaceModel.paymentMethod
 );
+ FirebaseAnalytics.instance.logEvent(
+    name: "order_area",
+    parameters: {
+        "shipping":orderPlaceModel.customerInfo!.shippingAddress,
+        "billing":orderPlaceModel.customerInfo!.billingAddress,
+        "date": DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now()),
+    },
+);
+   
 
+   
+    FirebaseAnalytics.instance.logEvent(
+    name: "delivery_method",
+    parameters: {
+        "method":orderPlaceModel.paymentMethod,
+        "date": DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now()),
+    },
+);
+   
 // await FirebaseAnalytics.instance.logEvent(
 //     name: "store",
 //     parameters: {

@@ -16,7 +16,14 @@ class ProfileRepo {
   final DioClient? dioClient;
   final SharedPreferences? sharedPreferences;
   ProfileRepo({required this.dioClient, required this.sharedPreferences});
-
+Future<ApiResponse> deletAccount(String id) async {
+    try {
+      final response = await dioClient!.delete('${AppConstants.DELETE_ACCOUNT}/$id');
+      return ApiResponse.withSuccess(response);
+    } catch (e) {
+      return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+    }
+  }
   Future<ApiResponse> getAddressTypeList() async {
     try {
       List<String> addressTypeList = [

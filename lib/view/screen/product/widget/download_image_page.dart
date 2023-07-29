@@ -101,17 +101,20 @@ class _ProductImageDownloadState extends State<ProductImageDownload> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
           title: Text(
           getTranslated('dowlonad_image' , context)!,
 
              style: robotoRegular.copyWith(fontSize: 20,
-                      color: Theme.of(context).cardColor)
+                      color: Colors.black)
           ),
           // backgroundColor: Colors.transparent,
           leading: IconButton(onPressed: (){
             Navigator.pop(context);
-          }, icon: Icon(Icons.arrow_back_ios ,   color: Theme.of(context).cardColor)),
+          }, icon: Icon(Icons.close  ,   color: Colors.black)),
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),

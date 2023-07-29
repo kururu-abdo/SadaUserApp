@@ -72,7 +72,7 @@ Future<void> getJobs( BuildContext context ,String lang, {bool reload = false}) 
      
       ApiResponse apiResponse = await jobsRepo!.getUsersJobs(context ,lang);
       if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-log(apiResponse.response!.data.runtimeType.toString());
+
 Iterable data=  apiResponse.response!.data;
         List<Job> _jobs= 
          data.
@@ -85,7 +85,6 @@ Iterable data=  apiResponse.response!.data;
       } 
       
    else    if (apiResponse.response != null ) {
-log(apiResponse.response!.data.runtimeType.toString());
 Iterable data=  apiResponse.response!.data;
         List<Job> _jobs= 
          data.
@@ -117,7 +116,8 @@ Future<void> getUserJobs( BuildContext context ,String lang, {bool reload = fals
 
   //    }
      
-     
+     _isAddJobLoading= true;
+     notifyListeners();
       ApiResponse apiResponse = await jobsRepo!.getJobs(context ,lang);
       if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
 Iterable data= apiResponse.response!.data;

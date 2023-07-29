@@ -7,8 +7,8 @@ class ApiErrorHandler {
   static dynamic getMessage(error) {
     dynamic errorDescription = "";
     if (error is Exception) {
-       log('ERROR HAPPEN');
-         log('${error.toString()}');
+      //  log('ERROR HAPPEN');
+      //    log('${error.toString()}');
       try {
         if (error is DioError) {
          

@@ -4,7 +4,7 @@ description: A new Flutter setup application for starting a project.
 
 publish_to: 'none'
 
-version: 1.0.1+5
+version: 1.0.1+3
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -49,7 +49,7 @@ dependencies:
   flutter_google_places: ^0.3.0
   geocoding: ^2.0.0
   geolocator: ^8.2.0
-  flutter_typeahead: ^4.0.0
+  flutter_typeahead: ^4.6.2
   marquee: ^2.2.1
   flutter_rating_bar: ^4.0.0
   flutter_widget_from_html: ^0.8.5
@@ -67,13 +67,14 @@ dependencies:
   dio_cache_interceptor: ^3.4.0
   dio_cache_interceptor_hive_store: ^3.2.1
   font_awesome_flutter: ^10.4.0
-  open_whatsapp: ^0.0.1
+  
   permission_handler: ^10.2.0
   gallery_saver: ^2.3.2
-  place_picker: 
   image_watermark:
   firebase_analytics: ^9.3.8
   rating_dialog: ^2.0.4
+  place_picker: ^0.9.20-nullsafety
+  intl: ^0.18.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

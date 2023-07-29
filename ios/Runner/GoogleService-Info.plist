@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>715551820384-t657krt3greequnvoeoe6647mv16tngs.apps.googleusercontent.com</string>
+	<string>715551820384-rlopli676tv3qepl269tn1n91q1l9qe0.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.715551820384-t657krt3greequnvoeoe6647mv16tngs</string>
+	<string>com.googleusercontent.apps.715551820384-rlopli676tv3qepl269tn1n91q1l9qe0</string>
 	<key>API_KEY</key>
 	<string>AIzaSyDULqI0U9DA_QQdz4NnwR0DP-2dj2zyZag</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.sixamtech.sixValley</string>
+	<string>com.eamar.user</string>
 	<key>PROJECT_ID</key>
 	<string>eamar-ecda8</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:715551820384:ios:85710d1e3fe42a6861d105</string>
+	<string>1:715551820384:ios:d44e1eafd5df922f61d105</string>
 </dict>
 </plist>

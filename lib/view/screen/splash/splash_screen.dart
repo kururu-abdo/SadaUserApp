@@ -15,7 +15,6 @@ import 'package:eamar_user_app/provider/theme_provider.dart';
 import 'package:eamar_user_app/utill/color_resources.dart';
 import 'package:eamar_user_app/utill/images.dart';
 import 'package:eamar_user_app/view/basewidget/no_internet_screen.dart';
-import 'package:eamar_user_app/view/screen/auth/auth_screen.dart';
 import 'package:eamar_user_app/view/screen/dashboard/dashboard_screen.dart';
 import 'package:eamar_user_app/view/screen/maintenance/maintenance_screen.dart';
 import 'package:eamar_user_app/view/screen/onboarding/onboarding_screen.dart';

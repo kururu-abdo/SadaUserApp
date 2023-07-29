@@ -79,8 +79,9 @@ SizedBox(height: 5,) ,
         child: Text(
 
           getLang(context)=="ar"?
-          'شركة صدى الاعمار التجارية المحدودة     شركة صدى الاعمار التجارية المحدودة   شركة صدى الاعمار التجارية المحدودة   شركة صدى الاعمار التجارية المحدودة شركة صدى الاعمار التجارية المحدودة  شركة صدى الاعمار التجارية المحدودة  شركة صدى الاعمار التجارية المحدودة  شركة صدى الاعمار التجارية المحدودة شركة صدى الاعمار التجارية المحدودة  شركة صدى الاعمار التجارية المحدودة ':
-          'ECHO EMAAR TRADING COMPANY  , ECHO EMAAR TRADING  COMPANY , ECHO EMAAR TRADING COMPANY \n ECHO EMAAR TRADING COMPANY  , ECHO EMAAR TRADING COMAPANY \n ECHO EMAAR TRADING COMPANY  , ECHO EMAAR TRADING COMAPANY\n ECHO EMAAR TRADING COMPANY  , ECHO EMAAR TRADING COMAPANY  \n ECHO EMAAR TRADING COMPANY  , ECHO EMAAR TRADING COMAPANY\n ECHO EMAAR TRADING COMPANY  , ECHO EMAAR TRADING COMAPANY' ,
+          'شركة رائدة في تجارة الجملة للأدوات الصحية و تمديداتها خبرة اكثر من 15 سنة'
+          :
+'A leading company in the wholesale trade of sanitary ware and extensions, with more than 15 years of experience' ,
 
         //  overflow: TextOverflow.ellipsis,]
 

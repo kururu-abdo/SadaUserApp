@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/body/login_model.dart';
 import 'package:eamar_user_app/data/model/body/register_model.dart';
@@ -105,28 +107,36 @@ class AuthProvider with ChangeNotifier {
 
       }
       try{
-        temporaryToken = map["temporary_token"];
+        temporaryToken = 
+        map["temporary_token"]!=null?
+        
+        map["temporary_token"]:'';
 
       }catch(e){
 
       }
       if(token != null && token.isNotEmpty){
-        authRepo!.saveUserToken(token);
-        await authRepo!.updateToken();
+       try {
+          authRepo!.saveUserToken(token);
+       } catch (e) {
+         
+       }
       }
-      callback(true, token, temporaryToken, message);
+
+      callback(true, token??'', temporaryToken??'', message??'');
       notifyListeners();
     } else {
+      // log('${apiResponse.response!.statusCode}');
       String? errorMessage;
       if (apiResponse.error is String) {
         print(apiResponse.error.toString());
         errorMessage = apiResponse.error.toString();
       } else {
         ErrorResponse errorResponse = apiResponse.error;
-        print(errorResponse.errors![0].message);
+        // print(errorResponse.errors![0].message);
         errorMessage = errorResponse.errors![0].message;
       }
-      callback(false, '', '', errorMessage);
+      callback(false, '', '', errorMessage??'Erro3');
       notifyListeners();
     }
   }
@@ -172,7 +182,7 @@ class AuthProvider with ChangeNotifier {
         await authRepo!.updateToken();
       }
 
-      callback(true, token, temporaryToken, message);
+      callback(true, token??'', temporaryToken??'', message??'');
       notifyListeners();
     } else {
       String? errorMessage;
@@ -188,7 +198,13 @@ class AuthProvider with ChangeNotifier {
       notifyListeners();
     }
   }
-
+updateDeviceToken()async{
+try {
+    await  authRepo!.updateToken();
+} catch (e) {
+  
+}
+}
   Future<void> updateToken(BuildContext context) async {
     ApiResponse apiResponse = await authRepo!.updateToken();
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
@@ -199,6 +215,8 @@ class AuthProvider with ChangeNotifier {
   }
 
   //email
+
+
   Future<ResponseModel> checkEmail(String email, String temporaryToken) async {
     _isPhoneNumberVerificationButtonLoading = true;
     _verificationMsg = '';
@@ -225,6 +243,41 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
     return responseModel;
   }
+
+
+
+//account
+
+  
+  Future<ResponseModel> removeAccount( String temporaryToken) async {
+    _isPhoneNumberVerificationButtonLoading = true;
+    _verificationMsg = '';
+    notifyListeners();
+    ApiResponse apiResponse = await authRepo!.deleteAccount(temporaryToken);
+    _isPhoneNumberVerificationButtonLoading = false;
+    notifyListeners();
+    ResponseModel responseModel;
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+      responseModel = ResponseModel(apiResponse.response!.data['token'], true);
+    } else {
+      String? errorMessage;
+      if (apiResponse.error is String) {
+        print(apiResponse.error.toString());
+        errorMessage = apiResponse.error.toString();
+      } else {
+        ErrorResponse errorResponse = apiResponse.error;
+        print(errorResponse.errors![0].message);
+        errorMessage = errorResponse.errors![0].message;
+      }
+      responseModel = ResponseModel(errorMessage,false);
+      _verificationMsg = errorMessage;
+    }
+    notifyListeners();
+    return responseModel;
+  }
+
+
+
 
   Future<ResponseModel> verifyEmail(String email, String token) async {
     _isPhoneNumberVerificationButtonLoading = true;

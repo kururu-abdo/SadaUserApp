@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -250,6 +251,29 @@ class ProfileProvider extends ChangeNotifier {
     return responseModel;
   }
 
+
+
+void deleteAccount( BuildContext context) async {
+    _isLoading = true;
+    notifyListeners();
+    log('DELETE');
+    ApiResponse apiResponse = await profileRepo!.deletAccount(_userInfoModel!.id.toString());
+    if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+    
+      Map map = apiResponse.response!.data;
+      String message = map["message"];
+      initAddressList(context);
+      Provider.of<OrderProvider>(context, listen: false).shippingAddressNull();
+      Provider.of<OrderProvider>(context, listen: false).billingAddressNull();
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message), backgroundColor: Colors.green));
+
+      _isLoading = false;
+    } else {
+      _isLoading = false;
+      ApiChecker.checkApi(context, apiResponse);
+    }
+    notifyListeners();
+  }
   // save office and home address
   void saveHomeAddress(String homeAddress) {
     profileRepo!.saveHomeAddress(homeAddress).then((_) {
