@@ -1,11 +1,9 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_html_table/flutter_html_table.dart';
-
 import 'package:eamar_user_app/localization/language_constrants.dart';
 import 'package:eamar_user_app/view/basewidget/custom_app_bar.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class SpecificationScreen extends StatelessWidget {
@@ -23,10 +21,11 @@ class SpecificationScreen extends StatelessWidget {
         CustomAppBar(title: getTranslated('specification', context)),
 
         Expanded(child: SingleChildScrollView(child: Html(data: specification,
-          tagsList: Html.tags,
-          customRenders: {
-            tableMatcher(): tableRender(),
-          },
+          // tagsList: Html.tags,
+          // customRenders: {
+          //   tableMatcher(): tableRender(),
+          // }
+          // ,
           style: {
             "table": Style(
               backgroundColor: Color.fromARGB(0x50, 0xee, 0xee, 0xee),
@@ -35,11 +34,15 @@ class SpecificationScreen extends StatelessWidget {
               border: Border(bottom: BorderSide(color: Colors.grey)),
             ),
             "th": Style(
-              padding: EdgeInsets.all(6),
+              padding:
+              
+              HtmlPaddings.all(6)
+              //  EdgeInsets.all(6)
+               ,
               backgroundColor: Colors.grey,
             ),
             "td": Style(
-              padding: EdgeInsets.all(6),
+              padding: HtmlPaddings.all(6),
               alignment: Alignment.topLeft,
             ),
 

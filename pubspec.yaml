@@ -54,11 +54,12 @@ dependencies:
   flutter_rating_bar: ^4.0.0
   flutter_widget_from_html: ^0.8.5
   flutter_widget_from_html_core: ^0.8.5+3
-  flutter_html_table: ^3.0.0-alpha.3
+  flutter_html_table: ^3.0.0-beta.2
   fluttertoast: ^8.0.9
   validate_ksa_number: ^1.0.0
   responsive_framework: ^0.2.0
   expandable: ^5.0.1
+  firebase_core_platform_interface: ^4.5.1
   # flutter_survey: ^0.1.4
   # flutter_speech: ^2.0.0
   firebase_dynamic_links: ^4.3.11
