@@ -1,6 +1,6 @@
+import 'package:eamar_user_app/utill/custom_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:eamar_user_app/utill/custom_themes.dart';
 
 extension EmailValidator on String {
   bool isValidEmail() {
@@ -45,9 +45,7 @@ class CustomTextField extends StatelessWidget {
   Widget build(context) {
     var isRtl = Directionality.of(context)==TextDirection.rtl;
     return Container(
-      width: double.infinity,
-
-      //  width: double.infinity,
+       width: double.infinity,
       decoration: BoxDecoration(
         color: Theme.of(context).highlightColor,
         borderRadius: BorderRadius.circular(6),
@@ -63,118 +61,121 @@ class CustomTextField extends StatelessWidget {
       //     BoxShadow(color: Colors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1)) // changes position of shadow
       //   ],
       // ),
-      child: TextFormField(
-        textAlign: 
-        
-        // isBorder? TextAlign.center:
-        isRtl?TextAlign.end:
-        TextAlign.start
-        
-        ,
-      
-        controller: controller,
-        maxLines: maxLine ?? 1,
-        textCapitalization: capitalization,
-        maxLength: isPhoneNumber ? 10 : null,
-        focusNode: focusNode,
-        keyboardType: textInputType ?? TextInputType.text,
-        //keyboardType: TextInputType.number,
-        initialValue: null,
-        textInputAction: textInputAction ?? TextInputAction.next,
-
-
-        
-        onFieldSubmitted: (v) {
-          FocusScope.of(context).requestFocus(nextNode);
-        },
-        //autovalidate: true,
-        inputFormatters: [isPhoneNumber ? FilteringTextInputFormatter.digitsOnly : FilteringTextInputFormatter.singleLineFormatter],
-        validator: (input){
-          if(input!.isEmpty){
-            if(isValidator){
-              return validatorMessage??"";
-            }
-          }
-          return null;
-
-        },
-        decoration: InputDecoration(
-hintTextDirection: TextDirection.ltr,
-          hintText: hintText ?? '',
-          filled: fillColor != null,
-          fillColor: fillColor,
-          contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 15),
-          isDense: true,
-          counterText: '',
-          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),
-          hintStyle: titilliumRegular.copyWith(color: Theme.of(context).hintColor),
-          errorStyle: TextStyle(height: 1.5),
-          border: InputBorder.none,
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-
-          prefixIcon:
-          isPhoneNumber?
+      child:  ClipRRect(
+        borderRadius: BorderRadius.circular(6),
+        child: TextFormField(
+          textAlign: 
           
-          isRtl?null: Container(
-            padding: EdgeInsets.zero,
-            width: 30,
-            child: Center(
-              child: Text(
-                     '966',
-                  // showFlagMain: true,
-                      style: TextStyle(
-                          // color: Colors.black
-                          
-                   color:       Theme.of(context).textTheme.headline1!.color ,
-                   fontWeight: FontWeight.bold
-                          
-                          ),
-                    ),
-            ),
-          ):null,
- suffixIcon:
- isPhoneNumber?
- isRtl? 
- 
- Container(
-            padding: EdgeInsets.zero,
-            width: 30,
-            child: Center(
-              child: Text(
-                     '966',
-                  // showFlagMain: true,
-                      style: TextStyle(
-                          // color: Colors.black
-                          
-                   color:       Theme.of(context).textTheme.headline1!.color ,
-                   fontWeight: FontWeight.bold
-                          
-                          ),
-                    ),
-            ),
-          ):null
-:null
-//           prefix:  Flex(
-//           direction: Axis.horizontal,
-//           mainAxisSize: MainAxisSize.min,
-// children: [
-//    Flexible(
-//                 fit: isRtl ? FlexFit.tight : FlexFit.loose,
-//                 child: Text(
-//                  '966',
-//               // showFlagMain: true,
-//                   style: TextStyle(
-//                       color: Colors.black
-                      
-//                       // Theme.of(context).textTheme.headline1.color
-                      
-//                       ),
-//                 ),
-//                   // overflow: widget.textOverflow,
-                
-//               ),
-// ],
-//           )
+          // isBorder? TextAlign.center:
+          isRtl?TextAlign.end:
+          TextAlign.start
+          
+          ,
+        
+          controller: controller,
+          maxLines: maxLine ?? 1,
+          textCapitalization: capitalization,
+          maxLength: isPhoneNumber ? 10 : null,
+          focusNode: focusNode,
+          keyboardType: textInputType ?? TextInputType.text,
+          //keyboardType: TextInputType.number,
+          initialValue: null,
+          textInputAction: textInputAction ?? TextInputAction.next,
+      
+      
+          
+          onFieldSubmitted: (v) {
+            FocusScope.of(context).requestFocus(nextNode);
+          },
+          //autovalidate: true,
+          inputFormatters: [isPhoneNumber ? FilteringTextInputFormatter.digitsOnly : FilteringTextInputFormatter.singleLineFormatter],
+          validator: (input){
+            if(input!.isEmpty){
+              if(isValidator){
+                return validatorMessage??"";
+              }
+            }
+            return null;
+      
+          },
+          decoration: InputDecoration(
+      hintTextDirection: TextDirection.ltr,
+            hintText: hintText ?? '',
+            filled:true,
+            fillColor:  Theme.of(context).highlightColor,
+            contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 15),
+            isDense: true,
+            counterText: '',
+            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),
+            hintStyle: titilliumRegular.copyWith(color: Theme.of(context).hintColor),
+            errorStyle: TextStyle(height: 1.5),
+            border: InputBorder.none,
+            floatingLabelBehavior: FloatingLabelBehavior.always,
+      
+            prefixIcon:
+            isPhoneNumber?
+            
+            isRtl?null: Container(
+              padding: EdgeInsets.zero,
+              width: 30,
+              child: Center(
+                child: Text(
+                       '966',
+                    // showFlagMain: true,
+                        style: TextStyle(
+                            // color: Colors.black
+                            
+                     color:       Theme.of(context).textTheme.displayLarge!.color ,
+                     fontWeight: FontWeight.bold
+                            
+                            ),
+                      ),
+              ),
+            ):null,
+       suffixIcon:
+       isPhoneNumber?
+       isRtl? 
+       
+       Container(
+              padding: EdgeInsets.zero,
+              width: 30,
+              child: Center(
+                child: Text(
+                       '966',
+                    // showFlagMain: true,
+                        style: TextStyle(
+                            // color: Colors.black
+                            
+                     color:       Theme.of(context).textTheme.displayLarge!.color ,
+                     fontWeight: FontWeight.bold
+                            
+                            ),
+                      ),
+              ),
+            ):null
+      :null
+      //           prefix:  Flex(
+      //           direction: Axis.horizontal,
+      //           mainAxisSize: MainAxisSize.min,
+      // children: [
+      //    Flexible(
+      //                 fit: isRtl ? FlexFit.tight : FlexFit.loose,
+      //                 child: Text(
+      //                  '966',
+      //               // showFlagMain: true,
+      //                   style: TextStyle(
+      //                       color: Colors.black
+                        
+      //                       // Theme.of(context).textTheme.headline1.color
+                        
+      //                       ),
+      //                 ),
+      //                   // overflow: widget.textOverflow,
+                  
+      //               ),
+      // ],
+      //           )
+          ),
         ),
       ),
     );

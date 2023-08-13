@@ -440,6 +440,11 @@
 "whats_is_your_rate":"What is your rate?" ,
 "plesase_share_opinion":"Please share your opinion about us" ,
 "please_comment":"let see you opinion"  ,
-"thanks_for_rate":"Thanks for sharing your opinion"
+"thanks_for_rate":"Thanks for sharing your opinion" ,
+"by_phone":"Phone Number" ,
+"by_id":"Customer ID" ,
 
+
+"enter_customer":"Enter Customer ID" ,
+"id_is_required":"Customer ID is required"
 }

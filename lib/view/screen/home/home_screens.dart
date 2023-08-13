@@ -1,8 +1,5 @@
 import 'dart:developer';
-
-import 'package:eamar_user_app/view/screen/notification/notification_screen.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:flutter/material.dart';
+import 'dart:io';
 
 import 'package:eamar_user_app/helper/product_type.dart';
 import 'package:eamar_user_app/localization/language_constrants.dart';
@@ -28,6 +25,7 @@ import 'package:eamar_user_app/view/screen/brand/all_brand_screen.dart';
 import 'package:eamar_user_app/view/screen/cart/cart_screen.dart';
 import 'package:eamar_user_app/view/screen/category/all_category_screen.dart';
 import 'package:eamar_user_app/view/screen/featureddeal/featured_deal_screen.dart';
+import 'package:eamar_user_app/view/screen/flashdeal/flash_deal_screen.dart';
 import 'package:eamar_user_app/view/screen/home/widget/announcement.dart';
 import 'package:eamar_user_app/view/screen/home/widget/banners_view.dart';
 import 'package:eamar_user_app/view/screen/home/widget/brand_view.dart';
@@ -41,12 +39,16 @@ import 'package:eamar_user_app/view/screen/home/widget/latest_product_view.dart'
 import 'package:eamar_user_app/view/screen/home/widget/main_section_banner.dart';
 import 'package:eamar_user_app/view/screen/home/widget/product_view_listview.dart';
 import 'package:eamar_user_app/view/screen/home/widget/products_view.dart';
-import 'package:eamar_user_app/view/screen/flashdeal/flash_deal_screen.dart';
 import 'package:eamar_user_app/view/screen/home/widget/recommended_product_view.dart';
 import 'package:eamar_user_app/view/screen/home/widget/top_seller_view.dart';
+import 'package:eamar_user_app/view/screen/notification/notification_screen.dart';
 import 'package:eamar_user_app/view/screen/product/view_all_product_screen.dart';
 import 'package:eamar_user_app/view/screen/search/search_screen.dart';
 import 'package:eamar_user_app/view/screen/topSeller/all_top_seller_screen.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/material.dart';
+import 'package:google_ml_vision/google_ml_vision.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 
@@ -57,7 +59,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final ScrollController _scrollController = ScrollController();
-
+final  ImageLabeler labeler = GoogleVision.instance.imageLabeler(
+    
+    ImageLabelerOptions
+    
+    
+    (confidenceThreshold: 0.70),
+);
   Future<void> _loadData(BuildContext context, bool reload) async {
 
  FirebaseAnalytics.instance
@@ -147,6 +155,145 @@ setState(() {
     }
    });
   }
+  PickedFile? _image;
+bool _loading = false ;
+List<dynamic>? _outputs;
+final ImagePicker _picker = ImagePicker();
+
+
+
+
+
+
+// //load labels
+// static Future<ClassifierLabels> _loadLabels(String labelsFileName) async {
+//   // #1
+//   final rawLabels = await FileUtil.loadLabels(labelsFileName);
+
+//   // #2
+//   final labels = rawLabels
+//     .map((label) => label.substring(label.indexOf(' ')).trim())
+//     .toList();
+
+//   debugPrint('Labels: $labels');
+//   return labels;
+// }
+
+
+
+
+
+
+
+
+classifyImage(image) async {
+    final GoogleVisionImage visionImage = GoogleVisionImage.fromFile(
+
+      File(image.path)
+    );
+final TextRecognizer textRecognizer = GoogleVision.instance.textRecognizer();
+
+final VisionText visionText = await textRecognizer.processImage(visionImage);
+// log(
+// visionText.text!.toString());
+var     results = await labeler.processImage(
+  visionImage
+  
+  
+  );
+
+setState(() {_loading = false;//Declare List _outputs in the class which will be used to show the classified classs name and confidence
+  _outputs = results;
+ });
+_outputs!.forEach((element) {
+  
+  log(element.text);
+});
+_modalSheetResults();
+}
+
+
+ Future openCamera() async {
+    var image = await _picker.getImage(source: ImageSource.camera);
+
+    setState(() {
+      _image = image ;
+    });
+    classifyImage(image);
+  }
+
+  //camera method
+  Future openGallery() async {
+    var piture = await _picker.getImage(source: ImageSource.gallery);
+    setState(() {
+      _image = piture;
+    }
+     
+    );
+    classifyImage(piture);
+  }
+
+
+//dilog to choose image
+
+ Future<void> _optiondialogbox() {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Colors.purple,
+            
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  GestureDetector(
+                    child: Text(
+                      "Take a Picture",
+                      style: TextStyle(color: Colors.white, fontSize: 20.0),
+                    ),
+                    onTap: openCamera,
+                  ),
+                  Padding(padding: EdgeInsets.all(10.0)),
+                  GestureDetector(
+                    child: Text(
+                      "Select image ",
+                      style: TextStyle(color: Colors.white, fontSize: 20.0),
+                    ),
+                    onTap: openGallery,
+                  )
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+
+//bottom sheet for results
+ void _modalSheetResults(){
+        showModalBottomSheet(
+            context: context,
+            builder: (builder){
+              return new Container(
+                height: 350.0,
+                color: Colors.transparent, //could change this to Color(0xFF737373), 
+                           //so you don't have to change MaterialApp canvasColor
+                child: new Container(
+                    decoration: new BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: new BorderRadius.only(
+                            topLeft: const Radius.circular(10.0),
+                            topRight: const Radius.circular(10.0))),
+                    child: new Center(
+                      child: new Text("This is a modal sheet"),
+                    )),
+              );
+            }
+        );
+      }
+
+
+
 
 
   @override
@@ -186,7 +333,24 @@ setState(() {
                     title: Image.asset(Images.logo_with_name_image, height: 100 ,scale: 1.2,),
                     actions: [
 
+ Padding(
+                        padding: const EdgeInsets.only(right: 12.0),
+                        child: IconButton(
+                          onPressed: () {
+                            _optiondialogbox();
+                            // Navigator.push(context, MaterialPageRoute(builder: (_) => NotificationScreen()
+                            
+                            // ));
+///MODEL
 
+                            
+                          },
+                          icon: 
+                     Icon(   Icons.camera_alt)
+                       
+                       
+                        ),
+                      ),
                       
                       Padding(
                         padding: const EdgeInsets.only(right: 12.0),
@@ -304,7 +468,7 @@ setState(() {
                           // Mega Deal
                           Consumer<FlashDealProvider>(
                             builder: (context, flashDeal, child) {
-                              return  (flashDeal.flashDeal != null && flashDeal.flashDealList != null
+                              return  (flashDeal.flashDeal != null
                                   && flashDeal.flashDealList.length > 0)
                                   ? TitleRow(title: getTranslated('flash_deal', context),
                                       eventDuration: flashDeal.flashDeal != null ? flashDeal.duration : null,
@@ -317,7 +481,7 @@ setState(() {
                           SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                           Consumer<FlashDealProvider>(
                             builder: (context, megaDeal, child) {
-                              return  (megaDeal.flashDeal != null && megaDeal.flashDealList != null && megaDeal.flashDealList.length > 0)
+                              return  (megaDeal.flashDeal != null && megaDeal.flashDealList.length > 0)
                                   ? Container(height: MediaQuery.of(context).size.width*.77,
                                   child: Padding(
                                     padding: const EdgeInsets.only(bottom: Dimensions.HOME_PAGE_PADDING),
@@ -371,7 +535,7 @@ setState(() {
                           // Featured Products
                           Consumer<ProductProvider>(
                             builder: (context, featured,_) {
-                              return featured.featuredProductList!=null && featured.featuredProductList.length>0 ?
+                              return featured.featuredProductList.length>0 ?
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL,vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                                 child: Padding(
@@ -401,7 +565,7 @@ setState(() {
                               return featuredDealProvider.featuredDealList == null
                                   ? TitleRow(title: getTranslated('featured_deals', context),
                                       onTap: () {Navigator.push(context, MaterialPageRoute(builder: (_) => FeaturedDealScreen()));}) :
-                              (featuredDealProvider.featuredDealList != null && featuredDealProvider.featuredDealList.length > 0) ?
+                              (featuredDealProvider.featuredDealList.length > 0) ?
                               Padding(
                                 padding: const EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_SMALL),
                                 child: TitleRow(title: getTranslated('featured_deals', context),
@@ -411,7 +575,7 @@ setState(() {
                           Consumer<FeaturedDealProvider>(
                             builder: (context, featuredDeal, child) {
                               return featuredDeal.featuredDealList == null && featuredDeal.featuredDealList.length > 0?
-                              Container(height: 150, child: FeaturedDealsView()) : (featuredDeal.featuredDealList != null && featuredDeal.featuredDealList.length > 0) ?
+                              Container(height: 150, child: FeaturedDealsView()) : (featuredDeal.featuredDealList.length > 0) ?
                               Container(height: featuredDeal.featuredDealList.length> 4 ? 120 * 4.0 : 120 * (double.parse(featuredDeal.featuredDealList.length.toString())),
                                   child: Padding(
                                     padding: const EdgeInsets.only(bottom: Dimensions.HOME_PAGE_PADDING),

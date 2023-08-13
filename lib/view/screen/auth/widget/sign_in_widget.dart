@@ -1,17 +1,13 @@
 
 import 'dart:developer';
 
-import 'package:country_code_picker/country_code.dart';
-import 'package:eamar_user_app/provider/theme_provider.dart';
-import 'package:eamar_user_app/view/screen/auth/signup_screen.dart';
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/body/login_model.dart';
 import 'package:eamar_user_app/localization/language_constrants.dart';
 import 'package:eamar_user_app/provider/auth_provider.dart';
 import 'package:eamar_user_app/provider/cart_provider.dart';
 import 'package:eamar_user_app/provider/profile_provider.dart';
 import 'package:eamar_user_app/provider/splash_provider.dart';
+import 'package:eamar_user_app/provider/theme_provider.dart';
 import 'package:eamar_user_app/utill/color_resources.dart';
 import 'package:eamar_user_app/utill/custom_themes.dart';
 import 'package:eamar_user_app/utill/dimensions.dart';
@@ -20,10 +16,11 @@ import 'package:eamar_user_app/view/basewidget/button/custom_button.dart';
 import 'package:eamar_user_app/view/basewidget/textfield/custom_password_textfield.dart';
 import 'package:eamar_user_app/view/basewidget/textfield/custom_textfield.dart';
 import 'package:eamar_user_app/view/screen/auth/forget_password_screen.dart';
-import 'package:eamar_user_app/view/screen/auth/widget/code_picker_widget.dart';
+import 'package:eamar_user_app/view/screen/auth/signup_screen.dart';
 import 'package:eamar_user_app/view/screen/auth/widget/mobile_verify_screen.dart';
-import 'package:eamar_user_app/view/screen/auth/widget/social_login_widget.dart';
 import 'package:eamar_user_app/view/screen/dashboard/dashboard_screen.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:validate_ksa_number/validate_ksa_number.dart';
 
@@ -39,7 +36,12 @@ class _SignInWidgetState extends State<SignInWidget> {
     late TextEditingController _phoneController;
 
   TextEditingController? _passwordController;
+    TextEditingController? _idController;
+
   GlobalKey<FormState>? _formKeyLogin;
+
+List<String> _metods = ['by_phone' ,'by_id'];
+String? _selectedMethod;
 
   @override
   void initState() {
@@ -47,6 +49,7 @@ class _SignInWidgetState extends State<SignInWidget> {
     _formKeyLogin = GlobalKey<FormState>();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
+    _idController = TextEditingController();
     _phoneController = TextEditingController();
     _emailController!.text = 
     Provider.of<AuthProvider>(context, listen: false).getUserEmail() ?? "";
@@ -60,11 +63,13 @@ class _SignInWidgetState extends State<SignInWidget> {
     _emailController!.dispose();
     _passwordController!.dispose();
     _phoneController.dispose();
+    _idController!.dispose();
     super.dispose();
   }
 
   FocusNode _emailNode = FocusNode();
    FocusNode _phoneNode = FocusNode();
+    FocusNode _idFocusNode = FocusNode();
   FocusNode _passNode = FocusNode();
   LoginModel loginBody = LoginModel();
 
@@ -78,19 +83,24 @@ class _SignInWidgetState extends State<SignInWidget> {
                     ;
       String _password = _passwordController!.text.trim();
 print(_email.toString());
-      if (_email.isEmpty) {
+
+  if (_selectedMethod=="by_id") {
+    if (_email.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('PHONE_MUST_BE_REQUIRED', context)!),
-          backgroundColor: Colors.red,
-        ));
-      } else if (_password.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('PASSWORD_MUST_BE_REQUIRED', context)!),
+          content: Text(getTranslated('id_is_required', context)!),
           backgroundColor: Colors.red,
         ));
       } 
       
-            else if (!ksaValidate.isValidNumber(_email)) {
+  }
+  else  if(_selectedMethod=="by_phone") {
+if (_email.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(getTranslated('PHONE_MUST_BE_REQUIRED', context)!),
+          backgroundColor: Colors.red,
+        ));
+      } 
+        else if (!ksaValidate.isValidNumber(_email)) {
                     log('is not valid Number');
 
  try {
@@ -105,6 +115,19 @@ print(_email.toString());
 
                      // showCustomSnackBar(getTranslated('enter_valid_email', context), context);
                     }
+  }
+
+      
+      
+      
+      else if (_password.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(getTranslated('PASSWORD_MUST_BE_REQUIRED', context)!),
+          backgroundColor: Colors.red,
+        ));
+      } 
+      
+          
       
       
       else {
@@ -114,9 +137,12 @@ print(_email.toString());
         } else {
           Provider.of<AuthProvider>(context, listen: false).clearUserEmailAndPassword();
         }
-
+ loginBody.method =  _selectedMethod; 
         loginBody.email = _email;
+loginBody.user_id =  _idController!.text.trim();
       print(loginBody.email);
+
+
         loginBody.password = _password;
      
         await Provider.of<AuthProvider>(context, listen: false).login(loginBody, route);
@@ -126,7 +152,7 @@ print(_email.toString());
 
   route(bool isRoute, String token, String temporaryToken, String errorMessage) async {
     if (isRoute) {
-      if(token==null || token.isEmpty){
+      if(token.isEmpty){
         if(Provider.of<SplashProvider>(context,listen: false).configModel!.emailVerification!){
           Provider.of<AuthProvider>(context, listen: false).checkEmail(_emailController!.text.toString(),
               temporaryToken).then((value) async {
@@ -225,10 +251,137 @@ print(_email.toString());
           //             ],
           //           ),
           //         ),
+
+          Align(
+alignment: AlignmentDirectional.centerStart,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+          
+          
+          
+          
+          Row(
+            children: [
+              GestureDetector(
+                onTap: (){
+                  _selectedMethod='by_id';
+                  setState(() {
+            
+                  });
+                },
+                child: Container(
+              width: 20,height: 20
+              ,
+                  decoration: BoxDecoration(
+              
+              
+              border: Border.all(
+                width: 1 , color: Theme.of(context).primaryColor
+              ) ,
+              color: _selectedMethod =='by_id'?
+               Theme.of(context).primaryColor:Colors.white
+              
+                  ),
+              child:     Center(
+child:
+                     _selectedMethod =='by_id'?
+                     Icon(Icons.check  , size: 15 ,color: Colors.white,) 
+                     :SizedBox.shrink()
+                  ),
+                ),
+              ),
+          
+          
+          SizedBox(width: 10,),
+          
+              Text(getTranslated('by_id', context)!)
+            ],
+          
+          
+          
+          ) ,
+          
+          
+          
+          
+          
+          SizedBox(width: 20,)
+          
+          
+          ,
+          
+          Row(
+            children: [
+              GestureDetector(
+                onTap: (){
+                  _selectedMethod='by_phone';
+                  setState(() {
+            
+                  });
+                },
+                child: Container(
+              width: 20,height: 20,
+                  decoration: BoxDecoration(
+              
+              
+              border: Border.all(
+                width: 1 , color: Theme.of(context).primaryColor
+              ) ,
+              color: _selectedMethod =='by_phone'?
+               Theme.of(context).primaryColor:Colors.white
+              
+                  ),
+                  child: Center(
+child:
+                     _selectedMethod =='by_phone'?
+                     Icon(Icons.check  ,size: 15 ,color: Colors.white,) 
+                     :SizedBox.shrink()
+                  ),
+                ),
+              ),
+          
+          
+          
+          SizedBox(width: 10,),
+          
+              Text(getTranslated('by_phone', context)!)
+            ],
+          
+          
+          
+          ) ,
+          
+          
+          
+          
+          
+              ],
+            ),
+          ),
+             SizedBox(height: Dimensions.MARGIN_SIZE_DEFAULT
+             ,),
         Container(
                                    margin:
                   EdgeInsets.only(bottom: Dimensions.MARGIN_SIZE_DEFAULT),
-                        child: CustomTextField(
+                       
+                       
+                        child:
+
+                         AnimatedCrossFade(firstChild:
+                          CustomTextField(
+                                        hintText: getTranslated('enter_customer', context),
+                                        focusNode: _idFocusNode,
+                                        nextNode: _passNode,
+                                        controller: _idController,
+                                        
+                                        isPhoneNumber: false,
+                                        textInputAction: TextInputAction.next,
+                                        textInputType: TextInputType.number,
+                                        
+                                      ),
+                           secondChild: CustomTextField(
                                         hintText: getTranslated('ENTER_MOBILE_NUMBER', context),
                                         focusNode: _emailNode,
                                         nextNode: _passNode,
@@ -237,7 +390,19 @@ print(_email.toString());
                                         isPhoneNumber: true,
                                         textInputAction: TextInputAction.next,
                                         textInputType: TextInputType.phone,
-                                      ),
+                                      ), 
+                           
+                           
+                           crossFadeState: _selectedMethod=="by_id"?
+                           CrossFadeState.showFirst: 
+                           CrossFadeState.showSecond
+                           , 
+                           duration: Duration(
+                             milliseconds: 400
+                           ))
+
+
+
                       ),
               Container(
                   margin:

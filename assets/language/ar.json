@@ -421,6 +421,12 @@
  "whats_is_your_rate":"ما هو تقييمك؟" ,
  "plesase_share_opinion":"قم بإبداء رأيك" ,
  "please_comment":"الرجاء كتابة تعليق" ,
- "thanks_for_rate":"شكرا على ابداء رأيك"
+ "thanks_for_rate":"شكرا على ابداء رأيك" ,
+ "by_phone":"رقم الجوال" ,
+ "by_id":"رقم المستخدم" ,
+
+
+ "enter_customer":"ادخل رقم المستخدم" ,
+ "id_is_required":"رقم العميل مطلوب"
 
 }
