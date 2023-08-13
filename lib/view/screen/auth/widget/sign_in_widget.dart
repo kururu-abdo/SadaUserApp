@@ -360,11 +360,21 @@ child:
               ],
             ),
           ),
+
              SizedBox(height: Dimensions.MARGIN_SIZE_DEFAULT
              ,),
         Container(
+
+
+          decoration: BoxDecoration(
+            boxShadow: [
+          BoxShadow(color: Colors.grey.withOpacity(0.2), spreadRadius: 1, blurRadius: 7, offset: Offset(0, 1)) // changes position of shadow
+        ],
+          ),
                                    margin:
-                  EdgeInsets.only(bottom: Dimensions.MARGIN_SIZE_DEFAULT),
+                  EdgeInsets.only(
+                    
+                    bottom: Dimensions.MARGIN_SIZE_DEFAULT),
                        
                        
                         child:
@@ -381,7 +391,9 @@ child:
                                         textInputType: TextInputType.number,
                                         
                                       ),
-                           secondChild: CustomTextField(
+                           secondChild: 
+                           
+                           CustomTextField(
                                         hintText: getTranslated('ENTER_MOBILE_NUMBER', context),
                                         focusNode: _emailNode,
                                         nextNode: _passNode,
@@ -404,6 +416,9 @@ child:
 
 
                       ),
+                      SizedBox(
+                        height: 10,
+                      ) ,
               Container(
                   margin:
                   EdgeInsets.only(bottom: Dimensions.MARGIN_SIZE_DEFAULT),

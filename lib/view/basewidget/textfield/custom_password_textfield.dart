@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:eamar_user_app/utill/custom_themes.dart';
+import 'package:flutter/material.dart';
 
 class CustomPasswordTextField extends StatefulWidget {
   final TextEditingController? controller;
@@ -60,7 +60,10 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
               isDense: true,
               filled: true,
               fillColor: Theme.of(context).highlightColor,
-              focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),
+              focusedBorder:
+              InputBorder.none ,
+              
+              //  OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),
               hintStyle: titilliumRegular.copyWith(color: Theme.of(context).hintColor),
               border: InputBorder.none),
         ),

@@ -50,7 +50,9 @@ class CustomTextField extends StatelessWidget {
         color: Theme.of(context).highlightColor,
         borderRadius: BorderRadius.circular(6),
         boxShadow: [
-          BoxShadow(color: Colors.grey.withOpacity(0.2), spreadRadius: 1, blurRadius: 7, offset: Offset(0, 1)) // changes position of shadow
+          BoxShadow(color: Colors.grey.withOpacity(0.2), 
+          spreadRadius: 1, blurRadius: 6,
+           offset: Offset(0, 1)) // changes position of shadow
         ],
       ),
       // decoration: BoxDecoration(
@@ -103,14 +105,22 @@ class CustomTextField extends StatelessWidget {
             hintText: hintText ?? '',
             filled:true,
             fillColor:  Theme.of(context).highlightColor,
-            contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 15),
+            contentPadding: 
+            EdgeInsets.symmetric(vertical: 12.0, 
+            horizontal: 15),
             isDense: true,
             counterText: '',
-            focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),
-            hintStyle: titilliumRegular.copyWith(color: Theme.of(context).hintColor),
+            focusedBorder:
+            InputBorder.none
+            //  OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor))
+             ,
+            hintStyle:
+             titilliumRegular.copyWith(color: 
+             Theme.of(context).hintColor),
             errorStyle: TextStyle(height: 1.5),
             border: InputBorder.none,
-            floatingLabelBehavior: FloatingLabelBehavior.always,
+            floatingLabelBehavior:
+             FloatingLabelBehavior.always,
       
             prefixIcon:
             isPhoneNumber?
@@ -118,6 +128,9 @@ class CustomTextField extends StatelessWidget {
             isRtl?null: Container(
               padding: EdgeInsets.zero,
               width: 30,
+              decoration: BoxDecoration(
+                
+              ),
               child: Center(
                 child: Text(
                        '966',
