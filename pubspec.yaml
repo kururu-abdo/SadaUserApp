@@ -78,6 +78,7 @@ dependencies:
   rating_dialog: ^2.0.4
   place_picker: ^0.9.20-nullsafety
   intl: ^0.18.0
+  google_mlkit_commons: ^0.5.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

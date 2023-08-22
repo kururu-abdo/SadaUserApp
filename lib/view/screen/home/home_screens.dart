@@ -58,6 +58,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
   final ScrollController _scrollController = ScrollController();
 final  ImageLabeler labeler = GoogleVision.instance.imageLabeler(
     
@@ -187,7 +188,8 @@ final ImagePicker _picker = ImagePicker();
 
 
 classifyImage(image) async {
-    final GoogleVisionImage visionImage = GoogleVisionImage.fromFile(
+    final GoogleVisionImage visionImage = 
+    GoogleVisionImage.fromFile(
 
       File(image.path)
     );
@@ -241,7 +243,7 @@ _modalSheetResults();
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            backgroundColor: Colors.purple,
+            backgroundColor: Theme.of(context).primaryColor,
             
             content: SingleChildScrollView(
               child: ListBody(
