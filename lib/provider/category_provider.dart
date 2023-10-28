@@ -55,6 +55,7 @@ int? _subSubCategorySelectedIndex;
         _categoryList.clear();
         apiResponse.response!.data.forEach((category) => _categoryList.add(Category.fromJson(category)));
         _categorySelectedIndex = 0;
+        notifyListeners();
       }  else  if (apiResponse.response != null){
          _categoryList.clear();
         apiResponse.response!.data.forEach((category) => _categoryList.add(Category.fromJson(category)));

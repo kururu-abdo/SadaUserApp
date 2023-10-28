@@ -5,7 +5,9 @@ import 'package:eamar_user_app/data/model/response/product_model.dart';
 import 'package:eamar_user_app/helper/firebase_dynamic_links_services.dart';
 import 'package:eamar_user_app/utill/app_constants.dart';
 import 'package:eamar_user_app/view/screen/auth/login_screen.dart';
+import 'package:eamar_user_app/view/screen/languages/languages.dart';
 import 'package:eamar_user_app/view/screen/product/product_details_from_url.dart';
+import 'package:eamar_user_app/view/screen/splash/brand_page.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/localization/language_constrants.dart';
 import 'package:eamar_user_app/provider/auth_provider.dart';
@@ -117,8 +119,13 @@ if (initialLink.contains('product')) {
       if(isSuccess) {
         Provider.of<SplashProvider>(context, listen: false).initSharedPrefData();
         Timer(Duration(seconds: 1), () {
+
+          
           if(Provider.of<SplashProvider>(context, listen: false).configModel!.maintenanceMode!) {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => MaintenanceScreen()));
+       
+ Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => MaintenanceScreen()));
+
+
           }else {
 
   // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) =>
@@ -127,23 +134,33 @@ if (initialLink.contains('product')) {
   //  ProductDetailsFromUrl(
   //    slug: AppConstants.SLUG,
   //  )));
+  Provider.of<ProfileProvider>(context, listen: false).getUserInfo(context);
 
-            if (Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
+                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => BrandPage()));
+
+  //           if (Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
 
 
 
-              Provider.of<AuthProvider>(context, listen: false).updateToken(context);
-              Provider.of<ProfileProvider>(context, listen: false).getUserInfo(context);
-              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => DashBoardScreen()));
-            } else {
-              if(Provider.of<SplashProvider>(context, listen: false).showIntro()!) {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => OnBoardingScreen(
-                  indicatorColor: ColorResources.GREY, selectedIndicatorColor: Theme.of(context).primaryColor,
-                )));
-              }else {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => LoginScreen()));
-              }
-            }
+  //             Provider.of<AuthProvider>(context, listen: false).updateToken(context);
+  //             Provider.of<ProfileProvider>(context, listen: false).getUserInfo(context);
+  //                           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => BrandPage()));
+
+  //             // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => DashBoardScreen()));
+  //           } else {
+  //             if(Provider.of<SplashProvider>(context, listen: false).showIntro()!) {
+  //               Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => OnBoardingScreen(
+  //                 indicatorColor: ColorResources.GREY, selectedIndicatorColor: Theme.of(context).primaryColor,
+  //               )));
+  //             }else {
+  //  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => LoginScreen()));
+
+  //               // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => LoginScreen()));
+  //             }
+  //           }
+
+
+
           }
         });
       }

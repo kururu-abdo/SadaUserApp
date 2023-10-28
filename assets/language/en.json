@@ -446,5 +446,11 @@
 
 
 "enter_customer":"Enter Customer ID" ,
-"id_is_required":"Customer ID is required"
+"id_is_required":"Customer ID is required" ,
+"branches":"Branches",
+"sign_in":"Sign in" ,
+
+"current_lang":" Current Language",
+
+"select_lang":"Please select language"
 }

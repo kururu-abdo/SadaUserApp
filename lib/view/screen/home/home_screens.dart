@@ -30,6 +30,7 @@ import 'package:eamar_user_app/view/screen/home/widget/announcement.dart';
 import 'package:eamar_user_app/view/screen/home/widget/banners_view.dart';
 import 'package:eamar_user_app/view/screen/home/widget/brand_view.dart';
 import 'package:eamar_user_app/view/screen/home/widget/category_view.dart';
+import 'package:eamar_user_app/view/screen/home/widget/discount_products_view.dart';
 import 'package:eamar_user_app/view/screen/home/widget/featured_deal_view.dart';
 import 'package:eamar_user_app/view/screen/home/widget/featured_product_view.dart';
 import 'package:eamar_user_app/view/screen/home/widget/flash_deals_view.dart';
@@ -37,6 +38,7 @@ import 'package:eamar_user_app/view/screen/home/widget/footer_banner.dart';
 import 'package:eamar_user_app/view/screen/home/widget/home_category_product_view.dart';
 import 'package:eamar_user_app/view/screen/home/widget/latest_product_view.dart';
 import 'package:eamar_user_app/view/screen/home/widget/main_section_banner.dart';
+import 'package:eamar_user_app/view/screen/home/widget/new_arrival_products.dart';
 import 'package:eamar_user_app/view/screen/home/widget/product_view_listview.dart';
 import 'package:eamar_user_app/view/screen/home/widget/products_view.dart';
 import 'package:eamar_user_app/view/screen/home/widget/recommended_product_view.dart';
@@ -44,6 +46,7 @@ import 'package:eamar_user_app/view/screen/home/widget/top_seller_view.dart';
 import 'package:eamar_user_app/view/screen/notification/notification_screen.dart';
 import 'package:eamar_user_app/view/screen/product/view_all_product_screen.dart';
 import 'package:eamar_user_app/view/screen/search/search_screen.dart';
+import 'package:eamar_user_app/view/screen/splash/brand_page.dart';
 import 'package:eamar_user_app/view/screen/topSeller/all_top_seller_screen.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -87,7 +90,15 @@ Future.wait(
      Provider.of<HomeCategoryProductProvider>(context, listen: false).getHomeCategoryProductList(reload, context),
      Provider.of<TopSellerProvider>(context, listen: false).getTopSellerList(reload, context),
      Provider.of<BrandProvider>(context, listen: false).getBrandList(reload, context),
-     Provider.of<ProductProvider>(context, listen: false).getLatestProductList(1, context, reload: reload),
+    
+    //  Provider.of<ProductProvider>(context, listen: false).getLatestProductList(1, context, reload: reload),
+    
+
+     Provider.of<ProductProvider>(context, listen: false).getDiscountProducts(1, context, reload: reload),
+     Provider.of<ProductProvider>(context, listen: false).getnewArriavalProducts(1,
+      context, reload: false),
+
+
      Provider.of<ProductProvider>(context, listen: false).getFeaturedProductList('1', context, reload: reload),
      
      Provider.of<FeaturedDealProvider>(context, listen: false).getFeaturedDealList(reload, context),
@@ -302,7 +313,10 @@ _modalSheetResults();
   Widget build(BuildContext context) {
 
 
-   List<String?> types =[getTranslated('new_arrival', context),getTranslated('top_product', context), getTranslated('best_selling', context),  getTranslated('discounted_product', context)];
+   List<String?> types =[getTranslated('new_arrival', context),
+   getTranslated('top_product', context), 
+   getTranslated('best_selling', context),  
+   getTranslated('discounted_product', context)];
     return Scaffold(
       backgroundColor: ColorResources.getHomeBg(context),
       resizeToAvoidBottomInset: false,
@@ -332,7 +346,18 @@ _modalSheetResults();
                     centerTitle: false,
                     automaticallyImplyLeading: false,
                     backgroundColor: Theme.of(context).highlightColor,
-                    title: Image.asset(Images.logo_with_name_image, height: 100 ,scale: 1.2,),
+                    title: GestureDetector(
+                      
+                      onTap: (){
+
+
+                          // Provider.of<ProfileProvider>(context, listen: false).getUserInfo(context);
+                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => BrandPage()));
+
+                      },
+                      child: Hero(
+                         tag: 'bar',
+                        child: Image.asset(Images.logo_with_name_image, height: 100 ,scale: 1.2,))),
                     actions: [
 
  Padding(
@@ -447,7 +472,10 @@ _modalSheetResults();
                           // Category
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_EXTRA_SMALL,vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                            child: TitleRow(title: getTranslated('CATEGORY', context),
+                            child: 
+                            TitleRow(title: getTranslated('CATEGORY', 
+                            context),
+showAll: false,
                                 onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) =>
                                  AllCategoryScreen()))),
                           ),
@@ -468,144 +496,145 @@ _modalSheetResults();
 
 
                           // Mega Deal
-                          Consumer<FlashDealProvider>(
-                            builder: (context, flashDeal, child) {
-                              return  (flashDeal.flashDeal != null
-                                  && flashDeal.flashDealList.length > 0)
-                                  ? TitleRow(title: getTranslated('flash_deal', context),
-                                      eventDuration: flashDeal.flashDeal != null ? flashDeal.duration : null,
-                                      onTap: () {Navigator.push(context, MaterialPageRoute(builder: (_) => FlashDealScreen()));
-                                      },isFlash: true,
-                                      )
-                                  : SizedBox.shrink();
-                            },
-                          ),
-                          SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-                          Consumer<FlashDealProvider>(
-                            builder: (context, megaDeal, child) {
-                              return  (megaDeal.flashDeal != null && megaDeal.flashDealList.length > 0)
-                                  ? Container(height: MediaQuery.of(context).size.width*.77,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(bottom: Dimensions.HOME_PAGE_PADDING),
-                                    child: FlashDealsView(),
-                                  )) : SizedBox.shrink();},),
+                          // Consumer<FlashDealProvider>(
+                          //   builder: (context, flashDeal, child) {
+                          //     return  (flashDeal.flashDeal != null
+                          //         && flashDeal.flashDealList.length > 0)
+                          //         ? TitleRow(title: getTranslated('flash_deal', context),
+                          //             eventDuration: flashDeal.flashDeal != null ? flashDeal.duration : null,
+                          //             onTap: () {Navigator.push(context, MaterialPageRoute(builder: (_) => FlashDealScreen()));
+                          //             },isFlash: true,
+                          //             )
+                          //         : SizedBox.shrink();
+                          //   },
+                          // ),
+                          // SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+                          // Consumer<FlashDealProvider>(
+                          //   builder: (context, megaDeal, child) {
+                          //     return  (megaDeal.flashDeal != null && megaDeal.flashDealList.length > 0)
+                          //         ? Container(height: MediaQuery.of(context).size.width*.77,
+                          //         child: Padding(
+                          //           padding: const EdgeInsets.only(bottom: Dimensions.HOME_PAGE_PADDING),
+                          //           child: FlashDealsView(),
+                          //         )) : SizedBox.shrink();},),
 
 
 
 
 
-                          // Brand
-                          Padding(
-                            padding: const EdgeInsets.only(left: Dimensions.PADDING_SIZE_EXTRA_SMALL, right: Dimensions.PADDING_SIZE_EXTRA_SMALL,
-                            bottom: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                            child: TitleRow(title: getTranslated('brand', context),
-                                onTap: () {Navigator.push(context, MaterialPageRoute(builder: (_) => AllBrandScreen()));}),
-                          ),
-                          SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-                          BrandView(isHomePage: true),
+                          // // Brand
+                          // Padding(
+                          //   padding: const EdgeInsets.only(left: Dimensions.PADDING_SIZE_EXTRA_SMALL, right: Dimensions.PADDING_SIZE_EXTRA_SMALL,
+                          //   bottom: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                          //   child: TitleRow(title: getTranslated('brand', context),
+                          //       onTap: () {Navigator.push(context, MaterialPageRoute(builder: (_) => AllBrandScreen()));}),
+                          // ),
+                          // SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+                          // BrandView(isHomePage: true),
 
 
 
                           //top seller
-                          singleVendor?SizedBox():
-                          TitleRow(title: getTranslated('top_seller', context),
-                            onTap: () {Navigator.push(context, MaterialPageRoute(builder: (_) => AllTopSellerScreen(topSeller: null,)));},),
-                          singleVendor?SizedBox(height: 0):SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-                          singleVendor?SizedBox():
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: Dimensions.HOME_PAGE_PADDING),
-                            child: TopSellerView(isHomePage: true),
-                          ),
+                          // singleVendor?SizedBox():
+                          // TitleRow(title: getTranslated('top_seller', context),
+                          //   onTap: () {Navigator.push(context, MaterialPageRoute(builder: (_) => AllTopSellerScreen(topSeller: null,)));},),
+                          // singleVendor?SizedBox(height: 0):SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+                          // singleVendor?SizedBox():
+                          // Padding(
+                          //   padding: const EdgeInsets.only(bottom: Dimensions.HOME_PAGE_PADDING),
+                          //   child: TopSellerView(isHomePage: true),
+                          // ),
 
 
 
 
 
-                          //footer banner
-                          Consumer<BannerProvider>(builder: (context, footerBannerProvider, child){
-                            return footerBannerProvider.footerBannerList != null && footerBannerProvider.footerBannerList!.length > 0?
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: Dimensions.HOME_PAGE_PADDING),
-                              child: FooterBannersView(index: 0,),
-                            ):SizedBox();
-                          }),
+                          // //footer banner
+                          // Consumer<BannerProvider>(builder: (context, footerBannerProvider, child){
+                          //   return footerBannerProvider.footerBannerList != null && footerBannerProvider.footerBannerList!.length > 0?
+                          //   Padding(
+                          //     padding: const EdgeInsets.only(bottom: Dimensions.HOME_PAGE_PADDING),
+                          //     child: FooterBannersView(index: 0,),
+                          //   ):SizedBox();
+                          // }),
 
 
 
 
 
-                          // Featured Products
-                          Consumer<ProductProvider>(
-                            builder: (context, featured,_) {
-                              return featured.featuredProductList.length>0 ?
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL,vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_SMALL),
-                                  child: TitleRow(title: getTranslated('featured_products', context),
-                                      onTap: () {Navigator.push(context,
-                                       MaterialPageRoute(builder: (_) =>
-                                        AllProductScreen(productType: ProductType.FEATURED_PRODUCT)));}),
-                                ),
-                              ):SizedBox();
-                            }
-                          ),
+                          // // Featured Products
+                          // Consumer<ProductProvider>(
+                          //   builder: (context, featured,_) {
+                          //     return featured.featuredProductList.length>0 ?
+                          //     Padding(
+                          //       padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL,vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                          //       child: Padding(
+                          //         padding: const EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_SMALL),
+                          //         child: TitleRow(
+                          //           title: getTranslated('featured_products', context),
+                          //             onTap: () {Navigator.push(context,
+                          //              MaterialPageRoute(builder: (_) =>
+                          //               AllProductScreen(productType: ProductType.FEATURED_PRODUCT)));}),
+                          //       ),
+                          //     ):SizedBox();
+                          //   }
+                          // ),
 
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: Dimensions.HOME_PAGE_PADDING),
-                            child: FeaturedProductView(scrollController: _scrollController, isHome: true,),
-                          ),
-
-
-
-
-
-
-                          // Featured Deal
-                          Consumer<FeaturedDealProvider>(
-                            builder: (context, featuredDealProvider, child) {
-                              return featuredDealProvider.featuredDealList == null
-                                  ? TitleRow(title: getTranslated('featured_deals', context),
-                                      onTap: () {Navigator.push(context, MaterialPageRoute(builder: (_) => FeaturedDealScreen()));}) :
-                              (featuredDealProvider.featuredDealList.length > 0) ?
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_SMALL),
-                                child: TitleRow(title: getTranslated('featured_deals', context),
-                                    onTap: () {Navigator.push(context, MaterialPageRoute(builder: (_) => FeaturedDealScreen()));}),
-                              ) : SizedBox.shrink();},),
-
-                          Consumer<FeaturedDealProvider>(
-                            builder: (context, featuredDeal, child) {
-                              return featuredDeal.featuredDealList == null && featuredDeal.featuredDealList.length > 0?
-                              Container(height: 150, child: FeaturedDealsView()) : (featuredDeal.featuredDealList.length > 0) ?
-                              Container(height: featuredDeal.featuredDealList.length> 4 ? 120 * 4.0 : 120 * (double.parse(featuredDeal.featuredDealList.length.toString())),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(bottom: Dimensions.HOME_PAGE_PADDING),
-                                    child: FeaturedDealsView(),
-                                  )) : SizedBox.shrink();},),
-
-
-
-
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: Dimensions.HOME_PAGE_PADDING),
-                            child: RecommendedProductView(),
-                          ),
+                          // Padding(
+                          //   padding: const EdgeInsets.only(bottom: Dimensions.HOME_PAGE_PADDING),
+                          //   child: FeaturedProductView(scrollController: _scrollController, isHome: true,),
+                          // ),
 
 
 
 
 
-                          //footer banner
-                          Consumer<BannerProvider>(builder: (context, footerBannerProvider, child){
-                            return footerBannerProvider.mainSectionBannerList != null &&
-                                footerBannerProvider.mainSectionBannerList!.length > 0?
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: Dimensions.HOME_PAGE_PADDING),
-                              child: MainSectionBannersView(index: 0,),
-                            ):SizedBox();
 
-                          }),
+                          // // Featured Deal
+                          // Consumer<FeaturedDealProvider>(
+                          //   builder: (context, featuredDealProvider, child) {
+                          //     return featuredDealProvider.featuredDealList == null
+                          //         ? TitleRow(title: getTranslated('featured_deals', context),
+                          //             onTap: () {Navigator.push(context, MaterialPageRoute(builder: (_) => FeaturedDealScreen()));}) :
+                          //     (featuredDealProvider.featuredDealList.length > 0) ?
+                          //     Padding(
+                          //       padding: const EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_SMALL),
+                          //       child: TitleRow(title: getTranslated('featured_deals', context),
+                          //           onTap: () {Navigator.push(context, MaterialPageRoute(builder: (_) => FeaturedDealScreen()));}),
+                          //     ) : SizedBox.shrink();},),
+
+                          // Consumer<FeaturedDealProvider>(
+                          //   builder: (context, featuredDeal, child) {
+                          //     return featuredDeal.featuredDealList == null && featuredDeal.featuredDealList.length > 0?
+                          //     Container(height: 150, child: FeaturedDealsView()) : (featuredDeal.featuredDealList.length > 0) ?
+                          //     Container(height: featuredDeal.featuredDealList.length> 4 ? 120 * 4.0 : 120 * (double.parse(featuredDeal.featuredDealList.length.toString())),
+                          //         child: Padding(
+                          //           padding: const EdgeInsets.only(bottom: Dimensions.HOME_PAGE_PADDING),
+                          //           child: FeaturedDealsView(),
+                          //         )) : SizedBox.shrink();},),
+
+
+
+
+                          // Padding(
+                          //   padding: const EdgeInsets.only(bottom: Dimensions.HOME_PAGE_PADDING),
+                          //   child: RecommendedProductView(),
+                          // ),
+
+
+
+
+
+                          // //footer banner
+                          // Consumer<BannerProvider>(builder: (context, footerBannerProvider, child){
+                          //   return footerBannerProvider.mainSectionBannerList != null &&
+                          //       footerBannerProvider.mainSectionBannerList!.length > 0?
+                          //   Padding(
+                          //     padding: const EdgeInsets.only(bottom: Dimensions.HOME_PAGE_PADDING),
+                          //     child: MainSectionBannersView(index: 0,),
+                          //   ):SizedBox();
+
+                          // }),
 
 
 
@@ -623,79 +652,150 @@ _modalSheetResults();
 
 
                           //Home category
-                          HomeCategoryProductView(isHomePage: true),
-                          SizedBox(height: Dimensions.HOME_PAGE_PADDING),
+                          // HomeCategoryProductView(isHomePage: true),
+                          // SizedBox(height: Dimensions.HOME_PAGE_PADDING),
 
 
 
                           //footer banner
-                          Consumer<BannerProvider>(builder: (context, footerBannerProvider, child){
-                            return footerBannerProvider.footerBannerList != null && footerBannerProvider.footerBannerList!.length>1?
-                            FooterBannersView(index: 1):SizedBox();
-                          }),
-                          SizedBox(height: Dimensions.HOME_PAGE_PADDING),
+                          // Consumer<BannerProvider>(builder: (context, footerBannerProvider, child){
+                          //   return footerBannerProvider.footerBannerList != null && footerBannerProvider.footerBannerList!.length>1?
+                          //   FooterBannersView(index: 1):SizedBox();
+                          // }),
+                          // SizedBox(height: Dimensions.HOME_PAGE_PADDING),
 
 
-                          //Category filter
-                          Consumer<ProductProvider>(
-                              builder: (ctx,prodProvider,child) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL,vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                              child: Row(children: [
-                                Expanded(child: Text(prodProvider.title == 'xyz' ?
-                                 getTranslated('new_arrival',context)!:prodProvider.title!, style: titleHeader)),
+                          // //Category filter
+                          // Consumer<ProductProvider>(
+                          //     builder: (ctx,prodProvider,child) {
+                          //   return Padding(
+                          //     padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL,vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                          //     child: Row(children: [
+                          //       Expanded(child: Text(prodProvider.title == 'xyz' ?
+                          //        getTranslated('new_arrival',context)!:prodProvider.title!, style: titleHeader)),
                                  
-                                prodProvider.latestProductList != null ? 
+                          //       prodProvider.latestProductList != null ? 
                                 
                                 
-                                PopupMenuButton(
-                                  itemBuilder: (context) {
-                                    return [
-                                      PopupMenuItem(value: ProductType.NEW_ARRIVAL, child: Text(getTranslated('new_arrival',context)!), textStyle: robotoRegular.copyWith(
-                                        color: Theme.of(context).hintColor,
-                                         )),
-                                      PopupMenuItem(value: ProductType.TOP_PRODUCT, child: Text(getTranslated('top_product',context)!), textStyle: robotoRegular.copyWith(
-                                        color: Theme.of(context).hintColor,
-                                        )),
-                                      PopupMenuItem(value: ProductType.BEST_SELLING, child: Text(getTranslated('best_selling',context)!), textStyle: robotoRegular.copyWith(
-                                        color: Theme.of(context).hintColor,
-                                       )),
-                                      PopupMenuItem(value: ProductType.DISCOUNTED_PRODUCT, child: Text(getTranslated('discounted_product',context)!), textStyle: robotoRegular.copyWith(
-                                        color: Theme.of(context).hintColor,
-                                      )),
-                                    ];
-                                  },
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL)),
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL,vertical:Dimensions.PADDING_SIZE_SMALL ),
-                                    child: Image.asset(Images.dropdown, scale: 3,),
-                                  ),
-                                  onSelected: (dynamic value) {
-                                    if(value == ProductType.NEW_ARRIVAL){
-                                      Provider.of<ProductProvider>(context, listen: false).changeTypeOfProduct(value, types[0]);
-                                    }else if(value == ProductType.TOP_PRODUCT){
-                                      Provider.of<ProductProvider>(context, listen: false).changeTypeOfProduct(value, types[1]);
-                                    }else if(value == ProductType.BEST_SELLING){
-                                      Provider.of<ProductProvider>(context, listen: false).changeTypeOfProduct(value, types[2]);
-                                    }else if(value == ProductType.DISCOUNTED_PRODUCT){
-                                      Provider.of<ProductProvider>(context, listen: false).changeTypeOfProduct(value, types[3]);
-                                    }
+                          //       PopupMenuButton(
+                          //         itemBuilder: (context) {
+                          //           return [
+                          //             PopupMenuItem(value: ProductType.NEW_ARRIVAL, child: Text(getTranslated('new_arrival',context)!), textStyle: robotoRegular.copyWith(
+                          //               color: Theme.of(context).hintColor,
+                          //                )),
+                          //             PopupMenuItem(value: ProductType.TOP_PRODUCT, child: Text(getTranslated('top_product',context)!), textStyle: robotoRegular.copyWith(
+                          //               color: Theme.of(context).hintColor,
+                          //               )),
+                          //             PopupMenuItem(value: ProductType.BEST_SELLING, child: Text(getTranslated('best_selling',context)!), textStyle: robotoRegular.copyWith(
+                          //               color: Theme.of(context).hintColor,
+                          //              )),
+                          //             PopupMenuItem(value: ProductType.DISCOUNTED_PRODUCT, 
+                          //             child: Text(getTranslated('discounted_product',context)!), textStyle: robotoRegular.copyWith(
+                          //               color: Theme.of(context).hintColor,
+                          //             )),
+                          //           ];
+                          //         },
+                          //         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL)),
+                          //         child: Padding(
+                          //           padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL,vertical:Dimensions.PADDING_SIZE_SMALL ),
+                          //           child: Image.asset(Images.dropdown, scale: 3,),
+                          //         ),
+                          //         onSelected: (dynamic value) {
+                          //           if(value == ProductType.NEW_ARRIVAL){
+                          //             Provider.of<ProductProvider>(context, listen: false)
+                          //             .changeTypeOfProduct(value, types[0]);
+                          //           }else if(value == ProductType.TOP_PRODUCT){
 
-                                    ProductView(isHomePage: false, productType: value, scrollController: _scrollController);
-                                                                        // ProductViewSimple(
-                                                                        //   isHomePage: false, productType: value, scrollController: _scrollController);
+                          //             Provider.of<ProductProvider>(context, listen: false).
+                          //             changeTypeOfProduct(value, types[1]);
+                          //           }else if(value == ProductType.BEST_SELLING){
+                          //             Provider.of<ProductProvider>(context, listen: false).changeTypeOfProduct(value, types[2]);
+                          //           }else if(value == ProductType.DISCOUNTED_PRODUCT){
+                          //             Provider.of<ProductProvider>(context, listen: false).
+                          //             changeTypeOfProduct(value, types[3]);
+                          //           }
 
-                                    Provider.of<ProductProvider>(context, listen: false).getLatestProductList(1, context, reload: true);
+                          //           ProductView(isHomePage: false, productType: value,
+                          //            scrollController: _scrollController);
+                          //                                               // ProductViewSimple(
+                          //                                               //   isHomePage: false, productType: value, scrollController: _scrollController);
+
+                          //           Provider.of<ProductProvider>(context, listen: false).getLatestProductList(1, context, reload: true);
 
 
-                                  }
-                                ) : SizedBox(),
-                              ]),
-                            );
-                          }),
-                          // ProductView(isHomePage: false, productType: ProductType.NEW_ARRIVAL, scrollController: _scrollController),
+                          //         }
+                          //       ) : SizedBox(),
+                          //     ]),
+                          //   );
+                          // }),
+                          // // ProductView(isHomePage: false, productType: ProductType.NEW_ARRIVAL, scrollController: _scrollController),
                           
-                                                    ProductViewSimple(isHomePage: false, productType: ProductType.NEW_ARRIVAL, scrollController: _scrollController),
+                          //                           ProductViewSimple(isHomePage: false
+                          //                           , productType:
+                          //                            ProductType.NEW_ARRIVAL, 
+                          //                            scrollController: 
+                          //                            _scrollController),
+
+
+
+//discount product
+SizedBox(height: Dimensions.HOME_PAGE_PADDING),
+
+ Padding(
+                            padding: const EdgeInsets.only(left: Dimensions.PADDING_SIZE_EXTRA_SMALL, right: Dimensions.PADDING_SIZE_EXTRA_SMALL,
+                            bottom: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                            child: TitleRow(title: getTranslated('discounted_product', context),
+                                onTap: () {
+                                  // Navigator.push(context, MaterialPageRoute(builder: (_) => AllBrandScreen())
+                                  
+                                  
+                                  // );
+                                  
+                                  }),
+                          ),
+                          SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+
+ DiscountProductView(isHomePage: true
+                                                    , productType:
+                                                     ProductType.DISCOUNTED_PRODUCT, 
+                                                     scrollController: 
+                                                     _scrollController),
+
+SizedBox(height: Dimensions.HOME_PAGE_PADDING),
+
+//new arraivals
+
+Padding(
+                            padding: const EdgeInsets.only(left: Dimensions.PADDING_SIZE_EXTRA_SMALL, right: Dimensions.PADDING_SIZE_EXTRA_SMALL,
+                            bottom: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                            child: TitleRow(title: getTranslated('new_arrival', context),
+                                onTap: () {
+                                  // Navigator.push(context, MaterialPageRoute(builder: (_) => AllBrandScreen())
+                                  
+                                  // );
+                                  
+                                  }),
+                          ),
+                          SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+
+ NewArrivalsProductView(isHomePage: true
+                                                    , productType:
+                                                     ProductType.NEW_ARRIVAL, 
+                                                     scrollController: 
+                                                     _scrollController),
+
+
+SizedBox(height: Dimensions.HOME_PAGE_PADDING),
+ // Brand
+                          Padding(
+                            padding: const EdgeInsets.only(left: Dimensions.PADDING_SIZE_EXTRA_SMALL, right: Dimensions.PADDING_SIZE_EXTRA_SMALL,
+                            bottom: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                            child: TitleRow(title: getTranslated('brand', context),
+                                onTap: () {Navigator.push(context, MaterialPageRoute(builder: (_) => AllBrandScreen()));}),
+                          ),
+                          SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+                          BrandView(isHomePage: true),
+
 
                           
                           SizedBox(height: Dimensions.HOME_PAGE_PADDING),

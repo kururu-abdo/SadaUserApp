@@ -41,7 +41,13 @@ class SplashRepo {
   void setCurrency(String currencyCode) {
     sharedPreferences!.setString(AppConstants.CURRENCY, currencyCode);
   }
+bool? isFirstTime( ) {
+    return sharedPreferences!.getBool(AppConstants.SHOW_LANGUAGE,)??true;
+  }
 
+   void disableLanguagePage() {
+    sharedPreferences!.setBool(AppConstants.SHOW_LANGUAGE, false);
+  }
   void disableIntro() {
     sharedPreferences!.setBool(AppConstants.INTRO, false);
   }

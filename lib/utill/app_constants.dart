@@ -129,6 +129,9 @@ static const GET_PRODUCTS_BY_ID="/api/v1/products/catogry-products/";
   static const String GUEST_MODE = 'guest_mode';
   static const String CURRENCY = 'currency';
   static const String LANG_KEY = 'lang';
+    static const String FIRST_TIME = 'first_time';
+    static const String SHOW_LANGUAGE = 'show_lang';
+
   static const String INTRO = 'intro';
   static const String SLUG="fashionable-bag-for-women-5k9uYs";
 

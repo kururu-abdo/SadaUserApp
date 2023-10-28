@@ -38,7 +38,7 @@ Provider.of<SearchProvider>(context, listen: false).getCategoryList(false ,conte
               child: Row(children: [
                 Padding(padding: EdgeInsets.only(left: Dimensions.PADDING_SIZE_DEFAULT),
                   child: InkWell(onTap: ()=>Navigator.pop(context),
-                      child: Icon(Icons.arrow_back_ios)),),
+                      child: Icon(Icons.arrow_back_ios,size: 30,)),),
 
 
                   Expanded(child: Container(

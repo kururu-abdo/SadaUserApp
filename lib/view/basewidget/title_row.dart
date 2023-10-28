@@ -13,8 +13,10 @@ class TitleRow extends StatelessWidget {
   final Function? onTap;
   final Duration? eventDuration;
   final bool? isDetailsPage;
+  final bool? showAll;
   final bool isFlash;
-  TitleRow({required this.title,this.icon, this.onTap, this.eventDuration, this.isDetailsPage, this.isFlash = false});
+  TitleRow({required this.title,this.icon, this.onTap, this.eventDuration,
+   this.isDetailsPage, this.isFlash = false, this.showAll=true});
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +60,8 @@ class TitleRow extends StatelessWidget {
                 ),
 
             Spacer(),
+
+showAll!?
             icon != null
                 ? InkWell(
                 onTap: icon as void Function()?,
@@ -71,8 +75,10 @@ class TitleRow extends StatelessWidget {
                   ),
                 )
             )
-                : SizedBox.shrink(),
-
+                : SizedBox.shrink()
+                :    SizedBox.shrink()
+                ,
+showAll!?
             onTap != null && isFlash?
             InkWell(
               onTap: onTap as void Function()?,
@@ -115,7 +121,13 @@ class TitleRow extends StatelessWidget {
                     ),
                   ]),
             ):
-            SizedBox.shrink(),
+            SizedBox.shrink()
+          :
+             SizedBox.shrink()
+            ,
+          
+          
+          
           ]),
     );
   }

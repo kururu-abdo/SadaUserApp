@@ -34,7 +34,7 @@ class CustomAppBar extends StatelessWidget {
           isBackButtonExist ?
           
            IconButton(
-            icon: Icon(Icons.arrow_back_ios, size: 20,
+            icon: Icon(Icons.arrow_back_ios, size: 25,
                 color: Provider.of<ThemeProvider>(context).darkTheme ? Colors.white : Colors.black),
             onPressed: () => onBackPressed != null ? onBackPressed!() : Navigator.of(context).pop(),
           ) 

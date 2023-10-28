@@ -34,14 +34,21 @@ class SearchProductWidget extends StatelessWidget {
           Row(children: [
             Expanded(child: Text('${getTranslated('products', context)}',style: robotoBold,)),
 
-            InkWell(onTap: () => showModalBottomSheet(context: context,
-                isScrollControlled: true, backgroundColor: Colors.transparent,
-                builder: (c) => SearchFilterBottomSheet()),
+            InkWell(onTap: () => 
+            
+            showModalBottomSheet(context: context,
+                isScrollControlled: true, 
+                backgroundColor: Colors.transparent,
+
+                builder: (c) => SearchFilterBottomSheet()
+                ),
                 child: Container(
                   padding: EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL,
                       horizontal: Dimensions.PADDING_SIZE_SMALL),
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),),
                   child: Image.asset(Images.dropdown, scale: 3),
+
+
                 ),
               ),
             ],

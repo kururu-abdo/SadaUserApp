@@ -38,6 +38,40 @@ class ProductRepo {
     }
   }
 
+
+
+
+  // Future<ApiResponse> get(BuildContext context, String offset,
+  //  ProductType productType, String? title) async {
+  //   late String endUrl;
+
+  //    if(productType == ProductType.BEST_SELLING){
+  //     endUrl = AppConstants.BEST_SELLING_PRODUCTS_URI;
+  //     title = getTranslated('best_selling', context);
+  //   }
+  //   else if(productType == ProductType.NEW_ARRIVAL){
+  //     endUrl = AppConstants.NEW_ARRIVAL_PRODUCTS_URI;
+  //     title = getTranslated('new_arrival',context);
+  //   }
+  //   else if(productType == ProductType.TOP_PRODUCT){
+  //     endUrl = AppConstants.TOP_PRODUCTS_URI;
+  //     title = getTranslated('top_product', context);
+  //   }else if(productType == ProductType.DISCOUNTED_PRODUCT){
+  //      endUrl = AppConstants.DISCOUNTED_PRODUCTS_URI;
+  //      title = getTranslated('discounted_product', context);
+  //    }
+
+  //   try {
+  //     final response = await dioClient!.get(
+  //       endUrl+offset);
+  //     return ApiResponse.withSuccess(response);
+  //   } catch (e) {
+  //     return ApiResponse.withError(ApiErrorHandler.getMessage(e));
+  //   }
+  // }
+
+
+
   //Seller Products
   Future<ApiResponse> getSellerProductList(String sellerId, String offset) async {
     try {

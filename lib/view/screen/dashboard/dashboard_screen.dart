@@ -116,6 +116,8 @@ child: Center(
 BottomAppBar(
           shape: CircularNotchedRectangle(),
           height: 100,
+
+
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
 children:  [

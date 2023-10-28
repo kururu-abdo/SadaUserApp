@@ -37,8 +37,8 @@ dependencies:
   file: ^6.1.4
   photo_view: ^0.14.0
   package_info: ^2.0.0
-  firebase_core: ^1.7.0
-  firebase_messaging: ^11.2.6
+  firebase_core: ^2.15.1
+  firebase_messaging: ^14.6.7
   flutter_local_notifications: ^9.0.0
   path_provider: ^2.0.1
   google_sign_in: ^5.1.0
@@ -61,10 +61,10 @@ dependencies:
   validate_ksa_number: ^1.0.0
   responsive_framework: ^0.2.0
   expandable: ^5.0.1
-  firebase_core_platform_interface: ^4.5.1
+
   # flutter_survey: ^0.1.4
   # flutter_speech: ^2.0.0
-  firebase_dynamic_links: ^4.3.11
+  firebase_dynamic_links: ^5.3.5
   uni_links: ^0.5.1
   image: ^3.1.0
   dio_cache_interceptor: ^3.4.0
@@ -74,15 +74,17 @@ dependencies:
   permission_handler: ^10.2.0
   gallery_saver: ^2.3.2
   image_watermark:
-  firebase_analytics: ^9.3.8
+  firebase_analytics: ^10.4.5
   rating_dialog: ^2.0.4
   place_picker: ^0.9.20-nullsafety
   intl: ^0.18.0
   google_mlkit_commons: ^0.5.0
+# dependency_overrides:
+  firebase_core_platform_interface: ^4.5.1  
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+ 
 flutter:
   uses-material-design: true
 

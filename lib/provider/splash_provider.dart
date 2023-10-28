@@ -121,6 +121,12 @@ class SplashProvider extends ChangeNotifier {
   bool? showIntro() {
     return splashRepo!.showIntro();
   }
+  bool showLanguagePage(){
+    return splashRepo!.isFirstTime()!;
+  }
+  void disableFirstTime(){
+    splashRepo!.disableLanguagePage();
+  }
 
   void disableIntro() {
     splashRepo!.disableIntro();

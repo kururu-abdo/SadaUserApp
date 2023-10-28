@@ -144,7 +144,8 @@ Scaffold(
   backgroundColor: Theme.of(context).primaryColor,
           appBar: AppBar(title: Row(children: [
               InkWell(
-                child: Icon(Icons.arrow_back_ios, color: Theme.of(context).cardColor, size: 20),
+                child: Icon(Icons.arrow_back_ios,
+                 color: Theme.of(context).cardColor, size: 30),
                 onTap: () => Navigator.pop(context),),
               SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
 

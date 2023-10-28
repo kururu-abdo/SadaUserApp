@@ -23,7 +23,7 @@ class AllTopSellerScreen extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(
             bottomRight: Radius.circular(5), bottomLeft: Radius.circular(5))),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, size: 20, color: ColorResources.WHITE),
+          icon: Icon(Icons.arrow_back_ios, size: 30, color: ColorResources.WHITE),
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(getTranslated('top_seller', context)!,

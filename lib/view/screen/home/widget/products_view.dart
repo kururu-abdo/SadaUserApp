@@ -24,7 +24,9 @@ class ProductView extends StatelessWidget {
           && Provider.of<ProductProvider>(context, listen: false).latestProductList!.length != 0
           && !Provider.of<ProductProvider>(context, listen: false).filterIsLoading) {
         late int pageSize;
-        if(productType == ProductType.BEST_SELLING || productType == ProductType.TOP_PRODUCT || productType == ProductType.NEW_ARRIVAL ) {
+        if(productType == ProductType.BEST_SELLING || 
+        productType == ProductType.TOP_PRODUCT ||
+         productType == ProductType.NEW_ARRIVAL ) {
           pageSize = (Provider.of<ProductProvider>(context, listen: false).latestPageSize!/10).ceil();
           offset = Provider.of<ProductProvider>(context, listen: false).lOffset;
         }
@@ -72,6 +74,7 @@ class ProductView extends StatelessWidget {
 
         else if(productType == ProductType.SELLER_PRODUCT) {
           productList = prodProvider.sellerProductList;
+
           print('==========>Product List ==${prodProvider.firstLoading}====>${productList.length}');
         }
 

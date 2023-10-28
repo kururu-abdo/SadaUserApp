@@ -11,7 +11,7 @@ class BackButton extends StatelessWidget {
       onPressed: () {
         Navigator.of(context).pop();
       },
-      icon: Icon(Icons.arrow_back_ios, color: color, size: 16),
+      icon: Icon(Icons.arrow_back_ios, color: color, size: 40),
     );
   }
 }

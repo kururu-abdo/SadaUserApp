@@ -252,114 +252,205 @@ loginBody.user_id =  _idController!.text.trim();
           //           ),
           //         ),
 
-          Align(
-alignment: AlignmentDirectional.centerStart,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-          
-          
-          
-          
-          Row(
-            children: [
-              GestureDetector(
-                onTap: (){
+Align(alignment: AlignmentDirectional.centerStart,
+  child:   Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+  
+  GestureDetector(
+    onTap: (){
+    
                   _selectedMethod='by_id';
                   setState(() {
             
                   });
-                },
-                child: Container(
-              width: 20,height: 20
-              ,
-                  decoration: BoxDecoration(
-              
-              
-              border: Border.all(
-                width: 1 , color: Theme.of(context).primaryColor
-              ) ,
-              color: _selectedMethod =='by_id'?
-               Theme.of(context).primaryColor:Colors.white
-              
-                  ),
-              child:     Center(
-child:
-                     _selectedMethod =='by_id'?
-                     Icon(Icons.check  , size: 15 ,color: Colors.white,) 
-                     :SizedBox.shrink()
-                  ),
-                ),
-              ),
-          
-          
-          SizedBox(width: 10,),
-          
-              Text(getTranslated('by_id', context)!)
-            ],
-          
-          
-          
-          ) ,
-          
-          
-          
-          
-          
-          SizedBox(width: 20,)
-          
-          
-          ,
-          
-          Row(
-            children: [
-              GestureDetector(
-                onTap: (){
+                
+    },
+    child: AnimatedContainer(
+      duration: Duration(milliseconds: 200),
+    height: 50,
+    padding:  _selectedMethod =='by_id'?
+    
+    EdgeInsets.all(8): EdgeInsets.only(
+      left: 8,right: 8,
+      top: 20) ,
+    decoration: BoxDecoration(
+    borderRadius: BorderRadius.circular(10),
+    gradient:_selectedMethod =='by_id'? LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+      stops: [.1,  1 ],
+    colors: [Theme.of(context).primaryColor,
+    Colors.white
+    // Theme.of(context).primaryColor.withOpacity(.20),
+    ]): null,
+    ),
+    child:  Text(getTranslated('by_id', context)! ,
+    
+    style: TextStyle(
+      color: Colors.black
+    ),
+    ),
+    ),
+  )
+  
+   
+  
+  
+  ,
+  GestureDetector(
+    onTap: (){
+    
                   _selectedMethod='by_phone';
                   setState(() {
             
                   });
-                },
-                child: Container(
-              width: 20,height: 20,
-                  decoration: BoxDecoration(
+                
+    },
+    child: AnimatedContainer(
+          duration: Duration(milliseconds: 200),
+    height: 50,
+    padding: 
+    _selectedMethod =='by_phone'?
+    
+    EdgeInsets.all(8): EdgeInsets.only(
+      left: 8,right: 8,
+      top: 20)  ,
+    decoration: BoxDecoration(
+    borderRadius: BorderRadius.circular(10),
+    gradient:_selectedMethod =='by_phone'? LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+     stops: [.1,  1 ],
+    colors: [Theme.of(context).primaryColor,
+    Colors.white
+    // Theme.of(context).primaryColor.withOpacity(.20),
+    ]):null,),
+    child:  Text(getTranslated('by_phone', context)! ,
+    
+    style: TextStyle(
+      color: Colors.black
+    ),
+    ),
+    ),
+  )
+  
+   
+   
+  ]),
+) ,
+
+//           Align(
+// alignment: AlignmentDirectional.centerStart,
+//             child: Row(
+//               mainAxisSize: MainAxisSize.min,
+//               mainAxisAlignment: MainAxisAlignment.start,
+//               children: [
+          
+          
+          
+          
+//           Row(
+//             children: [
+//               GestureDetector(
+//                 onTap: (){
+//                   _selectedMethod='by_id';
+//                   setState(() {
+            
+//                   });
+//                 },
+//                 child: Container(
+//               width: 20,height: 20
+//               ,
+//                   decoration: BoxDecoration(
               
               
-              border: Border.all(
-                width: 1 , color: Theme.of(context).primaryColor
-              ) ,
-              color: _selectedMethod =='by_phone'?
-               Theme.of(context).primaryColor:Colors.white
+//               border: Border.all(
+//                 width: 1 , color: Theme.of(context).primaryColor
+//               ) ,
+//               color: _selectedMethod =='by_id'?
+//                Theme.of(context).primaryColor:Colors.white
               
-                  ),
-                  child: Center(
-child:
-                     _selectedMethod =='by_phone'?
-                     Icon(Icons.check  ,size: 15 ,color: Colors.white,) 
-                     :SizedBox.shrink()
-                  ),
-                ),
-              ),
+//                   ),
+//               child:     Center(
+// child:
+//                      _selectedMethod =='by_id'?
+//                      Icon(Icons.check  , size: 15 ,color: Colors.white,) 
+//                      :SizedBox.shrink()
+//                   ),
+//                 ),
+//               ),
+          
+          
+//           SizedBox(width: 10,),
+          
+//               Text(getTranslated('by_id', context)!)
+//             ],
           
           
           
-          SizedBox(width: 10,),
-          
-              Text(getTranslated('by_phone', context)!)
-            ],
-          
-          
-          
-          ) ,
+//           ) ,
           
           
           
           
           
-              ],
-            ),
-          ),
+//           SizedBox(width: 20,)
+          
+          
+//           ,
+          
+//           Row(
+//             children: [
+//               GestureDetector(
+//                 onTap: (){
+//                   _selectedMethod='by_phone';
+//                   setState(() {
+            
+//                   });
+//                 },
+//                 child: Container(
+//               width: 20,height: 20,
+//                   decoration: BoxDecoration(
+              
+              
+//               border: Border.all(
+//                 width: 1 , color: Theme.of(context).primaryColor
+//               ) ,
+//               color: _selectedMethod =='by_phone'?
+//                Theme.of(context).primaryColor:Colors.white
+              
+//                   ),
+//                   child: Center(
+// child:
+//                      _selectedMethod =='by_phone'?
+//                      Icon(Icons.check  ,size: 15 ,color: Colors.white,) 
+//                      :SizedBox.shrink()
+//                   ),
+//                 ),
+//               ),
+          
+          
+          
+//           SizedBox(width: 10,),
+          
+//               Text(getTranslated('by_phone', context)!)
+//             ],
+          
+          
+          
+//           ) ,
+          
+
+
+
+
+          
+          
+          
+//               ],
+//             ),
+//           ),
 
              SizedBox(height: Dimensions.MARGIN_SIZE_DEFAULT
              ,),

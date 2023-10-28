@@ -429,4 +429,10 @@
  "enter_customer":"ادخل رقم المستخدم" ,
  "id_is_required":"رقم العميل مطلوب"
 
+,
+
+ "branches":"الفروع",
+ "sign_in":"تسجيل حساب",
+ "current_lang":"اللغة الحالية" ,
+ "select_lang":"قم باختيار اللغة"
 }

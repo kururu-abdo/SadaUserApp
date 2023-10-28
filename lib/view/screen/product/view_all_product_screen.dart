@@ -24,7 +24,7 @@ class AllProductScreen extends StatelessWidget {
         Colors.black : Theme.of(context).primaryColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(
             bottomRight: Radius.circular(5), bottomLeft: Radius.circular(5))),
-        leading: IconButton(icon: Icon(Icons.arrow_back_ios, size: 20,
+        leading: IconButton(icon: Icon(Icons.arrow_back_ios, size: 30,
             color: ColorResources.WHITE),
           onPressed: () => Navigator.of(context).pop(),
         ),

@@ -14,6 +14,8 @@ class ProductProvider extends ChangeNotifier {
 
   // Latest products
   List<Product>? _latestProductList = [];
+    List<Product>? discountProducts = [];
+      List<Product>? newArrivalsProducts = [];
   List<Product> _lProductList = [];
   List<Product> get lProductList=> _lProductList;
   List<Product> _featuredProductList = [];
@@ -31,6 +33,7 @@ class ProductProvider extends ChangeNotifier {
   bool _firstFeaturedLoading = true;
   bool _firstLoading = true;
   int? _latestPageSize;
+   int? _arrivalPageSize;
   int _lOffset = 1;
   int _sellerOffset = 1;
   int? _lPageSize;
@@ -43,6 +46,7 @@ class ProductProvider extends ChangeNotifier {
   int get sellerOffset => _sellerOffset;
 
   List<int> _offsetList = [];
+   List<int> _newArrivalOffestList = [];
   List<String> _lOffsetList = [];
   List<String> get lOffsetList=>_lOffsetList;
   List<String> _featuredOffsetList = [];
@@ -59,13 +63,16 @@ class ProductProvider extends ChangeNotifier {
   bool get firstFeaturedLoading => _firstFeaturedLoading;
   bool get firstLoading => _firstLoading;
   int? get latestPageSize => _latestPageSize;
+  int? get arrivalPageSize => _arrivalPageSize;
   int? get featuredPageSize => _featuredPageSize;
 
 
 
 
   //latest product
-  Future<void> getLatestProductList(int offset, BuildContext context, {bool reload = false}) async {
+
+  Future<void> getLatestProductList(int offset,
+   BuildContext context, {bool reload = false}) async {
     if(reload) {
       _offsetList = [];
       _latestProductList = [];
@@ -73,7 +80,8 @@ class ProductProvider extends ChangeNotifier {
     _lOffset = offset;
     if(!_offsetList.contains(offset)) {
       _offsetList.add(offset);
-      ApiResponse apiResponse = await productRepo!.getLatestProductList(context,offset.toString(), productType, title);
+      ApiResponse apiResponse = await productRepo!.getLatestProductList(
+        context,offset.toString(), productType, title);
       if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
         _latestProductList!.addAll(ProductModel.fromJson(apiResponse.response!.data).products!);
         _latestPageSize = ProductModel.fromJson(apiResponse.response!.data).totalSize;
@@ -99,6 +107,100 @@ class ProductProvider extends ChangeNotifier {
     }
 
   }
+  
+  
+  //dicount products
+
+  
+  Future<void> getDiscountProducts(int offset,
+   BuildContext context, {bool reload = false}) async {
+    if(reload) {
+      _offsetList = [];
+      discountProducts = [];
+    }
+    _lOffset = offset;
+    if(!_offsetList.contains(offset)) {
+      _offsetList.add(offset);
+      ApiResponse apiResponse = await productRepo!.getLatestProductList(
+        context,offset.toString(), ProductType.DISCOUNTED_PRODUCT,
+        
+        
+         title);
+      if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+        discountProducts!.addAll(ProductModel.fromJson(apiResponse.response!.data).products!);
+        _latestPageSize = ProductModel.fromJson(apiResponse.response!.data).totalSize;
+        _filterFirstLoading = false;
+        _filterIsLoading = false;
+      } else if(apiResponse.response != null ){
+          discountProducts!.addAll(ProductModel.fromJson(apiResponse.response!.data).products!);
+        _latestPageSize = ProductModel.fromJson(apiResponse.response!.data).totalSize;
+        _filterFirstLoading = false;
+        _filterIsLoading = false;
+      }
+      
+      
+      else {
+        ApiChecker.checkApi(context, apiResponse);
+      }
+      notifyListeners();
+    }else {
+      if(_filterIsLoading) {
+        _filterIsLoading = false;
+        notifyListeners();
+      }
+    }
+
+  }
+  
+
+  //new arriavals
+
+  Future<void> getnewArriavalProducts(int offset,
+   BuildContext context, {bool reload = false}) async {
+    if(reload) {
+      _offsetList = [];
+      newArrivalsProducts = [];
+    }
+    _lOffset = offset;
+    if(!_offsetList.contains(offset)) {
+      _offsetList.add(offset);
+      ApiResponse apiResponse = await productRepo!.getLatestProductList(
+        context,offset.toString(), ProductType.NEW_ARRIVAL,
+        
+        
+         title);
+      if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+        newArrivalsProducts!.addAll(ProductModel.fromJson(
+          apiResponse.response!.data).products!);
+        _arrivalPageSize = ProductModel.fromJson(apiResponse.response!.data).totalSize;
+        _filterFirstLoading = false;
+        _filterIsLoading = false;
+        notifyListeners();
+      } else if(apiResponse.response != null ){
+          newArrivalsProducts!.addAll(ProductModel.fromJson(apiResponse.response!.data).products!);
+        _arrivalPageSize = ProductModel.fromJson(apiResponse.response!.data).totalSize;
+        _filterFirstLoading = false;
+        _filterIsLoading = false;
+
+        notifyListeners();
+      }
+      
+      
+      else {
+        ApiChecker.checkApi(context, apiResponse);
+      }
+      notifyListeners();
+    }else {
+      if(_filterIsLoading) {
+        _filterIsLoading = false;
+        notifyListeners();
+      }
+    }
+
+  }
+    
+  
+  
   //latest product
   Future<void> getLProductList(String offset, BuildContext context, {bool reload = false}) async {
     if(reload) {
@@ -178,7 +280,8 @@ _lProductList.addAll(ProductModel.fromJson(apiResponse.response!.data).products!
     _sellerOffset = offset;
 
  try {
-      ApiResponse apiResponse = await productRepo!.getSellerProductList(sellerId, offset.toString());
+      ApiResponse apiResponse = await productRepo!.
+      getSellerProductList(sellerId, offset.toString());
     log(apiResponse.response!.data.toString());
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _sellerProductList = [];
