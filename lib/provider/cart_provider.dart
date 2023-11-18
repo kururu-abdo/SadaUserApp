@@ -137,18 +137,7 @@ class CartProvider extends ChangeNotifier {
        log('CART DATA SHOWN');
        
          notifyListeners();
-    }  else if (apiResponse.response != null ){
-      // log('NO CART DATA YET');
-      // log(apiResponse.response!.data.toString());
-      log('NO CART DATA YET2');
-      _cartList.clear();
-      isCartLoading = false;
-      apiResponse.response!.data.forEach((cart) => _cartList.add(CartModel.fromJson(cart)));
-         
-
- 
-   notifyListeners();
-    }
+    } 
     
     
      else {
@@ -252,13 +241,9 @@ class CartProvider extends ChangeNotifier {
       callback(true, message);
       getCartDataAPI(context);
       notifyListeners();
-    }  else if (apiResponse.response != null){
-      Map map = apiResponse.response!.data;
-      String? message = map["message"];
-      callback(true, message);
-      getCartDataAPI(context);
-      notifyListeners();
-      }else {
+    }  else{
+
+      log(apiResponse.error.toString());
       String? errorMessage;
       if (apiResponse.error is String) {
         print(apiResponse.error.toString());

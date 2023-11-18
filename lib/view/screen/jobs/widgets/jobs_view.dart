@@ -1,4 +1,5 @@
 import 'package:eamar_user_app/view/basewidget/no_internet_screen.dart';
+import 'package:eamar_user_app/view/screen/home/home_screens.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/job_model.dart';
 import 'package:eamar_user_app/data/model/response/product_model.dart';
@@ -78,6 +79,7 @@ class JobsView extends StatelessWidget {
           JobsProvider.userJobs.length > 0 ?
 
           ListView.builder(
+            controller: homeScrollController,
            itemCount:
             // isJobsHome?
            

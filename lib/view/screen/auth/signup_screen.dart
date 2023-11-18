@@ -75,13 +75,13 @@ children: [
 
 
 
-
+// SizedBox(height: 80,),
 
 SizedBox(height: Dimensions.topSpace),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5),
                     child: Image.asset(Images.logo_with_name_image,
-                     height: 300, 
+                     height: 150, 
                     
                     scale: 1.5,
                     ),

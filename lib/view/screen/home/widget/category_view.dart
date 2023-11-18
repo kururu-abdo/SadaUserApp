@@ -90,7 +90,11 @@ isLastPage= currentPageValue.toInt()+1==pages;
         
       
         SizedBox(
-          height: MediaQuery.of(context).size.height/3.2,
+          height: 
+            isLastPage&&
+                  lastPageITems!<6?
+          150:
+          MediaQuery.of(context).size.height/3.2,
           child:
 Column(
   crossAxisAlignment: CrossAxisAlignment.center,
@@ -102,8 +106,82 @@ Column(
               pageSnapping: false,
                physics: BouncingScrollPhysics(),
               itemBuilder: (context, position) {
-          return   GridView.builder( 
+          return   
+            isLastPage&&
+                  lastPageITems!<6?
+
+                  ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: lastPageITems,
+                    itemBuilder: (BuildContext context, int index) {
+                      return 
+                    
+                    
+                     InkWell(
+                      onTap: () {
+                        categoryProvider.changeSelectedIndex(index+startItem);
+                        
+            
+            
+            
+            
+            if (widget.categories![index+startItem].subCategories!.length>0) {
+          //  Navigator.push(context, MaterialPageRoute(builder: (_) =>
+          //                CategoryDetailsScreen(
+          //                 isBrand: false,
+          //                 category: widget.categories[index],
+          //                 id: widget.categories[index].id.toString(),
+          //                 name: widget.categories[index].name,
+          //               )));
+            
+            
+            
+            
+            
+            
+            
+            Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                         CategoryDetailsPage(
+                          // isBrand: false,
+                          category: widget.categories![index+startItem],
+                          // id: widget.categories[index].id.toString(),
+                          // name: widget.categories[index].name,
+                        )));
+            
+            
+            
+            
+            
+            
+            } else {
+            
+            
+              Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                         AllProductsByCategory(
+                          isBrand: false,
+                          // category: widget.categories[index],
+                          id: widget.categories![index+startItem].id.toString(),
+                          name: widget.categories![index+startItem].name,
+                        )));
+            
+            
+            
+            
+            
+            }
+            
+            
+                     
+                      },
+                      child: CategoryWidget(category: widget.categories![index+startItem]),
+                    );
+                    },
+                  ):
+          
+          
+          GridView.builder( 
              shrinkWrap: true,
+             physics: NeverScrollableScrollPhysics(),
              
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,

@@ -10,7 +10,7 @@ class CustomDropdown<T> extends StatefulWidget   {
   /// onChange is called when the selected option is changed.;
   /// It will pass back the value and the index of the option.
   final void Function(T, int)? onChange;
-
+final String? label;
   /// list of DropdownItems
   final List<DropdownItem<T>> items;
   final DropdownStyle dropdownStyle;
@@ -33,7 +33,7 @@ class CustomDropdown<T> extends StatefulWidget   {
     this.dropdownButtonStyle = const DropdownButtonStyle(),
     this.icon,
     this.leadingIcon = false,
-    
+    this.label='',
     this.onChange,
   }) : super(key: key);
 
@@ -114,80 +114,90 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T?>>
     // link the overlay to the button
     return CompositedTransformTarget(
       link: this._layerLink,
-      child: Container(
-        width: style.width,
-        height: style.height,
-        decoration: BoxDecoration(
-          // color: Colors.transparent,
-           boxShadow: [
-          BoxShadow(color: Colors.grey.withOpacity(0.2), 
-          spreadRadius: 1, blurRadius: 7, offset: Offset(0, 1)) 
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(widget.label! ,
+          style: Theme.of(context).textTheme.titleMedium,
           
-          // changes position of shadow
+          ),
+             SizedBox(height: 5,),
+          Container(
+            width: style.width,
+            height: style.height,
+            decoration: BoxDecoration(
+              // color: Colors.transparent,
+            //    boxShadow: [
+            //   BoxShadow(color: Colors.grey.withOpacity(0.2), 
+            //   spreadRadius: 1, blurRadius: 7, offset: Offset(0, 1)) 
+              
+            //   // changes position of shadow
+            // ],
+            ),
+            child:
+            
+             OutlinedButton(
+              style: OutlinedButton.styleFrom(
+                padding: style.padding,
+                backgroundColor:
+                // Colors.transparent,
+                 style.backgroundColor,
+                //  Theme.of(context).highlightColor,
+                elevation: style.elevation,
+                foregroundColor: style.primaryColor,
+                side: BorderSide.none,
+                shape: RoundedRectangleBorder(
+                    side: BorderSide(width: 5.0, color: Colors.blue),
+                    borderRadius: BorderRadius.circular(6)),
+              ),
+              onPressed: _toggleDropdown,
+              child: Row(
+                mainAxisAlignment:
+                    style.mainAxisAlignment??  
+                    MainAxisAlignment.spaceEvenly,
+                // textDirection:
+                //     widget.leadingIcon ? 
+                //     TextDirection.rtl :
+                    
+                //      TextDirection.ltr,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  if (_currentIndex == -1) ...[
+                    widget.child,
+                  ] else ...[
+                    widget.items[_currentIndex],
+                  ],
+
+
+                  if (!widget.hideIcon)
+                    RotationTransition(
+                      turns: _rotateAnimation,
+                      child:
+                      
+                      //  widget.icon ??
+                      //  ImageIcon(AssetImage('assets/images/arrow_down.png'))
+                      
+                      
+                      
+                       Icon(
+
+
+                        Icons.keyboard_arrow_down
+                        
+                        
+                        ,
+                      
+                      color: Theme.of(context).colorScheme.onPrimary,   ///TODO: change dopdown icon color
+                      ) ,
+                    
+                    ),
+              
+              
+                ],
+              ),
+            ),
+          ),
         ],
-        ),
-        child:
-        
-         OutlinedButton(
-          style: OutlinedButton.styleFrom(
-            padding: style.padding,
-            backgroundColor:
-            // Colors.transparent,
-             style.backgroundColor,
-            //  Theme.of(context).highlightColor,
-            elevation: style.elevation,
-            foregroundColor: style.primaryColor,
-            side: BorderSide.none,
-            shape: RoundedRectangleBorder(
-                side: BorderSide(width: 5.0, color: Colors.blue),
-                borderRadius: BorderRadius.circular(6)),
-          ),
-          onPressed: _toggleDropdown,
-          child: Row(
-            mainAxisAlignment:
-                style.mainAxisAlignment??  
-                MainAxisAlignment.spaceEvenly,
-            // textDirection:
-            //     widget.leadingIcon ? 
-            //     TextDirection.rtl :
-                
-            //      TextDirection.ltr,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              if (_currentIndex == -1) ...[
-                widget.child,
-              ] else ...[
-                widget.items[_currentIndex],
-              ],
-
-
-              if (!widget.hideIcon)
-                RotationTransition(
-                  turns: _rotateAnimation,
-                  child:
-                  
-                  //  widget.icon ??
-                  //  ImageIcon(AssetImage('assets/images/arrow_down.png'))
-                  
-                  
-                  
-                   Icon(
-
-
-                    Icons.keyboard_arrow_down
-                    
-                    
-                    ,
-                  
-                  color: Theme.of(context).colorScheme.onPrimary,   ///TODO: change dopdown icon color
-                  ) ,
-                
-                ),
-          
-          
-            ],
-          ),
-        ),
       ),
     );
   }

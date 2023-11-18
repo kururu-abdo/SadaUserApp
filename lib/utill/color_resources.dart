@@ -3,9 +3,16 @@ import 'package:eamar_user_app/provider/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 class ColorResources {
-
+static Color getBtnColor(BuildContext context){
+  return 
+  
+  Provider.of<ThemeProvider>(context).darkTheme ?
+     Color(0xFF678cb5) :
+  Color(0xFFf2dd32);
+}
   static Color getColombiaBlue(BuildContext context) {
-    return Provider.of<ThemeProvider>(context).darkTheme ? Color(0xFF678cb5) : Color(0xFF92C6FF);
+    return Provider.of<ThemeProvider>(context).darkTheme ?
+     Color(0xFF678cb5) : Color(0xFF92C6FF);
   }
   static Color getLightSkyBlue(BuildContext context) {
     return Provider.of<ThemeProvider>(context).darkTheme ? Color(0xFFc7c7c7) : Color(0xFF8DBFF6);
@@ -64,6 +71,20 @@ class ColorResources {
   }
   static Color getFloatingBtn(BuildContext context) {
     return Provider.of<ThemeProvider>(context).darkTheme ? Color(0xFF49698c) : Color(0xFF7DB6F5);
+  }
+static Color getTextfieldFilledColor(context){
+
+
+ return Provider.of<ThemeProvider>(context).darkTheme ? Colors.grey:
+  Color(0xFFf4f4f6);
+  }
+
+
+
+  static Color getPasswordIconColor(context){
+
+
+ return Provider.of<ThemeProvider>(context).darkTheme ? Colors.grey: Color(0xFF9fa6ae);
   }
   static Color getPrimary(BuildContext context) {
     return Provider.of<ThemeProvider>(context).darkTheme ? Color(0xFFf0f0f0) : Theme.of(context).primaryColor;

@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/datasource/remote/dio/dio_client.dart';
 import 'package:eamar_user_app/utill/app_constants.dart';
@@ -11,7 +14,10 @@ class LocalizationProvider extends ChangeNotifier {
     _loadCurrentLanguage();
   }
 
-  Locale _locale = Locale(AppConstants.languages[0].languageCode!, AppConstants.languages[0].countryCode);
+  Locale _locale = 
+  Locale(AppConstants.languages[0].languageCode!,
+   AppConstants.languages[0].countryCode);
+   
   bool _isLtr = true;
   int? _languageIndex;
 
@@ -34,8 +40,26 @@ class LocalizationProvider extends ChangeNotifier {
   }
 
   _loadCurrentLanguage() async {
-    _locale = Locale(sharedPreferences!.getString(AppConstants.LANGUAGE_CODE) ?? AppConstants.languages[0].languageCode!,
-        sharedPreferences!.getString(AppConstants.COUNTRY_CODE) ?? AppConstants.languages[0].countryCode);
+    _locale = Locale(
+      sharedPreferences!.getString(AppConstants.LANGUAGE_CODE) ??
+
+    
+    Platform.localeName.split('-')[0]
+    //  AppConstants.languages[0].languageCode!
+    //  window.locale.languageCode
+     
+     ,
+        sharedPreferences!.getString(AppConstants.COUNTRY_CODE)
+         ??
+         Platform.localeName.split('-')[1]
+        //  window.locale.countryCode
+          // AppConstants.languages[0].countryCode
+         
+         
+         )
+         
+         
+         ;
     _isLtr = _locale.languageCode != 'ar';
     for(int index=0; index<AppConstants.languages.length; index++) {
       if(AppConstants.languages[index].languageCode == locale.languageCode) {

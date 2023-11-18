@@ -424,7 +424,9 @@ if (str!.isEmpty) {
     },
 );
                                 await 
-                                searchProvider.filterByBudgetAndCategory(searchProvider.category!, num.parse(_firstPriceController.text), context);
+                                searchProvider.
+                                filterByBudgetAndCategory(
+                                  searchProvider.category!, num.parse(_firstPriceController.text), context);
                               }
                               }
                              

@@ -22,10 +22,8 @@ class AddressWidget extends StatelessWidget {
         padding: EdgeInsets.only(bottom: Dimensions.PADDING_SIZE_SMALL),
         child: InkWell(
           onTap: () {
-            if(addressModel != null) {
-              Navigator.push(context, MaterialPageRoute(builder: (_) => MapWidget(address: addressModel)));
-            }
-          },
+            Navigator.push(context, MaterialPageRoute(builder: (_) => MapWidget(address: addressModel)));
+                    },
           child: Container(
             padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
             decoration: BoxDecoration(
@@ -40,6 +38,7 @@ class AddressWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    
                     Expanded(
                       flex: 2,
                       child: Row(
@@ -66,6 +65,9 @@ class AddressWidget extends StatelessWidget {
                         ],
                       ),
                     ),
+                  
+                  
+                  
                     PopupMenuButton<String>(
                       padding: EdgeInsets.all(0),
                       onSelected: (String result) {

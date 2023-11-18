@@ -53,6 +53,7 @@ import 'package:flutter/material.dart';
 import 'package:google_ml_vision/google_ml_vision.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+  final ScrollController homeScrollController = ScrollController();
 
 
 class HomePage extends StatefulWidget {
@@ -62,7 +63,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  final ScrollController _scrollController = ScrollController();
+  // final ScrollController _scrollController = ScrollController();
 final  ImageLabeler labeler = GoogleVision.instance.imageLabeler(
     
     ImageLabelerOptions
@@ -146,7 +147,9 @@ Future.delayed(Duration.zero ,
   void initState() {
     super.initState();
 
-    
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+
+
    Future.microtask(() {
  singleVendor = Provider.of<SplashProvider>(context, listen: false).configModel!.businessMode == "single";
 setState(() {
@@ -166,6 +169,13 @@ setState(() {
       Provider.of<CartProvider>(context, listen: false).getCartData();
     }
    });
+
+    });
+
+    
+
+     _controller = ScrollController();
+    _model = ScrollListener.initialise(homeScrollController);
   }
   PickedFile? _image;
 bool _loading = false ;
@@ -175,7 +185,8 @@ final ImagePicker _picker = ImagePicker();
 
 
 
-
+late final ScrollListener _model;
+  late final ScrollController _controller;
 
 // //load labels
 // static Future<ClassifierLabels> _loadLabels(String labelsFileName) async {
@@ -334,7 +345,7 @@ _modalSheetResults();
            Stack(
             children: [
               CustomScrollView(
-                controller: _scrollController,
+                controller: homeScrollController,
                 slivers: [
                   // App Bar
                   SliverAppBar(
@@ -352,7 +363,15 @@ _modalSheetResults();
 
 
                           // Provider.of<ProfileProvider>(context, listen: false).getUserInfo(context);
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => BrandPage()));
+                            Navigator.of(context).
+                            pushAndRemoveUntil(
+                              
+                              MaterialPageRoute(builder: (BuildContext context) =>
+                               BrandPage()), 
+                               
+                               
+                               (route)=>false
+                               );
 
                       },
                       child: Hero(
@@ -636,6 +655,30 @@ showAll: false,
 
                           // }),
 
+//discount product
+SizedBox(height: Dimensions.HOME_PAGE_PADDING),
+
+ Padding(
+                            padding: const EdgeInsets.only(left: Dimensions.PADDING_SIZE_EXTRA_SMALL, right: Dimensions.PADDING_SIZE_EXTRA_SMALL,
+                            bottom: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                            child: TitleRow(title: getTranslated('discounted_product', context),
+                                onTap: () {
+                                  // Navigator.push(context, MaterialPageRoute(builder: (_) => AllBrandScreen())
+                                  
+                                  
+                                  // );
+                                  
+                                  }),
+                          ),
+                          SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+
+ DiscountProductView(isHomePage: true
+                                                    , productType:
+                                                     ProductType.DISCOUNTED_PRODUCT, 
+                                                     scrollController: 
+                                                     homeScrollController),
+
+SizedBox(height: Dimensions.HOME_PAGE_PADDING),
 
 
                           // Latest Products
@@ -646,7 +689,7 @@ showAll: false,
                                     productType: ProductType.LATEST_PRODUCT)));}),
                           ),
                           SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-                          LatestProductView(scrollController: _scrollController),
+                          LatestProductView(scrollController: homeScrollController),
                           SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
 
@@ -738,30 +781,6 @@ showAll: false,
 
 
 
-//discount product
-SizedBox(height: Dimensions.HOME_PAGE_PADDING),
-
- Padding(
-                            padding: const EdgeInsets.only(left: Dimensions.PADDING_SIZE_EXTRA_SMALL, right: Dimensions.PADDING_SIZE_EXTRA_SMALL,
-                            bottom: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                            child: TitleRow(title: getTranslated('discounted_product', context),
-                                onTap: () {
-                                  // Navigator.push(context, MaterialPageRoute(builder: (_) => AllBrandScreen())
-                                  
-                                  
-                                  // );
-                                  
-                                  }),
-                          ),
-                          SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-
- DiscountProductView(isHomePage: true
-                                                    , productType:
-                                                     ProductType.DISCOUNTED_PRODUCT, 
-                                                     scrollController: 
-                                                     _scrollController),
-
-SizedBox(height: Dimensions.HOME_PAGE_PADDING),
 
 //new arraivals
 
@@ -782,7 +801,7 @@ Padding(
                                                     , productType:
                                                      ProductType.NEW_ARRIVAL, 
                                                      scrollController: 
-                                                     _scrollController),
+                                                     homeScrollController),
 
 
 SizedBox(height: Dimensions.HOME_PAGE_PADDING),
@@ -826,6 +845,10 @@ SizedBox(height: Dimensions.HOME_PAGE_PADDING),
         ),
       ),
     );
+ 
+ 
+ 
+ 
   }
 }
 
@@ -847,5 +870,22 @@ class SliverDelegate extends SliverPersistentHeaderDelegate {
   @override
   bool shouldRebuild(SliverDelegate oldDelegate) {
     return oldDelegate.maxExtent != 70 || oldDelegate.minExtent != 70 || child != oldDelegate.child;
+  }
+}
+
+
+class ScrollListener extends ChangeNotifier {
+  double bottom = 0;
+  double _last = 0;
+
+  ScrollListener.initialise(ScrollController controller, [double height = 56]) {
+    controller.addListener(() {
+      final current = controller.offset;
+      bottom += _last - current;
+      if (bottom <= -height) bottom = -height;
+      if (bottom >= 0) bottom = 0;
+      _last = current;
+      if (bottom <= 0 && bottom >= -height) notifyListeners();
+    });
   }
 }

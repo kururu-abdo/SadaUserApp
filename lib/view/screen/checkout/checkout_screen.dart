@@ -71,99 +71,111 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       key: _scaffoldKey,
+    
+      bottomNavigationBar: Padding(
+        padding:  EdgeInsets.only(
 
-      bottomNavigationBar: Container(
-        height: 60,
-        padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_LARGE, vertical: Dimensions.PADDING_SIZE_DEFAULT),
-        decoration: BoxDecoration(
-          color: ColorResources.getPrimary(context),
-         ),
-        child: Center(
-          child: Consumer<OrderProvider>(
-            builder: (context, order, child) {
-            return !Provider.of<OrderProvider>(context).isLoading ? Builder(
-              builder: (context) => InkWell(
-                onTap: () async {
-                  if(Provider.of<OrderProvider>(context, listen: false).addressIndex == null) {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('select_a_shipping_address', context)!), backgroundColor: Colors.red));
-                  }else if(Provider.of<OrderProvider>(context, listen: false).billingAddressIndex == null && _billingAddress){
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('select_a_billing_address', context)!), backgroundColor: Colors.red));
-                  }
-
-                  else {
-                    List<CartModel> _cartList = [];
-                    _cartList.addAll(widget.cartList);
-
-                    for(int index=0; index<widget.cartList.length; index++) {
-                      for(int i=0; i<Provider.of<CartProvider>(context, listen: false).chosenShippingList.length; i++) {
-                        if(Provider.of<CartProvider>(context, listen: false).chosenShippingList[i].cartGroupId == widget.cartList[index].cartGroupId) {
-                          _cartList[index].shippingMethodId = Provider.of<CartProvider>(context, listen: false).chosenShippingList[i].id;
-                          break;
+            bottom: MediaQuery.of(context).padding.bottom
+        ),
+        child: Container(
+          height: 60,
+          padding: EdgeInsets.symmetric(horizontal: 
+          
+          Dimensions.PADDING_SIZE_LARGE,
+           vertical: Dimensions.PADDING_SIZE_DEFAULT
+           )
+          
+          ,
+          decoration: BoxDecoration(
+            color: ColorResources.getPrimary(context),
+           ),
+          child: Center(
+            child: Consumer<OrderProvider>(
+              builder: (context, order, child) {
+              return !Provider.of<OrderProvider>(context).isLoading ? Builder(
+                builder: (context) => InkWell(
+                  onTap: () async {
+                    if(Provider.of<OrderProvider>(context, listen: false).addressIndex == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('select_a_shipping_address', context)!), backgroundColor: Colors.red));
+                    }else if(Provider.of<OrderProvider>(context, listen: false).billingAddressIndex == null && _billingAddress){
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('select_a_billing_address', context)!), backgroundColor: Colors.red));
+                    }
+          
+                    else {
+                      List<CartModel> _cartList = [];
+                      _cartList.addAll(widget.cartList);
+          
+                      for(int index=0; index<widget.cartList.length; index++) {
+                        for(int i=0; i<Provider.of<CartProvider>(context, listen: false).chosenShippingList.length; i++) {
+                          if(Provider.of<CartProvider>(context, listen: false).chosenShippingList[i].cartGroupId == widget.cartList[index].cartGroupId) {
+                            _cartList[index].shippingMethodId = Provider.of<CartProvider>(context, listen: false).chosenShippingList[i].id;
+                            break;
+                          }
                         }
                       }
-                    }
-
-                    String orderNote = _orderNoteController.text.trim();
-                    double? couponDiscount = Provider.of<CouponProvider>(context, listen: false).discount != null ? Provider.of<CouponProvider>(context, listen: false).discount : 0;
-                    String? couponCode =Provider.of<CouponProvider>(context, listen: false).discount != null && Provider.of<CouponProvider>(context, listen: false).discount != 0? Provider.of<CouponProvider>(context, listen: false).coupon!.code : '';
-                    if(_cod! && Provider.of<OrderProvider>(context, listen: false).paymentMethodIndex == 0) {
-                      Provider.of<OrderProvider>(context, listen: false).placeOrder(OrderPlaceModel(
-                        CustomerInfo(
+          
+                      String orderNote = _orderNoteController.text.trim();
+                      double? couponDiscount = Provider.of<CouponProvider>(context, listen: false).discount != null ? Provider.of<CouponProvider>(context, listen: false).discount : 0;
+                      String? couponCode =Provider.of<CouponProvider>(context, listen: false).discount != null && Provider.of<CouponProvider>(context, listen: false).discount != 0? Provider.of<CouponProvider>(context, listen: false).coupon!.code : '';
+                      if(_cod! && Provider.of<OrderProvider>(context, listen: false).paymentMethodIndex == 0) {
+                        Provider.of<OrderProvider>(context, listen: false).placeOrder(OrderPlaceModel(
+                          CustomerInfo(
+                            Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex!].id.toString(),
+                            Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex!].address,
+                           _billingAddress? Provider.of<ProfileProvider>(context, listen: false).billingAddressList[Provider.of<OrderProvider>(context, listen: false).billingAddressIndex!].id.toString():
+                           Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex!].id.toString(),
+                            _billingAddress? Provider.of<ProfileProvider>(context, listen: false).billingAddressList[Provider.of<OrderProvider>(context, listen: false).billingAddressIndex!].address:
+                            Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex!].address,
+                            orderNote
+          
+          
+                          ),
+                          _cartList, order.paymentMethodIndex == 0 ? 'cash_on_delivery' : '', couponDiscount,
+                        ), _callback, _cartList,
+                            Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex!].id.toString(),
+                            couponCode,
+                            _billingAddress? Provider.of<ProfileProvider>(context, listen: false).billingAddressList[Provider.of<OrderProvider>(context, listen: false).billingAddressIndex!].id.toString():
+                            Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex!].id.toString(),
+                            orderNote );
+                      }
+                      else {
+                        String userID = await Provider.of<ProfileProvider>(context, listen: false).getUserInfo(context);
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => PaymentScreen(
+                          customerID: userID,
+                          addressID: Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex!].id.toString(),
+                          couponCode: Provider.of<CouponProvider>(context, listen: false).discount != null ? Provider.of<CouponProvider>(context, listen: false).coupon!.code : '',
+                          billingId: _billingAddress? Provider.of<ProfileProvider>(context, listen: false).billingAddressList[Provider.of<OrderProvider>(context, listen: false).billingAddressIndex!].id.toString():
                           Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex!].id.toString(),
-                          Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex!].address,
-                         _billingAddress? Provider.of<ProfileProvider>(context, listen: false).billingAddressList[Provider.of<OrderProvider>(context, listen: false).billingAddressIndex!].id.toString():
-                         Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex!].id.toString(),
-                          _billingAddress? Provider.of<ProfileProvider>(context, listen: false).billingAddressList[Provider.of<OrderProvider>(context, listen: false).billingAddressIndex!].address:
-                          Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex!].address,
-                          orderNote
-
-
-                        ),
-                        _cartList, order.paymentMethodIndex == 0 ? 'cash_on_delivery' : '', couponDiscount,
-                      ), _callback, _cartList,
-                          Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex!].id.toString(),
-                          couponCode,
-                          _billingAddress? Provider.of<ProfileProvider>(context, listen: false).billingAddressList[Provider.of<OrderProvider>(context, listen: false).billingAddressIndex!].id.toString():
-                          Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex!].id.toString(),
-                          orderNote );
+                          orderNote: orderNote,
+          
+                        )));
+                      }
                     }
-                    else {
-                      String userID = await Provider.of<ProfileProvider>(context, listen: false).getUserInfo(context);
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => PaymentScreen(
-                        customerID: userID,
-                        addressID: Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex!].id.toString(),
-                        couponCode: Provider.of<CouponProvider>(context, listen: false).discount != null ? Provider.of<CouponProvider>(context, listen: false).coupon!.code : '',
-                        billingId: _billingAddress? Provider.of<ProfileProvider>(context, listen: false).billingAddressList[Provider.of<OrderProvider>(context, listen: false).billingAddressIndex!].id.toString():
-                        Provider.of<ProfileProvider>(context, listen: false).addressList[Provider.of<OrderProvider>(context, listen: false).addressIndex!].id.toString(),
-                        orderNote: orderNote,
-
-                      )));
-                    }
-                  }
-                },
-
-                child: Text(getTranslated('proceed', context)!, style: titilliumSemiBold.copyWith(
-                  fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE,
-                  color: Theme.of(context).cardColor,
-                )),
-              ),
-            ) : Container(
-              height: 30,width: 30 ,alignment: Alignment.center,
-              child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).highlightColor)),
-            );
-            },
+                  },
+          
+                  child: Text(getTranslated('proceed', context)!, style: titilliumSemiBold.copyWith(
+                    fontSize: Dimensions.FONT_SIZE_EXTRA_LARGE,
+                    color: Theme.of(context).cardColor,
+                  )),
+                ),
+              ) : Container(
+                height: 30,width: 30 ,alignment: Alignment.center,
+                child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).highlightColor)),
+              );
+              },
+            ),
           ),
         ),
       ),
-
+    
       body: Column(
         children: [
-
+    
           CustomAppBar(title: getTranslated('checkout', context)),
-
+    
           Expanded(
             child: ListView(physics: BouncingScrollPhysics(), padding: EdgeInsets.all(0), children: [
-
+    
               // Shipping Details
               Consumer<OrderProvider>(
                 builder: (context, shipping,_) {
@@ -184,18 +196,18 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                     children: [
                                       Expanded(child: Text('${getTranslated('shipping_address', context)}',
                                           style: titilliumRegular.copyWith(fontWeight: FontWeight.w600))),
-
-
+    
+    
                                       InkWell(
                                         onTap: () => Navigator.of(context).push(
                                             MaterialPageRoute(builder: (BuildContext context) => SavedAddressListScreen())),
                                         child: Image.asset(Images.address, scale: 3),
                                       ),
-
+    
                                     ],
                                   ),
                                   SizedBox(height: Dimensions.PADDING_SIZE_DEFAULT,),
-
+    
                                   Column(crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Container(
@@ -225,7 +237,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               ),
                             ),
                           ),
-
+    
                           SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
                           _billingAddress?
                           Card(
@@ -241,8 +253,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                     children: [
                                       Expanded(child: Text('${getTranslated('billing_address', context)}',
                                           style: titilliumRegular.copyWith(fontWeight: FontWeight.w600))),
-
-
+    
+    
                                       InkWell(
                                         onTap: () => Navigator.of(context).push(MaterialPageRoute(
                                             builder: (BuildContext context) => SavedBillingAddressListScreen())),
@@ -331,22 +343,22 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                   SizedBox(width: Dimensions.PADDING_SIZE_SMALL,),
                                   Text(PriceConverter.convertPrice(context, Provider.of<CartProvider>(context,listen: false).cartList[index].price),
                                     style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE),),
-
+    
                                 ],
                               ),
                               SizedBox(height: Dimensions.MARGIN_SIZE_EXTRA_SMALL),
-
+    
                               Row(children: [
-
+    
                                 Text('${getTranslated('qty', context)} - '+' '+Provider.of<CartProvider>(context,listen: false).cartList[index].quantity.toString(),
                                     style: titilliumRegular.copyWith()),
-
+    
                               ]),
                             ]),
                           ),
                         ]),
                       );
-
+    
                     }),
               ),
               // Coupon
@@ -401,7 +413,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               color: Theme.of(context).primaryColor,
                               borderRadius: BorderRadius.only(bottomRight: Radius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL),
                                   topRight: Radius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL))
-
+    
                           ),
                           child: Center(child: Text(getTranslated('APPLY', context)!,
                             style: titleRegular.copyWith(color: Theme.of(context).cardColor, fontSize: Dimensions.FONT_SIZE_LARGE),
@@ -410,9 +422,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   ]),
                 ),
               ),
-
+    
               SizedBox(height: Dimensions.PADDING_SIZE_SMALL,),
-
+    
               Container(
                 height: 40,width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
@@ -431,9 +443,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     //_shippingCost = order.shippingIndex != null ? order.shippingList[order.shippingIndex].cost : 0;
                     double _couponDiscount = Provider.of<CouponProvider>(context).discount != null ?
                     Provider.of<CouponProvider>(context).discount! : 0;
-
+    
                     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-
+    
                       AmountWidget(title: getTranslated('sub_total', context), amount: PriceConverter.convertPrice(context, _order)),
                       AmountWidget(title: getTranslated('SHIPPING_FEE', context), amount: PriceConverter.convertPrice(context, widget.shippingFee)),
                       AmountWidget(title: getTranslated('DISCOUNT', context), amount: PriceConverter.convertPrice(context, widget.discount)),
@@ -446,10 +458,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   },
                 ),
               ),
-
+    
               // Payment Method
               Container(
-
+    
                 height: 100,
                 margin: EdgeInsets.only(top: Dimensions.PADDING_SIZE_SMALL),
                 padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
@@ -470,8 +482,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   // _digitalPayment ? CustomCheckBox(title: getTranslated('digital_payment', context), index: !_cod ? 0 : 1) : SizedBox(),
                 ]),
               ),
-
-
+    
+    
               Container(
                 margin: EdgeInsets.only(top: Dimensions.PADDING_SIZE_SMALL),
                 padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
@@ -499,9 +511,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   ),
                 ]),
               ),
-
-
-
+    
+    
+    
             ]),
           ),
         ],

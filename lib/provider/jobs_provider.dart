@@ -97,6 +97,7 @@ Iterable data=  apiResponse.response!.data;
       } 
       
       else {
+           _isLoading = false;
         ApiChecker.checkApi(context, apiResponse);
       }
       notifyListeners();
@@ -116,7 +117,7 @@ Future<void> getUserJobs( BuildContext context ,String lang, {bool reload = fals
 
   //    }
      
-     _isAddJobLoading= true;
+     _isJobsLoading= true;
      notifyListeners();
       ApiResponse apiResponse = await jobsRepo!.getJobs(context ,lang);
       if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
@@ -172,7 +173,7 @@ if (job==null) {
   var data=apiResponse.response!.data ;
 
  if (data is Map) {
-    for (var key in (data as Map).keys) {
+    for (var key in (data).keys) {
       
   userJobs.add(UserJob.fromJson(data[key]));
   }
@@ -218,7 +219,7 @@ if (job==null) {
   var data=apiResponse.response!.data ;
 
  if (data is Map) {
-    for (var key in (data as Map).keys) {
+    for (var key in (data).keys) {
       
   userJobs.add(UserJob.fromJson(data[key]));
   }

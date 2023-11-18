@@ -1,3 +1,4 @@
+import 'package:eamar_user_app/data/datasource/remote/dio/dio_client_no_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/datasource/remote/dio/dio_client.dart';
 import 'package:eamar_user_app/data/datasource/remote/exception/api_error_handler.dart';
@@ -5,7 +6,7 @@ import 'package:eamar_user_app/data/model/response/base/api_response.dart';
 import 'package:eamar_user_app/utill/app_constants.dart';
 
 class BannerRepo {
-  final DioClient? dioClient;
+  final DioClientNoCache? dioClient;
   BannerRepo({required this.dioClient});
 
   Future<ApiResponse> getBannerList() async {

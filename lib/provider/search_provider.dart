@@ -29,7 +29,6 @@ setCategory(Category cat){
 
 
 
-  int _filterIndex = 0;
   List<String> _historyList = [];
 
   List<Category> _categories=[];
@@ -37,6 +36,8 @@ setCategory(Category cat){
 
 
  List<Category> get categoryList  => _categories;
+   int _filterIndex = 0;
+
   int get filterIndex => _filterIndex;
   List<String> get historyList => _historyList;
 
@@ -66,6 +67,8 @@ setCategory(Category cat){
       notifyListeners();
     }
   }
+ 
+ 
   void sortSearchList(double startingPrice, double endingPrice) {
     _searchProductList = [];
     if(startingPrice > 0 && endingPrice > startingPrice) {
@@ -152,6 +155,9 @@ setCategory(Category cat){
     }
     notifyListeners();
   }
+ 
+ 
+ 
   filterByBudgetAndCategory(Category? cat, budget, BuildContext context) async {
     _searchText = "Cat: ${cat!.name},Amount:${budget}";
     _isClear = false;

@@ -18,7 +18,10 @@ appBarTheme: AppBarTheme(
 ),
   cardColor:Colors.white,
   brightness: Brightness.light,
-  highlightColor: Colors.white,
+  textTheme: TextTheme(
+    titleMedium: TextStyle(color:Color(0xFF929292))
+  ),
+  highlightColor: Color(0xFFf9fafc),
   // scaffoldBackgroundColor: ColorResources.LIGHT_SKY_BLUE,
   hintColor: Color(0xFFe69211),
   colorScheme: ColorScheme.light(

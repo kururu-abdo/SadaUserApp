@@ -1,3 +1,4 @@
+import 'package:eamar_user_app/utill/color_resources.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:eamar_user_app/utill/custom_themes.dart';
@@ -48,73 +49,106 @@ final bool  enabled;
   @override
   Widget build(context) {
     var isRtl = Directionality.of(context)==TextDirection.rtl;
-    return Container(
-      width: double.infinity,
-      //  width: double.infinity,
+    
+    
+    
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+         Text(
+          
+          hintText ?? '' ,
+         
+         style: Theme.of(context).textTheme.titleMedium,
+         
+         ),
+         SizedBox(height: 5,),
+        Container(
+          width: double.infinity,
+          //  width: double.infinity,
 
-                //                  margin:
-                // EdgeInsets.only(bottom: Dimensions.MARGIN_SIZE_DEFAULT),
-      decoration: BoxDecoration(
-        color: Theme.of(context).highlightColor,
-        borderRadius: BorderRadius.circular(6),
-        boxShadow: [
-          BoxShadow(color: Colors.grey.withOpacity(0.2), spreadRadius: 1, blurRadius: 7, offset: Offset(0, 1)) // changes position of shadow
-        ],
-      ),
-      // decoration: BoxDecoration(
-      //   border: isBorder? Border.all(width: .8,color: Theme.of(context).hintColor):null,
-      //   color: Theme.of(context).highlightColor,
-      //   borderRadius: isPhoneNumber ? BorderRadius.only(topRight: Radius.circular(6), bottomRight: Radius.circular(6)) : BorderRadius.circular(6),
-      //   boxShadow: [
-      //     BoxShadow(color: Colors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1)) // changes position of shadow
-      //   ],
-      // ),
-      child: TextFormField(
-        textAlign: isBorder? TextAlign.center:TextAlign.start,
-        controller: controller,
-        maxLines: maxLine ?? 1,
-        textCapitalization: capitalization,
-        maxLength: isPhoneNumber ? 10 : null,
-        focusNode: focusNode,
-        
-        enabled: enabled,
-        keyboardType: textInputType ?? TextInputType.text,
-        //keyboardType: TextInputType.number,
-        initialValue: null,
-        textInputAction: textInputAction ?? TextInputAction.next,
+                    //                  margin:
+                    // EdgeInsets.only(bottom: Dimensions.MARGIN_SIZE_DEFAULT),
+          decoration: BoxDecoration(
+            color: Theme.of(context).highlightColor,
+            borderRadius: BorderRadius.circular(6),
+            // boxShadow: [
+            //   BoxShadow(color: Colors.grey.withOpacity(0.2), spreadRadius: 1, blurRadius: 7, offset: Offset(0, 1)) // changes position of shadow
+            // ],
+          ),
+          // decoration: BoxDecoration(
+          //   border: isBorder? Border.all(width: .8,color: Theme.of(context).hintColor):null,
+          //   color: Theme.of(context).highlightColor,
+          //   borderRadius: isPhoneNumber ? BorderRadius.only(topRight: Radius.circular(6), bottomRight: Radius.circular(6)) : BorderRadius.circular(6),
+          //   boxShadow: [
+          //     BoxShadow(color: Colors.grey.withOpacity(0.1), spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1)) // changes position of shadow
+          //   ],
+          // ),
+          child: TextFormField(
+            textAlign: isBorder? TextAlign.center:TextAlign.start,
+            controller: controller,
+            maxLines: maxLine ?? 1,
+            textCapitalization: capitalization,
+            maxLength: isPhoneNumber ? 10 : null,
+            focusNode: focusNode,
+            
+            enabled: enabled,
+            keyboardType: textInputType ?? TextInputType.text,
+            //keyboardType: TextInputType.number,
+            initialValue: null,
+            textInputAction: textInputAction ?? TextInputAction.next,
 
+        onTapOutside: (event) {
+                      print('onTapOutside');
+                      FocusScope.of(context).unfocus();
+                    },
+            
+            onFieldSubmitted: (v) {
+              FocusScope.of(context).requestFocus(nextNode);
+            },
+            //autovalidate: true,
+            inputFormatters: [isPhoneNumber ? FilteringTextInputFormatter.digitsOnly : FilteringTextInputFormatter.singleLineFormatter],
+            validator: (input){
+              if(input!.isEmpty){
+                if(isValidator){
+                  return validatorMessage??"";
+                }
+              }
+              return null;
 
-        
-        onFieldSubmitted: (v) {
-          FocusScope.of(context).requestFocus(nextNode);
-        },
-        //autovalidate: true,
-        inputFormatters: [isPhoneNumber ? FilteringTextInputFormatter.digitsOnly : FilteringTextInputFormatter.singleLineFormatter],
-        validator: (input){
-          if(input!.isEmpty){
-            if(isValidator){
-              return validatorMessage??"";
-            }
-          }
-          return null;
+            },
+            decoration: InputDecoration(
 
-        },
-        decoration: InputDecoration(
-
-          hintText: hintText ?? '',
-          filled: fillColor != null,
-          fillColor: fillColor,
-          contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 15),
-          isDense: true,
-          counterText: '',
-          suffixIcon: suffixIcon,
-          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),
-          hintStyle: titilliumRegular.copyWith(color: Theme.of(context).hintColor),
-          errorStyle: TextStyle(height: 1.5),
-          border: InputBorder.none,
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-
-
+              // hintText: hintText ?? '',
+              filled: true,
+              fillColor: ColorResources.getTextfieldFilledColor(context),
+              contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 15),
+              isDense: true,
+              counterText: '',
+              suffixIcon: suffixIcon,
+              focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),
+              hintStyle: titilliumRegular.copyWith(color: Theme.of(context).hintColor),
+              errorStyle: TextStyle(height: 1.5),
+              // border: InputBorder.none,
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+// disabledBorder:OutlineInputBorder(borderSide: BorderSide(
+//                     width: .2,
+                    
+                    
+//                     color: ColorResources.getTextfieldFilledColor(context))) ,
+// enabledBorder:OutlineInputBorder(borderSide: BorderSide(
+//                     width: .5,
+                    
+                    
+//                     color: ColorResources.getTextfieldFilledColor(context))) ,
+                  
+                  border: 
+                  InputBorder.none,
+                  // OutlineInputBorder(borderSide: BorderSide(
+                  //   width: .5,
+                    
+                    
+                  //   color: ColorResources.getTextfieldFilledColor(context))),
 //           prefix:  Flex(
 //           direction: Axis.horizontal,
 //           mainAxisSize: MainAxisSize.min,
@@ -126,18 +160,20 @@ final bool  enabled;
 //               // showFlagMain: true,
 //                   style: TextStyle(
 //                       color: Colors.black
-                      
+                          
 //                       // Theme.of(context).textTheme.headline1.color
-                      
+                          
 //                       ),
 //                 ),
 //                   // overflow: widget.textOverflow,
-                
+                    
 //               ),
 // ],
 //           )
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 }

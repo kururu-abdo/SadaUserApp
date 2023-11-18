@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:eamar_user_app/utill/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/address_model.dart';
 import 'package:eamar_user_app/data/model/response/base/api_response.dart';
@@ -102,23 +103,6 @@ class ProfileProvider extends ChangeNotifier {
     
     
     
-        if (apiResponse.response != null ) {
-      _addressList = [];
-      _billingAddressList =[];
-      _shippingAddressList =[];
-      apiResponse.response!.data.forEach((address) {
-        AddressModel addressModel = AddressModel.fromJson(address);
-        if(addressModel.isBilling == 1){
-          _billingAddressList.add(addressModel);
-        }else if(addressModel.isBilling == 0){
-          _addressList.add(addressModel);
-        }
-          _shippingAddressList.add(addressModel);
-
-
-      });
-     // apiResponse.response.data.forEach((address) => _addressList.add(AddressModel.fromJson(address)));
-    } 
     
     
     
@@ -155,7 +139,7 @@ class ProfileProvider extends ChangeNotifier {
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       _userInfoModel = UserInfoModel.fromJson(apiResponse.response!.data);
       userID = _userInfoModel!.id !=null? _userInfoModel!.id.toString():'-1';
-
+sharedPrefs.userName =  _userInfoModel!.fName!;
 
 
       _balance = _userInfoModel!.walletBalance;
@@ -209,9 +193,6 @@ class ProfileProvider extends ChangeNotifier {
 
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       Map map = apiResponse.response!.data;
-      if(_addressList == null) {
-        _addressList = [];
-      }
       _addressList.add(addressModel);
       String? message = map["message"];
       callback(true, message);

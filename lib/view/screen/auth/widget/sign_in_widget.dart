@@ -252,93 +252,93 @@ loginBody.user_id =  _idController!.text.trim();
           //           ),
           //         ),
 
-Align(alignment: AlignmentDirectional.centerStart,
-  child:   Row(
-    mainAxisSize: MainAxisSize.min,
-    children: [
+// Align(alignment: AlignmentDirectional.centerStart,
+//   child:   Row(
+//     mainAxisSize: MainAxisSize.min,
+//     children: [
   
-  GestureDetector(
-    onTap: (){
+//   GestureDetector(
+//     onTap: (){
     
-                  _selectedMethod='by_id';
-                  setState(() {
+//                   _selectedMethod='by_id';
+//                   setState(() {
             
-                  });
+//                   });
                 
-    },
-    child: AnimatedContainer(
-      duration: Duration(milliseconds: 200),
-    height: 50,
-    padding:  _selectedMethod =='by_id'?
+//     },
+//     child: AnimatedContainer(
+//       duration: Duration(milliseconds: 200),
+//     height: 50,
+//     padding:  _selectedMethod =='by_id'?
     
-    EdgeInsets.all(8): EdgeInsets.only(
-      left: 8,right: 8,
-      top: 20) ,
-    decoration: BoxDecoration(
-    borderRadius: BorderRadius.circular(10),
-    gradient:_selectedMethod =='by_id'? LinearGradient(
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-      stops: [.1,  1 ],
-    colors: [Theme.of(context).primaryColor,
-    Colors.white
-    // Theme.of(context).primaryColor.withOpacity(.20),
-    ]): null,
-    ),
-    child:  Text(getTranslated('by_id', context)! ,
+//     EdgeInsets.all(8): EdgeInsets.only(
+//       left: 8,right: 8,
+//       top: 20) ,
+//     decoration: BoxDecoration(
+//     borderRadius: BorderRadius.circular(10),
+//     gradient:_selectedMethod =='by_id'? LinearGradient(
+//     begin: Alignment.topCenter,
+//     end: Alignment.bottomCenter,
+//       stops: [.1,  1 ],
+//     colors: [Theme.of(context).primaryColor,
+//     Colors.white
+//     // Theme.of(context).primaryColor.withOpacity(.20),
+//     ]): null,
+//     ),
+//     child:  Text(getTranslated('by_id', context)! ,
     
-    style: TextStyle(
-      color: Colors.black
-    ),
-    ),
-    ),
-  )
+//     style: TextStyle(
+//       color: Colors.black
+//     ),
+//     ),
+//     ),
+//   )
   
    
   
   
-  ,
-  GestureDetector(
-    onTap: (){
+//   ,
+//   GestureDetector(
+//     onTap: (){
     
-                  _selectedMethod='by_phone';
-                  setState(() {
+//                   _selectedMethod='by_phone';
+//                   setState(() {
             
-                  });
+//                   });
                 
-    },
-    child: AnimatedContainer(
-          duration: Duration(milliseconds: 200),
-    height: 50,
-    padding: 
-    _selectedMethod =='by_phone'?
+//     },
+//     child: AnimatedContainer(
+//           duration: Duration(milliseconds: 200),
+//     height: 50,
+//     padding: 
+//     _selectedMethod =='by_phone'?
     
-    EdgeInsets.all(8): EdgeInsets.only(
-      left: 8,right: 8,
-      top: 20)  ,
-    decoration: BoxDecoration(
-    borderRadius: BorderRadius.circular(10),
-    gradient:_selectedMethod =='by_phone'? LinearGradient(
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-     stops: [.1,  1 ],
-    colors: [Theme.of(context).primaryColor,
-    Colors.white
-    // Theme.of(context).primaryColor.withOpacity(.20),
-    ]):null,),
-    child:  Text(getTranslated('by_phone', context)! ,
+//     EdgeInsets.all(8): EdgeInsets.only(
+//       left: 8,right: 8,
+//       top: 20)  ,
+//     decoration: BoxDecoration(
+//     borderRadius: BorderRadius.circular(10),
+//     gradient:_selectedMethod =='by_phone'? LinearGradient(
+//     begin: Alignment.topCenter,
+//     end: Alignment.bottomCenter,
+//      stops: [.1,  1 ],
+//     colors: [Theme.of(context).primaryColor,
+//     Colors.white
+//     // Theme.of(context).primaryColor.withOpacity(.20),
+//     ]):null,),
+//     child:  Text(getTranslated('by_phone', context)! ,
     
-    style: TextStyle(
-      color: Colors.black
-    ),
-    ),
-    ),
-  )
+//     style: TextStyle(
+//       color: Colors.black
+//     ),
+//     ),
+//     ),
+//   )
   
    
    
-  ]),
-) ,
+//   ]),
+// ) ,
 
 //           Align(
 // alignment: AlignmentDirectional.centerStart,
@@ -562,7 +562,8 @@ Align(alignment: AlignmentDirectional.centerStart,
                 Center(
                   child: CircularProgressIndicator(
                     valueColor: new AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor,),),) :
-                CustomButton(onTap: loginUser, buttonText: getTranslated('SIGN_IN', context)),),
+                CustomButton(onTap: loginUser,
+                 buttonText: getTranslated('SIGN_IN', context)),),
             
             
             
@@ -666,33 +667,36 @@ recognizer:   TapGestureRecognizer(
               // SocialLoginWidget(),
               // SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
         
-        SizedBox(height: 20,),
-              Center(child: Text(getTranslated('OR', context)!,
-                  style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT))),
+        // SizedBox(height: 20,),
+        //       Center(child: Text(getTranslated('OR', context)!,
+        //           style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT))),
         
         
         
-              GestureDetector(
-                onTap: () {
-                  if (!Provider.of<AuthProvider>(context, listen: false).isLoading) {
-                    Provider.of<CartProvider>(context, listen: false).getCartData();
-                          Provider.of<AuthProvider>(context, listen: false).setUserType(
-                            'visitor'
-                          );
-                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => DashBoardScreen()),
-                            (route) => false);
-                  }
-                },
-                child: Container(
-                  margin: EdgeInsets.only(left: Dimensions.MARGIN_SIZE_AUTH, right: Dimensions.MARGIN_SIZE_AUTH,
-                      top: Dimensions.MARGIN_SIZE_AUTH_SMALL),
-                  width: double.infinity, height: 40, alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: Colors.transparent, borderRadius: BorderRadius.circular(6),),
-                  child: Text(getTranslated('CONTINUE_AS_GUEST', context)!,
-                      style: titleHeader.copyWith(color: ColorResources.getPrimary(context))),
-                ),
-              ),
+              // GestureDetector(
+              //   onTap: () {
+              //     if (!Provider.of<AuthProvider>(context, listen: false).isLoading) {
+              //       Provider.of<CartProvider>(context, listen: false).getCartData();
+              //             Provider.of<AuthProvider>(context, listen: false).setUserType(
+              //               'visitor'
+              //             );
+              //       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => DashBoardScreen()),
+              //               (route) => false);
+              //     }
+              //   },
+              //   child: Container(
+              //     margin: EdgeInsets.only(left: Dimensions.MARGIN_SIZE_AUTH, right: Dimensions.MARGIN_SIZE_AUTH,
+              //         top: Dimensions.MARGIN_SIZE_AUTH_SMALL),
+              //     width: double.infinity, height: 40, alignment: Alignment.center,
+              //     decoration: BoxDecoration(
+              //       color: Colors.transparent, borderRadius: BorderRadius.circular(6),),
+              //     child: Text(getTranslated('CONTINUE_AS_GUEST', context)!,
+              //         style: titleHeader.copyWith(color: ColorResources.getPrimary(context))),
+              //   ),
+              // ),
+          
+          
+          
             ],
           ),
         ),

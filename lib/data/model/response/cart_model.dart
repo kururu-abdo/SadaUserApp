@@ -1,6 +1,9 @@
 import 'package:eamar_user_app/data/model/response/product_model.dart';
 class CartModel {
   int? _id;
+    int? _slug;
+
+  int? productId;
   String? _image;
   String? _name;
   String? _thumbnail;
@@ -28,6 +31,7 @@ class CartModel {
 
 
   CartModel(
+    this.productId,
       this._id, this._thumbnail, this._name, this._seller, this._price, this._discountedPrice, this._quantity, this._maxQuantity, this._variant, this._color,
       this._variation, this._discount, this._discountType, this._tax, this._taxType, this.shippingMethodId, this._cartGroupId,this._sellerId, this._sellerIs,
       this._image, this._shopInfo, this._choiceOptions, this._variationIndexes, this._shippingCost);

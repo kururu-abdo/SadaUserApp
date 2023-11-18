@@ -11,6 +11,7 @@ import 'package:eamar_user_app/view/screen/home/home_screens.dart';
 import 'package:eamar_user_app/view/screen/jobs/jobs_page.dart';
 import 'package:eamar_user_app/view/screen/more/more_screen.dart';
 import 'package:eamar_user_app/view/screen/order/order_screen.dart';
+import 'package:hidable/hidable.dart';
 import 'package:provider/provider.dart';
 
 class DashBoardScreen extends StatefulWidget {
@@ -24,11 +25,17 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
   int _pageIndex = 0;
   late List<Widget> _screens ;
   GlobalKey<ScaffoldMessengerState> _scaffoldKey = GlobalKey();
-
+late final ScrollListener _model;
+  late final ScrollController _controller;
   bool singleVendor = false;
   @override
   void initState() {
     super.initState();
+
+
+_controller = ScrollController();
+    _model = ScrollListener.initialise(_controller);
+
     singleVendor = Provider.of<SplashProvider>(context, listen: false).configModel!.businessMode == "single";
 
 
@@ -89,107 +96,148 @@ log(singleVendor.toString());
         key: _scaffoldKey,
 
 floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-floatingActionButton: FloatingActionButton( onPressed:(){
-
-
-Navigator.of(context) 
-.push(
-  MaterialPageRoute(builder: 
+floatingActionButton: new Hidable(
+  controller: homeScrollController,
+  // preferredWidgetSize: Size.fromHeight(100),
+  child:   FloatingActionButton( onPressed:(){
   
-  (_)=>CartScreen()
-  )
-);
-
-},
-
-child: Center(
-  child: ImageIcon(
-    AssetImage(Images.cart_image),color: Colors.white,
+  
+  Navigator.of(context) 
+  .push(
+    MaterialPageRoute(builder: 
+    
+    (_)=>CartScreen()
+    )
+  );
+  
+  },
+  
+  child: Center(
+    child: ImageIcon(
+      AssetImage(Images.cart_image),color: Colors.white,
+    ),
   ),
-),
-
+  
+  ),
 ),
 
         // backgroundColor: Colors.transparent,
         bottomNavigationBar:
         
-BottomAppBar(
-          shape: CircularNotchedRectangle(),
-          height: 100,
+new Hidable(
+  controller: homeScrollController,
+  preferredWidgetSize: Size.fromHeight(100),
+  child:  
+  // Container(
+  //   height: 50, width: 400 ,color: Colors.green,
+  // )
 
+  BottomNavigationBar(
+          selectedItemColor: Theme.of(context).primaryColor,
+          unselectedItemColor: Theme.of(context).textTheme.bodyLarge!.color,
+          showUnselectedLabels: true,
+          currentIndex: _pageIndex,
+          type: BottomNavigationBarType.fixed,
+          items: _getBottomWidget(singleVendor),
+          onTap: (int index) {
+            _setPage(index);
+          },
 
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-children:  [
+  )
+  //  BottomAppBar(
+  //           shape: CircularNotchedRectangle(),
+  //           // height: 100,
+  // color: Colors.white,
+  
+  //           child: Row(
+  //             mainAxisAlignment: MainAxisAlignment.spaceAround,
+  // children:  [
+  
+  
+  //   GestureDetector(
+  //     onTap: (){
 
-
-  IconButton(
-                icon: ImageIcon(
-                  AssetImage(Images.home_image ,
-                  
-                  
-                  ),
-                  color: Theme.of(context).primaryColor,
-
-                  size: 30,
-                ),
-                color: Colors.black,
-                onPressed: () {
-                  _setPage(0);
-                },
-              ),
-            
-            
-            
-            
-             IconButton(
-                icon: ImageIcon(
-                  AssetImage(Images.shopping_image ,)
-                  ,color: Theme.of(context).primaryColor,
-                ),
-                color: Colors.black,
-                onPressed: () {
-                  _setPage(1);
-                },
-              )
-            
-           
-              
-              ,
-              SizedBox(
-                width: 40,
-              ),
-               IconButton(
-                icon: ImageIcon(
-                  AssetImage(Images.jobs_icon ,)
-                  ,color: Theme.of(context).primaryColor,
-                ),
-                color: Colors.black,
-                onPressed: () {
-                  _setPage(2);
-                },
-              )
-            
-           
+  //       //  _setPage(0);
+    
+  //                     log("HOME");
+  //     },
+  //     child: IconButton(
+  //                   icon: ImageIcon(
+  //                     AssetImage(Images.home_image ,
+                      
+                      
+  //                     ),
+  //                     color: Theme.of(context).primaryColor,
+      
+  //                     size: 30,
+  //                   ),
+  //                   color: Colors.black,
+  //                   onPressed: () {
+  //                     _setPage(0);
+    
+  //                     log("HOME");
+  //                   },
+  //                 ),
+  //   ),
               
               
-              ,
-                IconButton(
-                icon: ImageIcon(
-                  AssetImage(Images.more_image ,)
-                  ,color: Theme.of(context).primaryColor,
-                ),
-                color: Colors.black,
-                onPressed: () {
-                  _setPage(3);
-                },
-              )
+              
+              
+  //              IconButton(
+  //                 icon: ImageIcon(
+  //                   AssetImage(Images.shopping_image ,)
+  //                   ,color: Theme.of(context).primaryColor,
+  //                 ),
+  //                 color: Colors.black,
+  //                 onPressed: () {
+  //                   _setPage(1);
+  //                   setState(() {
+                      
+  //                   });
+  //                 },
+  //               )
+              
+             
+                
+  //               ,
+  //               SizedBox(
+  //                 width: 40,
+  //               ),
+  //                IconButton(
+  //                 icon: ImageIcon(
+  //                   AssetImage(Images.jobs_icon ,)
+  //                   ,color: Theme.of(context).primaryColor,
+  //                 ),
+  //                 color: Colors.black,
+  //                 onPressed: () {
+  //                   _setPage(2);
+  //                 },
+  //               )
+              
+             
+                
+                
+  //               ,
+  //                 IconButton(
+  //                 icon: ImageIcon(
+  //                   AssetImage(Images.more_image ,)
+  //                   ,color: Theme.of(context).primaryColor,
+  //                 ),
+  //                 color: Colors.black,
+  //                 onPressed: () {
+  //                   _setPage(3);
+  //                 },
+  //               )
+              
+  //            ,
+  // ]
+  //           )
             
-           ,
-]
-          )
-          
-          ),
+  //           ),
+
+
+
+),
 
         //  BottomNavigationBar(
         //   selectedItemColor: Theme.of(context).primaryColor,
@@ -206,11 +254,14 @@ children:  [
       
       
       
-        body: PageView.builder(
+        body:
+        // _screens[_pageIndex]
+         PageView.builder(
           controller: _pageController,
           itemCount: _screens.length,
           physics: NeverScrollableScrollPhysics(),
           itemBuilder: (context, index){
+            log(index.toString());
             return _screens[index];
           },
         ),
@@ -230,29 +281,33 @@ children:  [
   }
 
   void _setPage(int pageIndex) {
-    setState(() {
-      _pageController.jumpToPage(pageIndex);
+    log(pageIndex.toString());
+    
       _pageIndex = pageIndex;
+       _pageController.jumpToPage(pageIndex);
+    setState(() {
+     
     });
   }
 
   List<BottomNavigationBarItem> _getBottomWidget(bool isSingleVendor) {
     List<BottomNavigationBarItem> _list = [];
 
-    if(!isSingleVendor){
-      _list.add(_barItem(Images.home_image, getTranslated('home', context), 0));
-      _list.add(_barItem(Images.message_image, getTranslated('inbox', context), 1));
+    // if(!isSingleVendor){
+    //   _list.add(_barItem(Images.home_image, getTranslated('home', context), 0));
+    //   _list.add(_barItem(Images.message_image, getTranslated('inbox', context), 1));
 
-      _list.add(_barItem(Images.shopping_image, getTranslated('orders', context), 2));
+    //   _list.add(_barItem(Images.shopping_image, getTranslated('orders', context), 2));
 
-                  _list.add(_barItem('assets/images/office.png', getTranslated('jobs_txt', context), 3));
+    //               _list.add(_barItem(Images.jobs_icon,
+    //                getTranslated('jobs_txt', context), 3));
 
-      _list.add(_barItem(Images.notification, getTranslated('notification', context), 4));
-      _list.add(_barItem(Images.more_image, getTranslated('more', context),5));
-    }else{
+    //   _list.add(_barItem(Images.notification, getTranslated('notification', context), 4));
+    //   _list.add(_barItem(Images.more_image, getTranslated('more', context),5));
+    // }else{
       _list.add(_barItem(Images.home_image, getTranslated('home', context), 0));
       _list.add(_barItem(Images.shopping_image, getTranslated('orders', context), 1));
-      _list.add(_barItem('assets/images/office.png',
+      _list.add(_barItem(Images.jobs_icon,
        getTranslated('jobs_txt', context), 2));
 
       // _list.add(_barItem(Images.notification, getTranslated('notification', context), 3));
@@ -261,7 +316,7 @@ children:  [
 
 
       
-    }
+    // }
 
     return _list;
   }

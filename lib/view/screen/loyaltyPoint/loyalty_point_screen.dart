@@ -42,10 +42,14 @@ class _LoyaltyPointScreenState extends State<LoyaltyPointScreen> {
           isGuestMode ? SizedBox() :
           Column(
             children: [
+
+              
               Consumer<ProfileProvider>(
                   builder: (context, profile,_) {
                     return Stack(
                       children: [
+
+                        
                         Padding(
                           padding: const EdgeInsets.all(Dimensions.HOME_PAGE_PADDING),
                           child: Container(
@@ -53,7 +57,7 @@ class _LoyaltyPointScreenState extends State<LoyaltyPointScreen> {
                           borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL),
                               color: Theme.of(context).hintColor.withOpacity(.15)
                             ),
-                            height: MediaQuery.of(context).size.width/2,
+                            height: MediaQuery.of(context).size.width/3,
                             width: MediaQuery.of(context).size.width,
                             padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_LARGE),
 
@@ -92,7 +96,9 @@ class _LoyaltyPointScreenState extends State<LoyaltyPointScreen> {
                             ),
                           ),
                         ),
-                        Positioned(top:Dimensions.PADDING_SIZE_Thirty_Five,right:Dimensions.PADDING_SIZE_LARGE,
+                        Positioned(
+                          top:Dimensions.PADDING_SIZE_Thirty_Five,right:
+                          Dimensions.PADDING_SIZE_LARGE,
                             child: InkWell(
                               onTap: (){
                                 showModalBottomSheet(
@@ -109,6 +115,9 @@ class _LoyaltyPointScreenState extends State<LoyaltyPointScreen> {
                                 ],
                               ),),
                             ))
+                    
+                    
+                    
                       ],
                     );
                   }

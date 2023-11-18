@@ -1,4 +1,5 @@
 import 'package:eamar_user_app/data/model/response/category.dart';
+import 'package:eamar_user_app/localization/language_constrants.dart';
 import 'package:eamar_user_app/provider/category_provider.dart';
 import 'package:eamar_user_app/provider/product_provider.dart';
 import 'package:eamar_user_app/provider/splash_provider.dart';
@@ -11,6 +12,8 @@ import 'package:eamar_user_app/view/basewidget/no_internet_screen.dart';
 import 'package:eamar_user_app/view/basewidget/product_shimmer.dart';
 import 'package:eamar_user_app/view/basewidget/product_widget.dart';
 import 'package:eamar_user_app/view/screen/home/widget/category_widget.dart';
+import 'package:eamar_user_app/view/screen/search/widget/filter_category_products.dart';
+import 'package:eamar_user_app/view/screen/search/widget/search_filter_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
@@ -32,28 +35,34 @@ class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
     return DefaultTabController(
       length: widget.category!.subCategories!.length,
       child: Scaffold(
-        appBar: AppBar(
 
+        
+        appBar: AppBar(
+centerTitle: false,
 
 title: Text(
               widget.category!.name!, style: titilliumRegular.copyWith(fontSize: 20,
-              color: 
+              // color: 
               
-              Theme.of(context).cardColor,
+              // Theme.of(context).cardColor,
               // Provider.of<ThemeProvider>(context).darkTheme ? Colors.white : Colors.black,
               // 
               ),
               maxLines: 1, overflow: TextOverflow.ellipsis,
             ),
 
+actions: [
 
+
+  
+],
 
 
 
 
           leading:  IconButton(
             icon: Icon(Icons.arrow_back_ios, size: 20,
-                color:Theme.of(context).cardColor
+                // color:Theme.of(context).cardColor
                 
                 //  Provider.of<ThemeProvider>(context).darkTheme ? 
                 // Colors.white :
@@ -92,6 +101,9 @@ title: Text(
                ).toList(),
           ),
         ),
+        
+        
+        
         body: TabBarView(
           
           
@@ -150,6 +162,8 @@ void initState() {
       builder: (context, categoryProvider, child){
         return Column(
           children: [
+          
+
 Visibility(
   visible: widget.subCategory!.subSubCategories!.length>0,
 
@@ -300,7 +314,43 @@ widget.subCategory!.subSubCategories![categoryProvider.subSubCategorySelectedInd
 
 
 
+Consumer<ProductProvider>(builder: (context , productProvider,child){
+return 
+   productProvider.brandOrCategoryProductList.length > 0?
+Padding(
+  padding: const EdgeInsets.symmetric(horizontal:8.0),
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Text(
+        getLang(context)=="ar"?"النتائج":      
+        "Results" ,  ),
+  
+  
+  
+              InkWell(onTap: () => 
+              
+              showModalBottomSheet(context: context,
+                  isScrollControlled: true, 
+                  backgroundColor: Colors.transparent,
+  
+                  builder: (c) => FilterCategoryProductsBottomSheet()
+                  ),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL,
+                        horizontal: Dimensions.PADDING_SIZE_SMALL),
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),),
+                    child: Image.asset(Images.dropdown, scale: 3),
+  
+  
+                  ),
+                ),
+    ],
+  ),
+):SizedBox.shrink();
 
+
+}),
 
 
 
@@ -308,7 +358,7 @@ Consumer<ProductProvider>(
       builder: (context,   productProvider, child){
 
         return 
-   productProvider.brandOrCategoryProductList.length > 0 
+   productProvider.searchBrandOrCategoryProductList.length > 0 
             &&  !productProvider.isProductLoading
             // && !productProvider.isProductLoading
             
@@ -320,11 +370,11 @@ Consumer<ProductProvider>(
                 padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL),
                 physics: BouncingScrollPhysics(),
                 crossAxisCount: 2,
-                itemCount: productProvider.brandOrCategoryProductList.length,
+                itemCount: productProvider.searchBrandOrCategoryProductList.length,
                 shrinkWrap: true,
                 staggeredTileBuilder: (int index) => StaggeredTile.fit(1),
                 itemBuilder: (BuildContext context, int index) {
-                  return ProductWidget(productModel: productProvider.brandOrCategoryProductList[index]);
+                  return ProductWidget(productModel: productProvider.searchBrandOrCategoryProductList[index]);
                 },
               ),
             ) :

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:eamar_user_app/provider/auth_provider.dart';
 import 'package:eamar_user_app/provider/product_provider.dart';
+import 'package:eamar_user_app/provider/profile_provider.dart';
 import 'package:eamar_user_app/provider/wishlist_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/body/review_body.dart';
@@ -138,10 +139,12 @@ await initProduct(myProdutt!, context);
     _variantIndex = 0;
     ;
 
+
     ApiResponse reviewResponse = await productDetailsRepo!.getReviews(
       product!.id.toString());
     if (reviewResponse.response != null && reviewResponse.response!.statusCode == 200) {
-        Provider.of<BannerProvider>(context,listen: false).getProductDetails(context, 
+        Provider.of<BannerProvider>(context,listen: false).
+        getProductDetails(context, 
         
         product.slug.toString()
         

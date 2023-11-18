@@ -183,7 +183,6 @@ void _handleDoubleTap() {
 @override
 void initState() { 
   super.initState();
-  ;
          transformationController = TransformationController();
   animationController =
        AnimationController(vsync: this, duration: const Duration(milliseconds: 200))
@@ -435,26 +434,26 @@ result;
               ),
 
 
-              widget.productModel!.unitPrice !=null && widget.productModel!.discount != 0 ?
-              Positioned(
-                left: 0,top: 0,
-                child: Column(
-                  children: [
-                    Container(width: 100, height: 30,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.only(bottomRight: Radius.circular(Dimensions.PADDING_SIZE_SMALL))
-                      ),
-                      child: Text('${PriceConverter.percentageCalculation(context, widget.productModel!.unitPrice,
-                          widget.productModel!.discount!, widget.productModel!.discountType)}',
-                        style: titilliumRegular.copyWith(color: Theme.of(context).cardColor, fontSize: Dimensions.FONT_SIZE_LARGE),
-                      ),
-                    ),
+              // widget.productModel!.unitPrice !=null && widget.productModel!.discount != 0 ?
+              // Positioned(
+              //   left: 0,top: 0,
+              //   child: Column(
+              //     children: [
+              //       Container(width: 100, height: 30,
+              //         alignment: Alignment.center,
+              //         decoration: BoxDecoration(
+              //           color: Theme.of(context).primaryColor,
+              //           borderRadius: BorderRadius.only(bottomRight: Radius.circular(Dimensions.PADDING_SIZE_SMALL))
+              //         ),
+              //         child: Text('${PriceConverter.percentageCalculation(context, widget.productModel!.unitPrice,
+              //             widget.productModel!.discount!, widget.productModel!.discountType)}',
+              //           style: titilliumRegular.copyWith(color: Theme.of(context).cardColor, fontSize: Dimensions.FONT_SIZE_LARGE),
+              //         ),
+              //       ),
 
-                  ],
-                ),
-              ) : SizedBox.shrink(),
+              //     ],
+              //   ),
+              // ) : SizedBox.shrink(),
               SizedBox.shrink(),
 
 
@@ -588,7 +587,7 @@ _getImageWidget( String
                                       child: FadeInImage.assetNetwork(fit: BoxFit.cover,
                                         placeholder: Images.placeholder, height: MediaQuery.of(context).size.width,
                                         width: MediaQuery.of(context).size.width,
-                                        image: '${imageUrl}' ,
+                                        image: '$imageUrl' ,
                                         //'${Provider.of<SplashProvider>(context,listen: false).baseUrls.productImageUrl}/${widget.imageUrl}'
                                         imageErrorBuilder: (c, o, s) => Image.asset(
                                           Images.placeholder, height: MediaQuery.of(context).size.width,

@@ -1,9 +1,12 @@
+import 'package:eamar_user_app/localization/language_constrants.dart';
 import 'package:eamar_user_app/provider/category_provider.dart';
 import 'package:eamar_user_app/provider/search_provider.dart';
 import 'package:eamar_user_app/view/screen/category/filter_item.dart';
 import 'package:eamar_user_app/view/screen/home/widget/category_shimmer.dart';
 import 'package:eamar_user_app/view/screen/home/widget/category_widget.dart';
 import 'package:eamar_user_app/view/screen/home/widget/subcategory_widget.dart';
+import 'package:eamar_user_app/view/screen/search/widget/filter_category_products.dart';
+import 'package:eamar_user_app/view/screen/search/widget/search_filter_bottom_sheet.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/provider/product_provider.dart';
@@ -52,13 +55,99 @@ void initState() {
  
     return Scaffold(
       backgroundColor: ColorResources.getIconBg(context),
+
+        appBar: AppBar(
+centerTitle: false,
+
+title: Text(
+            widget.name!, style: titilliumRegular.copyWith(fontSize: 20,
+              // color: 
+              
+              // Theme.of(context).cardColor,
+              // Provider.of<ThemeProvider>(context).darkTheme ? Colors.white : Colors.black,
+              // 
+              ),
+              maxLines: 1, overflow: TextOverflow.ellipsis,
+            ),
+
+actions: [
+
+
+            
+  
+],
+
+
+
+
+          leading:  IconButton(
+            icon: Icon(Icons.arrow_back_ios, size: 20,
+                // color:Theme.of(context).cardColor
+                
+                //  Provider.of<ThemeProvider>(context).darkTheme ? 
+                // Colors.white :
+                //  Colors.black
+                 
+                 
+                 
+                 ),
+            onPressed: () =>  Navigator.of(context).pop(),
+          ) ,
+          
+       
+        ),
+        
       body: 
       
       Consumer<ProductProvider>(
         builder: (context, productProvider, child) {
           return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
 
-            CustomAppBar(title: widget.name),
+//             CustomAppBar(title: widget.name , 
+//             icon: Icons.filter_alt_rounded
+//             , 
+// onActionPressed: (){
+
+// showModalBottomSheet(context: context,
+//                 isScrollControlled: true, 
+//                 backgroundColor: Colors.transparent,
+
+//                 builder: (c) => SearchFilterBottomSheet()
+//                 );
+//                 // child: Container(
+//                 //   padding: EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL,
+//                 //       horizontal: Dimensions.PADDING_SIZE_SMALL),
+//                 //   decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),),
+//                 //   child: Image.asset(Images.dropdown, scale: 3),
+
+
+//                 // );
+
+
+
+
+
+// },
+//             //  InkWell(onTap: () => 
+            
+//             // showModalBottomSheet(context: context,
+//             //     isScrollControlled: true, 
+//             //     backgroundColor: Colors.transparent,
+
+//             //     builder: (c) => SearchFilterBottomSheet()
+//             //     ),
+//             //     child: Container(
+//             //       padding: EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL,
+//             //           horizontal: Dimensions.PADDING_SIZE_SMALL),
+//             //       decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),),
+//             //       child: Image.asset(Images.dropdown, scale: 3),
+
+
+//             //     ),
+//             //   ),
+          
+            
+//             ),
 
 //             widget.isBrand ? 
             
@@ -202,9 +291,43 @@ void initState() {
 //             ,
 
 //             SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+ productProvider.brandOrCategoryProductList.length > 0?
+Padding(
+  padding: const EdgeInsets.symmetric(horizontal:8.0),
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Text(
+        getLang(context)=="ar"?"النتائج":      
+        "Results" ,  ),
+  
+  
+  
+              InkWell(onTap: () => 
+              
+              showModalBottomSheet(context: context,
+                  isScrollControlled: true, 
+                  backgroundColor: Colors.transparent,
+  
+                  builder: (c) => FilterCategoryProductsBottomSheet()
+                  ),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL,
+                        horizontal: Dimensions.PADDING_SIZE_SMALL),
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),),
+                    child: Image.asset(Images.dropdown, scale: 3),
+  
+  
+                  ),
+                ),
+    ],
+  ),
+):SizedBox.shrink(),
+
+
 
             // Products
-            productProvider.brandOrCategoryProductList.length > 0 
+            productProvider.searchBrandOrCategoryProductList.length > 0 
             
             // && !productProvider.isProductLoading
             
@@ -216,16 +339,32 @@ void initState() {
                 padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL),
                 physics: BouncingScrollPhysics(),
                 crossAxisCount: 2,
-                itemCount: productProvider.brandOrCategoryProductList.length,
+                itemCount: productProvider.searchBrandOrCategoryProductList.length,
                 shrinkWrap: true,
                 staggeredTileBuilder: (int index) => StaggeredTile.fit(1),
                 itemBuilder: (BuildContext context, int index) {
-                  return ProductWidget(productModel: productProvider.brandOrCategoryProductList[index]);
+                  return ProductWidget(productModel: productProvider.searchBrandOrCategoryProductList[index]);
                 },
               ),
             ) :
 
-      
+  //          productProvider. brandOrCategoryProductList.length>0?
+  // Expanded(
+            
+            
+  //             child: StaggeredGridView.countBuilder(
+  //               padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL),
+  //               physics: BouncingScrollPhysics(),
+  //               crossAxisCount: 2,
+  //               itemCount: productProvider.brandOrCategoryProductList.length,
+  //               shrinkWrap: true,
+  //               staggeredTileBuilder: (int index) => StaggeredTile.fit(1),
+  //               itemBuilder: (BuildContext context, int index) {
+  //                 return ProductWidget(productModel: productProvider.brandOrCategoryProductList[index]);
+  //               },
+  //             ),
+  //           )
+  //     :
             Expanded(child: Center(
               child:
               //  !productProvider.hasData

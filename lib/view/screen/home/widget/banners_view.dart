@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eamar_user_app/view/screen/product/product_details_screen2.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -16,16 +18,23 @@ import 'package:eamar_user_app/view/screen/topSeller/top_seller_product_screen.d
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:url_launcher/url_launcher.dart';
 class BannersView extends StatelessWidget {
+Future<void> _lauchUrl(String url) async {
+   try {
+      final Uri launchUri = Uri.parse(url);
+    await launchUrl(launchUri);
+   } catch (e) {
+   }
+  }
+  _clickBannerRedirect(BuildContext context, int? id, 
+  Product? product,  String? type){
 
-  _clickBannerRedirect(BuildContext context, int? id, Product? product,  String? type){
 
-    final cIndex =  Provider.of<CategoryProvider>(context, listen: false).categoryList.indexWhere((element) => element.id == id);
-    final bIndex =  Provider.of<BrandProvider>(context, listen: false).brandList.indexWhere((element) => element.id == id);
-    final tIndex =  Provider.of<TopSellerProvider>(context, listen: false).topSellerList.indexWhere((element) => element.id == id);
+log(type.toString());
+    if(type == 'category'){
+          final cIndex =  Provider.of<CategoryProvider>(context, listen: false).categoryList.indexWhere((element) => element.id == id);
 
-
-    if(type != 'category'){
       if(Provider.of<CategoryProvider>(context, listen: false).categoryList[cIndex].name != null){
        
       
@@ -38,7 +47,7 @@ class BannersView extends StatelessWidget {
         )));
       }
 
-    }else if(type != 'product'){
+    }else if(type == 'product'){
 
          
       
@@ -46,16 +55,20 @@ class BannersView extends StatelessWidget {
         product: product!,
       )));
 
-    }else if(type != 'brand'){
+    }else if(type == 'brand'){
+          final bIndex =  Provider.of<BrandProvider>(context, listen: false).brandList.indexWhere((element) => element.id == id);
+
       if(Provider.of<BrandProvider>(context, listen: false).brandList[bIndex].name != null){
         Navigator.push(context, MaterialPageRoute(builder: (_) => BrandAndCategoryProductScreen(
           isBrand: true,
           id: id.toString(),
           name: '${Provider.of<BrandProvider>(context, listen: false).brandList[bIndex].name}',
         )));
-      }
+    }
 
     }else if( type == 'shop'){
+          final tIndex =  Provider.of<TopSellerProvider>(context, listen: false).topSellerList.indexWhere((element) => element.id == id);
+
       if(Provider.of<TopSellerProvider>(context, listen: false).topSellerList[tIndex].name != null){
         Navigator.push(context, MaterialPageRoute(builder: (_) => TopSellerProductScreen(
           topSellerId: id,
@@ -89,21 +102,69 @@ class BannersView extends StatelessWidget {
                       enlargeCenterPage: true,
                       disableCenter: true,
                       onPageChanged: (index, reason) {
+                         log("ON TAP BANNER"+index.toString());
                         Provider.of<BannerProvider>(context, listen: false).setCurrentIndex(index);
                       },
                     ),
-                    itemCount: bannerProvider.mainBannerList!.length == 0 ? 1 : bannerProvider.mainBannerList!.length,
+                    itemCount:
+                     bannerProvider.mainBannerList!.length == 0 ? 1 :
+                      bannerProvider.mainBannerList!.length,
                     itemBuilder: (context, index, _) {
 
-                      return InkWell(
+                      return GestureDetector(
                         onTap: () {
+                          
+                          debugPrint("ON TAP BANNER"+bannerProvider.mainBannerList![index].resourceType.toString()
+                          +"\n"+
+                         ( bannerProvider.mainBannerList![index].product==null).toString()
+
+
+                         +"\n"+ 
+
+                         "BANNER TYPE"+   bannerProvider.mainBannerList![index].bannerType.toString()
+                          .toString());
+                          
+
+
+if(
+  bannerProvider.mainBannerList![index].resourceType.toString()=="product"&&
+  
+  ( bannerProvider.mainBannerList![index].product==null)){
+    //launch url 
+_lauchUrl( bannerProvider.mainBannerList![index].url!);
+
+}else {
+
+
+
+
+
                           _clickBannerRedirect(context,
                               bannerProvider.mainBannerList![index].resourceId,
-                              bannerProvider.mainBannerList![index].resourceType =='product'?
-                              bannerProvider.mainBannerList![index].product : null,
+
+
+
+                              bannerProvider.mainBannerList![index].resourceType 
+                              
+                              
+                              =='product'?
+                              bannerProvider.mainBannerList![index].product : null
+                              
+                              
+                              ,
                               bannerProvider.mainBannerList![index].resourceType);
+                        
+                        
+                        
+}
+
+
+                        
                         },
-                        child: Container(
+                        child:
+                        
+                        
+                         Container(
                           decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
@@ -115,6 +176,10 @@ class BannersView extends StatelessWidget {
                             ),
                           ),
                         ),
+
+
+
+
                       );
                     },
                   ),

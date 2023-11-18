@@ -1,3 +1,5 @@
+import 'package:eamar_user_app/localization/language_constrants.dart';
+import 'package:eamar_user_app/utill/color_resources.dart';
 import 'package:eamar_user_app/utill/custom_themes.dart';
 import 'package:flutter/material.dart';
 
@@ -29,44 +31,96 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Theme.of(context).highlightColor,
+        // color: Theme.of(context).highlightColor,
         borderRadius: BorderRadius.circular(6),
-        boxShadow: [
-          BoxShadow(color: Colors.grey.withOpacity(0.2), spreadRadius: 1, blurRadius: 7, offset: Offset(0, 1)) // changes position of shadow
-        ],
+        // boxShadow: [
+        //   BoxShadow(color: Colors.grey.withOpacity(0.2), spreadRadius: 1, blurRadius: 7, offset: Offset(0, 1)) // changes position of shadow
+        // ],
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(6),
-        child: TextFormField(
-          cursorColor: Theme.of(context).primaryColor,
-          controller: widget.controller,
-          obscureText: _obscureText,
-          focusNode: widget.focusNode,
-          textInputAction: widget.textInputAction ?? TextInputAction.next,
-          onFieldSubmitted: (v) {
-            setState(() {
-              widget.textInputAction == TextInputAction.done
-                  ? FocusScope.of(context).consumeKeyboardToken()
-                  : FocusScope.of(context).requestFocus(widget.nextNode);
-            });
-          },
-          validator: (value) {
-            return null;
-          },
-          decoration: InputDecoration(
-              suffixIcon: IconButton(icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility), onPressed: _toggle),
-              hintText: widget.hintTxt ?? '',
-              contentPadding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 15),
-              isDense: true,
-              filled: true,
-              fillColor: Theme.of(context).highlightColor,
-              focusedBorder:
-              InputBorder.none ,
-              
-              //  OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),
-              hintStyle: titilliumRegular.copyWith(color: Theme.of(context).hintColor),
-              border: InputBorder.none),
-        ),
+      child: Column(
+        
+         crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+         Text(
+          
+
+            widget.hintTxt ?? ''
+          // getLang(context)=="ar"?"البريد الالكتروني او  رقم الهاتف":
+          // "Email or phone number"
+          
+          
+          
+           ,
+         
+         style: Theme.of(context).textTheme.titleMedium,
+         
+         ),
+         SizedBox(height: 5,),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(6),
+            child: TextFormField(
+              cursorColor: Theme.of(context).primaryColor,
+              controller: widget.controller,
+              obscureText: _obscureText,
+              focusNode: widget.focusNode,
+              textInputAction: widget.textInputAction ?? TextInputAction.next,
+                  onTapOutside: (event) {
+                      print('onTapOutside');
+                      FocusScope.of(context).unfocus();
+                    },
+              onFieldSubmitted: (v) {
+                setState(() {
+                  widget.textInputAction == TextInputAction.done
+                      ? FocusScope.of(context).consumeKeyboardToken()
+                      : FocusScope.of(context).requestFocus(widget.nextNode);
+                });
+              },
+              validator: (value) {
+                return null;
+              },
+              decoration: InputDecoration(
+                  suffixIcon: IconButton(icon: Icon(_obscureText ?
+                   Icons.visibility_off : Icons.visibility), onPressed: _toggle,
+                   color: ColorResources.getPasswordIconColor(context),
+                   
+                   
+                   
+                   
+                   ),
+                
+                  contentPadding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 15),
+                  isDense: true,
+                  filled: true,
+                  fillColor: 
+                  ColorResources.getTextfieldFilledColor(context)
+                  
+                  // Theme.of(context).highlightColor
+                  ,
+                  focusedBorder:
+                  InputBorder.none ,
+                  
+                  //  OutlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),
+                  hintStyle: titilliumRegular.copyWith(color: Theme.of(context).hintColor),
+                 
+                  enabledBorder:OutlineInputBorder(borderSide: BorderSide(
+                    width: .5,
+                    
+                    
+                    color: ColorResources.getTextfieldFilledColor(context))) ,
+                  
+                  border: 
+                  // InputBorder.none
+                  OutlineInputBorder(borderSide: BorderSide(
+                    width: .5,
+                    
+                    
+                    color: ColorResources.getTextfieldFilledColor(context))),
+                  
+                  
+                  ),
+            ),
+          ),
+        ],
       ),
     );
   }

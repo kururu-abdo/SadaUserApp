@@ -35,7 +35,7 @@ class Dimensions {
   static const double IMAGE_SIZE_EXTRA_SEVENTY = 70.0;
 
 
-  static const double topSpace = 30.0;
+  static const double topSpace = 20.0;
   static const double splashLogoWidth = 150.0;
 
 

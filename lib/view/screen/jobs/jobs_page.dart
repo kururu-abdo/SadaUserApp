@@ -1,6 +1,7 @@
 
 import 'dart:developer';
 
+import 'package:eamar_user_app/provider/profile_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:eamar_user_app/data/model/response/city.dart';
@@ -78,7 +79,7 @@ await Provider.of<JobsProvider>(context, listen: false).getUserJobs( context ,
             /* only set when the previous state is false
              * Less widget rebuilds 
              */
-            print("**** ${_isVisible} up"); //Move IO away from setState
+            print("**** $_isVisible up"); //Move IO away from setState
             setState((){
               _isVisible = false;
             });
@@ -89,7 +90,7 @@ await Provider.of<JobsProvider>(context, listen: false).getUserJobs( context ,
               /* only set when the previous state is false
                * Less widget rebuilds 
                */
-               print("**** ${_isVisible} down"); //Move IO away from setState
+               print("**** $_isVisible down"); //Move IO away from setState
                setState((){
                  _isVisible = true;
                });
@@ -173,31 +174,8 @@ Navigator.pop(context);
                     //               ),
                     //                 child:
                                     
-                                     InkWell(
-                                       onTap: (){
-                                         showModalBottomSheet(context: context,
-                                         
-                                         
-                                         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),
-        ), 
-                                          builder: (_){
-
-                                           return FilterBottomSheet();
-                                         });
-                                       },
-                                       child: Icon(
-                                        Icons.filter_alt_outlined, 
-                                     
-                                     
-                                        // Icons.search, 
-                                        
-                                        color:Theme.of(context).primaryColor
-                                                                         
-                                                                         //  Theme.of(context).cardColor
-                                                                         
-                                                                         , size: Dimensions.ICON_SIZE_DEFAULT),
-                                     ),
+                                 
+                                 
                                   // ),
                      
                       // Padding(
@@ -458,6 +436,8 @@ class _SearchCitiesAlertState extends State<SearchCitiesAlert> {
 @override
 void initState() { 
   super.initState();
+      Provider.of<ProfileProvider>(context,listen: false).getUserInfo(context);
+
   if(mounted){
    setState((){
      duplicateItems.addAll(widget.cities!);

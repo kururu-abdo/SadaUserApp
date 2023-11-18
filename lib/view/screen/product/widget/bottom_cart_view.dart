@@ -19,7 +19,7 @@ class BottomCartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
+      height: 70,
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
         color: Theme.of(context).highlightColor,
@@ -58,7 +58,7 @@ class BottomCartView extends StatelessWidget {
             )
           ]),
         )),
-
+    
         Expanded(flex: 11, child: InkWell(
           onTap: () {
             showModalBottomSheet(context: context, isScrollControlled: true,

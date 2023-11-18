@@ -66,7 +66,14 @@ class ProductProvider extends ChangeNotifier {
   int? get arrivalPageSize => _arrivalPageSize;
   int? get featuredPageSize => _featuredPageSize;
 
+ int _filterIndex = 0;
 
+  int get filterIndex => _filterIndex;
+
+  void setFilterIndex(int index) {
+    _filterIndex = index;
+    notifyListeners();
+  }
 
 
   //latest product
@@ -343,6 +350,10 @@ _lProductList.addAll(ProductModel.fromJson(apiResponse.response!.data).products!
 
   // Brand and category products
   List<Product> _brandOrCategoryProductList = [];
+  List<Product> _searchBrandOrCategoryProductList = [];
+  List<Product> get searchBrandOrCategoryProductList  =>_searchBrandOrCategoryProductList  ;
+
+
   bool? _hasData;
 int? _selectedSubCategory;
 int?  get  selectedSubCategory   => _selectedSubCategory;
@@ -374,6 +385,54 @@ setSelectedSubCategory(int index){
   //         ).toList();
 
 
+
+
+  void sortSearchList(double startingPrice, double endingPrice) {
+    _searchBrandOrCategoryProductList = [];
+    if(startingPrice > 0 && endingPrice > startingPrice) {
+     
+
+
+      _searchBrandOrCategoryProductList.addAll(_brandOrCategoryProductList.where((product) =>
+      product.unitPrice! > startingPrice && product.unitPrice! < endingPrice).toList());
+    }else {
+      _searchBrandOrCategoryProductList.addAll(_brandOrCategoryProductList);
+    }
+
+    if (_filterIndex == 0) {
+
+    } else if (_filterIndex == 1) {
+      _searchBrandOrCategoryProductList.sort((a, b) => a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
+    } else if (_filterIndex == 2) {
+      _searchBrandOrCategoryProductList.sort((a, b) => b.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
+      Iterable iterable = _searchBrandOrCategoryProductList.reversed;
+      _searchBrandOrCategoryProductList = iterable.toList() as List<Product>;
+    } else if (_filterIndex == 3) {
+      _searchBrandOrCategoryProductList.sort((a, b) => a.unitPrice!.compareTo(b.unitPrice!));
+    } else if (_filterIndex == 4) {
+      _searchBrandOrCategoryProductList.sort((a, b) => a.unitPrice!.compareTo(b.unitPrice!));
+      Iterable iterable = _searchBrandOrCategoryProductList.reversed;
+      _searchBrandOrCategoryProductList = iterable.toList() as List<Product>;
+    }
+
+    notifyListeners();
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  void changeProductId(int? selectedProductId) {
     _selectedProductId = selectedProductId;
     log(_selectedProductId.toString());
@@ -398,6 +457,7 @@ bool isProductLoading=false;
       // brandOrCategoryProductList2.clear();
 
       _brandOrCategoryProductList.addAll(_products.reversed);
+      searchBrandOrCategoryProductList.addAll(_products.reversed);
       // brandOrCategoryProductList2.addAll(_brandOrCategoryProductList);
        isProductLoading=false;
 
@@ -418,6 +478,8 @@ bool isProductLoading=false;
       // brandOrCategoryProductList2.clear();
 
       _brandOrCategoryProductList.addAll(_products.reversed);
+            searchBrandOrCategoryProductList.addAll(_products.reversed);
+
       // brandOrCategoryProductList2.addAll(_brandOrCategoryProductList);
        isProductLoading=false;
 
@@ -446,6 +508,7 @@ bool isProductLoading=false;
 
 filterBrandAndCategoryProductList(BuildContext context,int? category)async{
   _brandOrCategoryProductList.clear();
+  _searchBrandOrCategoryProductList.clear();
     _hasData = true;
     isProductLoading =true;
     notifyListeners();
@@ -465,6 +528,7 @@ filterBrandAndCategoryProductList(BuildContext context,int? category)async{
 // 
       _brandOrCategoryProductList.addAll(_products.reversed);
       // brandOrCategoryProductList2.addAll(_brandOrCategoryProductList);
+      _searchBrandOrCategoryProductList.addAll(_brandOrCategoryProductList);
     isProductLoading =false;
 
           notifyListeners();
@@ -480,6 +544,8 @@ _brandOrCategoryProductList.clear();
       // _brandOrCategoryProductList2.clear();
 // 
       _brandOrCategoryProductList.addAll(_products.reversed);
+            _searchBrandOrCategoryProductList.addAll(_brandOrCategoryProductList);
+
       // brandOrCategoryProductList2.addAll(_brandOrCategoryProductList);
     isProductLoading =false;
 
@@ -589,4 +655,8 @@ _featuredProductList.addAll(ProductModel.fromJson(apiResponse.response!.data).pr
 
 
   }
+
+
+
+
 }

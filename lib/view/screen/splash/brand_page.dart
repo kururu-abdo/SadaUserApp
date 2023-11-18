@@ -147,13 +147,25 @@ child: Center(
           icon: 'assets/images/user.png',
         title:   AppLocalization.of(context)!.translate("sign_in"),
         onTap: (){
+if(!Provider.of<AuthProvider>(context , listen: false)
+.isLoggedIn()){
 
-          Navigator.of(context).push(
+ Navigator.of(context).push(
             MaterialPageRoute(builder: (_){
 
               return  AuthScreen();
             })
           );
+}else {
+  Navigator.of(context).push(
+            MaterialPageRoute(builder: (_){
+
+              return  DashBoardScreen();
+            })
+          );
+ 
+}
+         
         },
        ),
      ) ,

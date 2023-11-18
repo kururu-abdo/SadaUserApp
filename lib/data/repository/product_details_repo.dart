@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:eamar_user_app/data/datasource/remote/dio/dio_client_no_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/datasource/remote/dio/dio_client.dart';
 import 'package:eamar_user_app/data/datasource/remote/exception/api_error_handler.dart';
@@ -10,7 +11,7 @@ import 'package:eamar_user_app/utill/app_constants.dart';
 import 'package:http/http.dart' as http;
 
 class ProductDetailsRepo {
-  final DioClient? dioClient;
+  final DioClientNoCache? dioClient;
   ProductDetailsRepo({required this.dioClient});
 
   Future<ApiResponse> getProduct(String productID, String? languageCode) async {

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:eamar_user_app/data/datasource/remote/chache/app_path_provider.dart';
 import 'package:eamar_user_app/localization/language_constrants.dart';
+import 'package:eamar_user_app/utill/shared_prefs.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
@@ -89,6 +90,7 @@ Future<void> main() async {
 
   await Firebase.initializeApp();
   await di.init();
+  await SharedPrefs.init();
   final NotificationAppLaunchDetails notificationAppLaunchDetails =
   (await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails())!;
 

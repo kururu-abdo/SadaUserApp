@@ -14,7 +14,8 @@ import 'package:url_launcher/url_launcher.dart';
 class OffersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Provider.of<BannerProvider>(context, listen: false).getFooterBannerList(context);
+    Provider.of<BannerProvider>(context, listen: false).
+    getFooterBannerList(context);
 
 
     return CustomExpandedAppBar(title: getTranslated('offers', context), child: Consumer<BannerProvider>(

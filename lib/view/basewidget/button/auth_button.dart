@@ -5,18 +5,66 @@ import 'package:eamar_user_app/utill/custom_themes.dart';
 import 'package:eamar_user_app/utill/dimensions.dart';
 import 'package:provider/provider.dart';
 
-class CustomButton extends StatelessWidget {
+class AuthButton extends StatelessWidget {
   final Function? onTap;
   final String? buttonText;
   final bool isBuy;
   final bool isBorder;
   final bool? isFilled;
-  CustomButton({this.onTap,this.isFilled=true, required this.buttonText, this.isBuy= false, this.isBorder = false});
+  AuthButton({this.onTap,this.isFilled=true, required this.buttonText, this.isBuy= false, this.isBorder = false});
 
   @override
   Widget build(BuildContext context) {
     return 
+    GestureDetector(
+
+      onTap: isBuy?
+      
+      null: (){
+
+        onTap!();
+      }
+      ,
+      child: Container(
+     height: 45,
+     width: double.infinity,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+           color: 
+           
+            isFilled!?
+            ColorResources.getBtnColor(context):  
+
+            Colors.transparent
+           ,
+            border:
+            
+            !isFilled!?
+             Border.all(
+              width: 1, 
+            ):null,
+              borderRadius: 
+              BorderRadius.circular(5)),
+          child: 
+          isBuy? CircularProgressIndicator():
+          
+          
+          Text(buttonText!,
+              style: titilliumSemiBold.copyWith(
+                fontSize: 16,
+                // color: Theme.of(context).highlightColor,
+              )
     
+          )
+    
+    
+      ),
+    );
+
+
+
+
+
     !isFilled!?
   TextButton(
       onPressed: onTap as void Function()?,
@@ -60,7 +108,9 @@ class CustomButton extends StatelessWidget {
               Theme.of(context).primaryColor,
               Theme.of(context).primaryColor,
             ]),
-            borderRadius: BorderRadius.circular(isBorder? Dimensions.PADDING_SIZE_EXTRA_SMALL : Dimensions.PADDING_SIZE_SMALL)),
+            borderRadius: 
+            BorderRadius.circular(isBorder? 
+            Dimensions.PADDING_SIZE_EXTRA_SMALL : Dimensions.PADDING_SIZE_SMALL)),
         child: Text(buttonText!,
             style: titilliumSemiBold.copyWith(
               fontSize: 16,

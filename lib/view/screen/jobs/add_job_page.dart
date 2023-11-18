@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:eamar_user_app/utill/app_constants.dart';
+import 'package:eamar_user_app/view/screen/auth/widget/phone_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/body/register_model.dart';
 import 'package:eamar_user_app/data/model/response/city.dart';
@@ -315,616 +316,632 @@ Navigator.pop(context);
        backgroundColor: ColorResources.getIconBg(context),
 
 
-          body: Consumer<JobsProvider>(
-            builder: (context , provider, child) {
-              return Column(
-        children: [
-              CustomAppBar(title: getTranslated('add_job_txt', context), isBackButtonExist: widget.isBacButtonExist),
-SizedBox(height: 20,),
+          body: SafeArea(
+            child: Consumer<JobsProvider>(
+              builder: (context , provider, child) {
+                return Column(
+                  children: [
+                CustomAppBar(title: getTranslated('add_job_txt', context), isBackButtonExist: widget.isBacButtonExist),
+          SizedBox(height: 20,),
+          
+          Expanded(child: 
+          Form(
+            
+            key: _fromKey,
+            child: ListView(
+          
+          
+          
+          
+          
+          children: [
+          
+           Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+             children: [
+               Align(
+                              alignment: Alignment.center,
+                              child: 
+                              CircleAvatar(
+                                                                  radius: 105,
 
-Expanded(child: 
-Form(
-  
-  key: _fromKey,
-  child: ListView(
-
-
-
-
-
-children: [
-
- Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-   children: [
-     Align(
-                            alignment: Alignment.center,
-                            child: CircleAvatar(
-                              radius: 100,
-                              backgroundColor: 
-                              // Colors.white,
+                                child: CircleAvatar(
+                                  radius: 100,
+                                  backgroundColor: 
+                                  Colors.white,
+                                  backgroundImage: 
+                                  
+                                  _image!=null?
+                                  FileImage(  File(_image!.path),
+                                  
+                                  
+                                  ): 
+                                  AssetImage(  'assets/images/placeholder.png',)
+                                  as  ImageProvider
+                                  ,
+                                  // Theme.of(context).primaryColor,
+                                  // Color(0xff476cfb),
                               
-                              Theme.of(context).primaryColor,
-                              // Color(0xff476cfb),
-                              child: ClipOval(
-                                child: new SizedBox(
-                                  width: 180.0,
-                                  height: 180.0,
-                                  child: (_image!=null)?
-                                  Image.file(
-                                    File(_image!.path),
-                                    fit: BoxFit.fill,
-                                  ):
-                                  Image.asset(
-
-                                    'assets/images/placeholder.png',
-
-
-                                    // "https://images.unsplash.com/photo-1502164980785-f8aa41d53611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-                                    fit: BoxFit.fill,
-                                  ),
+                                  // child: ClipOval(
+                                  //   child: new SizedBox(
+                                  //     width: 180.0,
+                                  //     height: 180.0,
+                                  //     child: (_image!=null)?
+                                  //     Image.file(
+                                  //       File(_image!.path),
+                                  //       fit: BoxFit.fill,
+                                  //     ):
+                                  //     Image.asset(
+                                        
+                                  //       'assets/images/placeholder.png',
+                                        
+                                        
+                                  //       // "https://images.unsplash.com/photo-1502164980785-f8aa41d53611?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+                                  //       fit: BoxFit.fill,
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                                           
+                                                           
                                 ),
                               ),
                             ),
-                          ),
-
-                           Padding(
-                        padding: EdgeInsets.only(top: 60.0),
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.camera,
-                            size: 30.0,
-                          ),
-                          onPressed: () {
-                            getImage();
-                          },
-                        ),
-                      ),
-   ],
- ),
-
-
-
-
-SizedBox(height: 10,),
-    Container(
-                                     margin:
-                    EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
-                    bottom: Dimensions.MARGIN_SIZE_DEFAULT,
-                        right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL),
-                          child: NormalTextField(
-                            hintText: getTranslated('name', context),
-                            
-                            // focusNode: _nameFocus,
-                            // nextNode: _emailFocus,
-                            capitalization: TextCapitalization.words,
-                            controller: _nameController,),
-                        ),
-  Container(
-                                     margin:
-                    EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
-                    bottom: Dimensions.MARGIN_SIZE_DEFAULT,
-                        right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL),
-                          child: NormalTextField(
-                            hintText: getTranslated('whatss_num', context),
-                            // focusNode: _emailFocus,
-                            // nextNode: _phoneFocus,
-                            capitalization: TextCapitalization.words,
-                            controller: _emailController,),
-                        ),
-
-                          Container(
-                                     margin:
-                    EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
-                    bottom: Dimensions.MARGIN_SIZE_DEFAULT,
-                        right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL),
-                          child: GestureDetector(
-                            onTap: ()async{
-                              LocationResult result = await (Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) =>
-            PlacePicker(AppConstants.GOOGLE_MAP_KEY
-          ,
-                        displayLocation: _currentPosition,
-                        ))) as FutureOr<LocationResult>);
-                        _currentPosition=LatLng(result.latLng!.latitude, result.latLng!.longitude);
-                        setState(() {
-                          
-                        });
-_getAddressFromLatLng();
+          
+                             Padding(
+                          padding: EdgeInsets.only(top: 60.0),
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.camera,
+                              size: 30.0,
+                            ),
+                            onPressed: () {
+                              getImage();
                             },
+                          ),
+                        ),
+             ],
+           ),
+          
+          
+          
+          
+          SizedBox(height: 10,),
+              Container(
+                                       margin:
+                      EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
+                      bottom: Dimensions.MARGIN_SIZE_DEFAULT,
+                          right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL),
                             child: NormalTextField(
-                            
-                              hintText:  getTranslated('location_txt', context),
-                              suffixIcon: Icon(
-                                Icons.location_on,
-                                color: Theme.of(context).colorScheme.error,
-                              ),
+                              hintText: getTranslated('name', context),
                               
-                              enabled: false,
+                              // focusNode: _nameFocus,
+                              // nextNode: _emailFocus,
+                              capitalization: TextCapitalization.words,
+                              controller: _nameController,),
+                          ),
+            Container(
+                                       margin:
+                      EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
+                      bottom: Dimensions.MARGIN_SIZE_DEFAULT,
+                          right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL),
+                            child: NormalTextField(
+                              hintText: getTranslated('whatss_num', context),
                               // focusNode: _emailFocus,
                               // nextNode: _phoneFocus,
                               capitalization: TextCapitalization.words,
-                              controller: _locationController,),
+                              controller: _emailController,),
                           ),
-                        ),
-
-
-
-
-Container(
-                                     margin:
-                    EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
-                    bottom: Dimensions.MARGIN_SIZE_DEFAULT,
-                        right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL),
-                          child: CustomTextField(
-                                          hintText: getTranslated('ENTER_MOBILE_NUMBER', context),
-                                          focusNode: _phoneFocus,
-                                          // nextNode: _passwordFocus,
-                                          controller: _phoneController,
-                                          
-                                          isPhoneNumber: true,
-                                          textInputAction: TextInputAction.next,
-                                          textInputType: TextInputType.phone,
-                                        ),
-                        ),
-    Container(
-                                     margin:
-                    EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
-                    bottom: Dimensions.MARGIN_SIZE_DEFAULT,
-                        right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL),
-                          child: CustomDropdown<Region>(
+          
+                            Container(
+                                       margin:
+                      EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
+                      bottom: Dimensions.MARGIN_SIZE_DEFAULT,
+                          right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL),
+                            child: GestureDetector(
+                              onTap: ()async{
+                                LocationResult result = await (Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) =>
+              PlacePicker(AppConstants.GOOGLE_MAP_KEY
+            ,
+                          displayLocation: _currentPosition,
+                          ))) as FutureOr<LocationResult>);
+                          _currentPosition=LatLng(result.latLng!.latitude, result.latLng!.longitude);
+                          setState(() {
                             
-                                child: Text(
-                                 getTranslated('choose_region_txt' ,context)!,
-                                  style: titilliumRegular.copyWith(color: Theme.of(context).hintColor),
-                                ),
-                                leadingIcon: true,
-                                
-                                onChange: (Region value, int index)async {
-                                  setState(() {
-                                    
-                                    regoin   =value;
-
-                                  });
-await Provider.of<JobsProvider>(context, listen: false).getCities( context ,
-regoin!.id,
-    Provider.of<LocalizationProvider>(context, listen: false).locale.languageCode
-    ,reload: false
-    
-    );
-                                  //fetch region cities
-
-//                          await     getNeighboursByCity(selectedCity!.id!).then((value) {
-// setState(() {
-                                    
-//                                 neighbours=value;
-
-                                  // });
-
-                                  // });
-                                },
-                                dropdownButtonStyle: DropdownButtonStyle(
-                                    width: double.infinity,
-
-                                  height: 59,
-                                  elevation: 0.0,
-                                  backgroundColor: Colors.white,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  primaryColor: Theme.of(context).primaryColor,
-                                ),
-                                dropdownStyle: DropdownStyle(
-                                  borderRadius: BorderRadius.circular(6),
-                                  elevation: 0.0,
-                                  padding: EdgeInsets.all(0),
-                                ),
-                                items: 
-
-                                provider.regions
-                                    // .asMap()
-                                    // .entries
-                                    .map(
-                                      (item) => DropdownItem<Region>(
-                                        value: item,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-
-                                            left: 18,right: 18 ,bottom: 18
-                                          ),
-                                          child: Text(item.name!,
-                                              style:
-                                                  TextStyle(color: Color(0xFF6F6E6E),
-                                                  fontSize: 12,fontWeight: 
-                                                  FontWeight.bold
-                                                  
-                                                  
-                                                  )),
-                                        ),
-                                      ),
-                                    )
-                                    .toList(),
-                              )),
-     
-     
-      Container(
-                                     margin:
-                    EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
-                    bottom: Dimensions.MARGIN_SIZE_DEFAULT,
-                        right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL
-                        ),
-                          child:
-                         provider.cities.isEmpty?
-
-                         CustomDropdown<int>(
-                                child: Text(
-                                 getTranslated('choose_city_txt' ,context)!,
-                                   style: titilliumRegular.copyWith(color: Theme.of(context).hintColor),
-                                ),
-                                leadingIcon: true,
-                                onChange: (int value, int index)async {
+                          });
+          _getAddressFromLatLng();
+                              },
+                              child: NormalTextField(
                               
-
-//                          await     getNeighboursByCity(selectedCity!.id!).then((value) {
-// setState(() {
-                                    
-//                                 neighbours=value;
-
-                                  // });
-
-                                  // });
-                                },
-                                dropdownButtonStyle: DropdownButtonStyle(
-                                    width: double.infinity,
-
-                                  height: 59,
-                                  elevation: 0.0,
-                                  backgroundColor: Colors.white,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  primaryColor: Theme.of(context).primaryColor,
+                                hintText:  getTranslated('location_txt', context),
+                                suffixIcon: Icon(
+                                  Icons.location_on,
+                                  color: Theme.of(context).colorScheme.error,
                                 ),
-                                dropdownStyle: DropdownStyle(
-                                  borderRadius: BorderRadius.circular(6),
-                                  elevation: 0.0,
-                                  padding: EdgeInsets.all(5),
-                                ),
-                                items: 
                                 
-                                [0]
-                                    .map(
-                                      (item) => DropdownItem<int>(
-                                        value: item,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-
-
-                                            left: 18,right: 18 ,bottom: 18                                          ),
-                                          child: Text(item.toString(),
-                                              style:
-                                                  TextStyle(color: Color(0xFF6F6E6E),
-                                                  fontSize: 12,fontWeight: 
-                                                  FontWeight.bold
-                                                  
-                                                  
-                                                  )),
+                                enabled: false,
+                                // focusNode: _emailFocus,
+                                // nextNode: _phoneFocus,
+                                capitalization: TextCapitalization.words,
+                                controller: _locationController,),
+                            ),
+                          ),
+          
+          
+          
+          
+          Container(
+                                       margin:
+                      EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
+                      bottom: Dimensions.MARGIN_SIZE_DEFAULT,
+                          right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL),
+                            child: 
+                            
+                           PhoneWidget(
+                            controller: _phoneController,
+                           ) 
+                            
+                            
+                            // CustomTextField(
+                            //                 hintText: getTranslated('ENTER_MOBILE_NUMBER', context),
+                            //                 focusNode: _phoneFocus,
+                            //                 // nextNode: _passwordFocus,
+                            //                 controller: _phoneController,
+                                            
+                            //                 isPhoneNumber: true,
+                            //                 textInputAction: TextInputAction.next,
+                            //                 textInputType: TextInputType.phone,
+                            //               ),
+                          ),
+              Container(
+                                       margin:
+                      EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
+                      bottom: Dimensions.MARGIN_SIZE_DEFAULT,
+                          right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL),
+                            child: CustomDropdown<Region>(
+                              label:  getTranslated('choose_region_txt' ,context)!,
+                                  child:SizedBox.shrink(),
+                                  leadingIcon: true,
+                                  
+                                  onChange: (Region? value, int index)async {
+                                    debugPrint(index.toString());
+                                    setState(() {
+                                      
+                                      regoin   =value;
+          
+                                    });
+          await Provider.of<JobsProvider>(context, listen: false).getCities( context ,
+          regoin!.id,
+              Provider.of<LocalizationProvider>(context, listen: false).locale.languageCode
+              ,reload: false
+              
+              );
+                                    //fetch region cities
+          
+          //                          await     getNeighboursByCity(selectedCity!.id!).then((value) {
+          // setState(() {
+                                      
+          //                                 neighbours=value;
+          
+                                    // });
+          
+                                    // });
+                                  },
+                                  dropdownButtonStyle: DropdownButtonStyle(
+                                      width: double.infinity,
+          
+                                    height: 59,
+                                    elevation: 0.0,
+                                    backgroundColor: ColorResources.getTextfieldFilledColor(context),
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    primaryColor: Theme.of(context).primaryColor,
+                                  ),
+                                  dropdownStyle: DropdownStyle(
+                                    borderRadius: BorderRadius.circular(6),
+                                    elevation: 0.0,
+                                    padding: EdgeInsets.all(0),
+                                  ),
+                                  items: 
+          
+                                  provider.regions
+                                      // .asMap()
+                                      // .entries
+                                      .map(
+                                        (item) => DropdownItem<Region>(
+                                          value: item,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+          
+                                              left: 18,right: 18 ,bottom: 18
+                                            ),
+                                            child: Text(item.name!,
+                                                style:
+                                                    TextStyle(color: Color(0xFF6F6E6E),
+                                                    fontSize: 12,fontWeight: 
+                                                    FontWeight.bold
+                                                    
+                                                    
+                                                    )),
+                                          ),
                                         ),
-                                      ),
-                                    )
-                                    .toList(),
-                              ):
-    
-               CustomDropdown<City>(
-                                child: Text(
-                                 getTranslated('choose_city_txt' ,context)!,
-                                   style: titilliumRegular.copyWith(color: Theme.of(context).hintColor),
-                                ),
-                                leadingIcon: true,
-                                onChange: (City value, int index)async {
-                              setState(() {
-                                    
-                                city=value;
-
-                              });
-
-//                          await     getNeighboursByCity(selectedCity!.id!).then((value) {
-// setState(() {
-                                    
-//                                 neighbours=value;
-
-                                  // });
-
-                                  // });
-                                },
-                                dropdownButtonStyle: DropdownButtonStyle(
-                                    width: double.infinity,
-
-                                  height: 59,
-                                  elevation: 0.0,
-                                  backgroundColor: Colors.white,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  primaryColor: Theme.of(context).primaryColor,
-                                ),
-                                dropdownStyle: DropdownStyle(
-                                  borderRadius: BorderRadius.circular(6),
-                                  elevation: 0.0,
-                                  padding: EdgeInsets.all(5),
-                                ),
-                                items: 
+                                      )
+                                      .toList(),
+                                )),
+               
+               
+                Container(
+                                       margin:
+                      EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
+                      bottom: Dimensions.MARGIN_SIZE_DEFAULT,
+                          right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL
+                          ),
+                            child:
+                           provider.cities.isEmpty?
+          
+                           CustomDropdown<int>(
+                            label:  getTranslated('choose_city_txt' ,context)! ,
+                                  child: SizedBox.shrink(),
+                                  leadingIcon: true,
+                                  onChange: (int value, int index)async {
                                 
-                                provider.isCitiesLoading?
-                                []:
-                                provider.cities
-                                    
-                                    .map(
-                                      (item) => DropdownItem<City>(
-                                        value: item,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-
-
-                                            left: 18,right: 18 ,bottom: 18                                          ),
-                                          child: Text(item.name!,
-                                              style:
-                                                  TextStyle(color: Color(0xFF6F6E6E),
-                                                  fontSize: 12,fontWeight: 
-                                                  FontWeight.bold
-                                                  
-                                                  
-                                                  )),
+          
+          //                          await     getNeighboursByCity(selectedCity!.id!).then((value) {
+          // setState(() {
+                                      
+          //                                 neighbours=value;
+          
+                                    // });
+          
+                                    // });
+                                  },
+                                  dropdownButtonStyle: DropdownButtonStyle(
+                                      width: double.infinity,
+          
+                                    height: 59,
+                                    elevation: 0.0,
+                                      backgroundColor: ColorResources.getTextfieldFilledColor(context),
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    primaryColor: Theme.of(context).primaryColor,
+                                  ),
+                                  dropdownStyle: DropdownStyle(
+                                    borderRadius: BorderRadius.circular(6),
+                                    elevation: 0.0,
+                                    padding: EdgeInsets.all(5),
+                                  ),
+                                  items: 
+                                  
+                                  [0]
+                                      .map(
+                                        (item) => DropdownItem<int>(
+                                          value: item,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+          
+          
+                                              left: 18,right: 18 ,bottom: 18                                          ),
+                                            child: Text(item.toString(),
+                                                style:
+                                                    TextStyle(color: Color(0xFF6F6E6E),
+                                                    fontSize: 12,fontWeight: 
+                                                    FontWeight.bold
+                                                    
+                                                    
+                                                    )),
+                                          ),
                                         ),
-                                      ),
-                                    )
-                                    .toList(),
-                              ),
-    
-                                 
-         
-                        ),
-    
-
-
-     Container(
-                                     margin:
-                    EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
-                    bottom: Dimensions.MARGIN_SIZE_DEFAULT,
-                        right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL
-                        ),
-                          child:
-                         provider.jobs.length<1?
-                         
-CustomDropdown<int>(
-                                child: Text(
-                                 getTranslated('choose_job_txt' ,context)!,
-                                   style: titilliumRegular.copyWith(color: Theme.of(context).hintColor),
-                                ),
-                                leadingIcon: true,
-                                onChange: (int value, int index)async {
-                              // setState(() {
-                                    
-                              //   job=value;
-
-                              // });
-
-//                          await     getNeighboursByCity(selectedCity!.id!).then((value) {
-// setState(() {
-                                    
-//                                 neighbours=value;
-
-                                  // });
-
-                                  // });
-                                },
-                                dropdownButtonStyle: DropdownButtonStyle(
-                                    width: double.infinity,
-
-                                  height: 59,
-                                  elevation: 0.0,
-                                  backgroundColor: Colors.white,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  primaryColor: Theme.of(context).primaryColor,
-                                ),
-                                dropdownStyle: DropdownStyle(
-                                  borderRadius: BorderRadius.circular(6),
-                                  elevation: 0.0,
-                                  padding: EdgeInsets.all(5),
-                                ),
-                                items: [0]
-                                    // .asMap()
-                                    // .entries
-                                    .map(
-                                      (item) => DropdownItem<int>(
-                                        value: item,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-
-
-                                            left: 18,right: 18 ,bottom: 18                                          ),
-                                          child: Text(item.toString(),
-                                              style:
-                                                  TextStyle(color: Color(0xFF6F6E6E),
-                                                  fontSize: 12,fontWeight: 
-                                                  FontWeight.bold
-                                                  
-                                                  
-                                                  )),
+                                      )
+                                      .toList(),
+                                ):
+              
+                 CustomDropdown<City>(
+                  label:    getTranslated('choose_city_txt' ,context)!,
+                                  child: SizedBox.shrink(),
+                                  leadingIcon: true,
+                                  onChange: (City? value, int index)async {
+                                setState(() {
+                                      
+                                  city=value;
+          
+                                });
+          
+          //                          await     getNeighboursByCity(selectedCity!.id!).then((value) {
+          // setState(() {
+                                      
+          //                                 neighbours=value;
+          
+                                    // });
+          
+                                    // });
+                                  },
+                                  dropdownButtonStyle: DropdownButtonStyle(
+                                      width: double.infinity,
+          
+                                    height: 59,
+                                    elevation: 0.0,
+                                    backgroundColor: ColorResources.getTextfieldFilledColor(context),
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    primaryColor: Theme.of(context).primaryColor,
+                                  ),
+                                  dropdownStyle: DropdownStyle(
+                                    borderRadius: BorderRadius.circular(6),
+                                    elevation: 0.0,
+                                    padding: EdgeInsets.all(5),
+                                  ),
+                                  items: 
+                                  
+                                  provider.isCitiesLoading?
+                                  []:
+                                  provider.cities
+                                      
+                                      .map(
+                                        (item) => DropdownItem<City>(
+                                          value: item,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+          
+          
+                                              left: 18,right: 18 ,bottom: 18                                          ),
+                                            child: Text(item.name!,
+                                                style:
+                                                    TextStyle(color: Color(0xFF6F6E6E),
+                                                    fontSize: 12,fontWeight: 
+                                                    FontWeight.bold
+                                                    
+                                                    
+                                                    )),
+                                          ),
                                         ),
-                                      ),
-                                    )
-                                    .toList(),
-                              ):
-    
-
-CustomDropdown<Job>(
-                                child: Text(
-                                 getTranslated('choose_job_txt' ,context)!,
-                                   style: titilliumRegular.copyWith(color: Theme.of(context).hintColor),
+                                      )
+                                      .toList(),
                                 ),
-                                leadingIcon: true,
-                                onChange: (Job value, int index)async {
-                              setState(() {
-                                    
-                                job=value;
-
-                              });
-
-//                          await     getNeighboursByCity(selectedCity!.id!).then((value) {
-// setState(() {
-                                    
-//                                 neighbours=value;
-
-                                  // });
-
-                                  // });
-                                },
-                                dropdownButtonStyle: DropdownButtonStyle(
-                                    width: double.infinity,
-
-                                  height: 59,
-                                  elevation: 0.0,
-                                  backgroundColor: Colors.white,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  primaryColor: Theme.of(context).primaryColor,
-                                ),
-                                dropdownStyle: DropdownStyle(
-                                  borderRadius: BorderRadius.circular(6),
-                                  elevation: 0.0,
-                                  padding: EdgeInsets.all(5),
-                                ),
-                                items: provider.jobs
-                                    // .asMap()
-                                    // .entries
-                                    .map(
-                                      (item) => DropdownItem<Job>(
-                                        value: item,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-
-
-                                            left: 18,right: 18 ,bottom: 18                                          ),
-                                          child: Text(item.name!,
-                                              style:
-                                                  TextStyle(color: Color(0xFF6F6E6E),
-                                                  fontSize: 12,fontWeight: 
-                                                  FontWeight.bold
-                                                  
-                                                  
-                                                  )),
+              
+                                   
+                   
+                          ),
+              
+          
+          
+               Container(
+                                       margin:
+                      EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
+                      bottom: Dimensions.MARGIN_SIZE_DEFAULT,
+                          right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL
+                          ),
+                            child:
+                           provider.jobs.length<1?
+                           
+          CustomDropdown<int>(
+            label:  getTranslated('choose_job_txt' ,context)!,
+                                  child: SizedBox.shrink(),
+                                  leadingIcon: true,
+                                  onChange: (int? value, int index)async {
+                                // setState(() {
+                                      
+                                //   job=value;
+          
+                                // });
+          
+          //                          await     getNeighboursByCity(selectedCity!.id!).then((value) {
+          // setState(() {
+                                      
+          //                                 neighbours=value;
+          
+                                    // });
+          
+                                    // });
+                                  },
+                                  dropdownButtonStyle: DropdownButtonStyle(
+                                      width: double.infinity,
+          
+                                    height: 59,
+                                    elevation: 0.0,
+                                     backgroundColor: ColorResources.getTextfieldFilledColor(context),
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    primaryColor: Theme.of(context).primaryColor,
+                                  ),
+                                  dropdownStyle: DropdownStyle(
+                                    borderRadius: BorderRadius.circular(6),
+                                    elevation: 0.0,
+                                    padding: EdgeInsets.all(5),
+                                  ),
+                                  items: [0]
+                                      // .asMap()
+                                      // .entries
+                                      .map(
+                                        (item) => DropdownItem<int>(
+                                          value: item,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+          
+          
+                                              left: 18,right: 18 ,bottom: 18                                          ),
+                                            child: Text(item.toString(),
+                                                style:
+                                                    TextStyle(color: Color(0xFF6F6E6E),
+                                                    fontSize: 12,fontWeight: 
+                                                    FontWeight.bold
+                                                    
+                                                    
+                                                    )),
+                                          ),
                                         ),
-                                      ),
-                                    )
-                                    .toList(),
-                              ),
-    
-                                 
-         
-                        ),
-
-
-
-
-
-                        Container(
-                                margin:
-                    EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
-                    bottom: Dimensions.MARGIN_SIZE_DEFAULT,
-                        right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL
-                        ),
-                          child: TextArea(
-                                          hintText: getTranslated('desc_txt', context),
-                                          focusNode: _descFocus,
-                                          // nextNode: _passwordFocus,
-                                          controller: _descController,
-                                          
-                                          
-                                          isPhoneNumber: false,
-                                          textInputAction: TextInputAction.newline,
-                                          textInputType: TextInputType.multiline,
-                                          // isBorder: true,
+                                      )
+                                      .toList(),
+                                ):
+              
+          
+          CustomDropdown<Job>(
+            label: getTranslated('choose_job_txt' ,context)!,
+                                  child: SizedBox.shrink(),
+                                  leadingIcon: true,
+                                  onChange: (Job? value, int index)async {
+                                setState(() {
+                                      
+                                  job=value;
+          
+                                });
+          
+          //                          await     getNeighboursByCity(selectedCity!.id!).then((value) {
+          // setState(() {
+                                      
+          //                                 neighbours=value;
+          
+                                    // });
+          
+                                    // });
+                                  },
+                                  dropdownButtonStyle: DropdownButtonStyle(
+                                      width: double.infinity,
+          
+                                    height: 59,
+                                    elevation: 0.0,
+                                    backgroundColor: ColorResources.getTextfieldFilledColor(context),
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    primaryColor: Theme.of(context).primaryColor,
+                                  ),
+                                  dropdownStyle: DropdownStyle(
+                                    borderRadius: BorderRadius.circular(6),
+                                    elevation: 0.0,
+                                    padding: EdgeInsets.all(5),
+                                  ),
+                                  items: provider.jobs
+                                      // .asMap()
+                                      // .entries
+                                      .map(
+                                        (item) => DropdownItem<Job>(
+                                          value: item,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+          
+          
+                                              left: 18,right: 18 ,bottom: 18                                          ),
+                                            child: Text(item.name!,
+                                                style:
+                                                    TextStyle(color: Color(0xFF6F6E6E),
+                                                    fontSize: 12,fontWeight: 
+                                                    FontWeight.bold
+                                                    
+                                                    
+                                                    )),
+                                          ),
                                         ),
-                        ),
-
-
-
-
-
-                                       InkWell(
-                                         onTap:     
+                                      )
+                                      .toList(),
+                                ),
+              
+                                   
+                   
+                          ),
+          
+          
+          
+          
+          
+                          Container(
+                                  margin:
+                      EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
+                      bottom: Dimensions.MARGIN_SIZE_DEFAULT,
+                          right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL
+                          ),
+                            child: TextArea(
+                                            hintText: getTranslated('desc_txt', context),
+                                            focusNode: _descFocus,
+                                            // nextNode: _passwordFocus,
+                                            controller: _descController,
+                                            
+                                            
+                                            isPhoneNumber: false,
+                                            textInputAction: TextInputAction.newline,
+                                            textInputType: TextInputType.multiline,
+                                            // isBorder: true,
+                                          ),
+                          ),
+          
+          
+          
+          
+          
+                                         InkWell(
+                                           onTap:     
+                                           
+                                           
+                                             provider.isAddJobLoading?
+          null:
+          ()
+          
+          
+          async{
+          
+          
+          await
+            addUser();
+          },
+                                           child: Container(
+                                               margin:
+                                                             EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
+                                                             bottom: Dimensions.MARGIN_SIZE_DEFAULT,
+                                                                 right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL
+                                                                 ),
+                                               width: double.infinity,
+                                               height: 59,
+                                               //  width: double.infinity,
+                                         
+                                                             //                  margin:
+                                                             // EdgeInsets.only(bottom: Dimensions.MARGIN_SIZE_DEFAULT),
+                                               decoration: BoxDecoration(
+                                                 color: ColorResources.getBtnColor(context),
+                                                 borderRadius: BorderRadius.circular(6),
+                                                 boxShadow: [
+                                                       BoxShadow(color: Colors.grey.withOpacity(0.2), spreadRadius: 1, blurRadius: 7, offset: Offset(0, 1)) // changes position of shadow
+                                                 ],
                                          
                                          
-                                           provider.isAddJobLoading?
-null:
-()
-
-
-async{
-
-
-await
-  addUser();
-},
-                                         child: Container(
-                                             margin:
-                                                           EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
-                                                           bottom: Dimensions.MARGIN_SIZE_DEFAULT,
-                                                               right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL
-                                                               ),
-                                             width: double.infinity,
-                                             height: 59,
-                                             //  width: double.infinity,
-                                       
-                                                           //                  margin:
-                                                           // EdgeInsets.only(bottom: Dimensions.MARGIN_SIZE_DEFAULT),
-                                             decoration: BoxDecoration(
-                                               color: Theme.of(context).primaryColor,
-                                               borderRadius: BorderRadius.circular(6),
-                                               boxShadow: [
-                                                     BoxShadow(color: Colors.grey.withOpacity(0.2), spreadRadius: 1, blurRadius: 7, offset: Offset(0, 1)) // changes position of shadow
-                                               ],
-                                       
-                                       
-                                             ),
-                                             
-                                             child: 
-                                             
-                                             
-                                             Center(
-                                               
-                                               child: provider.isAddJobLoading?
-                                             CircularProgressIndicator(color: Colors.white,):Text(
-                                                     getTranslated('add_job_btn_txt', context)! ,
-                                       
-                                                     style: TextStyle(
-                                                       fontWeight: FontWeight.w500,
-                                                        color: Theme.of(context).cardColor,
-                                                       fontSize: 20
-                                                     ),
                                                ),
-                                             ),
-                                             
-                                             
-                                             ),
-                                       )
-
-
-
-
-],
-
-
-
-
-
-
-
-
-
-
-  
-))
-
-)
-
-        ]);
-            }
+                                               
+                                               child: 
+                                               
+                                               
+                                               Center(
+                                                 
+                                                 child: provider.isAddJobLoading?
+                                               CircularProgressIndicator(color: Colors.white,):Text(
+                                                       getTranslated('add_job_btn_txt', context)! ,
+                                         
+                                                       style: TextStyle(
+                                                         fontWeight: FontWeight.w500,
+                                                          // color: Theme.of(context).cardColor,
+                                                         fontSize: 20
+                                                       ),
+                                                 ),
+                                               ),
+                                               
+                                               
+                                               ),
+                                         )
+          
+          
+          
+          
+          ],
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+            
+          ))
+          
+          )
+          
+                  ]);
+              }
+            ),
           )
       
     );

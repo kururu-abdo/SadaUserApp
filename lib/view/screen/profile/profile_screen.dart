@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:eamar_user_app/view/basewidget/animated_custom_dialog.dart';
+import 'package:eamar_user_app/view/screen/auth/widget/phone_widget.dart';
 import 'package:eamar_user_app/view/screen/more/widget/delete_account_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -40,13 +41,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
-
+String? phone;
   File? file;
   final picker = ImagePicker();
   final GlobalKey<ScaffoldMessengerState> _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
 
-  void _choose() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery, imageQuality: 50, maxHeight: 500, maxWidth: 500);
+  void _choose(
+    ImageSource source
+  ) async {
+    final pickedFile = await picker.pickImage(source:source, imageQuality: 50, maxHeight: 500, maxWidth: 500);
     setState(() {
       if (pickedFile != null) {
         file = File(pickedFile.path);
@@ -54,13 +57,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
         print('No image selected.');
       }
     });
+  
+  Navigator.pop(context);
+  
   }
 
   _updateUserAccount() async {
     String _firstName = _firstNameController.text.trim();
     String _lastName = _firstNameController.text.trim();
     String _email = _emailController.text.trim();
-    String _phoneNumber = _phoneController.text.trim();
+    String _phoneNumber = phone!.trim();
+    
+    //  _phoneController.text.trim();
     String _password = _passwordController.text.trim();
     String _confirmPassword = _confirmPasswordController.text.trim();
 
@@ -134,277 +142,352 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: 
       
       
-      Consumer<ProfileProvider>(
-        builder: (context, profile, child) {
-          _firstNameController.text = profile.userInfoModel!.fName!;
-          _lastNameController.text = profile.userInfoModel!.lName!;
-          _emailController.text = profile.userInfoModel!.email!;
-          _phoneController.text = profile.userInfoModel!.phone!;
-
-
-          print('wallet amount===>${profile.userInfoModel!.walletBalance}');
-
-          return Stack(clipBehavior: Clip.none,
-            children: [
-              Image.asset(Images.toolbar_background, fit: BoxFit.fill, height: 500,
-                color: Provider.of<ThemeProvider>(context).darkTheme ? Colors.black : Theme.of(context).primaryColor,),
-
-              Container(padding: EdgeInsets.only(top: 35, left: 15),
-                child: Row(children: [
-                  CupertinoNavigationBarBackButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    color: Colors.white,),
-                  SizedBox(width: 10),
-
-                  Text(getTranslated('PROFILE', context)!,
-                      style: titilliumRegular.copyWith(fontSize: 20, color: Colors.white),
-                      maxLines: 1, overflow: TextOverflow.ellipsis),
-                ]),
-              ),
-
-              Container(padding: EdgeInsets.only(top: 55),
-                child: Column(children: [
-                  Column(
-                    children: [
-                      Container(margin: EdgeInsets.only(top: Dimensions.MARGIN_SIZE_EXTRA_LARGE),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).cardColor,
-                          border: Border.all(color: Colors.white, width: 3),
-                          shape: BoxShape.circle,),
-                        child: Stack(clipBehavior: Clip.none,
-                          children: [
-                            ClipRRect(borderRadius: BorderRadius.circular(50),
-                              child: file == null ?
-                              FadeInImage.assetNetwork(
-                                placeholder: Images.placeholder, width: Dimensions.profileImageSize,
-                                height: Dimensions.profileImageSize, fit: BoxFit.cover,
-                                image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.customerImageUrl}/${profile.userInfoModel!.image}',
-                                imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder,
-                                    width: Dimensions.profileImageSize, height: Dimensions.profileImageSize, fit: BoxFit.cover),
-                              ) :
-                              Image.file(file!, width: Dimensions.profileImageSize,
-                                  height: Dimensions.profileImageSize, fit: BoxFit.fill),),
-                            Positioned(bottom: 0, right: -10,
-                              child: CircleAvatar(backgroundColor: ColorResources.LIGHT_SKY_BLUE,
-                                radius: 14,
-                                child: IconButton(onPressed: _choose,
-                                  padding: EdgeInsets.all(0),
-                                  icon: Icon(Icons.edit, color: ColorResources.WHITE, size: 18),),),
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      Text('${profile.userInfoModel!.fName} ${profile.userInfoModel!.lName}',
-                        style: titilliumSemiBold.copyWith(color: ColorResources.WHITE, fontSize: 20.0),)
-                    ],
-                  ),
-
-                  SizedBox(height: Dimensions.MARGIN_SIZE_DEFAULT),
-
-
-                  Expanded(child: Container(
-                    decoration: BoxDecoration(
-                        color: ColorResources.getIconBg(context),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(Dimensions.MARGIN_SIZE_DEFAULT),
-                          topRight: Radius.circular(Dimensions.MARGIN_SIZE_DEFAULT),)),
-                    child: ListView(physics: BouncingScrollPhysics(),
+      SafeArea(
+        child: Consumer<ProfileProvider>(
+          builder: (context, profile, child) {
+            _firstNameController.text = profile.userInfoModel!.fName!;
+            _lastNameController.text = profile.userInfoModel!.lName!;
+            _emailController.text = profile.userInfoModel!.email!;
+            _phoneController.text = profile.userInfoModel!.phone!;
+      phone =profile.userInfoModel!.phone;
+      
+            print('wallet amount===>${profile.userInfoModel!.walletBalance}');
+      
+            return Stack(clipBehavior: Clip.none,
+              children: [
+                Image.asset(Images.toolbar_background, fit: BoxFit.fill, height: 500,
+                  color: Provider.of<ThemeProvider>(context).darkTheme ? Colors.black : Theme.of(context).primaryColor,),
+      
+                Container(padding: EdgeInsets.only(top: 35, left: 15),
+                  child: Row(children: [
+                    CupertinoNavigationBarBackButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      color: Colors.white,),
+                    SizedBox(width: 10),
+      
+                    Text(getTranslated('PROFILE', context)!,
+                        style: titilliumRegular.copyWith(fontSize: 20, color: Colors.white),
+                        maxLines: 1, overflow: TextOverflow.ellipsis),
+                  ]),
+                ),
+      
+                Container(padding: EdgeInsets.only(top: 55),
+                  child: Column(children: [
+                    Column(
                       children: [
-                        Container(margin: EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
-                            right: Dimensions.MARGIN_SIZE_DEFAULT),
-                          child: Row(children: [
-                            Expanded(child: Column(
-                              children: [Row(children: [
-                                Icon(Icons.person, color: ColorResources.getLightSkyBlue(context), size: 20),
-                                SizedBox(width: Dimensions.MARGIN_SIZE_EXTRA_SMALL),
-                                Text(getTranslated('FIRST_NAME', context)!, style: titilliumRegular)
-                              ],
-                              ),
-                                SizedBox(height: Dimensions.MARGIN_SIZE_SMALL),
-
-                                CustomTextField(textInputType: TextInputType.name,
-                                  focusNode: _fNameFocus,
-                                  nextNode: _lNameFocus,
-                                  hintText: profile.userInfoModel!.fName ?? '',
-                                  controller: _firstNameController,
-                                ),
-                              ],
-                            )),
-                            SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
-
-                            Expanded(child: Column(
-                              children: [
-                                Row(children: [
-                                  Icon(Icons.person, color: ColorResources.getLightSkyBlue(context), size: 20),
-                                  SizedBox(width: Dimensions.MARGIN_SIZE_EXTRA_SMALL),
-                                  Text(getTranslated('LAST_NAME', context)!, style: titilliumRegular)
-                                ],),
-                                SizedBox(height: Dimensions.MARGIN_SIZE_SMALL),
-
-                                CustomTextField(
-                                  textInputType: TextInputType.name,
-                                  focusNode: _lNameFocus,
-                                  nextNode: _emailFocus,
-                                  hintText: profile.userInfoModel!.lName,
-                                  controller: _lastNameController,
-                                ),
-                              ],
-                            )),
-                          ],
-                          ),
-                        ),
-
-
-
-                        Container(margin: EdgeInsets.only(
-                            top: Dimensions.MARGIN_SIZE_DEFAULT,
-                            left: Dimensions.MARGIN_SIZE_DEFAULT,
-                            right: Dimensions.MARGIN_SIZE_DEFAULT),
-                          child: Column(children: [
-                            Row(children: [Icon(Icons.alternate_email,
-                                color: ColorResources.getLightSkyBlue(context), size: 20),
-                                SizedBox(width: Dimensions.MARGIN_SIZE_EXTRA_SMALL,),
-                                Text(getTranslated('EMAIL', context)!, style: titilliumRegular)
-                              ],
-                            ),
-                            SizedBox(height: Dimensions.MARGIN_SIZE_SMALL),
-
-                            CustomTextField(textInputType: TextInputType.emailAddress,
-                              focusNode: _emailFocus,
-                              nextNode: _phoneFocus,
-                              hintText: profile.userInfoModel!.email ?? '',
-                              controller: _emailController,
-                            ),
-                          ],
-                          ),
-                        ),
-
-
-                        Container(margin: EdgeInsets.only(
-                            top: Dimensions.MARGIN_SIZE_DEFAULT,
-                            left: Dimensions.MARGIN_SIZE_DEFAULT,
-                            right: Dimensions.MARGIN_SIZE_DEFAULT),
-                          child: Column(children: [
-                            Row(children: [
-                              Icon(Icons.dialpad, color: ColorResources.getLightSkyBlue(context), size: 20),
-                              SizedBox(width: Dimensions.MARGIN_SIZE_EXTRA_SMALL),
-                              Text(getTranslated('PHONE_NO', context)!, style: titilliumRegular)
-                            ],),
-                            SizedBox(height: Dimensions.MARGIN_SIZE_SMALL),
-
-                            CustomTextField(textInputType: TextInputType.number,
-                              focusNode: _phoneFocus,
-                              hintText: profile.userInfoModel!.phone ?? "",
-                              nextNode: _addressFocus,
-                              controller: _phoneController,
-                              isPhoneNumber: true,
-                            ),],
-                          ),
-                        ),
-
-
-                        Container(margin: EdgeInsets.only(
-                            top: Dimensions.MARGIN_SIZE_DEFAULT,
-                            left: Dimensions.MARGIN_SIZE_DEFAULT,
-                            right: Dimensions.MARGIN_SIZE_DEFAULT),
-                          child: Column(children: [
-                            Row(children: [
-                              Icon(Icons.lock_open, color: ColorResources.getPrimary(context), size: 20),
-                              SizedBox(width: Dimensions.MARGIN_SIZE_EXTRA_SMALL),
-                              Text(getTranslated('PASSWORD', context)!, style: titilliumRegular)
-                            ],),
-                            SizedBox(height: Dimensions.MARGIN_SIZE_SMALL),
-
-                            CustomPasswordTextField(controller: _passwordController,
-                              focusNode: _passwordFocus,
-                              nextNode: _confirmPasswordFocus,
-                              textInputAction: TextInputAction.next,
-                            ),
-                          ],),
-                        ),
-
-
-                        Container(margin: EdgeInsets.only(
-                            top: Dimensions.MARGIN_SIZE_DEFAULT,
-                            left: Dimensions.MARGIN_SIZE_DEFAULT,
-                            right: Dimensions.MARGIN_SIZE_DEFAULT),
-                          child: Column(children: [
-                            Row(
-                              children: [
-                                Icon(Icons.lock_open, color: ColorResources.getPrimary(context), size: 20),
-                                SizedBox(width: Dimensions.MARGIN_SIZE_EXTRA_SMALL),
-                                Text(getTranslated('RE_ENTER_PASSWORD', context)!, style: titilliumRegular)
-                              ],),
-                            SizedBox(height: Dimensions.MARGIN_SIZE_SMALL),
-
-
-                            CustomPasswordTextField(controller: _confirmPasswordController,
-                              focusNode: _confirmPasswordFocus,
-                              textInputAction: TextInputAction.done,
-                            ),
-                          ],),
-                        ),
-                      ],
+                        Container(margin: EdgeInsets.only(top: Dimensions.MARGIN_SIZE_EXTRA_LARGE),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).cardColor,
+                            border: Border.all(color: Colors.white, width: 3),
+                            shape: BoxShape.circle,),
+                          child: Stack(clipBehavior: Clip.none,
+                            children: [
+                              ClipRRect(borderRadius: BorderRadius.circular(50),
+                                child: file == null ?
+                                FadeInImage.assetNetwork(
+                                  placeholder: Images.placeholder, width: Dimensions.profileImageSize,
+                                  height: Dimensions.profileImageSize, fit: BoxFit.cover,
+                                  image: '${Provider.of<SplashProvider>(context, listen: false).baseUrls!.customerImageUrl}/${profile.userInfoModel!.image}',
+                                  imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder,
+                                      width: Dimensions.profileImageSize, height: Dimensions.profileImageSize, fit: BoxFit.cover),
+                                ) :
+                                Image.file(file!, width: Dimensions.profileImageSize,
+                                    height: Dimensions.profileImageSize, fit: BoxFit.fill),),
+                              Positioned(bottom: 0, right: -10,
+                                child: CircleAvatar(backgroundColor: ColorResources.LIGHT_SKY_BLUE,
+                                  radius: 14,
+                                  child: IconButton(onPressed:
+                                  
+                                  (){
+                                  //  _choose();
+      
+                                   showModalBottomSheet(
+        context: context,
+        builder: (BuildContext cntx) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                leading: Icon(Icons.camera),
+                title: Text(
+                  getLang(context)=="ar"?
+                  "افتح الكاميرا":
+                  
+                  "Open camera"),
+                onTap: () async {
+            _choose(ImageSource.camera);
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.image),
+                title:  Text(
+                  getLang(context)=="ar"?
+                  "افتح المعرض":
+                  
+                  "Open gallery"),
+                onTap: () async {
+                            _choose(ImageSource.gallery);
+      
+                },
+              ),
+              Container(
+                height: 50,
+                color: Colors.red,
+                child: ListTile(
+                  title: Center(
+                    child: Text(
+                      getLang(context)=="ar"?
+                  "إلغاء":
+                      "Cancel",
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
-                  ),
-
-
-                                                SizedBox(height: Dimensions.MARGIN_SIZE_LARGE),
-
-                            Center(
-  child: InkWell(
-    onTap: () =>                    showAnimatedDialog(context, 
-    DeleteAccountConfirmationDialog()
-    , isFlip: true),
-
-    
-    // async{
-    //                 Provider.of<ProfileProvider>(context, listen: false).deleteAccount(context);
-
-    // },
-    child: Container(
-      margin: EdgeInsets.symmetric(horizontal: Dimensions.MARGIN_SIZE_LARGE,
-                      vertical: Dimensions.MARGIN_SIZE_SMALL),
-   width:MediaQuery.of(context).size.width ,height:45 ,
-   padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-       color: Colors.red ,
-       borderRadius: BorderRadius.circular(10)
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-  
-  
-  Icon(Icons.dangerous , color: Colors.white,),
-  SizedBox(width: 15,) ,
-          Text(getTranslated('DELETE_ACCOUNT', context)! , style: TextStyle(
-            color: Colors.white
-          ),)
-        ],
-      ),
-    ),
-  )
-)
-                  
-                        ,
-                      
-                  Container(margin: EdgeInsets.symmetric(horizontal: Dimensions.MARGIN_SIZE_LARGE,
-                      vertical: Dimensions.MARGIN_SIZE_SMALL),
-                    child: !Provider.of<ProfileProvider>(context).isLoading ?
-                    CustomButton(onTap: _updateUserAccount, buttonText: getTranslated('UPDATE_ACCOUNT', context)) :
-                    Center(child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor))),
-                  ),
-                ],
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
                 ),
-              ),
+              )
             ],
           );
-          },
+        });
+                                   
+                                   
+                                  },
+                                    padding: EdgeInsets.all(0),
+                                    icon: Icon(Icons.edit, color: ColorResources.WHITE, size: 18),),),
+                              ),
+                            ],
+                          ),
+                        ),
+      
+                        Text('${profile.userInfoModel!.fName} ${profile.userInfoModel!.lName}',
+                          style: titilliumSemiBold.copyWith(color: ColorResources.WHITE, fontSize: 20.0),)
+                      ],
+                    ),
+      
+                    SizedBox(height: Dimensions.MARGIN_SIZE_DEFAULT),
+      
+      
+                    Expanded(child: Container(
+                      decoration: BoxDecoration(
+                          color: ColorResources.getIconBg(context),
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(Dimensions.MARGIN_SIZE_DEFAULT),
+                            topRight: Radius.circular(Dimensions.MARGIN_SIZE_DEFAULT),)),
+                      child: ListView(physics: BouncingScrollPhysics(),
+                        children: [
+                          Container(margin: EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
+                              right: Dimensions.MARGIN_SIZE_DEFAULT),
+                            child: Row(children: [
+                              Expanded(child: Column(
+                                children: [Row(children: [
+                                  Icon(Icons.person, color: ColorResources.getLightSkyBlue(context), size: 20),
+                                  SizedBox(width: Dimensions.MARGIN_SIZE_EXTRA_SMALL),
+                                  Text(getTranslated('FIRST_NAME', context)!, style: titilliumRegular)
+                                ],
+                                ),
+                                  // SizedBox(height: Dimensions.MARGIN_SIZE_SMALL),
+      
+                                  CustomTextField(textInputType: TextInputType.name,
+                                    focusNode: _fNameFocus,
+                                    nextNode: _lNameFocus,
+                                    hintText: '',
+                                    controller: _firstNameController,
+                                  ),
+                                ],
+                              )),
+                              SizedBox(width: Dimensions.PADDING_SIZE_DEFAULT),
+      
+                              Expanded(child: Column(
+                                children: [
+                                  Row(children: [
+                                    Icon(Icons.person, color: ColorResources.getLightSkyBlue(context), size: 20),
+                                    SizedBox(width: Dimensions.MARGIN_SIZE_EXTRA_SMALL),
+                                    Text(getTranslated('LAST_NAME', context)!, style: titilliumRegular)
+                                  ],),
+                                  // SizedBox(height: Dimensions.MARGIN_SIZE_SMALL),
+      
+                                  CustomTextField(
+                                    textInputType: TextInputType.name,
+                                    focusNode: _lNameFocus,
+                                    nextNode: _emailFocus,
+                                    hintText: '',
+                                    controller: _lastNameController,
+                                  ),
+                                ],
+                              )),
+                            ],
+                            ),
+                          ),
+      
+      
+      
+                          Container(margin: EdgeInsets.only(
+                              top: Dimensions.MARGIN_SIZE_DEFAULT,
+                              left: Dimensions.MARGIN_SIZE_DEFAULT,
+                              right: Dimensions.MARGIN_SIZE_DEFAULT),
+                            child: Column(children: [
+                              Row(children: [Icon(Icons.alternate_email,
+                                  color: ColorResources.getLightSkyBlue(context), size: 20),
+                                  SizedBox(width: Dimensions.MARGIN_SIZE_EXTRA_SMALL,),
+                                  Text(getTranslated('EMAIL', context)!, style: titilliumRegular)
+                                ],
+                              ),
+                              // SizedBox(height: Dimensions.MARGIN_SIZE_SMALL),
+      
+                              CustomTextField(textInputType: TextInputType.emailAddress,
+                                focusNode: _emailFocus,
+                                nextNode: _phoneFocus,
+                                hintText: 
+                                 '',
+                                controller: _emailController,
+                              ),
+                            ],
+                            ),
+                          ),
+      
+      
+                          Container(margin: EdgeInsets.only(
+                              top: Dimensions.MARGIN_SIZE_DEFAULT,
+                              left: Dimensions.MARGIN_SIZE_DEFAULT,
+                              right: Dimensions.MARGIN_SIZE_DEFAULT),
+                            child: Column(children: [
+                              Row(children: [
+                                Icon(Icons.dialpad, color: ColorResources.getLightSkyBlue(context), size: 20),
+                                SizedBox(width: Dimensions.MARGIN_SIZE_EXTRA_SMALL),
+                                Text(getTranslated('PHONE_NO', context)!, style: titilliumRegular)
+                              ],),
+                              // SizedBox(height: Dimensions.MARGIN_SIZE_SMALL),
+      
+                              PhoneWidget(
+       controller: _phoneController,
+       initalNumber: _phoneController.text,
+      onchanged: (str){
+
+       
+        phone=str!.trim();
+        //  setState(() {
+          
+        // });
+      },
+                                
+                              )
+      
+                              // CustomTextField(textInputType: TextInputType.number,
+                              //   focusNode: _phoneFocus,
+                              //   hintText: profile.userInfoModel!.phone ?? "",
+                              //   nextNode: _addressFocus,
+                              //   controller: _phoneController,
+                              //   isPhoneNumber: true,
+                              // ),
+                              
+                              ],
+                            ),
+                          ),
+      
+      
+                          Container(margin: EdgeInsets.only(
+                              top: Dimensions.MARGIN_SIZE_DEFAULT,
+                              left: Dimensions.MARGIN_SIZE_DEFAULT,
+                              right: Dimensions.MARGIN_SIZE_DEFAULT),
+                            child: Column(children: [
+                              Row(children: [
+                                Icon(Icons.lock_open, color: ColorResources.getPrimary(context), size: 20),
+                                SizedBox(width: Dimensions.MARGIN_SIZE_EXTRA_SMALL),
+                                Text(getTranslated('PASSWORD', context)!, style: titilliumRegular)
+                              ],),
+                              SizedBox(height: Dimensions.MARGIN_SIZE_SMALL),
+      
+                              CustomPasswordTextField(controller: _passwordController,
+                                focusNode: _passwordFocus,
+                                nextNode: _confirmPasswordFocus,
+                                textInputAction: TextInputAction.next,
+                              ),
+                            ],),
+                          ),
+      
+      
+                          Container(margin: EdgeInsets.only(
+                              top: Dimensions.MARGIN_SIZE_DEFAULT,
+                              left: Dimensions.MARGIN_SIZE_DEFAULT,
+                              right: Dimensions.MARGIN_SIZE_DEFAULT),
+                            child: Column(children: [
+                              Row(
+                                children: [
+                                  Icon(Icons.lock_open, color: ColorResources.getPrimary(context), size: 20),
+                                  SizedBox(width: Dimensions.MARGIN_SIZE_EXTRA_SMALL),
+                                  Text(getTranslated('RE_ENTER_PASSWORD', context)!, style: titilliumRegular)
+                                ],),
+                              SizedBox(height: Dimensions.MARGIN_SIZE_SMALL),
+      
+      
+                              CustomPasswordTextField(controller: _confirmPasswordController,
+                                focusNode: _confirmPasswordFocus,
+                                textInputAction: TextInputAction.done,
+                              ),
+                            ],),
+                          ),
+                        ],
+                      ),
+                    ),
+                    ),
+      
+      
+                                                  SizedBox(height: Dimensions.MARGIN_SIZE_LARGE),
+      
+                              Center(
+        child: InkWell(
+          onTap: () =>                    showAnimatedDialog(context, 
+          DeleteAccountConfirmationDialog()
+          , isFlip: true),
+      
+          
+          // async{
+          //                 Provider.of<ProfileProvider>(context, listen: false).deleteAccount(context);
+      
+          // },
+          child: Container(
+        margin: EdgeInsets.symmetric(horizontal: Dimensions.MARGIN_SIZE_LARGE,
+                        vertical: Dimensions.MARGIN_SIZE_SMALL),
+         width:MediaQuery.of(context).size.width ,height:45 ,
+         padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+         color: Colors.red ,
+         borderRadius: BorderRadius.circular(10)
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+        
+        
+        Icon(Icons.dangerous , color: Colors.white,),
+        SizedBox(width: 15,) ,
+            Text(getTranslated('DELETE_ACCOUNT', context)! , style: TextStyle(
+              color: Colors.white
+            ),)
+          ],
+        ),
+          ),
+        )
+      )
+                    
+                          ,
+                        
+                    Container(margin: EdgeInsets.symmetric(horizontal: Dimensions.MARGIN_SIZE_LARGE,
+                        vertical: Dimensions.MARGIN_SIZE_SMALL),
+                      child: !Provider.of<ProfileProvider>(context).isLoading ?
+                      CustomButton(onTap: _updateUserAccount, buttonText: getTranslated('UPDATE_ACCOUNT', context)) :
+                      Center(child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor))),
+                    ),
+                  ],
+                  ),
+                ),
+              ],
+            );
+            },
+        ),
       ),
     );
   }

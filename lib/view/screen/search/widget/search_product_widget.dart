@@ -51,8 +51,11 @@ class SearchProductWidget extends StatelessWidget {
 
                 ),
               ),
+            
+            
             ],
           ),
+        
           SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
 
