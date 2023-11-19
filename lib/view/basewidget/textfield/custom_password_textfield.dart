@@ -41,21 +41,28 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
         
          crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         Text(
-          
+        
+         Visibility(
+          visible: widget.hintTxt!=null,
+          child: 
+         
+         Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
 
-            widget.hintTxt ?? ''
-          // getLang(context)=="ar"?"البريد الالكتروني او  رقم الهاتف":
-          // "Email or phone number"
+            Text(
           
-          
-          
-           ,
+          widget.hintTxt ?? '' ,
          
          style: Theme.of(context).textTheme.titleMedium,
          
          ),
-         SizedBox(height: 5,),
+             SizedBox(height: 5,),
+          ],
+         )
+         
+         ),
+     
           ClipRRect(
             borderRadius: BorderRadius.circular(6),
             child: TextFormField(

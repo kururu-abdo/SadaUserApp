@@ -204,7 +204,8 @@ var  _jobFocus =FocusNode();
           content: Text(getTranslated('email_field_required_txt', context)!),
           backgroundColor: Colors.red,
         ));
-      }else if (EmailChecker.isNotValid(_email)) {
+      }
+    else if (_email.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(getTranslated('enter_valid_email_address', context)!),
           backgroundColor: Colors.red,
@@ -217,20 +218,20 @@ var  _jobFocus =FocusNode();
           backgroundColor: Colors.red,
         ));
       } 
-       else if (!ksaValidate.isValidNumber(_phoneNumber)) {
-         log('is not valid Number');
-try {
-   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(getTranslated('enter_valid_phone', context)!),
-          backgroundColor: Colors.red,
-        ));
-} catch (e) {
-    log(e.toString());
-}
+//        else if (!ksaValidate.isValidNumber(_phoneNumber)) {
+//          log('is not valid Number');
+// try {
+//    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+//           content: Text(getTranslated('enter_valid_phone', context)!),
+//           backgroundColor: Colors.red,
+//         ));
+// } catch (e) {
+//     log(e.toString());
+// }
 
 
-                     // showCustomSnackBar(getTranslated('enter_valid_email', context), context);
-                    }
+//                      // showCustomSnackBar(getTranslated('enter_valid_email', context), context);
+//                     }
                       
       else if (job==null) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -425,12 +426,20 @@ Navigator.pop(context);
                       EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
                       bottom: Dimensions.MARGIN_SIZE_DEFAULT,
                           right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL),
-                            child: NormalTextField(
-                              hintText: getTranslated('whatss_num', context),
-                              // focusNode: _emailFocus,
-                              // nextNode: _phoneFocus,
-                              capitalization: TextCapitalization.words,
-                              controller: _emailController,),
+                            child: 
+                            
+                            
+                            PhoneWidget(
+
+                              label:      getTranslated('ENTER_MOBILE_NUMBER', context),
+                               controller: _emailController,
+                            )
+                            // NormalTextField(
+                              // hintText: getTranslated('whatss_num', context),
+                              // // focusNode: _emailFocus,
+                              // // nextNode: _phoneFocus,
+                              // capitalization: TextCapitalization.words,
+                              // controller: _emailController,),
                           ),
           
                             Container(
@@ -480,6 +489,7 @@ Navigator.pop(context);
                             
                            PhoneWidget(
                             controller: _phoneController,
+                            label: getTranslated('ENTER_MOBILE_NUMBER', context),
                            ) 
                             
                             

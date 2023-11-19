@@ -51,14 +51,27 @@ class CustomTextField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         Text(
+        
+         Visibility(
+          visible: !hintText!.isEmpty,
+          child: 
+         
+         Column(
+          children: [
+
+            Text(
           
           hintText ?? '' ,
          
          style: Theme.of(context).textTheme.titleMedium,
          
          ),
-         SizedBox(height: 5,),
+             SizedBox(height: 5,),
+          ],
+         )
+         
+         ),
+     
         Container(
            width: double.infinity,
           decoration: BoxDecoration(
