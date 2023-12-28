@@ -11,11 +11,24 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class OffersScreen extends StatelessWidget {
+class OffersScreen extends StatefulWidget {
+  @override
+  State<OffersScreen> createState() => _OffersScreenState();
+}
+
+class _OffersScreenState extends State<OffersScreen> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+ Provider.of<BannerProvider>(context, listen: false).
+    getFooterBannerList(context);
+});
+      
+  }
   @override
   Widget build(BuildContext context) {
-    Provider.of<BannerProvider>(context, listen: false).
-    getFooterBannerList(context);
+  
 
 
     return CustomExpandedAppBar(title: getTranslated('offers', context), child: Consumer<BannerProvider>(
@@ -25,7 +38,13 @@ class OffersScreen extends StatelessWidget {
           onRefresh: () async {
             await Provider.of<BannerProvider>(context, listen: false).getFooterBannerList( context);
           },
-          child: ListView.builder(
+          child:
+          
+          
+          Provider.of<BannerProvider>(context).footerBannerList==null?
+          Center(child: CircularProgressIndicator(),):
+          
+           ListView.builder(
             padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
             itemCount: Provider.of<BannerProvider>(context).footerBannerList!.length,
             itemBuilder: (context, index) {

@@ -484,20 +484,6 @@ _phoneController.text= value.emailOrPhone!;
 
 
 
-        Container(
-          margin: EdgeInsets.only(left: Dimensions.MARGIN_SIZE_LARGE, right: Dimensions.MARGIN_SIZE_LARGE,
-              bottom: Dimensions.MARGIN_SIZE_LARGE, top: Dimensions.MARGIN_SIZE_LARGE),
-          child: Provider.of<AuthProvider>(context).isLoading
-              ? Center(
-            child: CircularProgressIndicator(
-              valueColor: new AlwaysStoppedAnimation<Color>(
-                Theme.of(context).primaryColor,
-              ),
-            ),
-          )
-              : AuthButton(onTap: addUser, buttonText: getTranslated('SIGN_UP', context)),
-        ),
-
         // SocialLoginWidget(),
 
         // // for skip for now
@@ -536,6 +522,23 @@ _phoneController.text= value.emailOrPhone!;
           ),
        ),
 
+
+        Padding(padding:    EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        
+          child: Container(
+            margin: EdgeInsets.only(left: Dimensions.MARGIN_SIZE_LARGE, right: Dimensions.MARGIN_SIZE_LARGE,
+                bottom: Dimensions.MARGIN_SIZE_LARGE, top: Dimensions.MARGIN_SIZE_LARGE),
+            child: Provider.of<AuthProvider>(context).isLoading
+                ? Center(
+              child: CircularProgressIndicator(
+                valueColor: new AlwaysStoppedAnimation<Color>(
+                  Theme.of(context).primaryColor,
+                ),
+              ),
+            )
+                : AuthButton(onTap: addUser, buttonText: getTranslated('SIGN_UP', context)),
+          ),
+        ),
 
 
       

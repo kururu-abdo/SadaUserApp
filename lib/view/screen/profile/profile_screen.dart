@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:eamar_user_app/view/basewidget/animated_custom_dialog.dart';
 import 'package:eamar_user_app/view/screen/auth/widget/phone_widget.dart';
 import 'package:eamar_user_app/view/screen/more/widget/delete_account_dialog.dart';
@@ -148,7 +149,7 @@ String? phone;
             _firstNameController.text = profile.userInfoModel!.fName!;
             _lastNameController.text = profile.userInfoModel!.lName!;
             _emailController.text = profile.userInfoModel!.email!;
-            _phoneController.text = profile.userInfoModel!.phone!;
+            // _phoneController.text = profile.userInfoModel!.phone!;
       phone =profile.userInfoModel!.phone;
       
             print('wallet amount===>${profile.userInfoModel!.walletBalance}');
@@ -204,51 +205,69 @@ String? phone;
       
                                    showModalBottomSheet(
         context: context,
+        constraints: BoxConstraints(
+     maxWidth: MediaQuery.of(context).size.width,              
+  ),
         builder: (BuildContext cntx) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                leading: Icon(Icons.camera),
-                title: Text(
-                  getLang(context)=="ar"?
-                  "افتح الكاميرا":
+          return SafeArea(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                ListTile(
+                  leading: Icon(Icons.camera
+                  , size:  isTablet(context)? 35 : 24,
                   
-                  "Open camera"),
-                onTap: () async {
-            _choose(ImageSource.camera);
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.image),
-                title:  Text(
-                  getLang(context)=="ar"?
-                  "افتح المعرض":
-                  
-                  "Open gallery"),
-                onTap: () async {
-                            _choose(ImageSource.gallery);
-      
-                },
-              ),
-              Container(
-                height: 50,
-                color: Colors.red,
-                child: ListTile(
-                  title: Center(
-                    child: Text(
-                      getLang(context)=="ar"?
-                  "إلغاء":
-                      "Cancel",
-                      style: TextStyle(color: Colors.white),
-                    ),
                   ),
-                  onTap: () {
-                    Navigator.pop(context);
+                  title: Text(
+                    getLang(context)=="ar"?
+                    "افتح الكاميرا":
+                    
+                    "Open camera",    style: 
+                    TextStyle(fontSize: isTablet(context)? 30 : 18),),
+                  onTap: () async {
+              _choose(ImageSource.camera);
                   },
                 ),
-              )
-            ],
+                ListTile(
+                  leading: Icon(Icons.image ,size:  isTablet(context)? 35 : 24,  ),
+                  title:  Text(
+                    getLang(context)=="ar"?
+                    "افتح المعرض":
+                    
+                    "Open gallery",
+                    style: 
+                    TextStyle(fontSize: isTablet(context)? 30 : 18),
+                    
+                    ),
+                  onTap: () async {
+                              _choose(ImageSource.gallery);
+                  
+                  },
+                ),
+                Container(
+                  height: isTablet(context)? 70:  50,
+                  color: Colors.red,
+                  child: ListTile(
+                    title: Center(
+                      child: Text(
+                        getLang(context)=="ar"?
+                    "إلغاء":
+                        "Cancel",
+                        style: TextStyle(color: Colors.white,  
+                        
+                        
+                       fontSize: isTablet(context)? 30 : 18
+                        
+                        ),
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                )
+              ],
+            ),
           );
         });
                                    
@@ -284,7 +303,9 @@ String? phone;
                                 children: [Row(children: [
                                   Icon(Icons.person, color: ColorResources.getLightSkyBlue(context), size: 20),
                                   SizedBox(width: Dimensions.MARGIN_SIZE_EXTRA_SMALL),
-                                  Text(getTranslated('FIRST_NAME', context)!, style: titilliumRegular)
+                                  Text(getTranslated('FIRST_NAME', context)!, style: titilliumRegular .copyWith(
+                                    fontSize:  isTablet(context)? 20:null
+                                  ))
                                 ],
                                 ),
                                   // SizedBox(height: Dimensions.MARGIN_SIZE_SMALL),
@@ -304,7 +325,9 @@ String? phone;
                                   Row(children: [
                                     Icon(Icons.person, color: ColorResources.getLightSkyBlue(context), size: 20),
                                     SizedBox(width: Dimensions.MARGIN_SIZE_EXTRA_SMALL),
-                                    Text(getTranslated('LAST_NAME', context)!, style: titilliumRegular)
+                                    Text(getTranslated('LAST_NAME', context)!, style: titilliumRegular .copyWith(
+                                    fontSize:  isTablet(context)? 20:null
+                                  ))
                                   ],),
                                   // SizedBox(height: Dimensions.MARGIN_SIZE_SMALL),
       
@@ -331,7 +354,9 @@ String? phone;
                               Row(children: [Icon(Icons.alternate_email,
                                   color: ColorResources.getLightSkyBlue(context), size: 20),
                                   SizedBox(width: Dimensions.MARGIN_SIZE_EXTRA_SMALL,),
-                                  Text(getTranslated('EMAIL', context)!, style: titilliumRegular)
+                                  Text(getTranslated('EMAIL', context)!, style: titilliumRegular .copyWith(
+                                    fontSize:  isTablet(context)? 20:null
+                                  ))
                                 ],
                               ),
                               // SizedBox(height: Dimensions.MARGIN_SIZE_SMALL),
@@ -356,13 +381,15 @@ String? phone;
                               Row(children: [
                                 Icon(Icons.dialpad, color: ColorResources.getLightSkyBlue(context), size: 20),
                                 SizedBox(width: Dimensions.MARGIN_SIZE_EXTRA_SMALL),
-                                Text(getTranslated('PHONE_NO', context)!, style: titilliumRegular)
+                                Text(getTranslated('PHONE_NO', context)!, style: titilliumRegular .copyWith(
+                                    fontSize:  isTablet(context)? 20:null
+                                  ))
                               ],),
                               // SizedBox(height: Dimensions.MARGIN_SIZE_SMALL),
       
                               PhoneWidget(
        controller: _phoneController,
-       initalNumber: _phoneController.text,
+       initalNumber: phone,
       onchanged: (str){
 
        
@@ -395,7 +422,12 @@ String? phone;
                               Row(children: [
                                 Icon(Icons.lock_open, color: ColorResources.getPrimary(context), size: 20),
                                 SizedBox(width: Dimensions.MARGIN_SIZE_EXTRA_SMALL),
-                                Text(getTranslated('PASSWORD', context)!, style: titilliumRegular)
+                                Text(getTranslated('PASSWORD', context)!, style: titilliumRegular
+                                 .copyWith(
+                                    fontSize:  isTablet(context)? 20:null
+                                  )
+                                
+                                )
                               ],),
                               SizedBox(height: Dimensions.MARGIN_SIZE_SMALL),
       
@@ -417,7 +449,12 @@ String? phone;
                                 children: [
                                   Icon(Icons.lock_open, color: ColorResources.getPrimary(context), size: 20),
                                   SizedBox(width: Dimensions.MARGIN_SIZE_EXTRA_SMALL),
-                                  Text(getTranslated('RE_ENTER_PASSWORD', context)!, style: titilliumRegular)
+                                  Text(getTranslated('RE_ENTER_PASSWORD', context)!, style: titilliumRegular
+                                  .copyWith(
+                                    fontSize:  isTablet(context)? 20:null
+                                  )
+                                  
+                                  )
                                 ],),
                               SizedBox(height: Dimensions.MARGIN_SIZE_SMALL),
       
@@ -434,7 +471,10 @@ String? phone;
                     ),
       
       
-                                                  SizedBox(height: Dimensions.MARGIN_SIZE_LARGE),
+                                                  SizedBox(height:
+                                                  
+                                                  
+                                                   Dimensions.MARGIN_SIZE_LARGE),
       
                               Center(
         child: InkWell(
@@ -450,7 +490,10 @@ String? phone;
           child: Container(
         margin: EdgeInsets.symmetric(horizontal: Dimensions.MARGIN_SIZE_LARGE,
                         vertical: Dimensions.MARGIN_SIZE_SMALL),
-         width:MediaQuery.of(context).size.width ,height:45 ,
+         width:MediaQuery.of(context).size.width ,height:
+         
+         isTablet(context)? 55:
+         45 ,
          padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
          color: Colors.red ,
@@ -461,10 +504,11 @@ String? phone;
           children: [
         
         
-        Icon(Icons.dangerous , color: Colors.white,),
+        Icon(Icons.dangerous , color: Colors.white,size:  isTablet(context)? 35:24,),
         SizedBox(width: 15,) ,
             Text(getTranslated('DELETE_ACCOUNT', context)! , style: TextStyle(
-              color: Colors.white
+              color: Colors.white , 
+              fontSize:  isTablet(context)?  24: 18
             ),)
           ],
         ),

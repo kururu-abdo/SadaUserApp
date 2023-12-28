@@ -1,4 +1,16 @@
 PODS:
+  - agconnect_core (0.0.1):
+    - Flutter
+  - "agconnect_crash (1.9.0+300)":
+    - AGConnectCrash (= 1.9.0.300)
+    - Flutter
+    - HiAnalytics
+  - AGConnectCore (1.9.0.300):
+    - HMFoundation (~> 1.4)
+  - AGConnectCrash (1.9.0.300):
+    - AGConnectCredential (~> 1.4)
+  - AGConnectCredential (1.9.0.300):
+    - AGConnectCore (~> 1.4)
   - AppAuth (1.6.2):
     - AppAuth/Core (= 1.6.2)
     - AppAuth/ExternalUserAgent (= 1.6.2)
@@ -205,6 +217,9 @@ PODS:
     - AppAuth/Core (~> 1.6)
     - GTMSessionFetcher/Core (< 3.0, >= 1.5)
   - GTMSessionFetcher/Core (1.7.2)
+  - HiAnalytics (6.10.0.311):
+    - AGConnectCredential
+  - HMFoundation (1.9.0.300)
   - image_picker_ios (0.0.1):
     - Flutter
   - just_audio (0.0.1):
@@ -299,6 +314,8 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
+  - agconnect_core (from `.symlinks/plugins/agconnect_core/ios`)
+  - agconnect_crash (from `.symlinks/plugins/agconnect_crash/ios`)
   - audio_session (from `.symlinks/plugins/audio_session/ios`)
   - connectivity (from `.symlinks/plugins/connectivity/ios`)
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
@@ -336,6 +353,9 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - AGConnectCore
+    - AGConnectCrash
+    - AGConnectCredential
     - AppAuth
     - FBAEMKit
     - FBSDKCoreKit
@@ -359,6 +379,8 @@ SPEC REPOS:
     - GoogleUtilitiesComponents
     - GTMAppAuth
     - GTMSessionFetcher
+    - HiAnalytics
+    - HMFoundation
     - MLImage
     - MLKitBarcodeScanning
     - MLKitCommon
@@ -378,6 +400,10 @@ SPEC REPOS:
     - Toast
 
 EXTERNAL SOURCES:
+  agconnect_core:
+    :path: ".symlinks/plugins/agconnect_core/ios"
+  agconnect_crash:
+    :path: ".symlinks/plugins/agconnect_crash/ios"
   audio_session:
     :path: ".symlinks/plugins/audio_session/ios"
   connectivity:
@@ -448,6 +474,11 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/webview_flutter_wkwebview/ios"
 
 SPEC CHECKSUMS:
+  agconnect_core: e81b9d5787637897487580e43676c93e7f63448a
+  agconnect_crash: c8208065bb3c7c8626b8303f65ba0f05305b25ab
+  AGConnectCore: f07ea0cd4aefe5c467b8336ea9fa9474c348a028
+  AGConnectCrash: f22b6931eaa19686a96ba2b8df027fc3b791ad4c
+  AGConnectCredential: 50729e5d8fe6bbee87e053ead56e8b4427e276eb
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
   audio_session: 4f3e461722055d21515cf3261b64c973c062f345
   connectivity: c4130b2985d4ef6fd26f9702e886bd5260681467
@@ -489,6 +520,8 @@ SPEC CHECKSUMS:
   GoogleUtilitiesComponents: 679b2c881db3b615a2777504623df6122dd20afe
   GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
   GTMSessionFetcher: 5595ec75acf5be50814f81e9189490412bad82ba
+  HiAnalytics: 07a774c560885f699db1d25af9e0cfc3fcf315e3
+  HMFoundation: 37a598de63a67de3ce428ced640bc6123048097b
   image_picker_ios: 4a8aadfbb6dc30ad5141a2ce3832af9214a705b5
   just_audio: baa7252489dbcf47a4c7cc9ca663e9661c99aafa
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740

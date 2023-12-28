@@ -538,11 +538,10 @@ loginBody.user_id =  _idController!.text.trim();
                      style: titilliumRegular),
                   ],),
         
-                    InkWell(
+                    GestureDetector(
                       onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ForgetPasswordScreen())),
                       child: Text(getTranslated('FORGET_PASSWORD', context)!,
-                          style: titilliumRegular.copyWith(
-                          color: ColorResources.getLightSkyBlue(context))),
+                         style: Theme.of(context).textTheme.titleMedium,),
                     ),
                   ],
                 ),

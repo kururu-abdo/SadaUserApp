@@ -1,4 +1,5 @@
 import 'package:country_code_picker/country_code.dart';
+import 'package:eamar_user_app/view/screen/auth/widget/enter_phone_or_email_page.dart';
 import 'package:flutter/material.dart';
 
 import 'package:eamar_user_app/localization/language_constrants.dart';
@@ -53,12 +54,12 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         child: Column(
           children: [
 
-            SafeArea(child: Align(
-              alignment: Alignment.centerLeft,
-              child: IconButton(icon: Icon(Icons.arrow_back_ios_outlined),
+            Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: SafeArea(child: IconButton(icon: Icon(Icons.arrow_back_ios),
                 onPressed: () => Navigator.pop(context),
-              ),
-            )),
+              )),
+            ),
 
             Expanded(
               child: ListView(padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL), children: [
@@ -87,30 +88,91 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
 
 
-                Provider.of<SplashProvider>(context,listen: false).configModel!.forgetPasswordVerification == "phone"?
-                Row(children: [
-                  CodePickerWidget(
-                    onChanged: (CountryCode countryCode) {
-                      _countryDialCode = countryCode.dialCode;
-                      },
-                    initialSelection: _countryDialCode,
-                    favorite: [_countryDialCode],
-                    showDropDownButton: true,
-                    padding: EdgeInsets.zero,
-                    showFlagMain: true,
-                    textStyle: TextStyle(color: Theme.of(context).textTheme.headline1!.color),
-                  ),
+                Provider.of<SplashProvider>(context,listen: false).configModel!.forgetPasswordVerification != "phone"?
+              
+              
+              
+                // Row(children: [
+                //   CodePickerWidget(
+                //     onChanged: (CountryCode countryCode) {
+                //       _countryDialCode = countryCode.dialCode;
+                //       },
+                //     initialSelection: _countryDialCode,
+                //     favorite: [_countryDialCode],
+                //     showDropDownButton: true,
+                //     padding: EdgeInsets.zero,
+                //     showFlagMain: true,
+                //     textStyle: TextStyle(color: Theme.of(context).textTheme.displayLarge!.color),
+                //   ),
 
 
-                  Expanded(child: CustomTextField(
-                    hintText: getTranslated('number_hint', context),
-                    controller: _numberController,
-                    focusNode: _numberFocus,
-                    isPhoneNumber: true,
-                    textInputAction: TextInputAction.done,
-                    textInputType: TextInputType.phone,
-                  )),
-                ]) :
+                //   Expanded(child: CustomTextField(
+                //     hintText: getTranslated('number_hint', context),
+                //     controller: _numberController,
+                //     focusNode: _numberFocus,
+                //     isPhoneNumber: true,
+                //     textInputAction: TextInputAction.done,
+                //     textInputType: TextInputType.phone,
+                //   )),
+                // ]) :
+
+
+
+
+
+     
+        GestureDetector(
+          onTap: (){
+            Navigator.of(context).push(
+  MaterialPageRoute(builder: (_)=> EnterPhoneOrEmail(
+  onSelect: (value){
+_numberController.text= value.emailOrPhone!;
+  },
+  )  ));
+          },
+          child: Container(
+        
+        
+            decoration: BoxDecoration(
+          //     boxShadow: [
+          //   BoxShadow(color: Colors.grey.withOpacity(0.2), spreadRadius: 1, blurRadius: 7, offset: Offset(0, 1)) // changes position of shadow
+          // ],
+            ),
+                                     margin:
+                    EdgeInsets.only(
+                      
+                      bottom: Dimensions.MARGIN_SIZE_DEFAULT),
+                         
+                         
+                          child:
+        
+                          
+                             
+                             CustomTextField(
+                                          hintText:
+                                          
+                                          getLang(context)=="ar"?"ادخل البريد الالكتروني او رقم الهاتف":"Enter Email or phone number" ,
+
+                                          //  getTranslated('ENTER_MOBILE_NUMBER', context)
+                                           
+                                          // focusNode: _emailNode,
+                                          // nextNode: _passNode,
+                                          controller: _numberController,
+                                          enabled:  false,
+                                          isPhoneNumber: false,
+                                          textInputAction: TextInputAction.next,
+                                          textInputType: TextInputType.phone,
+                                        ), 
+                             
+                             
+        
+        
+        
+                        ),
+        ):
+                    
+                    
+         
 
                 CustomTextField(
                   controller: _controller,

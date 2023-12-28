@@ -1,3 +1,4 @@
+import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/provider/search_provider.dart';
 import 'package:eamar_user_app/utill/color_resources.dart';
@@ -27,7 +28,16 @@ class SearchWidget extends StatelessWidget {
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(width : MediaQuery.of(context).size.width,
-          height: isSeller? 50 : 60,
+          height: 
+                                                              isTablet(context)? 
+
+                  isSeller? 60: 70:
+          isSeller? 50 : 60
+          
+  
+          
+          
+          ,
           alignment: Alignment.center,
           child: Row(children: [
             Expanded(
@@ -53,7 +63,11 @@ class SearchWidget extends StatelessWidget {
                     decoration: InputDecoration(
                       hintText: hintText,
                       isDense: true,
-                      hintStyle: robotoRegular.copyWith(color: Theme.of(context).hintColor),
+                      hintStyle: robotoRegular.copyWith(
+                        
+                        fontSize:                                                     isTablet(context)? 20:15
+,
+                        color: Theme.of(context).hintColor),
                       border: InputBorder.none,
                       
                       //prefixIcon: Icon(Icons.search, color: ColorResources.getColombiaBlue(context), size: Dimensions.ICON_SIZE_DEFAULT),

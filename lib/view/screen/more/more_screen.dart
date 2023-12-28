@@ -1,3 +1,4 @@
+import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/provider/cart_provider.dart';
 import 'package:eamar_user_app/provider/localization_provider.dart';
@@ -75,6 +76,7 @@ class _MoreScreenState extends State<MoreScreen> {
 
 
     return Scaffold(
+      backgroundColor: ColorResources.getIconBg(context),
       body: Stack(children: [
         Positioned(top: 0, left: 0, right: 0,
           child: Image.asset(Images.more_page_header,
@@ -85,17 +87,42 @@ class _MoreScreenState extends State<MoreScreen> {
         ),
 
 
-        Positioned(top: 40, left: Dimensions.PADDING_SIZE_SMALL,
+        Positioned(top:     isTablet(context)?10: 40, left: Dimensions.PADDING_SIZE_SMALL,
           right: Dimensions.PADDING_SIZE_SMALL,
           child: Consumer<ProfileProvider>(
             builder: (context, profile, child) {
-              return Row(children: [
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
                 Padding(padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_LARGE),
-                  child: Image.asset(Images.logo_with_name_image,
-                   height: 50, 
-                  //  width: 300,
-                   color: ColorResources.WHITE
-                   ),
+                  child: isGuestMode ? SizedBox() :
+                   TextButton(
+                    // leading: Icon(Icons.exit_to_app,
+                    //  color: ColorResources.getPrimary(context),
+                    //   size: 25),
+                     child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                       children: [
+                        Icon(Icons.exit_to_app,
+                     color: ColorResources.getRed(context),
+                      size:     isTablet(context)?50: 25),
+                      SizedBox(width: 5,),
+                         Text(getTranslated('sign_out', context)!,
+                                             // title: Text(getTranslated('sign_out', context)!,
+                            style: titilliumRegular.copyWith(
+                              color: Colors.white,
+                              
+                              fontSize:
+                              
+                              isTablet(context)? 25:
+                               Dimensions.FONT_SIZE_LARGE)),
+                       ],
+                     ),
+                    onPressed: () => showAnimatedDialog(context, SignOutConfirmationDialog(),
+                    
+                    
+                     isFlip: true),
+                  ),
                 ),
                 Expanded(child: SizedBox.shrink()),
                 InkWell(
@@ -111,16 +138,19 @@ class _MoreScreenState extends State<MoreScreen> {
                   child: Row(children: [
                     Text(!isGuestMode ? profile.userInfoModel != null ?
                     '${profile.userInfoModel!.fName} ${profile.userInfoModel!.lName}' : 'Full Name' : 'Guest',
-                        style: titilliumRegular.copyWith(color: ColorResources.WHITE)),
+                        style: titilliumRegular.copyWith(
+                          fontSize:      isTablet(context)?25: null,
+                          
+                          color: ColorResources.WHITE)),
                     SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
 
 
                     isGuestMode ? CircleAvatar(child: Icon(Icons.person, size: 35)) :
                     profile.userInfoModel == null ?
                     CircleAvatar(child: Icon(Icons.person, size: 35)) : ClipRRect(
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(     isTablet(context)?50:15),
                       child: FadeInImage.assetNetwork(
-                        placeholder: Images.logo_image, width: 35, height: 35, fit: BoxFit.fill,
+                        placeholder: Images.logo_image, width:     isTablet(context)?50: 35, height:     isTablet(context)?50: 35, fit: BoxFit.fill,
                         image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.customerImageUrl}/'
                             '${profile.userInfoModel!.image}',
                         imageErrorBuilder: (c, o, s) => CircleAvatar(child: Icon(Icons.person, size: 35)),
@@ -152,7 +182,7 @@ class _MoreScreenState extends State<MoreScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                       child: Row(
                         children: [
-                          Icon(Icons.arrow_back_ios, color: Theme.of(context).primaryColor),
+                          Icon(Icons.arrow_back_ios ,  size:      isTablet(context)?30: 24, color: Theme.of(context).primaryColor),
                           Expanded(
                             child: ListView(scrollDirection:Axis.horizontal,
                                 physics: BouncingScrollPhysics(),
@@ -185,7 +215,7 @@ class _MoreScreenState extends State<MoreScreen> {
                                     Provider.of<WishListProvider>(context, listen: false).wishList!.length : 0, hasCount: false,),
                                 ]),
                           ),
-                          Icon(Icons.arrow_forward_ios,color: Theme.of(context).primaryColor,),
+                          Icon(Icons.arrow_forward_ios, size:      isTablet(context)? 30: 24,color: Theme.of(context).primaryColor,),
                         ],
                       ),
                     ),
@@ -256,12 +286,7 @@ class _MoreScreenState extends State<MoreScreen> {
                     trailing: Text(version??''),
                   ),
 
-                  isGuestMode ? SizedBox() : ListTile(
-                    leading: Icon(Icons.exit_to_app, color: ColorResources.getPrimary(context), size: 25),
-                    title: Text(getTranslated('sign_out', context)!,
-                        style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
-                    onTap: () => showAnimatedDialog(context, SignOutConfirmationDialog(), isFlip: true),
-                  ),
+                 
                 ]),
           ),
         ),
@@ -285,12 +310,14 @@ class SquareButton extends StatelessWidget {
     double width = MediaQuery.of(context).size.width - 100;
     return InkWell(
       onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => navigateTo)),
-      child: Column(children: [
+      child: Column(
+        
+        children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
-            width: width / 4,
-            height: width / 4,
+            width:     isTablet(context)?width/5: width / 4,
+            height:     isTablet(context)?width/5: width / 4,
             padding: EdgeInsets.all(Dimensions.PADDING_SIZE_LARGE),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -317,7 +344,7 @@ class SquareButton extends StatelessWidget {
         ),
         Align(
           alignment: Alignment.center,
-          child: Text(title!, style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_DEFAULT)),
+          child: Text(title!, style: titilliumRegular.copyWith(fontSize:     isTablet(context)?20: Dimensions.FONT_SIZE_DEFAULT)),
         ),
       ]),
     );
@@ -333,9 +360,9 @@ class TitleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Image.asset(image, width: 25, height: 25, fit: BoxFit.fill,
+      leading: Image.asset(image, width:     isTablet(context)?35: 25, height:      isTablet(context)?35:25, fit: BoxFit.fill,
           color: ColorResources.getPrimary(context)),
-      title: Text(title!, style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE)),
+      title: Text(title!, style: titilliumRegular.copyWith(fontSize:      isTablet(context)?20:Dimensions.FONT_SIZE_LARGE)),
       onTap: () => Navigator.push(
         context, MaterialPageRoute(builder: (_) => navigateTo),
       ),

@@ -1,5 +1,6 @@
 
 import 'package:eamar_user_app/data/model/response/category.dart';
+import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:eamar_user_app/view/basewidget/textfield/dropdown_field.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -36,13 +37,16 @@ Provider.of<SearchProvider>(context, listen: false).getCategoryList(false ,conte
                   spreadRadius: 1, blurRadius: 3, offset: Offset(0, 1),)],
               ),
               child: Row(children: [
-                Padding(padding: EdgeInsets.only(left: Dimensions.PADDING_SIZE_DEFAULT),
+                Padding(padding: EdgeInsets.only(
+                  right: Dimensions.PADDING_SIZE_DEFAULT,
+                  left: Dimensions.PADDING_SIZE_DEFAULT),
                   child: InkWell(onTap: ()=>Navigator.pop(context),
                       child: Icon(Icons.arrow_back_ios,size: 30,)),),
 
 
                   Expanded(child: Container(
                     child: SearchWidget(
+
                       hintText: getTranslated('SEARCH_HINT', context),
                       onSubmit: (String text) {
 
@@ -179,7 +183,12 @@ Provider.of<SearchProvider>(context, listen: false).getCategoryList(false ,conte
                               padding: const EdgeInsets.all(8.0),
                               child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(getTranslated('SEARCH_HISTORY', context)!, style: robotoBold),
+                                  Text(getTranslated('SEARCH_HISTORY', context)!, style: robotoBold.copyWith(
+
+                                               fontSize:     isTablet(context)? 20:null
+
+
+                                  )),
 
 
                                   InkWell(borderRadius: BorderRadius.circular(10),
@@ -187,13 +196,17 @@ Provider.of<SearchProvider>(context, listen: false).getCategoryList(false ,conte
                                       child: Container(padding: EdgeInsets.symmetric(horizontal:Dimensions.PADDING_SIZE_DEFAULT,
                                           vertical:Dimensions.PADDING_SIZE_LARGE ),
                                           child: Text(getTranslated('REMOVE', context)!,
-                                            style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL,
+                                            style: titilliumRegular.copyWith(fontSize:
+                                            
+                                             isTablet(context)? 
+15:
+                                             Dimensions.FONT_SIZE_SMALL,
                                                 color: Theme.of(context).primaryColor),)))
                                 ],
                               ),
                             ),
                               SizedBox(
-                                height: MediaQuery.of(context).size.height/3,
+                                height: MediaQuery.of(context).size.height/4,
                                 child: StaggeredGridView.countBuilder(
                                   crossAxisCount: 2,
                                   physics: NeverScrollableScrollPhysics(),
@@ -240,7 +253,13 @@ Provider.of<SearchProvider>(context, listen: false).getCategoryList(false ,conte
                             padding: const EdgeInsets.all(8.0),
                             child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(getTranslated('search_by_budget', context)!, style: robotoBold),
+                                Text(getTranslated('search_by_budget', context)!, style: robotoBold
+                                
+                                .copyWith(
+                                  fontSize:                                                     isTablet(context)? 20:
+15
+                                )
+                                ),
 
 
                                 // InkWell(borderRadius: BorderRadius.circular(10),
@@ -272,7 +291,13 @@ Provider.of<SearchProvider>(context, listen: false).getCategoryList(false ,conte
                                                           
                                   child: Text(
                                   getTranslated('category', context)!,
-                                    style: titilliumRegular.copyWith(color: Theme.of(context).hintColor),
+                                    style: titilliumRegular.copyWith(
+                                      fontSize:                                                     isTablet(context)? 20:
+null,
+fontWeight: FontWeight.bold,
+                                      
+                                      color: Theme.of(context).
+                                    hintColor),
                                   ),
                                   leadingIcon: true,
                                   
@@ -348,6 +373,7 @@ Provider.of<SearchProvider>(context, listen: false).getCategoryList(false ,conte
                                         spreadRadius: 1, blurRadius: 7, offset: Offset(0, 1)) // changes position of shadow
                                       ],
                                       ),
+                                      padding: EdgeInsets.only(bottom:MediaQuery.of(context).viewInsets.bottom),
                                        margin:
                                                   EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
                                                   bottom: Dimensions.MARGIN_SIZE_DEFAULT,
@@ -361,9 +387,18 @@ Provider.of<SearchProvider>(context, listen: false).getCategoryList(false ,conte
                                                   
                                                     // focusNode: _firstFocus,
                                                     controller: _firstPriceController,
-                                                    style: titilliumBold.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL),
+                                                    style: 
+                                                    
+                                                    
+                                                    titilliumBold.copyWith(fontSize:
+                                                    
+                                                    isTablet(context)? 20:
+                                                    
+                                                    
+                                                     Dimensions.FONT_SIZE_SMALL),
                                                     decoration: new InputDecoration(
-                                                      hintText:  getTranslated('budget_txt', context),
+                                                      hintText: 
+                                                       getTranslated('budget_txt', context),
                                                     
                                     fillColor: Colors.white,
                                     filled: true, 

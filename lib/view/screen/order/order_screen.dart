@@ -1,3 +1,4 @@
+import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/order_model.dart';
 
@@ -150,15 +151,20 @@ class OrderTypeButton extends StatelessWidget {
         onPressed: () => Provider.of<OrderProvider>(context, listen: false).setIndex(index),
         style: TextButton.styleFrom(padding: EdgeInsets.all(0)),
         child: Container(
-          height: 40,
+          height:isTablet(context)?  80: 40,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: Provider.of<OrderProvider>(context, listen: false).orderTypeIndex == index ? ColorResources.getPrimary(context) : Theme.of(context).highlightColor,
+            color: Provider.of<OrderProvider>(context, listen: false).orderTypeIndex == index ? 
+            ColorResources.getPrimary(context) : Theme.of(context).highlightColor,
             borderRadius: BorderRadius.circular(6),
           ),
           child: Text(text! + '(${orderList!.length})',
-              style: titilliumBold.copyWith(color: Provider.of<OrderProvider>(context, listen: false).orderTypeIndex == index
-                  ? Theme.of(context).highlightColor : ColorResources.getPrimary(context))),
+              style: titilliumBold.copyWith(
+                fontSize: isTablet(context)?  20:null,
+                color: 
+              Provider.of<OrderProvider>(context, listen: false).orderTypeIndex == index
+                  ? Theme.of(context).highlightColor : 
+                  ColorResources.getPrimary(context))),
         ),
       ),
     );

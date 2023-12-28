@@ -1,6 +1,7 @@
 import 'package:eamar_user_app/localization/app_localization.dart';
 import 'package:eamar_user_app/provider/auth_provider.dart';
 import 'package:eamar_user_app/provider/localization_provider.dart';
+import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:eamar_user_app/view/screen/auth/auth_screen.dart';
 import 'package:eamar_user_app/view/screen/branches/branches.dart';
 import 'package:eamar_user_app/view/screen/dashboard/dashboard_screen.dart';
@@ -25,7 +26,14 @@ class _BrandPageState extends State<BrandPage> {
     extendBodyBehindAppBar: true,
       backgroundColor: Colors.black,
 appBar: PreferredSize(
-  preferredSize: Size.fromHeight(150),
+  preferredSize:
+  
+  
+  
+   Size.fromHeight(
+    
+    isTablet(context)? 200: 
+    150),
   child:   Hero(
     tag: 'bar',
     child: AppBar(
@@ -48,11 +56,13 @@ appBar: PreferredSize(
                 
                 
                 style: TextStyle(
-                  color: Colors.white ,fontSize: 24
+                  color: Colors.white ,fontSize: 
+    isTablet(context)? 30:24
                 ),
                 ),
 SizedBox(width: 3,),
-                Icon(Icons.translate,size: 24 , color: Colors.white,)
+                Icon(Icons.translate,size: 
+    isTablet(context)? 30:24 , color: Colors.white,)
                 // IconButton(onPressed: (){
                 //   Navigator.of(context).push(
                 // MaterialPageRoute(builder: (_)=>LanguagePage())
@@ -86,9 +96,15 @@ SizedBox(width: 3,),
 body: Column(
   children: [
 Container(
-  padding: EdgeInsets.all(20),
-  alignment: Alignment.center,
-  height: MediaQuery.of(context).size.height*.770,
+  
+  padding: 
+  isTablet(context)?EdgeInsets.symmetric(
+    vertical: 50 , 
+  ):
+  
+  EdgeInsets.all(20),
+  alignment: Alignment.topCenter,
+  height: MediaQuery.of(context).size.height*.80,
 decoration: BoxDecoration(
   color: Color(
     0xFFf7a11f
@@ -102,12 +118,95 @@ decoration: BoxDecoration(
 
 
 child: Center(
-  child:   GridView.count(crossAxisCount: 2 ,  
+  child:
   
-  mainAxisSpacing: 5, 
-  crossAxisSpacing: 10,
+  isTablet(context)?ListView(
+    children: [  
+
+
+        Center(
+      child: BrandItem(
+        title:
+        AppLocalization.of(context)!.translate("products")
+        //  'Products'
+         
+         
+         ,
+        icon: 'assets/images/shopping-cart.png',
+        onTap: (){
+            Provider.of<AuthProvider>(context, listen: false).setUserType(
+                          'visitor'
+                        );
+                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => DashBoardScreen()));
+        },
+      ),
+    ) ,
+    
+     Center(
+       child: BrandItem(
+        title:   AppLocalization.of(context)!.translate("branches"),
+         icon: 'assets/images/pin.png',
+        onTap: (){
+          Navigator.of(context).push(
+            
+            MaterialPageRoute(builder: (_)=> BranchesPage())
+          );
+        },
+       ),
+     ),
+    
+   
+    
+     Center(
+       child: BrandItem(
+          icon: 'assets/images/user.png',
+        title:   AppLocalization.of(context)!.translate("sign_in"),
+        onTap: (){
+  if(!Provider.of<AuthProvider>(context , listen: false)
+  .isLoggedIn()){
   
-  children: [
+   Navigator.of(context).push(
+            MaterialPageRoute(builder: (_){
+  
+              return  AuthScreen();
+            })
+          );
+  }else {
+  Navigator.of(context).push(
+            MaterialPageRoute(builder: (_){
+  
+              return  DashBoardScreen();
+            })
+          );
+   
+  }
+         
+        },
+       ),
+     ) ,
+     Center(
+       child: BrandItem(
+        title:   AppLocalization.of(context)!.translate("contact_us"),
+          icon: 'assets/images/whatsapp 2.png',
+       ),
+     )
+  
+    ],
+  ):
+  
+  GridView.count(crossAxisCount:
+  
+   2 ,  
+  
+  mainAxisSpacing:
+  isTablet(context)?3:
+   5, 
+  crossAxisSpacing: isTablet(context)?5:10,
+  
+  children: 
+  
+  
+  [
    
         Center(
       child: BrandItem(
@@ -140,31 +239,31 @@ child: Center(
        ),
      ),
     
- 
+   
     
      Center(
        child: BrandItem(
           icon: 'assets/images/user.png',
         title:   AppLocalization.of(context)!.translate("sign_in"),
         onTap: (){
-if(!Provider.of<AuthProvider>(context , listen: false)
-.isLoggedIn()){
-
- Navigator.of(context).push(
+  if(!Provider.of<AuthProvider>(context , listen: false)
+  .isLoggedIn()){
+  
+   Navigator.of(context).push(
             MaterialPageRoute(builder: (_){
-
+  
               return  AuthScreen();
             })
           );
-}else {
+  }else {
   Navigator.of(context).push(
             MaterialPageRoute(builder: (_){
-
+  
               return  DashBoardScreen();
             })
           );
- 
-}
+   
+  }
          
         },
        ),
@@ -175,6 +274,9 @@ if(!Provider.of<AuthProvider>(context , listen: false)
           icon: 'assets/images/whatsapp 2.png',
        ),
      )
+  
+  
+  
   ],
   
   
@@ -235,6 +337,8 @@ icon: "assets/images/facebook-app-symbol.png",
     // Spacer()  , 
   SizedBox(height: 10,),
     Text('الحقوق محفوظة لصدى الاعمار ' , style: TextStyle(
+
+      fontSize: isTablet(context)?35:18,
       color: Colors.white ,fontWeight: FontWeight.w500 , 
     ),)
 ,

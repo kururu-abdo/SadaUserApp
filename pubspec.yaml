@@ -4,7 +4,7 @@ description: A new Flutter setup application for starting a project.
 
 publish_to: 'none'
 
-version: 1.0.1+5
+version: 1.0.1+6
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -21,6 +21,7 @@ dependencies:
   connectivity: ^3.0.3
   dio: ^5.0.3
   http: ^0.13.1
+  cached_network_image: ^3.3.0
   freezed: ^2.0.3+1
   shared_preferences: ^2.0.5
   fancy_bottom_navigation: ^0.3.3
@@ -59,7 +60,7 @@ dependencies:
   flutter_html_table: ^3.0.0-beta.2
   fluttertoast: ^8.0.9
   validate_ksa_number: ^1.0.0
-  responsive_framework: ^0.2.0
+  responsive_framework: ^1.1.1
   expandable: ^5.0.1
 
   # flutter_survey: ^0.1.4
@@ -83,6 +84,8 @@ dependencies:
   firebase_core_platform_interface: ^4.5.1  
   hidable: ^1.0.6
   email_validator: ^2.1.17
+  agconnect_crash: ^1.6.0+300
+  agconnect_core: ^1.6.0+300
 dev_dependencies:
   flutter_test:
     sdk: flutter

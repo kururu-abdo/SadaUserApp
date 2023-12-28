@@ -49,6 +49,8 @@ int? _subSubCategorySelectedIndex;
 
 
   Future<void> getCategoryList(bool reload, BuildContext context) async {
+       _categoryList.clear();
+      
     if (_categoryList.length == 0 || reload) {
       ApiResponse apiResponse = await categoryRepo!.getCategoryList();
       if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {

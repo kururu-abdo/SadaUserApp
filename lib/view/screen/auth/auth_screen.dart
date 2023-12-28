@@ -1,4 +1,5 @@
 import 'package:eamar_user_app/provider/cart_provider.dart';
+import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:eamar_user_app/view/screen/auth/widget/audience_login.dart';
 import 'package:eamar_user_app/view/screen/auth/widget/customer_login.dart';
 import 'package:eamar_user_app/view/screen/dashboard/dashboard_screen.dart';
@@ -58,7 +59,7 @@ class AuthScreen extends StatelessWidget{
                         (route)=>false
                       );
                     },
-                    child: Image.asset(Images.logo_with_name_image, height: 200, 
+                    child: Image.asset(Images.logo_with_name_image, height:  isTablet(context)? 250: 200, 
                     
                     scale: 1.5,
                     ),
@@ -93,7 +94,7 @@ Text(getLang(context)=="ar"?  "تسجيل الدخول ":"Login"
             
             , style: TextStyle(
               
-              fontSize: 18,
+              fontSize:  isTablet(context)? 24: 18,
               color:
             
          
@@ -116,7 +117,10 @@ Text(getLang(context)=="ar"?  "تسجيل الدخول ":"Login"
               child: Row(mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-            ImageIcon(AssetImage('assets/images/guest.png') , size: 20 , 
+            ImageIcon(AssetImage('assets/images/guest.png') , size:
+            isTablet(context)? 30: 
+            
+             20 , 
             
             
             ),
@@ -124,7 +128,7 @@ Text(getLang(context)=="ar"?  "تسجيل الدخول ":"Login"
             Text(getLang(context)=="ar"?  "المتابعة كزائر":"continue as guest"
               
               , style: TextStyle(
-                fontSize: 15,
+                fontSize:  isTablet(context)? 20: 15,
                 color:
               
                      
@@ -155,7 +159,7 @@ SizedBox(height: 10,),
   Consumer<AuthProvider>(
                           builder: (context,authProvider,child) {
     return     Container(
-      height: 50 ,width: MediaQuery.of(context).size.width,
+      height: 55 ,width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         color: Color(0xFF959ba7), borderRadius: BorderRadius.circular(50)
       ),
@@ -171,7 +175,7 @@ SizedBox(height: 10,),
       },
        child: AnimatedContainer(
         duration: Duration(milliseconds: 200),
-          height: 50 ,
+          height: 55 ,
           decoration: BoxDecoration(
             color:
              authProvider.selectedIndex == 0?
@@ -205,7 +209,7 @@ SizedBox(height: 10,),
       },
       child: AnimatedContainer(
         duration: Duration(milliseconds: 200),
-          height: 50 ,
+          height: 55 ,
           decoration: BoxDecoration(
             color:
                authProvider.selectedIndex == 1?Colors.white:

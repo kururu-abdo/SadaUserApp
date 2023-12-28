@@ -1,3 +1,4 @@
+import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:eamar_user_app/view/basewidget/no_internet_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/product_model.dart';
@@ -83,9 +84,28 @@ class DiscountProductView extends StatelessWidget {
           !prodProvider.filterFirstLoading ?
 
            productList.length != 0 ?
+
+
+
+        
+
+
+
+
            StaggeredGridView.countBuilder(
-            itemCount: isHomePage? productList.length>4?
-            4:productList.length:productList.length,
+            itemCount: 
+            
+            
+            isHomePage? 
+           
+            productList.length>4?
+            4   :
+            productList.length:
+            
+            productList.length
+            
+            
+            ,
             crossAxisCount: 2,
             padding: EdgeInsets.all(0),
             physics: NeverScrollableScrollPhysics(),

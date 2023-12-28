@@ -389,12 +389,22 @@ setSelectedSubCategory(int index){
 
   void sortSearchList(double startingPrice, double endingPrice) {
     _searchBrandOrCategoryProductList = [];
-    if(startingPrice > 0 && endingPrice > startingPrice) {
+    if(startingPrice > 0 && endingPrice >= startingPrice) {
      
-
-
-      _searchBrandOrCategoryProductList.addAll(_brandOrCategoryProductList.where((product) =>
-      product.unitPrice! > startingPrice && product.unitPrice! < endingPrice).toList());
+debugPrint("WE ARE HER"+"${startingPrice}  "+"${endingPrice}");
+for (var element in _brandOrCategoryProductList) {
+  debugPrint("ITEM PRICE  "+element.unitPrice!.toString());
+  debugPrint("RESULT"+   ( element.unitPrice! > startingPrice && element.unitPrice! < endingPrice).toString());
+}
+      _searchBrandOrCategoryProductList.addAll(
+        _brandOrCategoryProductList.where((product) =>
+     ( product.unitPrice! > startingPrice && product.unitPrice! < endingPrice)
+    
+     
+     ).toList()
+      
+      
+      );
     }else {
       _searchBrandOrCategoryProductList.addAll(_brandOrCategoryProductList);
     }
@@ -402,14 +412,17 @@ setSelectedSubCategory(int index){
     if (_filterIndex == 0) {
 
     } else if (_filterIndex == 1) {
-      _searchBrandOrCategoryProductList.sort((a, b) => a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
+      _searchBrandOrCategoryProductList.sort((a, b) => 
+      a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
     } else if (_filterIndex == 2) {
-      _searchBrandOrCategoryProductList.sort((a, b) => b.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
+      _searchBrandOrCategoryProductList.sort((a, b) => 
+      a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
       Iterable iterable = _searchBrandOrCategoryProductList.reversed;
       _searchBrandOrCategoryProductList = iterable.toList() as List<Product>;
     } else if (_filterIndex == 3) {
       _searchBrandOrCategoryProductList.sort((a, b) => a.unitPrice!.compareTo(b.unitPrice!));
     } else if (_filterIndex == 4) {
+      debugPrint("SORT A TO Z");
       _searchBrandOrCategoryProductList.sort((a, b) => a.unitPrice!.compareTo(b.unitPrice!));
       Iterable iterable = _searchBrandOrCategoryProductList.reversed;
       _searchBrandOrCategoryProductList = iterable.toList() as List<Product>;
@@ -447,17 +460,19 @@ bool isProductLoading=false;
 
     ApiResponse apiResponse = await productRepo!.getBrandOrCategoryProductList(isBrand, id);
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
+            _brandOrCategoryProductList.clear();
+searchBrandOrCategoryProductList.clear();
+      List<Product> _products = [];
       apiResponse.response!.data.forEach((product) => 
       
-      _brandOrCategoryProductList.add(Product.fromJson(product)));
-      _hasData = _brandOrCategoryProductList.length > 1;
-      List<Product> _products = [];
-      _products.addAll(_brandOrCategoryProductList);
-      _brandOrCategoryProductList.clear();
+      _products.add(Product.fromJson(product)));
+      // _products.addAll(_brandOrCategoryProductList);
       // brandOrCategoryProductList2.clear();
 
       _brandOrCategoryProductList.addAll(_products.reversed);
-      searchBrandOrCategoryProductList.addAll(_products.reversed);
+            _hasData = _brandOrCategoryProductList.length > 1;
+
+      searchBrandOrCategoryProductList.addAll(_brandOrCategoryProductList);
       // brandOrCategoryProductList2.addAll(_brandOrCategoryProductList);
        isProductLoading=false;
 
@@ -468,18 +483,20 @@ bool isProductLoading=false;
     
     
     if (apiResponse.response != null && apiResponse.response!.statusCode == 304) {
-      apiResponse.response!.data.forEach((product) => 
-      
-      _brandOrCategoryProductList.add(Product.fromJson(product)));
-      _hasData = _brandOrCategoryProductList.length > 1;
+   
+     searchBrandOrCategoryProductList.clear();
       List<Product> _products = [];
-      _products.addAll(_brandOrCategoryProductList);
+      // _products.addAll(_brandOrCategoryProductList);
       _brandOrCategoryProductList.clear();
       // brandOrCategoryProductList2.clear();
+   apiResponse.response!.data.forEach((product) => 
+      
+      _products.add(Product.fromJson(product)));
+
 
       _brandOrCategoryProductList.addAll(_products.reversed);
-            searchBrandOrCategoryProductList.addAll(_products.reversed);
-
+            searchBrandOrCategoryProductList.addAll(_brandOrCategoryProductList);
+ _hasData = _brandOrCategoryProductList.length > 1;
       // brandOrCategoryProductList2.addAll(_brandOrCategoryProductList);
        isProductLoading=false;
 
@@ -518,11 +535,13 @@ filterBrandAndCategoryProductList(BuildContext context,int? category)async{
        log(apiResponse.response!.statusCode.toString());
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
    _brandOrCategoryProductList.clear();
-      apiResponse.response!.data['products'].forEach((product) => 
-      _brandOrCategoryProductList.add(Product.fromJson(product)));
-      _hasData = _brandOrCategoryProductList.length > 1;
+      
       List<Product> _products = [];
-      _products.addAll(_brandOrCategoryProductList);
+        _searchBrandOrCategoryProductList.clear();
+        apiResponse.response!.data['products'].forEach((product) => 
+      _products.add(Product.fromJson(product)));
+      _hasData = _brandOrCategoryProductList.length > 1;
+      // _products.addAll(_brandOrCategoryProductList);
       // _brandOrCategoryProductList.addAll();
       // _brandOrCategoryProductList2.clear();
 // 
@@ -535,11 +554,14 @@ filterBrandAndCategoryProductList(BuildContext context,int? category)async{
 
     } else  if (apiResponse.response != null){
 _brandOrCategoryProductList.clear();
-      apiResponse.response!.data['products'].forEach((product) => 
-      _brandOrCategoryProductList.add(Product.fromJson(product)));
+     
+
       _hasData = _brandOrCategoryProductList.length > 1;
       List<Product> _products = [];
-      _products.addAll(_brandOrCategoryProductList);
+       apiResponse.response!.data['products'].forEach((product) => 
+      _products.add(Product.fromJson(product)));
+      // _products.addAll(_brandOrCategoryProductList);
+      _searchBrandOrCategoryProductList.clear();
       // _brandOrCategoryProductList.addAll();
       // _brandOrCategoryProductList2.clear();
 // 

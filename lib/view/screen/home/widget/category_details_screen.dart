@@ -331,7 +331,9 @@ Padding(
               InkWell(onTap: () => 
               
               showModalBottomSheet(context: context,
-                  isScrollControlled: true, 
+                  isScrollControlled: true,   constraints: BoxConstraints(
+     maxWidth: MediaQuery.of(context).size.width,              
+  ),
                   backgroundColor: Colors.transparent,
   
                   builder: (c) => FilterCategoryProductsBottomSheet()

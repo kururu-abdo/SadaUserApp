@@ -5,6 +5,7 @@ import 'package:eamar_user_app/data/model/response/base/api_response.dart';
 import 'package:eamar_user_app/data/model/response/product_model.dart';
 import 'package:eamar_user_app/data/repository/search_repo.dart';
 import 'package:eamar_user_app/helper/api_checker.dart';
+import 'package:intl/intl.dart';
 
 class SearchProvider with ChangeNotifier {
   final SearchRepo? searchRepo;
@@ -79,7 +80,8 @@ setCategory(Category cat){
     }
 
     if (_filterIndex == 0) {
-
+      DateFormat format = DateFormat("yyyy-MM-dd");
+ _searchProductList!.sort((a, b) => (format.parse(a.createdAt!)).compareTo((format.parse(b.createdAt!))));
     } else if (_filterIndex == 1) {
       _searchProductList!.sort((a, b) => a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
     } else if (_filterIndex == 2) {

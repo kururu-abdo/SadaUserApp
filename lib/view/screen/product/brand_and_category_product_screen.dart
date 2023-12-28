@@ -5,6 +5,7 @@ import 'package:eamar_user_app/view/screen/home/widget/category_shimmer.dart';
 import 'package:eamar_user_app/view/screen/home/widget/category_widget.dart';
 import 'package:eamar_user_app/view/screen/home/widget/subSubcategory_widget.dart';
 import 'package:eamar_user_app/view/screen/home/widget/subcategory_widget.dart';
+import 'package:eamar_user_app/view/screen/search/widget/filter_category_products.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -111,10 +112,20 @@ Future.microtask(() {
 Consumer<CategoryProvider>(
   builder: (context ,provider ,child) {
     return     IconButton(onPressed: (){
-      showDialog(context: context, builder: (context){
-        return FilterDialogUser(
-          cats: provider.categoryList
-        );
+
+      ///TODO: show filter brand products
+      showModalBottomSheet(
+          isScrollControlled: true,   constraints: BoxConstraints(
+     maxWidth: MediaQuery.of(context).size.width,              
+  ),
+        
+        context: context, builder: (context){
+        return 
+        FilterCategoryProductsBottomSheet();
+        
+        // FilterDialogUser(
+        //   cats: provider.categoryList
+        // );
       });
     }, icon:ImageIcon(
       AssetImage(Images.dropdown ,)  ,color:    Theme.of(context).colorScheme.onBackground,
@@ -288,17 +299,18 @@ Consumer<CategoryProvider>(
             SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
             // Products
-            productProvider.brandOrCategoryProductList.length > 0 ?
+            productProvider.searchBrandOrCategoryProductList.length > 0 ?
              Expanded(
               child: StaggeredGridView.countBuilder(
                 padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL),
                 physics: BouncingScrollPhysics(),
                 crossAxisCount: 2,
-                itemCount: productProvider.brandOrCategoryProductList.length,
+                itemCount: productProvider.searchBrandOrCategoryProductList.length,
                 shrinkWrap: true,
                 staggeredTileBuilder: (int index) => StaggeredTile.fit(1),
                 itemBuilder: (BuildContext context, int index) {
-                  return ProductWidget(productModel: productProvider.brandOrCategoryProductList[index]);
+                  return ProductWidget(productModel:
+                   productProvider.searchBrandOrCategoryProductList[index]);
                 },
               ),
             ) :

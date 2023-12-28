@@ -2,12 +2,14 @@ import 'dart:io';
 
 import 'package:eamar_user_app/data/datasource/remote/chache/app_path_provider.dart';
 import 'package:eamar_user_app/localization/language_constrants.dart';
+import 'package:eamar_user_app/provider/phone_email_controller.dart';
 import 'package:eamar_user_app/utill/shared_prefs.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
+import 'package:agconnect_core/agconnect_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -84,8 +86,21 @@ void handleBackgroundLinks(PendingDynamicLinkData, {
 }
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+ AGConnectInstance.instance.buildInstance(
+AGConnectOptions(
+  AGConnectOptionsBuilder()
+..clientId=
 
 
+"1303631180846887616"
+..clientSecret="8ED65983F90E3A4F4A76E2ABB964B610A98839C666B60B31B4E27A008A59D1F0"
+..apiKey="DAEDAMNkm/T10RqnMiledk0y2b8sQairv+XXBa6nZm5kQDsNz7J72NE3LPv1c6JIXV2fmTveg6DHU3kLyN3CMsWhxB4zeVdITv4fwQ=="
+
+)
+
+);
+    
+    
     HttpOverrides.global = MyHttpOverrides();
 
   await Firebase.initializeApp();
@@ -126,6 +141,8 @@ Future<void> main() async {
 
   runApp(MultiProvider(
     providers: [
+            ChangeNotifierProvider(create: (context) => di.sl<PhoneEmailController>()),
+
       ChangeNotifierProvider(create: (context) => di.sl<CategoryProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<HomeCategoryProductProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<TopSellerProvider>()),
@@ -179,17 +196,21 @@ class MyApp extends StatelessWidget {
     });
     return MaterialApp(
 
-builder: (context, child) => ResponsiveWrapper.builder(
-          child,
-          maxWidth: 1200,
-          minWidth: 480,
-          defaultScale: true,
+builder: (context, child) => ResponsiveBreakpoints.builder(
+          child:child!,
+          // maxWidth: 1200,
+          // minWidth: 480,
+          // defaultScale: true,
           breakpoints: [
-            ResponsiveBreakpoint.resize(480, name: MOBILE),
-            ResponsiveBreakpoint.autoScale(800, name: TABLET),
-            ResponsiveBreakpoint.resize(1000, name: DESKTOP),
+           const Breakpoint(start: 0, end: 450, name: MOBILE),
+          const Breakpoint(start: 451, end: 800, name: TABLET),
+          const Breakpoint(start: 801, end: 1920, name: DESKTOP),
+          const Breakpoint(start: 1921, end: double.infinity, name: '4K'),
           ],
-          background: Container(color: Color(0xFFF5F5F5))),
+          // background: Container(color: Color(0xFFF5F5F5)
+          // )
+          
+          ),
 
 
       title:AppConstants.APP_NAME,

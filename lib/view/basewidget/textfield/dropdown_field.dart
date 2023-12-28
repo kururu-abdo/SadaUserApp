@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -124,7 +125,7 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T?>>
              SizedBox(height: 5,),
           Container(
             width: style.width,
-            height: style.height,
+            height:      isTablet(context)? 65:style.height,
             decoration: BoxDecoration(
               // color: Colors.transparent,
             //    boxShadow: [

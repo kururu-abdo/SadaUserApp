@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:eamar_user_app/view/screen/product/product_details_screen2.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/product_model.dart';
@@ -36,8 +37,10 @@ class _ProductWidgetState extends State<ProductWidget> {
       },
       child: Container(
         height: 
+         isTablet(context)? 
+  MediaQuery.of(context).size.width/2:
         MediaQuery.of(context).size.width/1.5  ,
-        
+        width: isTablet(context)? MediaQuery.of(context).size.width/4:null,
         // MediaQuery.of(context).size.width/1.5,
         margin: EdgeInsets.all(5),
         decoration: BoxDecoration(
@@ -77,7 +80,11 @@ class _ProductWidgetState extends State<ProductWidget> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(widget.productModel.name ?? '', textAlign: TextAlign.center,
-                          style: robotoRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL,
+                          style: robotoRegular.copyWith(fontSize:
+                        
+                          
+                          
+                          Dimensions.FONT_SIZE_SMALL,
                           fontWeight: FontWeight.w400), maxLines: 2,
                           overflow: TextOverflow.ellipsis),
                       SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
@@ -92,7 +99,10 @@ class _ProductWidgetState extends State<ProductWidget> {
 
                         Text('(${widget.productModel.reviewCount.toString() })',
                             style: robotoRegular.copyWith(
-                              fontSize: Dimensions.FONT_SIZE_SMALL,
+                              fontSize:
+                              
+                              
+                               Dimensions.FONT_SIZE_SMALL,
                             )),
 
                       ]),
@@ -116,8 +126,6 @@ class _ProductWidgetState extends State<ProductWidget> {
                           discount: widget.productModel.discount),
                         style: titilliumSemiBold.copyWith(color: ColorResources.getPrimary(context)),
                       ),
-
-
 
                     ],
                   ),

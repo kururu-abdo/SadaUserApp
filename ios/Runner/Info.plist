@@ -29,7 +29,7 @@
 			<string>echoemar.com</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>eamar.page.link</string>
+				<string>echoemar.page.link</string>
 				<string>http</string>
 				<string>https</string>
 			</array>
@@ -85,7 +85,14 @@
 	<false/>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:sada.com</string>
+		<string>applinks:echoemaar.com</string>
 	</array>
+
+	<key>FirebaseDynamicLinksCustomDomains</key>
+<array>
+  <string>https://echoemar.page.link</string>
+  <string>https://echoemaar.com</string>
+</array>
+
 </dict>
 </plist>

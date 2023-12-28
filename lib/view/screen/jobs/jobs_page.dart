@@ -2,6 +2,7 @@
 import 'dart:developer';
 
 import 'package:eamar_user_app/provider/profile_provider.dart';
+import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:eamar_user_app/data/model/response/city.dart';
@@ -166,7 +167,11 @@ Navigator.pop(context);
                     
                     automaticallyImplyLeading: false,
                     backgroundColor: Theme.of(context).highlightColor,
-                    title: Image.asset(Images.logo_with_name_image, height: 100 ,scale: 1.2,),
+                    title: 
+                    
+                    isTablet(context)? Text('Jobs'):
+                    
+                    Image.asset(Images.logo_with_name_image, height: isTablet(context)?  180: 100 ,scale: 1.2,),
                     actions: [
                     //  Container(
                     //                 width: 20,height: 20,decoration: BoxDecoration(color: Theme.of(context).primaryColor,
@@ -244,7 +249,7 @@ showModalBottomSheet(context: context,
                                 top: Dimensions.PADDING_SIZE_EXTRA_SMALL, bottom: Dimensions.PADDING_SIZE_EXTRA_SMALL,
                               ),
 
-                                height: 60,
+                                height: isTablet(context)?  80: 60,
                                  alignment: Alignment.centerLeft,
                                 decoration: BoxDecoration(color: Theme.of(context).cardColor,
                                   boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ?
@@ -256,12 +261,16 @@ showModalBottomSheet(context: context,
   
 // )
                                   Text(getTranslated('search_job_txt', context)!,
-                                      style: robotoRegular.copyWith(color: Theme.of(context).hintColor)
+                                      style: robotoRegular.copyWith(color: 
+                                      Theme.of(context).hintColor,  
+                                      
+                                      fontSize:  isTablet(context)?  18:null
+                                      )
                                       
                                       ),
 
                                   Container(
-                                    width: 40,height: 40,decoration: BoxDecoration(color: Theme.of(context).primaryColor,
+                                    width:  isTablet(context)?  60:40,height: isTablet(context)?  60: 40,decoration: BoxDecoration(color: Theme.of(context).primaryColor,
                                       borderRadius: BorderRadius.all(Radius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL))
                                   ),
                                     child: Icon(

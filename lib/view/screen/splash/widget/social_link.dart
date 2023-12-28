@@ -1,3 +1,4 @@
+import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:flutter/material.dart';
 
 class SocialLink extends StatelessWidget {
@@ -9,13 +10,17 @@ class SocialLink extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-         height: 30,
-         width: 30,
+         height: 
+    isTablet(context)?60: 30,
+         width:isTablet(context)?60: 30,
       decoration: BoxDecoration(
         color: Colors.white ,shape: BoxShape.circle , 
         
       ),
-      child: Center(child: ImageIcon(AssetImage(icon! ) , size: 20,),),
+      child: Center(child: ImageIcon(AssetImage(icon! ) , size:
+      isTablet(context)?30:
+      
+       20,),),
     );
   }
 }

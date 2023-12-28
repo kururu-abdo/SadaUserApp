@@ -1,8 +1,10 @@
 import 'package:eamar_user_app/localization/language_constrants.dart';
+import 'package:eamar_user_app/provider/phone_email_controller.dart';
 import 'package:eamar_user_app/view/basewidget/button/auth_button.dart';
 import 'package:eamar_user_app/view/basewidget/button/custom_button.dart';
 import 'package:eamar_user_app/view/screen/auth/widget/phone_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 
 
@@ -48,6 +50,46 @@ TextEditingController();
 EmailOrPhone emailOrPhone=  EmailOrPhone();
 
 int _selectOption = 0;
+
+String? inintalPhone='';
+@override
+void initState() {
+  super.initState();
+   if(Provider.of<PhoneEmailController>(context , listen: false).emailOrPhone!=null){
+
+if (Provider.of<PhoneEmailController>(context , listen: false).emailOrPhone!.isPhone!) {
+   _selectOption = 0;
+
+ inintalPhone=Provider.of<PhoneEmailController>(context , listen: false).emailOrPhone!.emailOrPhone;
+
+
+
+ emailOrPhone = EmailOrPhone(
+            
+          ).copyWith(
+            isPhone: true, 
+            isEmail: false , 
+            emailOrPhone: inintalPhone
+          );
+
+}else {
+
+  _selectOption = 1;
+
+ emailController.text=Provider.of<PhoneEmailController>(context , listen: false).emailOrPhone!.emailOrPhone!;
+ emailOrPhone = EmailOrPhone(
+            
+          ).copyWith(
+            isPhone: false, 
+            isEmail: true , 
+            emailOrPhone: emailController.text
+          );
+}
+   }
+}
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -129,6 +171,7 @@ body: SafeArea(
           PhoneWidget(
             enabled: _selectOption==0,
             controller: phoneController,
+            initalNumber: inintalPhone,
             onchanged: (str){
   emailOrPhone = EmailOrPhone(
             
@@ -255,6 +298,7 @@ body: SafeArea(
   
       emailOrPhone
     );
+    Provider.of<PhoneEmailController>(context ,listen: false).setMethodd(emailOrPhone);
   Navigator.pop(context);
   
   

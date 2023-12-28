@@ -115,7 +115,8 @@ class _FilterCategoryProductsBottomSheetState extends State<FilterCategoryProduc
                       minPrice = double.parse(_firstPriceController.text);
                       maxPrice = double.parse(_lastPriceController.text);
                     }
-                    Provider.of<ProductProvider>(context, listen: false).sortSearchList(minPrice, maxPrice);
+                    Provider.of<ProductProvider>(context, listen: false).sortSearchList(minPrice, 
+                    maxPrice);
                     Navigator.pop(context);
                   },
                 ),
@@ -187,10 +188,10 @@ class MyCheckBox extends StatelessWidget {
       title: Text(title!, style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)),
       checkColor: Theme.of(context).primaryColor,
       activeColor: Colors.transparent,
-      value: Provider.of<SearchProvider>(context).filterIndex == index,
+      value: Provider.of<ProductProvider>(context).filterIndex == index,
       onChanged: (isChecked) {
         if(isChecked!) {
-          Provider.of<SearchProvider>(context, listen: false).setFilterIndex(index);
+          Provider.of<ProductProvider>(context, listen: false).setFilterIndex(index);
         }
       },
       controlAffinity: ListTileControlAffinity.leading,

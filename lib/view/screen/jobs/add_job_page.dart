@@ -489,7 +489,7 @@ Navigator.pop(context);
                             
                            PhoneWidget(
                             controller: _phoneController,
-                            label: getTranslated('ENTER_MOBILE_NUMBER', context),
+                            label: getLang(context)=="ar"? "رقم الواتس اب":"Whatsapp number",
                            ) 
                             
                             

@@ -1,3 +1,4 @@
+import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/order_model.dart';
 import 'package:eamar_user_app/helper/date_converter.dart';
@@ -36,15 +37,24 @@ class OrderWidget extends StatelessWidget {
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Row(children: [
               Text(getTranslated('ORDER_ID', context)!,
-                  style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)),
+                  style: titilliumRegular.copyWith(fontSize: 
+                  isTablet(context)?  25:
+                  
+                  Dimensions.FONT_SIZE_SMALL)),
               SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-              Text(orderModel!.id.toString(), style: titilliumSemiBold),
+              Text(orderModel!.id.toString(), style: titilliumSemiBold.copyWith(
+
+                fontSize:  isTablet(context)?  20:null
+              )),
             ]),
 
 
             Row(children: [
               Text(DateConverter.localDateToIsoStringAMPM(DateTime.parse(orderModel!.createdAt!)),
-                  style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL,
+                  style: titilliumRegular.copyWith(fontSize:
+                  
+                  isTablet(context)?  18:
+                   Dimensions.FONT_SIZE_SMALL,
                     color: Theme.of(context).hintColor,
               )),
             ]),
@@ -57,8 +67,13 @@ class OrderWidget extends StatelessWidget {
           Expanded(
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Text(getTranslated('total_price', context)!,
-                  style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)),
-              Text(PriceConverter.convertPrice(context, orderModel!.orderAmount), style: titilliumSemiBold),
+                  style: titilliumRegular.copyWith(fontSize:isTablet(context)?  20: Dimensions.FONT_SIZE_SMALL)),
+              Text(PriceConverter.convertPrice(context, orderModel!.orderAmount), 
+              
+              style: titilliumSemiBold.copyWith(
+
+                fontSize: isTablet(context)?  20:null
+              )),
             ]),
           ),
 
@@ -69,7 +84,10 @@ class OrderWidget extends StatelessWidget {
               color: ColorResources.getLowGreen(context),
               borderRadius: BorderRadius.circular(5),
             ),
-            child: Text(orderModel!.orderStatus!.toUpperCase(), style: titilliumSemiBold),
+            child: Text(orderModel!.orderStatus!.toUpperCase(), style: titilliumSemiBold.copyWith(
+
+              fontSize: isTablet(context)?  15:null
+            )),
           ),
 
         ]),

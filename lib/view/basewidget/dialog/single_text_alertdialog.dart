@@ -1,3 +1,4 @@
+import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/utill/custom_themes.dart';
 
@@ -15,7 +16,10 @@ class SingleTextAlertDialog extends StatelessWidget {
         alignment: Alignment.center,
         child: Padding(
           padding: const EdgeInsets.all(2.0),
-          child: Text(message ?? '', style: titilliumBold),
+          child: Text(message ?? '', style: titilliumBold.copyWith(
+
+            fontSize: isTablet(context)? 20: null
+          )),
         ),
       ),
     );

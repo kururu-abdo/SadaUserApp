@@ -20,6 +20,8 @@ import 'package:eamar_user_app/utill/color_resources.dart';
 import 'package:eamar_user_app/utill/custom_themes.dart';
 import 'package:eamar_user_app/utill/dimensions.dart';
 import 'package:eamar_user_app/utill/images.dart';
+import 'package:eamar_user_app/utill/responsive.dart';
+import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:eamar_user_app/view/basewidget/title_row.dart';
 import 'package:eamar_user_app/view/screen/brand/all_brand_screen.dart';
 import 'package:eamar_user_app/view/screen/cart/cart_screen.dart';
@@ -30,6 +32,7 @@ import 'package:eamar_user_app/view/screen/home/widget/announcement.dart';
 import 'package:eamar_user_app/view/screen/home/widget/banners_view.dart';
 import 'package:eamar_user_app/view/screen/home/widget/brand_view.dart';
 import 'package:eamar_user_app/view/screen/home/widget/category_view.dart';
+import 'package:eamar_user_app/view/screen/home/widget/category_view2.dart';
 import 'package:eamar_user_app/view/screen/home/widget/discount_products_view.dart';
 import 'package:eamar_user_app/view/screen/home/widget/featured_deal_view.dart';
 import 'package:eamar_user_app/view/screen/home/widget/featured_product_view.dart';
@@ -62,7 +65,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
+  late bool isGuestMode;
   // final ScrollController _scrollController = ScrollController();
 final  ImageLabeler labeler = GoogleVision.instance.imageLabeler(
     
@@ -72,7 +75,12 @@ final  ImageLabeler labeler = GoogleVision.instance.imageLabeler(
     (confidenceThreshold: 0.70),
 );
   Future<void> _loadData(BuildContext context, bool reload) async {
+isGuestMode = !Provider.of<AuthProvider>(context, listen: false).isLoggedIn();
 
+
+if (!isGuestMode) {
+   Provider.of<ProfileProvider>(context, listen: false).getUserInfo(context);
+}
  FirebaseAnalytics.instance
  .logEvent(name: 'LoadingData' ,
  
@@ -357,7 +365,40 @@ _modalSheetResults();
                     centerTitle: false,
                     automaticallyImplyLeading: false,
                     backgroundColor: Theme.of(context).highlightColor,
-                    title: GestureDetector(
+                    title: 
+                    
+                    isTablet(context)?
+
+Consumer<ProfileProvider>(
+            builder: (context, profile, child) {
+ return  
+ Text(
+   getLang(context)=="ar"?"مرحبا ،":"Hey , "  +
+"${ !isGuestMode ?
+ 
+ 
+  profile.userInfoModel != null ?
+
+                    '${profile.userInfoModel!.fName}' : 'Full Name' : 
+                    
+                     getLang(context)=="ar"?"رائر":
+                    'Guest'}"
+                    
+                    );
+
+
+ Text('Hey ,  Guest');
+            }
+            
+            
+            ):
+
+
+
+
+                 
+                    
+                    GestureDetector(
                       
                       onTap: (){
 
@@ -376,7 +417,10 @@ _modalSheetResults();
                       },
                       child: Hero(
                          tag: 'bar',
-                        child: Image.asset(Images.logo_with_name_image, height: 100 ,scale: 1.2,))),
+                        child: Image.asset(Images.logo_with_name_image,
+                        
+                        
+                         height:isTablet(context)? 180: 100 ,scale: 1.2,))),
                     actions: [
 
  Padding(
@@ -392,7 +436,8 @@ _modalSheetResults();
                             
                           },
                           icon: 
-                     Icon(   Icons.camera_alt)
+                     Icon(   Icons.camera_alt ,                       size:  isTablet(context)?  50:24,
+)
                        
                        
                         ),
@@ -404,7 +449,10 @@ _modalSheetResults();
                           onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (_) => NotificationScreen()));
                           },
                           icon: 
-                     Icon(   Icons.notifications)
+                     Icon(   Icons.notifications,  
+                     size:  isTablet(context)?  50:24,
+                     
+                     )
                        
                        
                         ),
@@ -419,15 +467,22 @@ _modalSheetResults();
                           icon: Stack(clipBehavior: Clip.none, children: [
                             Image.asset(
                               Images.cart_arrow_down_image,
-                              height: Dimensions.ICON_SIZE_DEFAULT,
-                              width: Dimensions.ICON_SIZE_DEFAULT,
+                              height:
+                              
+                               isTablet(context)?  50:
+                               Dimensions.ICON_SIZE_DEFAULT,
+                              width:  isTablet(context)?  50:Dimensions.ICON_SIZE_DEFAULT,
                               color: ColorResources.getPrimary(context),
+                              
                             ),
                             Positioned(top: -4, right: -4,
                               child: Consumer<CartProvider>(builder: (context, cart, child) {
-                                return CircleAvatar(radius: 7, backgroundColor: ColorResources.RED,
+                                return CircleAvatar(radius: isTablet(context)?  15: 7, backgroundColor: ColorResources.RED,
                                   child: Text(cart.cartList.length.toString(),
-                                      style: titilliumSemiBold.copyWith(color: ColorResources.WHITE, fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL,
+                                      style: titilliumSemiBold.copyWith(color: ColorResources.WHITE, fontSize:
+                                      isTablet(context)? 15:
+                                      
+                                       Dimensions.FONT_SIZE_EXTRA_SMALL,
                                       )),
                                 );
                               }),
@@ -450,11 +505,15 @@ _modalSheetResults();
                                 horizontal: Dimensions.HOME_PAGE_PADDING, vertical: Dimensions.PADDING_SIZE_SMALL),
                               color: ColorResources.getHomeBg(context),
                               alignment: Alignment.center,
-                              child: Container(padding: EdgeInsets.only(
+                              child: 
+                              Container(padding: EdgeInsets.only(
                                 left: Dimensions.HOME_PAGE_PADDING, right: Dimensions.PADDING_SIZE_EXTRA_SMALL,
                                 top: Dimensions.PADDING_SIZE_EXTRA_SMALL, bottom: Dimensions.PADDING_SIZE_EXTRA_SMALL,
                               ),
-                                height: 60, alignment: Alignment.centerLeft,
+                                height:
+                             
+                                
+                                 60, alignment: Alignment.centerLeft,
                                 decoration: BoxDecoration(color: Theme.of(context).cardColor,
                                   boxShadow: [BoxShadow(color: Colors.grey[Provider.of<ThemeProvider>(context).darkTheme ?
                                   900 : 200]!, spreadRadius: 1, blurRadius: 1)],
@@ -462,10 +521,14 @@ _modalSheetResults();
                                 child: Row(mainAxisAlignment : MainAxisAlignment.spaceBetween, children: [
 
                                   Text(getTranslated('SEARCH_HINT', context)!,
-                                      style: robotoRegular.copyWith(color: Theme.of(context).hintColor)),
+                                      style: robotoRegular.
+                                      copyWith(color: Theme.of(context).hintColor,  
+                                     fontSize: isTablet(context)?30:20 
+                                      
+                                      )),
 
                                   Container(
-                                    width: 40,height: 40,decoration: BoxDecoration(color: Theme.of(context).primaryColor,
+                                    width:   isTablet(context)?60: 40,height: isTablet(context)?60:40,decoration: BoxDecoration(color: Theme.of(context).primaryColor,
                                       borderRadius: BorderRadius.all(Radius.circular(Dimensions.PADDING_SIZE_EXTRA_SMALL))
                                   ),
                                     child: Icon(Icons.search, color:Colors.black
@@ -487,27 +550,102 @@ _modalSheetResults();
                         children: [
 
                        
+//if cusomer is special
+
+Container(
+   margin: EdgeInsets.symmetric(
+      vertical: 8
+    ),
+  padding: EdgeInsets.all(15),
+  decoration: BoxDecoration(
+    border: Border.all(width: 1, )
+  ),
+  child: Column(children: [
+  Row(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [ 
+      Container(
+        height:isTablet(context)? 80: 60 , width: isTablet(context)? 80: 60 , 
+        decoration: BoxDecoration(
+          shape: BoxShape.circle , 
+          border: Border.all(width: 1)  
+        ),
+        child: Center(child: Text('Logo'),),
+      ), 
+      SizedBox(width: 8,) , 
+      Expanded(child: Text('مؤسسة خالد بن صالح ابراهيم العويد' ,  overflow: TextOverflow.ellipsis,)),
+    ],
+  ) , 
+   SizedBox(height: 15,) , 
+  
+
+
+  Container(
+    height:  35,
+   
+    decoration: BoxDecoration(
+      color: Colors.amber, 
+      
+    ),
+    child: Center(
+      child: Text(
+        "رصيد حسابكم الإجمالي: 950000 ريال "
+      ),
+    ),
+  ), 
+     SizedBox(height: 5,) , 
+
+  Container(
+    height:  35,
+    decoration: BoxDecoration(
+      color: Colors.red, 
+      
+    ),
+
+     child: Center(
+      child: Text(
+        "المبلغ المستحق للدفع: 120000 ريال "
+      ),
+    ),
+  ), 
+  ],),
+), 
+
+
+
+
+
+
+
 
                           // Category
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_EXTRA_SMALL,vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                             child: 
-                            TitleRow(title: getTranslated('CATEGORY', 
+                            TitleRow(
+                              
+                              isCategory: true,
+                              title: getTranslated('CATEGORY', 
                             context),
-showAll: false,
+// showAll: false,
                                 onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) =>
                                  AllCategoryScreen()))),
                           ),
                           SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                           Padding(
                             padding: const EdgeInsets.only(bottom: Dimensions.HOME_PAGE_PADDING),
-                            child: CategoryView(isHomePage: true),
+                            child:
+                            
+                             CategoryView2(isHomePage: true, 
+                            isTablet: isTablet(context),
+                            
+                            ),
                           ),
 
 
 
 
-   //brands view
+   //banner view
                           BannersView(),
                           SizedBox(height: 
                           
@@ -667,7 +805,8 @@ SizedBox(height: Dimensions.HOME_PAGE_PADDING),
                                   
                                   
                                   // );
-                                  
+                                  Navigator.push(context, MaterialPageRoute(builder: (_) => AllProductScreen(
+                                    productType: ProductType.DISCOUNTED_PRODUCT)));
                                   }),
                           ),
                           SizedBox(height: Dimensions.PADDING_SIZE_SMALL),

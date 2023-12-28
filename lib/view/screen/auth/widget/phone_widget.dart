@@ -2,6 +2,7 @@
 import 'package:eamar_user_app/localization/language_constrants.dart';
 import 'package:eamar_user_app/utill/color_resources.dart';
 import 'package:eamar_user_app/utill/countries.dart';
+import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:flutter/material.dart';
 
 class PhoneWidget extends StatefulWidget {
@@ -50,7 +51,7 @@ seperatePhoneAndDialCode();
       var newPhoneNumber = widget.initalNumber!.substring(
         foundedCountry["dial_code"]!.length,
       );
-      print({dialCode, newPhoneNumber});
+      debugPrint({dialCode, newPhoneNumber}.toString());
 
       _selectedCountryCode= dialCode;
       widget.controller!.text = newPhoneNumber;
@@ -126,7 +127,7 @@ widget.label!=null
         Directionality(
           textDirection: TextDirection.ltr,
           child: Container(
-            height: 50,
+            height: isTablet(context)?65:50,
             width: double.infinity,
             margin: new EdgeInsets.only(
               // top: 10.0, 
@@ -145,7 +146,9 @@ widget.label!=null
                 return null;
               },
               onChanged:(str){
-                 widget.onchanged!(_selectedCountryCode!+str);
+
+      var compltedPhone=      str.replaceFirst(new RegExp(r'^0+'), '');
+                 widget.onchanged!(_selectedCountryCode!+compltedPhone);
               },
                 maxLength: 10,
               enabled: widget.enabled,

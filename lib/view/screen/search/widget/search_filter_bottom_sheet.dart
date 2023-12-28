@@ -21,6 +21,8 @@ class _SearchFilterBottomSheetState extends State<SearchFilterBottomSheet> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT),
+      width: MediaQuery.of(context).size.width,
+      // height:  MediaQuery.of(context).size.height/2,
       decoration: BoxDecoration(
         color: Theme.of(context).highlightColor,
         borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
@@ -95,7 +97,6 @@ class _SearchFilterBottomSheetState extends State<SearchFilterBottomSheet> {
               MyCheckBox(title: getTranslated('alphabetically_za', context), index: 2),
               MyCheckBox(title: getTranslated('low_to_high_price', context), index: 3),
               MyCheckBox(title: getTranslated('high_to_low_price', context), index: 4),
-
 
 
               Padding(

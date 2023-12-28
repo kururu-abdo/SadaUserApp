@@ -56,7 +56,8 @@ class _SignInWidgetState extends State<CustomerLogin> {
     Provider.of<AuthProvider>(context, listen: false).getUserEmail() ?? "";
 
 
-    _passwordController!.text = Provider.of<AuthProvider>(context, listen: false).getUserPassword() ?? "";
+    _passwordController!.text = 
+    Provider.of<AuthProvider>(context, listen: false).getUserPassword() ?? "";
   }
 
   @override
@@ -227,6 +228,7 @@ loginBody.user_id =  _idController!.text.trim();
                   margin:
                   EdgeInsets.only(bottom: Dimensions.MARGIN_SIZE_DEFAULT),
                   child: CustomPasswordTextField(
+                    isCustomer: true,
                     hintTxt: getTranslated('ENTER_YOUR_PASSWORD', context),
                     textInputAction: TextInputAction.done,
                     focusNode: _passNode,
@@ -260,8 +262,39 @@ loginBody.user_id =  _idController!.text.trim();
               //     ],
               //   ),
               // ),
+             SizedBox(height: 10,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            InkWell(
+                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ForgetPasswordScreen())),
+                          child: Text(getTranslated('FORGET_PASSWORD', context)!+ " ?",
+                              style: Theme.of(context).textTheme.titleMedium),
+                        ),
+
+
+                        Container(
+                margin: EdgeInsets.only(right: Dimensions.MARGIN_SIZE_SMALL),
+                child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [Row(children: [
+                    Consumer<AuthProvider>(
+                      builder: (context, authProvider, child) => Checkbox(
+                        checkColor: ColorResources.BLACK,
+                        activeColor: ColorResources.getBtnColor(context),
+                        value: authProvider.isRemember,
+                        onChanged: authProvider.updateRemember,),),
         
         
+                    Text(getTranslated('REMEMBER', context)!,
+                     style: titilliumRegular),
+                  ],),
+        
+                   
+                  ],
+                ),
+              )
+          ],
+        ),
         SizedBox(height: 10,),
               Container(
 

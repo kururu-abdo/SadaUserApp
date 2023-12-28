@@ -1,4 +1,5 @@
 import 'package:eamar_user_app/utill/color_resources.dart';
+import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:eamar_user_app/utill/custom_themes.dart';
@@ -122,7 +123,10 @@ final bool  enabled;
               // hintText: hintText ?? '',
               filled: true,
               fillColor: ColorResources.getTextfieldFilledColor(context),
-              contentPadding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 15),
+              contentPadding: EdgeInsets.symmetric(
+                
+                
+                vertical:isTablet(context)? 18: 12.0, horizontal: 15),
               isDense: true,
               counterText: '',
               suffixIcon: suffixIcon,

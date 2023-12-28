@@ -36,10 +36,19 @@ class CustomExpandedAppBar extends StatelessWidget {
           left: Dimensions.PADDING_SIZE_SMALL,
           right: Dimensions.PADDING_SIZE_SMALL,
           child: Row(children: [
-            CupertinoNavigationBarBackButton(color: Colors.white, onPressed: () {
-              Provider.of<SplashProvider>(context, listen: false).setFromSetting(false);
+
+            IconButton(onPressed: (){
+ Provider.of<SplashProvider>(context, listen: false).setFromSetting(false);
               Navigator.pop(context);
-            } ),
+            }, icon: Icon(Icons.arrow_back_ios, color: Colors.white , size: 30,)),
+           
+            // CupertinoNavigationBarBackButton(color: Colors.white, onPressed: () {
+            //   Provider.of<SplashProvider>(context, listen: false).setFromSetting(false);
+            //   Navigator.pop(context);
+            // } ),
+
+
+
             Text(title!, style: titilliumRegular.copyWith(fontSize: 20, color: Colors.white), maxLines: 1, overflow: TextOverflow.ellipsis),
           ]),
         ),

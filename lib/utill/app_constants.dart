@@ -120,7 +120,8 @@ static const GET_PRODUCTS_BY_ID="/api/v1/products/catogry-products/";
   static const String USER_EMAIL = 'user_email';
   static const String USER_TYPE = 'user_type';
   
-  static const String USER_PASSWORD = 'user_password';
+    static const String USER_NUMBER = 'user_number';
+    static const String USER_PASSWORD = 'user_password';
   static const String HOME_ADDRESS = 'home_address';
   static const String SEARCH_ADDRESS = 'search_address';
   static const String OFFICE_ADDRESS = 'office_address';

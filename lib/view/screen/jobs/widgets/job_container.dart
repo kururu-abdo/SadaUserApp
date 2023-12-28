@@ -5,6 +5,7 @@ import 'package:eamar_user_app/localization/language_constrants.dart';
 import 'package:eamar_user_app/provider/auth_provider.dart';
 import 'package:eamar_user_app/utill/color_resources.dart';
 import 'package:eamar_user_app/utill/shake_widget.dart';
+import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:eamar_user_app/view/screen/auth/auth_screen.dart';
 import 'package:eamar_user_app/view/screen/cart/widget/maintenance_captain_alert.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -46,8 +47,8 @@ class _JobContainerState extends State<JobContainer> {
       constraints: BoxConstraints(
         maxWidth: MediaQuery.of(context).size.width
       ),
-      //  height: 
-      //   MediaQuery.of(context).size.width/1.5  ,
+      //  height:  isTablet(context)?  
+      //   MediaQuery.of(context).size.height/4:null  ,
         
         // MediaQuery.of(context).size.width/1.5,
         margin: EdgeInsets.all(5),
@@ -80,7 +81,7 @@ Container(
     )
   ),
   child:   CircleAvatar(
-    radius: 30,
+    radius:  isTablet(context)?  50:30,
     backgroundImage: 
     (widget.image ==null?
     AssetImage(Images.placeholder ):
@@ -93,17 +94,25 @@ Container(
 
 
 ),
-SizedBox(width: 20,),
+SizedBox(width: isTablet(context)?  30: 20,),
 Column(
   crossAxisAlignment: CrossAxisAlignment.start,
   children: [
-    Text(widget.name! ,  style: Theme.of(context).textTheme.titleMedium,),
+    Text(widget.name! ,  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+fontSize:  isTablet(context)?   20:null
+
+
+    ),),
 
 Text(widget.job! ,  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-  color: Theme.of(context).primaryColor ,fontWeight: FontWeight.bold
+  color: Theme.of(context).primaryColor ,fontWeight: FontWeight.bold,  
+   fontSize:  isTablet(context)?  18: 15
 ),),
 Text(
-  widget.address! ,  style: Theme.of(context).textTheme.bodyMedium,
+  widget.address! ,  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+fontSize:  isTablet(context)?  18: 15
+
+  ),
 ),
 
 
@@ -148,8 +157,8 @@ onTap: (){
                     
                     ,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
-              fontSize: 25,
+                    style:  TextStyle(
+              fontSize:  isTablet(context)?  30:25,
               fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -161,7 +170,7 @@ onTap: (){
                     
                     ,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(fontSize: 15),
+                    style:  TextStyle(fontSize: isTablet(context)?  20: 15),
                   ),
                   // your app's logo?
                   // image: const FlutterLogo(size: 100),
@@ -220,7 +229,10 @@ onTap: (){
   ) , 
   SizedBox(width: 2,) , 
   Text(
-    '(${0})'
+    '(${0})' ,  
+    style: TextStyle(
+      fontSize:  isTablet(context)?  18:15
+    ),
   )
   
   
@@ -231,13 +243,17 @@ onTap: (){
   ],
 ) ,
 
-SizedBox(width: 10,),
+SizedBox(width: isTablet(context)?  15: 10,),
 
 SizedBox(
   width: double.infinity,
-  child:   Text(widget.desc!, textAlign: TextAlign.justify ,maxLines: 3 ,overflow: TextOverflow.ellipsis,
+  child:   Text(widget.desc!, textAlign: TextAlign.justify ,maxLines: isTablet(context)?  6: 3 ,overflow: TextOverflow.ellipsis,
   
-    style: Theme.of(context).textTheme.bodySmall,),
+    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+fontSize:  isTablet(context)?  20: null
+
+
+    ),),
 ),
 
 Row(
@@ -303,7 +319,7 @@ try {
 }
 
 
- }, icon: FaIcon(FontAwesomeIcons.whatsapp ,  size: 35,)) ,
+ }, icon: FaIcon(FontAwesomeIcons.whatsapp ,  size: isTablet(context)?  50: 35,)) ,
 
 
 
@@ -318,7 +334,7 @@ try {
    child: IconButton(onPressed: ()async{
  _shakeKey.currentState?.shake();
  
-   }, icon: FaIcon(Icons.notifications_active_outlined ,  size: 35,
+   }, icon: FaIcon(Icons.notifications_active_outlined ,  size: isTablet(context)?  50: 35,
    
    color: ColorResources.getArrowButtonColor(context),
    
@@ -380,10 +396,13 @@ if(Provider.of<AuthProvider>(context , listen: false)
         children: [
           Icon(Icons.call ,
           color: Theme.of(context).highlightColor,
+          size:  isTablet(context)?  50: 35,
           ),
          
           Text(widget.phone.toString(),style: TextStyle(
-            color: Colors.white,fontWeight: FontWeight.bold
+            color: Colors.white,fontWeight: FontWeight.bold,  
+
+            fontSize:  isTablet(context)?  30:20
           ),),
   
   

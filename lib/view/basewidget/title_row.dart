@@ -1,4 +1,5 @@
 
+import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/localization/language_constrants.dart';
 import 'package:eamar_user_app/utill/color_resources.dart';
@@ -15,8 +16,9 @@ class TitleRow extends StatelessWidget {
   final bool? isDetailsPage;
   final bool? showAll;
   final bool isFlash;
+  final bool? isCategory;
   TitleRow({required this.title,this.icon, this.onTap, this.eventDuration,
-   this.isDetailsPage, this.isFlash = false, this.showAll=true});
+   this.isDetailsPage, this.isFlash = false, this.showAll=true, this.isCategory=false});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,11 @@ class TitleRow extends StatelessWidget {
               padding: isFlash?  EdgeInsets.only(left: Dimensions.PADDING_SIZE_EXTRA_SMALL):EdgeInsets.all(0),
               child: Image.asset(Images.flash_deal, scale: 4,),
             ):SizedBox(),
-            Text(title!, style: titleHeader),
+            Text(title!, style: titleHeader.copyWith(
+
+              fontSize:                           isTablet(context)? 30:null
+
+            )),
             Spacer(),
             eventDuration == null
                 ? Expanded(child: SizedBox.shrink())
@@ -62,8 +68,15 @@ class TitleRow extends StatelessWidget {
             Spacer(),
 
 showAll!?
+
+
+
+
             icon != null
-                ? InkWell(
+                ?
+                
+                
+                 InkWell(
                 onTap: icon as void Function()?,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -75,7 +88,12 @@ showAll!?
                   ),
                 )
             )
-                : SizedBox.shrink()
+                : 
+                
+                
+                SizedBox.shrink()
+
+
                 :    SizedBox.shrink()
                 ,
 showAll!?
@@ -104,6 +122,34 @@ showAll!?
                 ],
               ),
             ) :onTap != null && !isFlash ?
+
+            isCategory!?
+
+ InkWell(  onTap: onTap as void Function()?,
+   child: Row(mainAxisAlignment: MainAxisAlignment.center,
+     children: [
+          ImageIcon(AssetImage('assets/images/my_icon.png'),
+                            color: isDetailsPage == null ? ColorResources.getArrowButtonColor(context) : Theme.of(context).hintColor,
+                            size: 
+                            isTablet(context)? 30:
+                            
+                            Dimensions.FONT_SIZE_DEFAULT,
+                          ),
+      Text(getTranslated('VIEW_ALL', context)!,
+                        style: titilliumRegular.copyWith(
+                          color: ColorResources.getArrowButtonColor(context),
+                          fontSize:
+                          
+                          isTablet(context)? 20:
+                           Dimensions.FONT_SIZE_DEFAULT,
+                        )),
+   
+     ],
+   ),
+ )
+
+
+            :
             InkWell(
               onTap: onTap as void Function()?,
               child: Row(mainAxisAlignment: MainAxisAlignment.center,
@@ -112,7 +158,10 @@ showAll!?
                         ? Text(getTranslated('VIEW_ALL', context)!,
                         style: titilliumRegular.copyWith(
                           color: ColorResources.getArrowButtonColor(context),
-                          fontSize: Dimensions.FONT_SIZE_DEFAULT,
+                          fontSize:
+                          
+                          isTablet(context)? 20:
+                           Dimensions.FONT_SIZE_DEFAULT,
                         ))
                         : SizedBox.shrink(),
                     Icon(Icons.arrow_forward_outlined,

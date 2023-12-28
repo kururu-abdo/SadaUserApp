@@ -2,6 +2,7 @@ import 'package:eamar_user_app/localization/language_constrants.dart';
 import 'package:eamar_user_app/provider/localization_provider.dart';
 import 'package:eamar_user_app/provider/splash_provider.dart';
 import 'package:eamar_user_app/utill/app_constants.dart';
+import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -62,7 +63,10 @@ return Scaffold( extendBodyBehindAppBar: true,
       backgroundColor: Colors.black,
        
 appBar: PreferredSize(
-  preferredSize: Size.fromHeight(150),
+  preferredSize: Size.fromHeight(
+    isTablet(context)? 200:
+    
+    150),
   child:   Hero(
     tag: 'bar',
     child: GestureDetector(
@@ -94,16 +98,18 @@ child: Column(
                 getTranslated("select_lang", context)!+":" ,
               
                 style: TextStyle(
-                  fontSize: 20.0,
+                  fontSize: isTablet(context)? 30:20.0,
                   fontWeight: FontWeight.w500,color: Colors.white
                 ),
               ),
               SizedBox(height:85.0),
               Container(
                 padding: EdgeInsets.all(5), 
-                width: 300,
+                width: 
+                isTablet(context)? 400:
+                300,
                 decoration: BoxDecoration(
-                  color: Colors.grey , 
+                  color: Colors.white , 
                   borderRadius: BorderRadius.circular(20)
                 ),
                 child: DropdownButton(

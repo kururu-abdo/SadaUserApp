@@ -61,7 +61,12 @@ class BottomCartView extends StatelessWidget {
     
         Expanded(flex: 11, child: InkWell(
           onTap: () {
-            showModalBottomSheet(context: context, isScrollControlled: true,
+            showModalBottomSheet(context: context, 
+            constraints: BoxConstraints(
+              maxWidth: MediaQuery.of(context).size.width 
+            ),
+            
+            isScrollControlled: true,
              backgroundColor: Colors.transparent, builder: (con) =>
               CartBottomSheet(product: product, callback: (){
               showCustomSnackBar(getTranslated('added_to_cart', context)!, context, isError: false);

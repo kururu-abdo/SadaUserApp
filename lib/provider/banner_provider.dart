@@ -64,12 +64,7 @@ class BannerProvider extends ChangeNotifier {
       _footerBannerList = [];
       apiResponse.response!.data.forEach((bannerModel) => _footerBannerList!.add(BannerModel.fromJson(bannerModel)));
       notifyListeners();
-    }else if  (apiResponse.response != null){
- _footerBannerList = [];
-      apiResponse.response!.data.forEach((bannerModel) => _footerBannerList!.add(BannerModel.fromJson(bannerModel)));
-      notifyListeners();
-
-    } else {
+    }else {
       ApiChecker.checkApi(context, apiResponse);
     }
   }

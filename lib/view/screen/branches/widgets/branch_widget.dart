@@ -1,3 +1,4 @@
+import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:eamar_user_app/view/screen/branches/branch_map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -9,7 +10,7 @@ class BranchWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 40, 
+      height:  isTablet(context)?50: 40, 
     
      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5,), 
      padding: EdgeInsets.symmetric(horizontal: 10),

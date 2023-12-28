@@ -1,4 +1,5 @@
 import 'package:eamar_user_app/utill/color_resources.dart';
+import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:eamar_user_app/utill/custom_themes.dart';
@@ -83,7 +84,7 @@ class TextArea extends StatelessWidget {
                   textAlign: TextAlign.start,
             controller: controller,
             minLines: 2,
-            maxLines: 8,
+            maxLines:isTablet(context)?12: 8,
             textCapitalization: capitalization,
             maxLength: isPhoneNumber ? 10 : null,
             focusNode: focusNode,

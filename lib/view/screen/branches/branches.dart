@@ -1,3 +1,4 @@
+import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:eamar_user_app/view/screen/branches/widgets/branch_widget.dart';
 import 'package:eamar_user_app/view/screen/splash/widget/available_on.dart';
 import 'package:eamar_user_app/view/screen/splash/widget/social_link.dart';
@@ -13,7 +14,10 @@ class BranchesPage extends StatelessWidget {
       backgroundColor: Colors.black,
       
 appBar: PreferredSize(
-  preferredSize: Size.fromHeight(150),
+  preferredSize: Size.fromHeight(
+    isTablet(context)? 200:
+    
+    150),
   child:   Hero(
     tag: 'bar',
     child: GestureDetector(
@@ -23,7 +27,8 @@ appBar: PreferredSize(
       child: AppBar(
         leading: SizedBox.shrink(),
         flexibleSpace: Center(
-          child: Image.asset('assets/images/logo_with_name.png'  , color: Colors.white ,),
+          child: Image.asset('assets/images/logo_with_name.png'  ,
+           color: Colors.white ,),
         ),
       backgroundColor: Color(0xFFe69211),
         shape: RoundedRectangleBorder(
@@ -56,7 +61,7 @@ child: Column(
   crossAxisAlignment: CrossAxisAlignment.center,
 mainAxisAlignment: MainAxisAlignment.center,
   children: [
-SizedBox(height: 160,) ,  
+SizedBox(height:  isTablet(context)?100: 160,) ,  
 
 Column(
   mainAxisSize: MainAxisSize.min,
@@ -64,15 +69,19 @@ Column(
 
   children: [
 SizedBox(height: 50,),
-    Icon(Icons.location_on , size: 80, color: Colors.white,) , 
+    Icon(Icons.location_on 
+    , size: 80, color: Colors.white,) , 
 SizedBox(height: 8,) ,  
-Text("فروعنا" ,   style: TextStyle(color: Colors.white, fontSize: 20),)
+Text("فروعنا" ,   style: TextStyle(color: Colors.white, fontSize:  isTablet(context)?
+30: 20),)
 
   ],
 )
  ,
  Container(
-  height: MediaQuery.of(context).size.height/2.5, 
+  height:  isTablet(context)?MediaQuery.of(context).size.height/2.2
+  
+  : MediaQuery.of(context).size.height/2.7, 
   width: MediaQuery.of(context).size.width,
   child:  ListView(
     children: [ 

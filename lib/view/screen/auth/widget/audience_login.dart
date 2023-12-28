@@ -281,8 +281,12 @@ _emailController!.text= value.emailOrPhone!;
               //   ),
               // ),
         
-        
-        
+       InkWell(
+                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ForgetPasswordScreen())),
+                      child: Text(getTranslated('FORGET_PASSWORD', context)!+ " ?",
+                          style: Theme.of(context).textTheme.titleMedium),
+                    ),
+        SizedBox(height: 8,),
               Container(
 
 

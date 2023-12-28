@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/category.dart';
 import 'package:eamar_user_app/provider/splash_provider.dart';
@@ -16,7 +18,10 @@ class CategoryWidget extends StatelessWidget {
 
     Column( children: [
       Container(
-        height: MediaQuery.of(context).size.width/5,
+        height:
+        isTablet(context)?
+         MediaQuery.of(context).size.width/7:
+         MediaQuery.of(context).size.width/5,
         width: MediaQuery.of(context).size.width/5,
         margin: EdgeInsets.symmetric(horizontal: 5),
         decoration: BoxDecoration(
@@ -26,13 +31,33 @@ class CategoryWidget extends StatelessWidget {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL),
-          child: FadeInImage.assetNetwork(
+          child:
+          
+          CachedNetworkImage(
             fit: BoxFit.cover,
-            placeholder: Images.placeholder,
-            image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.categoryImageUrl}'
+            cacheKey: category.icon,
+       imageUrl:'${Provider.of<SplashProvider>(context,listen: false).baseUrls!.categoryImageUrl}'
                 '/${category.icon}',
-            imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, fit: BoxFit.cover,),
-          ),
+      //  progressIndicatorBuilder: (context, url, downloadProgress) => 
+
+      //          CircularProgressIndicator(value: downloadProgress.progress),
+      
+      
+       errorWidget: (context, url, error) =>Image.asset(Images.placeholder, fit: BoxFit.cover,),
+placeholder: (context ,child)=>Image.asset(
+  Images.placeholder, 
+  fit: BoxFit.cover,
+),
+    )
+          
+          //  FadeInImage.assetNetwork(
+          
+          //   fit: BoxFit.cover,
+          //   placeholder: Images.placeholder,
+          //   image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.categoryImageUrl}'
+          //       '/${category.icon}',
+          //   imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, fit: BoxFit.cover,),
+          // ),
         ),
       ),
 

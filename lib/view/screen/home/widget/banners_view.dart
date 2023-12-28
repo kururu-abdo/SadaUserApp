@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:eamar_user_app/view/screen/product/product_details_screen2.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -91,7 +92,11 @@ log(type.toString());
 
             return Container(
               width: _width,
-              height: _width * 0.4,
+              height:
+              isTablet(context)?
+                _width * 0.3:
+              
+               _width * 0.4,
               child: bannerProvider.mainBannerList != null ? bannerProvider.mainBannerList!.length != 0 ? Stack(
                 fit: StackFit.expand,
                 children: [

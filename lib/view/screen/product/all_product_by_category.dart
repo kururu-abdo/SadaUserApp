@@ -27,7 +27,7 @@ class AllProductsByCategory extends StatefulWidget {
   final String id;
   final String? name;
   final String? image;
-  AllProductsByCategory({required this.isBrand, required this.id, required this.name, this.image});
+  AllProductsByCategory({ this.isBrand=false, required this.id, required this.name, this.image});
 
   @override
   State<AllProductsByCategory> createState() => _AllProductsByCategoryState();
@@ -308,7 +308,9 @@ Padding(
               showModalBottomSheet(context: context,
                   isScrollControlled: true, 
                   backgroundColor: Colors.transparent,
-  
+    constraints: BoxConstraints(
+     maxWidth: MediaQuery.of(context).size.width,              
+  ),
                   builder: (c) => FilterCategoryProductsBottomSheet()
                   ),
                   child: Container(

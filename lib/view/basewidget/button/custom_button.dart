@@ -1,3 +1,4 @@
+import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/provider/theme_provider.dart';
 import 'package:eamar_user_app/utill/color_resources.dart';
@@ -22,7 +23,7 @@ class CustomButton extends StatelessWidget {
       onPressed: onTap as void Function()?,
       style: TextButton.styleFrom(padding: EdgeInsets.all(0)),
       child: Container(
-        height: 45,
+        height:  isTablet(context)? 55:45,
         alignment: Alignment.center,
         decoration: BoxDecoration(
          
@@ -63,7 +64,7 @@ class CustomButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(isBorder? Dimensions.PADDING_SIZE_EXTRA_SMALL : Dimensions.PADDING_SIZE_SMALL)),
         child: Text(buttonText!,
             style: titilliumSemiBold.copyWith(
-              fontSize: 16,
+              fontSize:  isTablet(context)? 24:16,
               color: Theme.of(context).highlightColor,
             )),
       ),
