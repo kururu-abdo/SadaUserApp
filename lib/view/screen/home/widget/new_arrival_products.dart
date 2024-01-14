@@ -100,7 +100,12 @@ class NewArrivalsProductView extends StatelessWidget {
               return ProductWidget(productModel: productList![index]);
             },
           ) :
-           NoInternetOrDataScreen(isNoInternet: false):
+
+          SizedBox.shrink()
+          //  NoInternetOrDataScreen(isNoInternet: false)
+           
+           
+           :
 
            ProductShimmer(isHomePage: isHomePage ,isEnabled: prodProvider.firstLoading),
 

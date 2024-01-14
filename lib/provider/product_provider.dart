@@ -91,11 +91,16 @@ class ProductProvider extends ChangeNotifier {
         context,offset.toString(), productType, title);
       if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
         _latestProductList!.addAll(ProductModel.fromJson(apiResponse.response!.data).products!);
+       _menuProductList.addAll(_latestProductList!);
+       
+       
         _latestPageSize = ProductModel.fromJson(apiResponse.response!.data).totalSize;
         _filterFirstLoading = false;
         _filterIsLoading = false;
       } else if(apiResponse.response != null ){
           _latestProductList!.addAll(ProductModel.fromJson(apiResponse.response!.data).products!);
+        _menuProductList.addAll(_latestProductList!);
+       
         _latestPageSize = ProductModel.fromJson(apiResponse.response!.data).totalSize;
         _filterFirstLoading = false;
         _filterIsLoading = false;
@@ -135,11 +140,16 @@ class ProductProvider extends ChangeNotifier {
          title);
       if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
         discountProducts!.addAll(ProductModel.fromJson(apiResponse.response!.data).products!);
+       
+        _menuProductList.addAll(discountProducts!);
+       
         _latestPageSize = ProductModel.fromJson(apiResponse.response!.data).totalSize;
         _filterFirstLoading = false;
         _filterIsLoading = false;
       } else if(apiResponse.response != null ){
           discountProducts!.addAll(ProductModel.fromJson(apiResponse.response!.data).products!);
+       menuProductList.addAll(discountProducts!);
+       
         _latestPageSize = ProductModel.fromJson(apiResponse.response!.data).totalSize;
         _filterFirstLoading = false;
         _filterIsLoading = false;
@@ -219,11 +229,14 @@ class ProductProvider extends ChangeNotifier {
       ApiResponse apiResponse = await productRepo!.getLProductList(offset);
       if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
         _lProductList.addAll(ProductModel.fromJson(apiResponse.response!.data).products!);
+      _menuProductList.addAll(_lProductList);
+      
         _lPageSize = ProductModel.fromJson(apiResponse.response!.data).totalSize;
         _firstLoading = false;
         _isLoading = false;
       }    else  if (apiResponse.response != null){
 _lProductList.addAll(ProductModel.fromJson(apiResponse.response!.data).products!);
+  _menuProductList.addAll(_lProductList);
         _lPageSize = ProductModel.fromJson(apiResponse.response!.data).totalSize;
         _firstLoading = false;
         _isLoading = false;
@@ -351,8 +364,12 @@ _lProductList.addAll(ProductModel.fromJson(apiResponse.response!.data).products!
   // Brand and category products
   List<Product> _brandOrCategoryProductList = [];
   List<Product> _searchBrandOrCategoryProductList = [];
+   List<Product> _menuProductList =[];
+List<Product> _menuFilterProductList =[];
   List<Product> get searchBrandOrCategoryProductList  =>_searchBrandOrCategoryProductList  ;
+  List<Product> get menuProductList  =>_menuProductList  ;
 
+  List<Product> get menuFilterProductList  =>_menuFilterProductList  ;
 
   bool? _hasData;
 int? _selectedSubCategory;
@@ -365,7 +382,23 @@ setSelectedSubCategory(int index){
   bool? get hasData => _hasData;
 
 
+initMenuProducts(ProductType productType){
+  _menuFilterProductList.clear();
+  _menuProductList.clear();
 
+if (productType==ProductType.DISCOUNTED_PRODUCT) {
+  _menuProductList.addAll(discountProducts!);
+  _menuFilterProductList.addAll(_menuProductList);
+} 
+
+if(productType==ProductType.LATEST_PRODUCT) {
+    _menuProductList.addAll(_lProductList);
+  _menuFilterProductList.addAll(_menuProductList);
+}
+
+notifyListeners();
+  
+}
 
 
  int? _selectedProductId = 0;
@@ -436,6 +469,54 @@ for (var element in _brandOrCategoryProductList) {
 
 
 
+
+
+  void sortMenuProductList(double startingPrice, double endingPrice, 
+  
+  
+  ) {
+    _menuFilterProductList = [];
+    if(startingPrice > 0 && endingPrice >= startingPrice) {
+     
+debugPrint("WE ARE HER"+"${startingPrice}  "+"${endingPrice}");
+for (var element in _menuFilterProductList) {
+  debugPrint("ITEM PRICE  "+element.unitPrice!.toString());
+  debugPrint("RESULT"+   ( element.unitPrice! > startingPrice && element.unitPrice! < endingPrice).toString());
+}
+      _menuFilterProductList.addAll(
+        _menuFilterProductList.where((product) =>
+     ( product.unitPrice! > startingPrice && product.unitPrice! < endingPrice)
+    
+     
+     ).toList()
+      
+      
+      );
+    }else {
+      _menuFilterProductList.addAll(_menuProductList);
+    }
+
+    if (_filterIndex == 0) {
+
+    } else if (_filterIndex == 1) {
+      _menuFilterProductList.sort((a, b) => 
+      a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
+    } else if (_filterIndex == 2) {
+      _menuFilterProductList.sort((a, b) => 
+      a.name!.toLowerCase().compareTo(b.name!.toLowerCase()));
+      Iterable iterable = _menuFilterProductList.reversed;
+      _menuFilterProductList = iterable.toList() as List<Product>;
+    } else if (_filterIndex == 3) {
+      _menuFilterProductList.sort((a, b) => a.unitPrice!.compareTo(b.unitPrice!));
+    } else if (_filterIndex == 4) {
+      debugPrint("SORT A TO Z");
+      _menuFilterProductList.sort((a, b) => a.unitPrice!.compareTo(b.unitPrice!));
+      Iterable iterable = _menuFilterProductList.reversed;
+      _menuFilterProductList = iterable.toList() as List<Product>;
+    }
+
+    notifyListeners();
+  }
 
 
 

@@ -24,7 +24,10 @@ class WalletScreen extends StatelessWidget {
     bool darkMode = Provider.of<ThemeProvider>(context, listen: false).darkTheme;
     bool isFirstTime = true;
     bool isGuestMode = !Provider.of<AuthProvider>(context, listen: false).isLoggedIn();
-    if(isFirstTime) {
+ 
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+
+   if(isFirstTime) {
       if(!isGuestMode) {
         Provider.of<ProfileProvider>(context, listen: false).getUserInfo(context);
         Provider.of<WalletTransactionProvider>(context, listen: false).getTransactionList(context,1);
@@ -32,7 +35,7 @@ class WalletScreen extends StatelessWidget {
 
       isFirstTime = false;
     }
-
+    });
     return Scaffold(
       backgroundColor: ColorResources.getIconBg(context),
       body: Column(

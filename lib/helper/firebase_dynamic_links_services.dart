@@ -53,22 +53,20 @@ static Future<void> initDynamicLink(BuildContext context)async{
    bool isProdutct =deepLink.pathSegments.contains('product');
    if (isProdutct) {
      try {
-       if (deepLink!=null) {
-      //  var productId =deepLink.queryParameters['id'];
-     var slug=deepLink.pathSegments.last.toString();
-    //  var seller=deepLink.queryParameters['seller'];
-      Navigator.push(context, 
-      
-      MaterialPageRoute(builder: (_)=>ProductDetailsFromUrl(
-      
-      slug: slug,
-      // id: productId,
-      // seller: seller,
-      
-      ))
-      );
-     }
-     } catch (e) {
+    //  var productId =deepLink.queryParameters['id'];
+   var slug=deepLink.pathSegments.last.toString();
+  //  var seller=deepLink.queryParameters['seller'];
+    Navigator.push(context, 
+    
+    MaterialPageRoute(builder: (_)=>ProductDetailsFromUrl(
+    
+    slug: slug,
+    // id: productId,
+    // seller: seller,
+    
+    ))
+    );
+        } catch (e) {
        log(e.toString());
      }
 
@@ -91,22 +89,20 @@ var deepLink=pendingInitLink.link;
 
    if (isProdutct) {
      try {
-       if (deepLink!=null) {
-       var slug =deepLink.pathSegments.last.toString();
-    //  var slug=deepLink.queryParameters['slug'];
-    //  var seller=deepLink.queryParameters['seller'];
-      Navigator.push(context, 
-      
-      MaterialPageRoute(builder: (_)=>ProductDetailsFromUrl(
-        // product: null ,
-      
-      slug: slug,
-     
-      
-      ))
-      );
-     }
-     } catch (e) {
+     var slug =deepLink.pathSegments.last.toString();
+  //  var slug=deepLink.queryParameters['slug'];
+  //  var seller=deepLink.queryParameters['seller'];
+    Navigator.push(context, 
+    
+    MaterialPageRoute(builder: (_)=>ProductDetailsFromUrl(
+      // product: null ,
+    
+    slug: slug,
+   
+    
+    ))
+    );
+        } catch (e) {
        log(e.toString());
      }
 

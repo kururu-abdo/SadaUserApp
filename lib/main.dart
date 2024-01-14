@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:eamar_user_app/data/datasource/remote/chache/app_path_provider.dart';
 import 'package:eamar_user_app/localization/language_constrants.dart';
 import 'package:eamar_user_app/provider/phone_email_controller.dart';
@@ -179,6 +178,7 @@ AGConnectOptions(
 }
 
 class MyApp extends StatelessWidget {
+    static GlobalKey<NavigatorState> navKey = GlobalKey();
   final int? orderId;
   MyApp({required this.orderId});
 
@@ -188,12 +188,20 @@ class MyApp extends StatelessWidget {
    static FirebaseAnalytics analytics2 = FirebaseAnalytics.instance;
   static FirebaseAnalyticsObserver observer =
       FirebaseAnalyticsObserver(analytics: analytics2);
+  
+  List<Locale> _locals = [];
   @override
   Widget build(BuildContext context) {
-    List<Locale> _locals = [];
+
+    // WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      
+// List<Locale> _locals = [];
     AppConstants.languages.forEach((language) {
       _locals.add(Locale(language.languageCode!, language.countryCode));
     });
+
+    // });
+    
     return MaterialApp(
 
 builder: (context, child) => ResponsiveBreakpoints.builder(

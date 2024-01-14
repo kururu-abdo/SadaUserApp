@@ -19,8 +19,11 @@ class NotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+ WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
     Provider.of<NotificationProvider>(context, listen: false).initNotificationList(context);
 
+
+ });
 
     return Scaffold(
       body: Column(children: [

@@ -25,7 +25,13 @@ class CategoryWidget extends StatelessWidget {
         width: MediaQuery.of(context).size.width/5,
         margin: EdgeInsets.symmetric(horizontal: 5),
         decoration: BoxDecoration(
-          border: Border.all(color: Theme.of(context).primaryColor.withOpacity(.2)),
+          border: Border.all(color:
+          
+          Theme.of(context).primaryColor
+          //  Theme.of(context).primaryColor.withOpacity(.2)
+           
+           
+           ),
           borderRadius: BorderRadius.circular(Dimensions.PADDING_SIZE_SMALL),
           color: Theme.of(context).highlightColor,
         ),

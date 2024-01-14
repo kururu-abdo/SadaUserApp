@@ -21,13 +21,16 @@ class SupportTicketScreen extends StatelessWidget {
   bool first = true;
   @override
   Widget build(BuildContext context) {
-    if(first) {
+   
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+
+ if(first) {
       first = false;
       if (Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
         Provider.of<SupportTicketProvider>(context, listen: false).getSupportTicketList(context);
       }
     }
-
+    });
 return Scaffold(
   appBar: AppBar(
     backgroundColor: Theme.of(context).primaryColor,

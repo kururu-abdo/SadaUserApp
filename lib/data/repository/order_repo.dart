@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
+import 'package:eamar_user_app/data/datasource/remote/dio/dio_client_no_cache.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/datasource/remote/dio/dio_client.dart';
 import 'package:eamar_user_app/data/datasource/remote/exception/api_error_handler.dart';
@@ -14,7 +15,7 @@ import 'package:http_parser/http_parser.dart';
 import 'package:flutter/foundation.dart';
 
 class OrderRepo {
-  final DioClient? dioClient;
+  final DioClientNoCache? dioClient;
 
   OrderRepo({required this.dioClient});
 

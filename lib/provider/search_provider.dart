@@ -100,11 +100,19 @@ setCategory(Category cat){
   }
 
   List<Product>? _searchProductList;
+  List<Product>? _menuProductList;
+
   List<Product>? _filterProductList;
+
+
+
   bool _isClear = true;
   String _searchText = '';
 
   List<Product>? get searchProductList => _searchProductList;
+
+
+
   List<Product>? get filterProductList => _filterProductList;
   bool get isClear => _isClear;
   String get searchText => _searchText;
@@ -203,6 +211,10 @@ setCategory(Category cat){
     _historyList = [];
     _historyList.addAll(searchRepo!.getSearchAddress());
     notifyListeners();
+  }
+
+ List<String> getHistoryList(){
+   return  searchRepo!.getSearchAddress();
   }
 
   void saveSearchAddress(String searchAddress) async {

@@ -79,8 +79,8 @@ if (initialLink.contains('product')) {
     super.initState();
 
     bool _firstTime = true;
-
-    _onConnectivityChanged = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+WidgetsBinding.instance.addPostFrameCallback((_) {
+ _onConnectivityChanged = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
       if(!_firstTime) {
         bool isNotConnected = result != ConnectivityResult.wifi && result != ConnectivityResult.mobile;
         isNotConnected ? SizedBox() : ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -93,20 +93,27 @@ if (initialLink.contains('product')) {
           ),
         ));
         if(!isNotConnected) {
-          _route();
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+_route();
+});
         }
       }
       _firstTime = false;
     });
-
-    _route();
+WidgetsBinding.instance.addPostFrameCallback((_) {
+_route();
+});
+});
+   
+    
   }
 
   @override
   void dispose() {
+      _onConnectivityChanged.cancel();
     super.dispose();
 
-    _onConnectivityChanged.cancel();
+  
   }
 
   void _route() {
@@ -134,9 +141,9 @@ if (initialLink.contains('product')) {
   //  ProductDetailsFromUrl(
   //    slug: AppConstants.SLUG,
   //  )));
-  Provider.of<ProfileProvider>(context, listen: false).getUserInfo(context);
+  Provider.of<ProfileProvider>(context, listen: false).getUserInfo(context, isFromSplash: true);
 
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => BrandPage()));
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (BuildContext context) => BrandPage()));
 
   //           if (Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
 

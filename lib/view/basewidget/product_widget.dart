@@ -27,7 +27,7 @@ class _ProductWidgetState extends State<ProductWidget> {
   @override
   Widget build(BuildContext context) {
     String ratting = widget.productModel.rating != null && widget.productModel.rating!.length != 0? widget.productModel.rating![0].average! : "0";
-
+// return SizedBox();
     return InkWell(
       onTap: () {
         Navigator.push(context, PageRouteBuilder(
@@ -38,9 +38,13 @@ class _ProductWidgetState extends State<ProductWidget> {
       child: Container(
         height: 
          isTablet(context)? 
-  MediaQuery.of(context).size.width/2:
-        MediaQuery.of(context).size.width/1.5  ,
-        width: isTablet(context)? MediaQuery.of(context).size.width/4:null,
+  MediaQuery.of(context).size.width/1.8:
+        MediaQuery.of(context).size.width/1.4  ,
+      //   width: isTablet(context)? MediaQuery.of(context).size.width/4:
+      
+      // MediaQuery.of(context).size.width/2
+      
+      // ,
         // MediaQuery.of(context).size.width/1.5,
         margin: EdgeInsets.all(5),
         decoration: BoxDecoration(
@@ -79,14 +83,21 @@ class _ProductWidgetState extends State<ProductWidget> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(widget.productModel.name ?? '', textAlign: TextAlign.center,
-                          style: robotoRegular.copyWith(fontSize:
+                      SizedBox(
+                        width:
+                  //  MediaQuery.of(context).size.width.:
+                        MediaQuery.of(context).size.width/2 , 
                         
+                        // ,
+                        child: Text(widget.productModel.name ?? '', textAlign: TextAlign.center,
+                            style: robotoRegular.copyWith(fontSize:
                           
-                          
-                          Dimensions.FONT_SIZE_SMALL,
-                          fontWeight: FontWeight.w400), maxLines: 2,
-                          overflow: TextOverflow.ellipsis),
+                            
+                            
+                            Dimensions.FONT_SIZE_SMALL,
+                            fontWeight: FontWeight.w400), maxLines: 2,
+                            overflow: TextOverflow.ellipsis),
+                      ),
                       SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
                       Row(mainAxisAlignment: MainAxisAlignment.center,

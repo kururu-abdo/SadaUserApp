@@ -10,7 +10,8 @@ class ProductRepo {
   final DioClient? dioClient;
   ProductRepo({required this.dioClient});
 
-  Future<ApiResponse> getLatestProductList(BuildContext context, String offset, ProductType productType, String? title) async {
+  Future<ApiResponse> getLatestProductList(BuildContext context, String offset,
+   ProductType productType, String? title) async {
     late String endUrl;
 
      if(productType == ProductType.BEST_SELLING){

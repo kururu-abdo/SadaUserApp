@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:eamar_user_app/data/model/response/category.dart';
+import 'package:eamar_user_app/data/model/response/product_model.dart';
 import 'package:eamar_user_app/localization/language_constrants.dart';
 import 'package:eamar_user_app/provider/category_provider.dart';
 import 'package:eamar_user_app/provider/product_provider.dart';
@@ -8,9 +11,11 @@ import 'package:eamar_user_app/utill/color_resources.dart';
 import 'package:eamar_user_app/utill/custom_themes.dart';
 import 'package:eamar_user_app/utill/dimensions.dart';
 import 'package:eamar_user_app/utill/images.dart';
+import 'package:eamar_user_app/view/basewidget/custom_app_bar.dart';
 import 'package:eamar_user_app/view/basewidget/no_internet_screen.dart';
 import 'package:eamar_user_app/view/basewidget/product_shimmer.dart';
 import 'package:eamar_user_app/view/basewidget/product_widget.dart';
+import 'package:eamar_user_app/view/screen/category/sub_categories_page.dart';
 import 'package:eamar_user_app/view/screen/home/widget/category_widget.dart';
 import 'package:eamar_user_app/view/screen/search/widget/filter_category_products.dart';
 import 'package:eamar_user_app/view/screen/search/widget/search_filter_bottom_sheet.dart';
@@ -20,19 +25,546 @@ import 'package:provider/provider.dart';
 
 class CategoryDetailsPage extends StatefulWidget {
   final   Category?  category;
-  
-  const CategoryDetailsPage({ Key? key, this.category }) : super(key: key);
+  final int? index;
+  const CategoryDetailsPage({ Key? key, this.category, this.index }) : super(key: key);
 
   @override
   _CategoryDetailsPageState createState() => _CategoryDetailsPageState();
 }
 
 class _CategoryDetailsPageState extends State<CategoryDetailsPage> {
+
+@override
+void initState() {
+  super.initState();
+  WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+
+    log('ITEM INDEX     ' + widget.index.toString());
+     log('ITEM INDEX     ' + widget.category!.name.toString());
+    context.read<CategoryProvider>().changeCurrentViewState(
+      
+      context,
+    
+     CategoryViewState(
+
+      value: 'category', 
+      subValue: 'categoies', 
+      itemId: widget.category!.id , 
+      // subCategory:
+      
+      //    widget.category!.subCategories!.isNotEmpty?
+      //  widget.category!.subCategories!.first.id: 0 , 
+       title:    widget.category!.name! , 
+       category: widget.index
+
+     ));
+context.read<CategoryProvider>().getCategoryTitles(context);
+
+  });
+}
+
+
+
   @override
   Widget build(BuildContext context) {
+var provider = Provider.of<CategoryProvider>(context);
+              WidgetsBinding.instance.addPostFrameCallback((_) {
 
-    //text: '${e.name}'
-    return DefaultTabController(
+provider.getCategoryTitles(context);
+              });
+    return Scaffold(
+      backgroundColor: ColorResources.getIconBg(context),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+
+          CustomAppBar(title: 
+          
+          widget.category!.name!
+          // getTranslated('CATEGORY', context)
+          
+          
+          ),
+
+
+// Text('All Categories >') ,
+// Padding(
+//   padding: const EdgeInsets.symmetric(horizontal: 10) ,
+//   child: CategoryTitle(
+//     title: 'Categories',
+//   ),
+// )
+// ,
+//, categoryProvider, child
+Builder(
+            builder: (context) {
+// categoryProvider.getTabsTitles(context);
+return  Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 8) , 
+  child: SingleChildScrollView(
+    scrollDirection: Axis.horizontal,
+    physics: BouncingScrollPhysics(),
+    child: Row(
+    children: provider.tabs2.map((e) => 
+    
+    
+    GestureDetector(
+      onTap: (){
+        if (e.subValue!="product") {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+              provider.changeCurrentViewState( context,
+              
+              CategoryViewState(
+                value: e.value , 
+                itemId: e.itemId , 
+                subCategory: e.subCategory , 
+                subSubcategory: e.subSubcategory , 
+                category: e.category , 
+                subValue: e.subValue , 
+                title: e.title
+              )
+              
+              );
+              });
+        }
+      },
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,children: [ 
+      
+        Text(e.title! , 
+        
+        style: TextStyle(
+          color: Theme.of(context).primaryColor,
+        ),
+        )  , 
+        SizedBox(width: 1,)
+      ,
+       Icon(Icons.arrow_forward_ios ,size: 15,color: Theme.of(context).primaryColor,)
+      ]),
+    )
+    ).toList(),
+    ),
+  ),
+);
+    //           controller = TabController(
+    //   length:categoryProvider.getTabsTitles(context,  
+      
+      
+    //   ).length,
+    //   vsync: this,
+    //   initialIndex: TabsConfig.selectedTabIndex,
+    // );
+    //           return TabBar(
+    //             isScrollable: true,
+    //             controller: controller,
+    //             labelColor: Theme.of(context).primaryColor,
+    //             unselectedLabelColor: Theme.of(context).hintColor,
+    //             indicator: BoxDecoration(
+    //               border: Border(
+    //                 bottom: BorderSide(
+    //                   color: Theme.of(context).primaryColor,
+    //                   width: 2,
+    //                 ),
+    //               ),
+    //             ),
+    //             tabs: categoryProvider.getTabsTitles(context).map((e) => 
+                
+                
+    //             Text(e.title! , style: TextStyle(
+    //               color: Theme.of(context).primaryColor
+    //             ),)
+                
+    //             ).toList()
+    //           );
+           
+           
+           
+           
+           
+            },
+ ),
+
+
+
+
+          Expanded(child: 
+          
+          Builder(
+            builder: (context)
+            
+             {
+              // return SizedBox();
+if (provider.categoryViewState.value=="all_categories") {
+
+return
+              
+              
+               provider.categoryList.length != 0 ? 
+             
+             
+             
+              GridView.builder(
+            gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+  childAspectRatio: 8.0 / 9.0,
+                
+                
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20),
+                
+            itemCount: provider.categoryList.length,
+            itemBuilder: (BuildContext ctx, index) {
+              Category _category = provider.categoryList[index];
+              return  InkWell(
+                        onTap: () {
+// categoryProvider.onTabChange(context, model)
+                          // if (_category.subCategories!.length!=0) {
+                          //   //go to  subcategories
+                          //   Navigator.of(context).push(
+                          //     MaterialPageRoute(builder: (_)=>SubCategoriesScreen(
+                          //       subCategories: _category.subCategories,
+                          //       category: _category,
+                          //     ))
+                          //   );
+                          // }else {
+                          //    Navigator.push(context, MaterialPageRoute(builder: (_) => AllProductsByCategory(
+                          //     isBrand: false,
+                              
+                          //     id: _category.id.toString(),
+                          //     name: _category.name,
+                          //   )));
+                          // }
+                          // Provider.of<CategoryProvider>(context, listen: false).changeSelectedIndex(index);
+                       
+                    //  if (_category.subCategories!.isNotEmpty) {
+                       
+                    //  }  
+
+                    log('CATINDEX   '  +_category.id.toString());
+                           WidgetsBinding.instance.addPostFrameCallback((_) {
+                        provider.changeCurrentViewState(
+                           context,
+                       CategoryViewState(                         
+
+  value: 'category' , 
+  subValue: 'categoies' ,
+  category:  index , 
+  itemId: _category.id
+
+ )
+                               
+                         
+                         );
+
+                           });
+                        // if (categoryProvider.categoryTabsState.current=="all_categories") {
+                          
+
+                        //   //  log('MODEL');
+                        // }else {
+
+
+                        // }
+                      
+                        
+                        
+                        },
+                        child: CategoryItem(
+                          title: _category.name,
+                          icon: _category.icon,
+                          isSelected: false
+                          // categoryProvider.categorySelectedIndex == index,
+                        ),
+                      );
+            }):SizedBox.shrink();
+
+
+}
+else if (provider.categoryViewState.value=="category"
+
+&& provider.categoryViewState.subValue=="categoies"
+)
+
+
+ {
+  // return Text('asdfs');
+  //sub  categories
+
+  return
+              
+              
+               provider.subCategroies.length != 0 ? 
+              GridView.builder(
+            gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+  childAspectRatio: 8.0 / 9.0,
+                
+                
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20),
+                
+            itemCount: provider.subCategroies.length,
+            itemBuilder: (BuildContext ctx, index) {
+              SubCategory _category = provider.subCategroies[index];
+              return  InkWell(
+                        onTap: () {
+                                              log('CATINDEX   '  +_category.id.toString());
+
+// categoryProvider.onTabChange(context, model)
+                          // if (_category.subCategories!.length!=0) {
+                          //   //go to  subcategories
+                          //   Navigator.of(context).push(
+                          //     MaterialPageRoute(builder: (_)=>SubCategoriesScreen(
+                          //       subCategories: _category.subCategories,
+                          //       category: _category,
+                          //     ))
+                          //   );
+                          // }else {
+                          //    Navigator.push(context, MaterialPageRoute(builder: (_) => AllProductsByCategory(
+                          //     isBrand: false,
+                              
+                          //     id: _category.id.toString(),
+                          //     name: _category.name,
+                          //   )));
+                          // }
+                          // Provider.of<CategoryProvider>(context, listen: false).changeSelectedIndex(index);
+                       
+                    //  if (_category.subCategories!.isNotEmpty) {
+                       
+                    //  }  
+
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                             provider.changeCurrentViewState(
+                          context,
+                       CategoryViewState(
+  value: 'subCategory' , 
+  subValue: 'categoies' ,
+  // category:   index , 
+  subCategory: index,
+ itemId: _category.id
+ ) );
+
+
+                    });
+                       
+                 
+                         
+                         
+                        
+
+
+                        // if (categoryProvider.categoryTabsState.current=="all_categories") {
+                          
+
+                        //   //  log('MODEL');
+                        // }else {
+
+
+                        // }
+                      
+                        
+                        
+                        },
+                        child: CategoryItem(
+                          title: _category.name,
+                          icon: _category.icon,
+                          isSelected: false
+                          // categoryProvider.categorySelectedIndex == index,
+                        ),
+                      );
+            }):SizedBox.shrink();
+
+
+}
+else if (provider.categoryViewState.value=="subCategory"
+
+&& provider.categoryViewState.subValue=="categoies"
+)
+
+
+ {
+ return
+              
+              
+               provider.subSubCategroies.length != 0 ? 
+              GridView.builder(
+            gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+  childAspectRatio: 8.0 / 9.0,
+                
+                
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20),
+                
+            itemCount: provider.subSubCategroies.length,
+            itemBuilder: (BuildContext ctx, index) {
+              SubSubCategory _category = provider.subSubCategroies[index];
+              return  InkWell(
+                        onTap: () {
+                                              log('CATINDEX   '  +_category.id.toString());
+
+// categoryProvider.onTabChange(context, model)
+                          // if (_category.subCategories!.length!=0) {
+                          //   //go to  subcategories
+                          //   Navigator.of(context).push(
+                          //     MaterialPageRoute(builder: (_)=>SubCategoriesScreen(
+                          //       subCategories: _category.subCategories,
+                          //       category: _category,
+                          //     ))
+                          //   );
+                          // }else {
+                          //    Navigator.push(context, MaterialPageRoute(builder: (_) => AllProductsByCategory(
+                          //     isBrand: false,
+                              
+                          //     id: _category.id.toString(),
+                          //     name: _category.name,
+                          //   )));
+                          // }
+                          // Provider.of<CategoryProvider>(context, listen: false).changeSelectedIndex(index);
+                       
+                    //  if (_category.subCategories!.isNotEmpty) {
+                       
+                    //  }  
+                           WidgetsBinding.instance.addPostFrameCallback((_) {
+                        provider.changeCurrentViewState(    
+                                                context,
+                         
+                       CategoryViewState(
+  value: 'subSubCategory' , 
+  subValue: 'product' ,
+  // category:  index
+  subSubcategory: index,
+ itemId: _category.id
+ )
+                         
+                         
+                         );
+                           });
+
+                        // if (categoryProvider.categoryTabsState.current=="all_categories") {
+                          
+
+                        //   //  log('MODEL');
+                        // }else {
+
+
+                        // }
+                      
+                        
+                        
+                        },
+                        child: CategoryItem(
+                          title: _category.name,
+                          icon: _category.icon,
+                          isSelected: false
+                          // categoryProvider.categorySelectedIndex == index,
+                        ),
+                      );
+            }):SizedBox.shrink();
+
+
+}
+
+else {
+//products
+
+ return
+              // Text('Products');
+              
+               provider.isProductsLoading ? 
+               Center(child: CircularProgressIndicator(),):
+              GridView.builder(
+            gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+  childAspectRatio: 6 / 9.0,
+                
+                
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20),
+                
+            itemCount: provider.products!.length,
+            itemBuilder: (BuildContext ctx, index) {
+              Product _category = provider.products![index];
+              return  
+              
+              InkWell(
+                        onTap: () {
+// categoryProvider.onTabChange(context, model)
+                          // if (_category.subCategories!.length!=0) {
+                          //   //go to  subcategories
+                          //   Navigator.of(context).push(
+                          //     MaterialPageRoute(builder: (_)=>SubCategoriesScreen(
+                          //       subCategories: _category.subCategories,
+                          //       category: _category,
+                          //     ))
+                          //   );
+                          // }else {
+                          //    Navigator.push(context, MaterialPageRoute(builder: (_) => AllProductsByCategory(
+                          //     isBrand: false,
+                              
+                          //     id: _category.id.toString(),
+                          //     name: _category.name,
+                          //   )));
+                          // }
+                          // Provider.of<CategoryProvider>(context, listen: false).changeSelectedIndex(index);
+                       
+                    //  if (_category.subCategories!.isNotEmpty) {
+                       
+                    //  }  
+                       
+//                         categoryProvider.changeCurrentViewState(
+//                        CategoryViewState(
+//   value: 'subSubCategory' , 
+//   subValue: 'categoies' ,
+//   category:  index
+
+//  )
+                         
+                         
+//                          );
+
+
+                        // if (categoryProvider.categoryTabsState.current=="all_categories") {
+                          
+
+                        //   //  log('MODEL');
+                        // }else {
+
+
+                        // }
+                      
+                        
+                        
+                        },
+                        child:
+
+                        ProductWidget(productModel: _category)
+                      );
+            });
+            
+            // :SizedBox.shrink();
+
+
+}
+
+
+          
+            },
+          )),
+        ],
+      ),
+    );
+ 
+ 
+    return
+    
+    
+    
+    
+    
+    
+     DefaultTabController(
       length: widget.category!.subCategories!.length,
       child: Scaffold(
 

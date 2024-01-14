@@ -29,7 +29,12 @@ class _RefundBottomSheetState extends State<RefundBottomSheet> {
   @override
   Widget build(BuildContext context) {
     final MediaQueryData mediaQueryData = MediaQuery.of(context);
-    Provider.of<OrderProvider>(context, listen: false).getRefundReqInfo(context, widget.orderDetailsId);
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+          Provider.of<OrderProvider>(context, listen: false).getRefundReqInfo(context, widget.orderDetailsId);
+
+
+    });
     return SafeArea(
       child: Scaffold(
         body: Column(

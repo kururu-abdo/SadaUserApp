@@ -19,10 +19,12 @@ class SupportConversationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if(Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
+   
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+ if(Provider.of<AuthProvider>(context, listen: false).isLoggedIn()) {
       Provider.of<SupportTicketProvider>(context, listen: false).getSupportTicketReplyList(context, supportTicketModel.id);
     }
-
+    });
     return CustomExpandedAppBar(
       title: getTranslated('support_ticket_conversation', context),
       isGuestCheck: true,
@@ -61,45 +63,69 @@ class SupportConversationScreen extends StatelessWidget {
         })),
 
 
-        SizedBox(
-          height: 70,
-          child: Card(
-            color: Theme.of(context).highlightColor,
-            shadowColor: Colors.grey[200],
-            elevation: 2,
-            margin: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL),
-              child: Row(children: [
-                Expanded(
-                  child: TextField(
-                    controller: _controller,
-                    style: titilliumRegular,
-                    keyboardType: TextInputType.multiline,
-                    maxLines: null,
-                    expands: true,
-                    decoration: InputDecoration(
-                      hintText: 'Type here...',
-                      hintStyle: titilliumRegular.copyWith(color: ColorResources.HINT_TEXT_COLOR),
-                      border: InputBorder.none,
+        Padding(
+          padding:  EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewPadding.bottom
+          ),
+          child: SizedBox(
+            height: 70,
+            child: Card(
+              color: Theme.of(context).highlightColor,
+              shadowColor: Colors.grey[200],
+              elevation: 2,
+              margin:
+              
+               EdgeInsets.all(
+                // horizontal: 
+                Dimensions.PADDING_SIZE_SMALL , 
+                // vertical: MediaQuery.of(context).viewPadding.bottom
+               ),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 
+                Dimensions.PADDING_SIZE_SMALL
+                
+                ,  
+          
+            
+                
+                ),
+                child: Row(children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _controller,
+                      onTapOutside: (val){
+          Focus.of(context).unfocus();
+                      },
+                      style: titilliumRegular,
+                      keyboardType: TextInputType.multiline,
+                      maxLines: null,
+                      expands: true,
+                      decoration: InputDecoration(
+                        hintText: 
+                        getLang(context)=="ar"?
+                        "اكتب هنا":
+                        'Type here...',
+                        hintStyle: titilliumRegular.copyWith(color: ColorResources.HINT_TEXT_COLOR),
+                        border: InputBorder.none,
+                      ),
                     ),
                   ),
-                ),
-                InkWell(
-                  onTap: () {
-                    if(_controller.text.isNotEmpty){
-                      Provider.of<SupportTicketProvider>(context, listen: false).sendReply(context,
-                          supportTicketModel.id, _controller.text);
-                      _controller.text = '';
-                    }
-                  },
-                  child: Icon(Icons.send,
-                    color: Theme.of(context).primaryColor,
-                    size: Dimensions.ICON_SIZE_DEFAULT,
+                  InkWell(
+                    onTap: () {
+                      if(_controller.text.isNotEmpty){
+                        Provider.of<SupportTicketProvider>(context, listen: false).sendReply(context,
+                            supportTicketModel.id, _controller.text);
+                        _controller.text = '';
+                      }
+                    },
+                    child: Icon(Icons.send,
+                      color: Theme.of(context).primaryColor,
+                      size: Dimensions.ICON_SIZE_DEFAULT,
+                    ),
                   ),
-                ),
-              ]),
+                ]),
+              ),
             ),
           ),
         ),

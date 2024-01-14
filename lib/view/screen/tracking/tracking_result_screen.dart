@@ -17,9 +17,12 @@ class TrackingResultScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<OrderProvider>(context, listen: false).initTrackingInfo(orderID, null, false, context);
     List<String> _statusList = ['pending', 'confirmed', 'processing', 'out_for_delivery', 'delivered'];
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    Provider.of<OrderProvider>(context, listen: false).initTrackingInfo(orderID, null, false, context);
 
+
+    });
 
     return Scaffold(
       backgroundColor: ColorResources.getIconBg(context),

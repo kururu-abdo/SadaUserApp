@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/provider/cart_provider.dart';
@@ -147,15 +148,50 @@ class _MoreScreenState extends State<MoreScreen> {
 
                     isGuestMode ? CircleAvatar(child: Icon(Icons.person, size: 35)) :
                     profile.userInfoModel == null ?
-                    CircleAvatar(child: Icon(Icons.person, size: 35)) : ClipRRect(
+
+                    CircleAvatar(child: Icon(Icons.person, size: 35)) :
+                    
+                    
+                    
+                                 ClipRRect(
                       borderRadius: BorderRadius.circular(     isTablet(context)?50:15),
-                      child: FadeInImage.assetNetwork(
-                        placeholder: Images.logo_image, width:     isTablet(context)?50: 35, height:     isTablet(context)?50: 35, fit: BoxFit.fill,
-                        image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.customerImageUrl}/'
-                            '${profile.userInfoModel!.image}',
-                        imageErrorBuilder: (c, o, s) => CircleAvatar(child: Icon(Icons.person, size: 35)),
-                      ),
-                    ),
+                                     child: CachedNetworkImage(
+                                     
+                                                                     
+                                      width:
+                                             isTablet(context)?50: 35, height:   
+                                                          isTablet(context)?50: 35, fit: BoxFit.cover,
+                                                 cacheKey: profile.userInfoModel!.image,
+                                            imageUrl:'${Provider.of<SplashProvider>(context,listen: false).baseUrls!.customerImageUrl}'
+                                                     '/${profile.userInfoModel!.image}',
+                                           //  progressIndicatorBuilder: (context, url, downloadProgress) => 
+                                     
+                                           //          CircularProgressIndicator(value: downloadProgress.progress),
+                                           
+                                           
+                                            errorWidget: (context, url, error) =>Image.asset(Images.logo_image,
+                                           width:
+                                             isTablet(context)?50: 35, height:   
+                                                          isTablet(context)?50: 35, fit: BoxFit.cover,),
+                                     placeholder: (context ,child)=>Image.asset(
+                                       Images.placeholder, 
+                                        width:
+                                             isTablet(context)?50: 35, height:   
+                                                          isTablet(context)?50: 35, fit: BoxFit.cover,
+                                     ),
+                                         ),
+                                   )
+                    //  ClipRRect(
+                    //   borderRadius: BorderRadius.circular(     isTablet(context)?50:15),
+                    //   child: FadeInImage.assetNetwork(
+                    //     placeholder: Images.logo_image, width: 
+                    //    isTablet(context)?50: 35, height:   
+                    //  isTablet(context)?50: 35, fit: BoxFit.fill,
+                    //     image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.customerImageUrl}/'
+                    //         '${profile.userInfoModel!.image}',
+                    //     imageErrorBuilder: (c, o, s) => CircleAvatar(child: Icon(Icons.person, size: 35)),
+                    //   ),
+                    // ),
                   ]),
                 ),
               ]);

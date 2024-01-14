@@ -20,14 +20,22 @@ class LocationSearchDialog extends StatelessWidget {
       alignment: Alignment.topCenter,
       child: Material(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        child: SizedBox(width: 1170, child: TypeAheadField(
-          textFieldConfiguration: TextFieldConfiguration(
-            controller: _controller,
+        child: SizedBox(width: 1170, child: 
+        
+        TypeAheadField(
+          onSelected: (value){
+  Provider.of<LocationProvider>(context, listen: false).setLocation(value.placeId, value.description, mapController);
+            Navigator.pop(context);
+          },
+           builder: (context, controller, focusNode) {
+    return TextField(
+      controller: _controller,
             textInputAction: TextInputAction.search,
             autofocus: true,
             textCapitalization: TextCapitalization.words,
             keyboardType: TextInputType.streetAddress,
-            decoration: InputDecoration(
+
+      decoration: InputDecoration(
               hintText: getTranslated('search_location', context),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -41,7 +49,33 @@ class LocationSearchDialog extends StatelessWidget {
             style: Theme.of(context).textTheme.headline2!.copyWith(
               color: Theme.of(context).textTheme.bodyText1!.color, fontSize: Dimensions.FONT_SIZE_LARGE,
             ),
-          ),
+    );
+  },
+          // textFieldConfiguration: TextFieldConfiguration(
+          //   controller: _controller,
+          //   textInputAction: TextInputAction.search,
+          //   autofocus: true,
+          //   textCapitalization: TextCapitalization.words,
+          //   keyboardType: TextInputType.streetAddress,
+          //   decoration: InputDecoration(
+          //     hintText: getTranslated('search_location', context),
+          //     border: OutlineInputBorder(
+          //       borderRadius: BorderRadius.circular(10),
+          //       borderSide: BorderSide(style: BorderStyle.none, width: 0),
+          //     ),
+          //     hintStyle: Theme.of(context).textTheme.headline2!.copyWith(
+          //       fontSize: Dimensions.FONT_SIZE_DEFAULT, color: Theme.of(context).disabledColor,
+          //     ),
+          //     filled: true, fillColor: Theme.of(context).cardColor,
+          //   ),
+          //   style: Theme.of(context).textTheme.headline2!.copyWith(
+          //     color: Theme.of(context).textTheme.bodyText1!.color, fontSize: Dimensions.FONT_SIZE_LARGE,
+          //   ),
+          // ),
+        
+         
+         
+         
           suggestionsCallback: (pattern) async {
             return await Provider.of<LocationProvider>(context, listen: false).searchLocation(context, pattern);
           },
@@ -58,11 +92,14 @@ class LocationSearchDialog extends StatelessWidget {
               ]),
             );
           },
-          onSuggestionSelected: (Prediction suggestion) {
-            Provider.of<LocationProvider>(context, listen: false).setLocation(suggestion.placeId, suggestion.description, mapController);
-            Navigator.pop(context);
-          },
+          // onSuggestionSelected: (Prediction suggestion) {
+          //   Provider.of<LocationProvider>(context, listen: false).setLocation(suggestion.placeId, suggestion.description, mapController);
+          //   Navigator.pop(context);
+          // },
         )),
+      
+      
+      
       ),
     );
   }

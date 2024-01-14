@@ -1,4 +1,5 @@
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:eamar_user_app/view/screen/product/all_product_by_category.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/category.dart';
@@ -239,7 +240,7 @@ Navigator.push(context, MaterialPageRoute(builder: (_) => AllProductsByCategory(
             ),
             SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
             Flexible(child: Text(getTranslated('all', context)!, style: titilliumSemiBold.copyWith(
-                color: Theme.of(context).textTheme.bodyText1!.color), maxLines: 2, 
+                color: Theme.of(context).textTheme.bodyLarge!.color), maxLines: 2, 
                 overflow: TextOverflow.ellipsis,
             )),
           ],
@@ -267,7 +268,7 @@ Navigator.push(context, MaterialPageRoute(builder: (_) => AllProductsByCategory(
               ),
               SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
               Flexible(child: Text(subCategory.subSubCategories![index].name!, style: titilliumSemiBold.copyWith(
-                  color: Theme.of(context).textTheme.bodyText1!.color), maxLines: 2, overflow: TextOverflow.ellipsis,
+                  color: Theme.of(context).textTheme.bodyLarge!.color), maxLines: 2, overflow: TextOverflow.ellipsis,
               )),
             ],
           ),
@@ -294,12 +295,11 @@ class CategoryItem extends StatelessWidget {
   CategoryItem({required this.title, required this.icon, required this.isSelected});
 
   Widget build(BuildContext context) {
-
-     return Card(
+    return Card(
   
     clipBehavior: Clip.antiAlias,
     child: Container(
-      padding: EdgeInsets.all(8),
+      // padding: EdgeInsets.all(8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -307,11 +307,37 @@ class CategoryItem extends StatelessWidget {
             aspectRatio: 18.0 / 13.0,
             child:  ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: FadeInImage.assetNetwork(
-                  placeholder: Images.placeholder, fit: BoxFit.cover,
-                  image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.categoryImageUrl}/$icon',
-                  imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, fit: BoxFit.cover),
-                ),
+                child:
+                
+
+                                   CachedNetworkImage(
+          width: Dimensions.profileImageSize, height: Dimensions.profileImageSize, fit: BoxFit.cover,
+            cacheKey: icon,
+               imageUrl:'${Provider.of<SplashProvider>(context,listen: false).baseUrls!.categoryImageUrl}'
+                '/${icon}',
+              //  progressIndicatorBuilder: (context, url, downloadProgress) => 
+        
+              //          CircularProgressIndicator(value: downloadProgress.progress),
+              
+              
+               errorWidget: (context, url, error) =>Image.asset(
+                Images.placeholder,
+               width: Dimensions.profileImageSize, height: Dimensions.profileImageSize, fit: BoxFit.cover),
+        placeholder: (context ,child)=>Image.asset(
+          Images.placeholder, 
+        width: Dimensions.profileImageSize, height: Dimensions.profileImageSize, fit: BoxFit.cover
+        ),
+            )
+                               
+                               
+                               
+                //  FadeInImage.assetNetwork(
+                //   placeholder: Images.placeholder, fit: BoxFit.cover,
+                //   image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.categoryImageUrl}/$icon',
+                //   imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, fit: BoxFit.cover),
+                // ),
+
+
               ),
           ),
           Spacer(),
@@ -320,7 +346,7 @@ class CategoryItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(title!, maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: titilliumSemiBold.copyWith(
+                Text(title!, maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: titilliumSemiBold.copyWith(
                 fontSize: Dimensions.FONT_SIZE_LARGE,
                 color: isSelected ? Theme.of(context).highlightColor : Theme.of(context).hintColor,
               )),
@@ -334,13 +360,15 @@ class CategoryItem extends StatelessWidget {
     ),
   );
   
+  
+  
     return Container(
       width: 100,
       height: 100,
       margin: EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL, horizontal: 2),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        // color: isSelected ? ColorResources.getPrimary(context) : null,
+        color: isSelected ? ColorResources.getPrimary(context) : null,
       ),
       child: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
@@ -348,19 +376,12 @@ class CategoryItem extends StatelessWidget {
             height: 50,
             width: 50,
             decoration: BoxDecoration(
-              border: Border.all(width: 2, color: isSelected ? 
-              Theme.of(context).highlightColor : Theme.of(context).hintColor),
+              border: Border.all(width: 2, color: isSelected ? Theme.of(context).highlightColor : Theme.of(context).hintColor),
               borderRadius: BorderRadius.circular(10),
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: 
-              icon!.startsWith('assets')?
-              
-                FadeInImage(image: AssetImage(icon!), placeholder: AssetImage(Images.placeholder),
-
-                ):
-              FadeInImage.assetNetwork(
+              child: FadeInImage.assetNetwork(
                 placeholder: Images.placeholder, fit: BoxFit.cover,
                 image: '${Provider.of<SplashProvider>(context,listen: false).baseUrls!.categoryImageUrl}/$icon',
                 imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder, fit: BoxFit.cover),
@@ -371,11 +392,7 @@ class CategoryItem extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
             child: Text(title!, maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: titilliumSemiBold.copyWith(
               fontSize: Dimensions.FONT_SIZE_EXTRA_SMALL,
-              color: 
-              // isSelected ? Theme.of(context).highlightColor : 
-              
-              
-              Theme.of(context).hintColor,
+              color: isSelected ? Theme.of(context).highlightColor : Theme.of(context).hintColor,
             )),
           ),
         ]),

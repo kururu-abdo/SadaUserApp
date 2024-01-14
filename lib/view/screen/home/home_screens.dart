@@ -48,6 +48,7 @@ import 'package:eamar_user_app/view/screen/home/widget/recommended_product_view.
 import 'package:eamar_user_app/view/screen/home/widget/top_seller_view.dart';
 import 'package:eamar_user_app/view/screen/notification/notification_screen.dart';
 import 'package:eamar_user_app/view/screen/product/view_all_product_screen.dart';
+import 'package:eamar_user_app/view/screen/search/new_search_page.dart';
 import 'package:eamar_user_app/view/screen/search/search_screen.dart';
 import 'package:eamar_user_app/view/screen/splash/brand_page.dart';
 import 'package:eamar_user_app/view/screen/topSeller/all_top_seller_screen.dart';
@@ -157,6 +158,8 @@ Future.delayed(Duration.zero ,
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
 
+     _controller = ScrollController();
+    _model = ScrollListener.initialise(homeScrollController);
 
    Future.microtask(() {
  singleVendor = Provider.of<SplashProvider>(context, listen: false).configModel!.businessMode == "single";
@@ -182,8 +185,6 @@ setState(() {
 
     
 
-     _controller = ScrollController();
-    _model = ScrollListener.initialise(homeScrollController);
   }
   PickedFile? _image;
 bool _loading = false ;
@@ -354,6 +355,7 @@ _modalSheetResults();
             children: [
               CustomScrollView(
                 controller: homeScrollController,
+                physics: AlwaysScrollableScrollPhysics(),
                 slivers: [
                   // App Bar
                   SliverAppBar(
@@ -372,22 +374,52 @@ _modalSheetResults();
 Consumer<ProfileProvider>(
             builder: (context, profile, child) {
  return  
- Text(
-   getLang(context)=="ar"?"مرحبا ،":"Hey , "  +
-"${ !isGuestMode ?
- 
- 
-  profile.userInfoModel != null ?
-
-                    '${profile.userInfoModel!.fName}' : 'Full Name' : 
-                    
-                     getLang(context)=="ar"?"رائر":
-                    'Guest'}"
-                    
-                    );
 
 
- Text('Hey ,  Guest');
+ Row(
+  mainAxisSize: MainAxisSize.min,
+   children: [
+     Text(
+       getLang(context)=="ar"?
+       "مرحبا ،":
+       "Hey , " 
+       "dfs"
+      
+     
+                        
+                        ),
+SizedBox(width: 3,)
+
+,
+Text(
+"${
+      
+        !isGuestMode ?
+     
+     
+                         profile.userInfoModel != null
+                          ?
+     
+                         profile.userInfoModel!.fName
+                          : 
+     
+                      getLang(context)=="ar"?"رائر":
+                         'Guest'
+                        
+                          : 
+                        
+                          getLang(context)=="ar"?"رائر":
+                         'Guest'
+                        
+                        
+                         }"
+)
+
+   ],
+ );
+
+
+//  Text('Hey ,  Guest');
             }
             
             
@@ -422,26 +454,26 @@ Consumer<ProfileProvider>(
                         
                          height:isTablet(context)? 180: 100 ,scale: 1.2,))),
                     actions: [
-
- Padding(
-                        padding: const EdgeInsets.only(right: 12.0),
-                        child: IconButton(
-                          onPressed: () {
-                            _optiondialogbox();
-                            // Navigator.push(context, MaterialPageRoute(builder: (_) => NotificationScreen()
+//camera
+//  Padding(
+//                         padding: const EdgeInsets.only(right: 12.0),
+//                         child: IconButton(
+//                           onPressed: () {
+//                             _optiondialogbox();
+//                             // Navigator.push(context, MaterialPageRoute(builder: (_) => NotificationScreen()
                             
-                            // ));
-///MODEL
+//                             // ));
+// ///MODEL
 
                             
-                          },
-                          icon: 
-                     Icon(   Icons.camera_alt ,                       size:  isTablet(context)?  50:24,
-)
+//                           },
+//                           icon: 
+//                      Icon(   Icons.camera_alt ,                       size:  isTablet(context)?  50:24,
+// )
                        
                        
-                        ),
-                      ),
+//                         ),
+//                       ),
                       
                       Padding(
                         padding: const EdgeInsets.only(right: 12.0),
@@ -500,7 +532,11 @@ Consumer<ProfileProvider>(
                       pinned: true,
                       delegate: SliverDelegate(
                           child: InkWell(
-                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => SearchScreen())),
+                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => 
+                        
+                        // SearchScreen()
+                        NewSearchPage()
+                        )),
                             child: Container(padding: EdgeInsets.symmetric(
                                 horizontal: Dimensions.HOME_PAGE_PADDING, vertical: Dimensions.PADDING_SIZE_SMALL),
                               color: ColorResources.getHomeBg(context),
@@ -543,6 +579,7 @@ Consumer<ProfileProvider>(
                       ))),
 
                   SliverToBoxAdapter(
+                    
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(Dimensions.HOME_PAGE_PADDING,
                           Dimensions.PADDING_SIZE_SMALL, Dimensions.PADDING_SIZE_DEFAULT, Dimensions.PADDING_SIZE_SMALL  ),
@@ -923,24 +960,33 @@ SizedBox(height: Dimensions.HOME_PAGE_PADDING),
 
 //new arraivals
 
-Padding(
-                            padding: const EdgeInsets.only(left: Dimensions.PADDING_SIZE_EXTRA_SMALL, right: Dimensions.PADDING_SIZE_EXTRA_SMALL,
-                            bottom: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                            child: TitleRow(title: getTranslated('new_arrival', context),
-                                onTap: () {
-                                  // Navigator.push(context, MaterialPageRoute(builder: (_) => AllBrandScreen())
+// Padding(
+//                             padding: const EdgeInsets.only(left: Dimensions.PADDING_SIZE_EXTRA_SMALL, right: Dimensions.PADDING_SIZE_EXTRA_SMALL,
+//                             bottom: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+//                             child: TitleRow(title: getTranslated('new_arrival', context),
+//                                 onTap: () {
+//                                   // Navigator.push(context, MaterialPageRoute(builder: (_) => AllBrandScreen())
                                   
-                                  // );
+//                                   // );
                                   
-                                  }),
-                          ),
-                          SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+//                                   }),
+//                           ),
+//                           SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
- NewArrivalsProductView(isHomePage: true
-                                                    , productType:
-                                                     ProductType.NEW_ARRIVAL, 
-                                                     scrollController: 
-                                                     homeScrollController),
+RecommendedProductView(
+  
+)
+
+
+//  NewArrivalsProductView(isHomePage: true
+//                                                     , productType:
+//                                                      ProductType.NEW_ARRIVAL, 
+//                                                      scrollController: 
+//                                                      homeScrollController)
+                                                     
+                                                     
+                                                     
+                                                     ,
 
 
 SizedBox(height: Dimensions.HOME_PAGE_PADDING),

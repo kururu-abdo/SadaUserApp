@@ -84,9 +84,15 @@ class _AddNewAddressScreenState extends State<AddNewAddressScreen> {
   @override
   Widget build(BuildContext context) {
     print('====selected shipping or billing==>${_address.toString()}');
-    Provider.of<ProfileProvider>(context, listen: false).initAddressList(context);
+   
+  
+ WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+  Provider.of<ProfileProvider>(context, listen: false).initAddressList(context);
     Provider.of<ProfileProvider>(context, listen: false).initAddressTypeList(context);
+ 
+ 
 
+ });
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(

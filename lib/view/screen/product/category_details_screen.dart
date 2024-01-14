@@ -24,12 +24,13 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 
 class CategoryDetailsScreen extends StatefulWidget {
+  final int index;
   final bool isBrand;
   final cat.Category?  category;
   final String id;
   final String name;
   final String? image;
-  CategoryDetailsScreen({required this.isBrand, required this.id, required this.name, this.image, this.category});
+  CategoryDetailsScreen(this.index,{required this.isBrand, required this.id, required this.name, this.image, this.category});
 
   @override
   State<CategoryDetailsScreen> createState() => _BrandAndCategoryProductScreenState();
@@ -47,6 +48,15 @@ void initState() {
   
 Future.microtask(() {
  if (mounted) {
+
+    Provider.of<CategoryProvider>(context, listen: false).changeCurrentViewState(context, 
+              CategoryViewState(
+
+                itemId:widget.category!.id ,
+                category: widget.category!.id , 
+                value:  'category' , 
+                subValue: 'categoies'
+              ));
       Future.wait([
           Provider.of<CategoryProvider>(context, listen: false).initSubCategory(context, widget.category!) ,
   //  Provider.of<CategoryProvider>(context, listen: false).getSubSubCategries(widget.category.id)
@@ -54,7 +64,8 @@ Future.microtask(() {
       //  .initBrandOrCategoryProductList(widget.isBrand,
       //   widget.id, context),
     
-    
+            
+
     // Provider.of<CategoryProvider>(context, listen: false).getSubCategries(),
       ]);
 

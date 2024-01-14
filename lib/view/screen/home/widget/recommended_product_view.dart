@@ -39,6 +39,7 @@ class RecommendedProductView extends StatelessWidget {
                     boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.2), spreadRadius: 1, blurRadius: 5)],
                   ),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                       Text(getTranslated('recommended_product', context)!,

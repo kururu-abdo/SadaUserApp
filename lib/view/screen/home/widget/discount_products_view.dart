@@ -113,8 +113,11 @@ class DiscountProductView extends StatelessWidget {
             staggeredTileBuilder: (int index) => StaggeredTile.fit(1),
             itemBuilder: (BuildContext context, int index) {
               return ProductWidget(productModel: productList![index]);
-            },
-          ) : NoInternetOrDataScreen(isNoInternet: false):
+          }
+          ) : 
+          SizedBox.shrink()
+          // NoInternetOrDataScreen(isNoInternet: false)
+          :
 
            ProductShimmer(isHomePage: isHomePage ,isEnabled: prodProvider.firstLoading),
 

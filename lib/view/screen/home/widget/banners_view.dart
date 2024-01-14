@@ -97,7 +97,8 @@ log(type.toString());
                 _width * 0.3:
               
                _width * 0.4,
-              child: bannerProvider.mainBannerList != null ? bannerProvider.mainBannerList!.length != 0 ? Stack(
+              child: bannerProvider.mainBannerList != null ?
+               bannerProvider.mainBannerList!.length != 0 ? Stack(
                 fit: StackFit.expand,
                 children: [
                   CarouselSlider.builder(

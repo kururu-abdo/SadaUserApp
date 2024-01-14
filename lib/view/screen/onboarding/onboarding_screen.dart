@@ -24,9 +24,12 @@ class OnBoardingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+ WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
     Provider.of<OnBoardingProvider>(context, listen: false).initBoardingList(context);
 
 
+ });
     double _height = MediaQuery.of(context).size.height;
 
     return Scaffold(

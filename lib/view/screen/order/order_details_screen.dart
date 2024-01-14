@@ -61,7 +61,12 @@ class OrderDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _loadData(context);
+   
+
+     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+ _loadData(context);
+
+     });
     return Scaffold(
       backgroundColor: ColorResources.getIconBg(context),
       body: Column(

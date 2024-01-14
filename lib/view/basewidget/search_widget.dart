@@ -16,14 +16,15 @@ class SearchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _controller = TextEditingController(text: Provider.of<SearchProvider>(context).searchText);
+    final TextEditingController _controller =
+     TextEditingController(text: Provider.of<SearchProvider>(context).searchText);
     return Stack(children: [
-      ClipRRect(
-        child: Container(
-          height: isSeller? 50 : 80 + MediaQuery.of(context).padding.top,
-          width: MediaQuery.of(context).size.width,
-        ),
-      ),
+      // ClipRRect(
+      //   child: Container(
+      //     height: isSeller? 50 : 80 + MediaQuery.of(context).padding.top,
+      //     width: MediaQuery.of(context).size.width,
+      //   ),
+      // ),
 
       Padding(
         padding: const EdgeInsets.all(8.0),
@@ -59,19 +60,25 @@ class SearchWidget extends StatelessWidget {
                     },
                     textInputAction: TextInputAction.search,
                     maxLines: 1,
+                    
                     textAlignVertical: TextAlignVertical.center,
                     decoration: InputDecoration(
+                     contentPadding: EdgeInsets.symmetric(
+                      horizontal: 8
+                     ),
                       hintText: hintText,
                       isDense: true,
                       hintStyle: robotoRegular.copyWith(
                         
-                        fontSize:                                                     isTablet(context)? 20:15
+                        fontSize:                                                
+                             isTablet(context)? 20:15
 ,
                         color: Theme.of(context).hintColor),
                       border: InputBorder.none,
                       
                       //prefixIcon: Icon(Icons.search, color: ColorResources.getColombiaBlue(context), size: Dimensions.ICON_SIZE_DEFAULT),
-                      suffixIcon: Provider.of<SearchProvider>(context).searchText.isNotEmpty ? IconButton(
+                      suffixIcon: Provider.of<SearchProvider>(context).
+                      searchText.isNotEmpty ? IconButton(
                         icon: Icon(Icons.clear, color: Colors.black),
                         onPressed: () {
                           onClearPressed();

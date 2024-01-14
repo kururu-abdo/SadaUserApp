@@ -182,8 +182,11 @@ loginBody.user_id =  _idController!.text.trim();
   String _countryDialCode = "+966";
   @override
   Widget build(BuildContext context) {
+ WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+
     Provider.of<AuthProvider>(context, listen: false).isRemember;
 
+ });
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 
       Dimensions.MARGIN_SIZE_LARGE),

@@ -49,24 +49,21 @@ class BrandView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            width: (MediaQuery.of(context).size.width/5.9),
-                            height: (MediaQuery.of(context).size.width/5.9),
+                            width: (MediaQuery.of(context).size.width/3.5),
+                            height: (MediaQuery.of(context).size.width/3.5),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(Radius.circular((MediaQuery.of(context).size.width/5))),
                                 color: Theme.of(context).highlightColor,
                                  ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.all(Radius.circular((MediaQuery.of(context).size.width/5))),
-                              child: FadeInImage.assetNetwork(
-                                fit: BoxFit.cover,
-                                placeholder: Images.placeholder,
-                                image: Provider.of<SplashProvider>(context,listen: false).baseUrls!.brandImageUrl!+'/'+brandProvider.brandList[index].image!,
-                                imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder,  fit: BoxFit.cover,),
-                              ),
+                            child: FadeInImage.assetNetwork(
+                              fit: BoxFit.contain,
+                              placeholder: Images.placeholder,
+                              image: Provider.of<SplashProvider>(context,listen: false).baseUrls!.brandImageUrl!+'/'+brandProvider.brandList[index].image!,
+                              imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder,  fit: BoxFit.cover,),
                             ),
                           ),
                           SizedBox(
-                            height: (MediaQuery.of(context).size.width/4) * 0.3,
+                            // height: (MediaQuery.of(context).size.width/4) * 0.3,
                             width: MediaQuery.of(context).size.width/4.2,
                             child: Center(child: Text(
                               brandProvider.brandList[index].name!,
@@ -86,7 +83,7 @@ class BrandView extends StatelessWidget {
         ):
         GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
+            crossAxisCount: 3,
             childAspectRatio: (1/1.3),
             mainAxisSpacing: 10,
             crossAxisSpacing: 5,
@@ -99,10 +96,15 @@ class BrandView extends StatelessWidget {
               : brandProvider.brandList.length
               : 8,
           shrinkWrap: true,
+
+          
           physics: isHomePage ? NeverScrollableScrollPhysics() : BouncingScrollPhysics(),
           itemBuilder: (BuildContext context, int index) {
 
-            return InkWell(
+            return 
+            
+            
+            InkWell(
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (_) => BrandAndCategoryProductScreen(
                   isBrand: true,
@@ -116,19 +118,23 @@ class BrandView extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Container(
+
+// margin: const EdgeInsets.symmetric(
+//                   horizontal:10
+//                 ),
+
+
                       padding: EdgeInsets.all(Dimensions.PADDING_SIZE_EXTRA_EXTRA_SMALL),
                       decoration: BoxDecoration(
                           color: Theme.of(context).highlightColor,
-                          shape: BoxShape.circle,
+                          // shape: BoxShape.circle,
                           boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.15), blurRadius: 5, spreadRadius: 1)]
                       ),
-                      child: ClipOval(
-                        child: FadeInImage.assetNetwork(
-                          fit: BoxFit.cover,
-                          placeholder: Images.placeholder,
-                          image: Provider.of<SplashProvider>(context,listen: false).baseUrls!.brandImageUrl!+'/'+brandProvider.brandList[index].image!,
-                          imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder,  fit: BoxFit.cover,),
-                        ),
+                      child: FadeInImage.assetNetwork(
+                        fit: BoxFit.contain,
+                        placeholder: Images.placeholder,
+                        image: Provider.of<SplashProvider>(context,listen: false).baseUrls!.brandImageUrl!+'/'+brandProvider.brandList[index].image!,
+                        imageErrorBuilder: (c, o, s) => Image.asset(Images.placeholder,  fit: BoxFit.cover,),
                       ),
                     ),
                   ),

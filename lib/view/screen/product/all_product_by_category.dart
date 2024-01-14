@@ -1,3 +1,4 @@
+import 'package:eamar_user_app/helper/product_type.dart';
 import 'package:eamar_user_app/localization/language_constrants.dart';
 import 'package:eamar_user_app/provider/category_provider.dart';
 import 'package:eamar_user_app/provider/search_provider.dart';
@@ -27,7 +28,10 @@ class AllProductsByCategory extends StatefulWidget {
   final String id;
   final String? name;
   final String? image;
-  AllProductsByCategory({ this.isBrand=false, required this.id, required this.name, this.image});
+
+  AllProductsByCategory({
+   
+     this.isBrand=false, required this.id, required this.name, this.image});
 
   @override
   State<AllProductsByCategory> createState() => _AllProductsByCategoryState();
@@ -311,7 +315,8 @@ Padding(
     constraints: BoxConstraints(
      maxWidth: MediaQuery.of(context).size.width,              
   ),
-                  builder: (c) => FilterCategoryProductsBottomSheet()
+                  builder: (c) => FilterCategoryProductsBottomSheet(
+                  )
                   ),
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL,

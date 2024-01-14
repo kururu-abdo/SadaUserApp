@@ -1,3 +1,4 @@
+import 'package:eamar_user_app/helper/product_type.dart';
 import 'package:eamar_user_app/provider/product_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/localization/language_constrants.dart';
@@ -8,6 +9,9 @@ import 'package:eamar_user_app/view/basewidget/button/custom_button.dart';
 import 'package:provider/provider.dart';
 
 class FilterCategoryProductsBottomSheet extends StatefulWidget {
+  final ProductType? productType;
+
+  const FilterCategoryProductsBottomSheet({super.key, this.productType});
   @override
   _FilterCategoryProductsBottomSheetState createState() => _FilterCategoryProductsBottomSheetState();
 }
@@ -43,6 +47,9 @@ class _FilterCategoryProductsBottomSheetState extends State<FilterCategoryProduc
 
 
                   Expanded(child: TextField(
+                    onTapOutside: (event){
+                         FocusScope.of(context).unfocus();
+                      },
                     keyboardType: TextInputType.number,
                     textInputAction: TextInputAction.next,
                     onSubmitted: (_) => FocusScope.of(context).requestFocus(_lastFocus),
@@ -65,6 +72,10 @@ class _FilterCategoryProductsBottomSheetState extends State<FilterCategoryProduc
 
                   Expanded(child: Center(
                     child: TextField(
+
+                      onTapOutside: (event){
+                         FocusScope.of(context).unfocus();
+                      },
                       keyboardType: TextInputType.number,
                       textAlign: TextAlign.center,
                       controller: _lastPriceController,
@@ -115,8 +126,19 @@ class _FilterCategoryProductsBottomSheetState extends State<FilterCategoryProduc
                       minPrice = double.parse(_firstPriceController.text);
                       maxPrice = double.parse(_lastPriceController.text);
                     }
-                    Provider.of<ProductProvider>(context, listen: false).sortSearchList(minPrice, 
+if (widget.productType!=null) {
+  Provider.of<ProductProvider>(context, listen: false).sortMenuProductList(minPrice, 
                     maxPrice);
+
+}else {
+Provider.of<ProductProvider>(context, listen: false).sortSearchList(minPrice, 
+                    maxPrice);
+
+}
+
+                    
+
+
                     Navigator.pop(context);
                   },
                 ),

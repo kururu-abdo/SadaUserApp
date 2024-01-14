@@ -43,15 +43,18 @@ class LocalizationProvider extends ChangeNotifier {
     _locale = Locale(
       sharedPreferences!.getString(AppConstants.LANGUAGE_CODE) ??
 
-    
-    Platform.localeName.split('-')[0]
+    (
+    Platform.localeName.split('_')[0]=="ar" ||
+    Platform.localeName.split('_')[0]=="en"
+       ?
+Platform.localeName.split('_')[0]:  "en")
     //  AppConstants.languages[0].languageCode!
     //  window.locale.languageCode
      
      ,
         sharedPreferences!.getString(AppConstants.COUNTRY_CODE)
          ??
-         Platform.localeName.split('-')[1]
+         Platform.localeName.split('_')[1]
         //  window.locale.countryCode
           // AppConstants.languages[0].countryCode
          

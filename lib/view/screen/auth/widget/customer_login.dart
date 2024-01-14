@@ -151,8 +151,11 @@ loginBody.user_id =  _idController!.text.trim();
   String _countryDialCode = "+966";
   @override
   Widget build(BuildContext context) {
+ WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
     Provider.of<AuthProvider>(context, listen: false).isRemember;
 
+
+ });
     return Padding(
       padding:  EdgeInsets.only(left: 
       Dimensions.MARGIN_SIZE_LARGE ,  
@@ -275,7 +278,8 @@ loginBody.user_id =  _idController!.text.trim();
 
                         Container(
                 margin: EdgeInsets.only(right: Dimensions.MARGIN_SIZE_SMALL),
-                child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Row(mainAxisAlignment: 
+                MainAxisAlignment.spaceBetween,
                   children: [Row(children: [
                     Consumer<AuthProvider>(
                       builder: (context, authProvider, child) => Checkbox(

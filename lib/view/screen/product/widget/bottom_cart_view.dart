@@ -19,8 +19,13 @@ class BottomCartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 70,
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      height: 100,
+      padding: EdgeInsets.only(left: 10, right:10, 
+      
+      bottom:
+      MediaQuery.of(context).viewPadding.bottom, 
+      top: 5
+      ),
       decoration: BoxDecoration(
         color: Theme.of(context).highlightColor,
         borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),

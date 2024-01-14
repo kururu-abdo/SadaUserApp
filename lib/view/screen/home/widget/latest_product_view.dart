@@ -3,6 +3,7 @@ import 'package:eamar_user_app/data/model/response/product_model.dart';
 import 'package:eamar_user_app/provider/product_provider.dart';
 import 'package:eamar_user_app/view/basewidget/product_shimmer.dart';
 import 'package:eamar_user_app/view/basewidget/product_widget.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 
 class LatestProductView extends StatelessWidget {
@@ -38,10 +39,34 @@ class LatestProductView extends StatelessWidget {
 
           !prodProvider.firstLoading ? productList.length != 0 ?
           Container(
-            height: MediaQuery.of(context).size.width/1.45,
-            child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: productList.length,
+            // height: MediaQuery.of(context).size.width/1.45,
+            child:
+            
+            
+           StaggeredGridView.countBuilder(
+            itemCount: 
+            
+            
+            // isHomePage? 
+           
+            productList.length>4?
+            4   :
+            // productList.length:
+            
+            productList.length,
+            
+                        staggeredTileBuilder: (int index) => StaggeredTile.fit(1),
+
+            
+            crossAxisCount: 2,
+            padding: EdgeInsets.all(0),
+            physics: NeverScrollableScrollPhysics(),
+
+
+            shrinkWrap: true,
+
+                // scrollDirection: Axis.horizontal,
+                // itemCount: productList.length,
                 itemBuilder: (ctx,index){
                   return Container(width: (MediaQuery.of(context).size.width/2)-20,
                       child: ProductWidget(productModel: productList[index]));

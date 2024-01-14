@@ -24,8 +24,19 @@ class AuthScreen extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<ProfileProvider>(context, listen: false).initAddressTypeList(context);
+
+ WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+
+  Provider.of<ProfileProvider>(context, listen: false).initAddressTypeList(context);
     Provider.of<AuthProvider>(context, listen: false).isRemember;
+   
+   
+ });
+
+
+  
+   
+   
     PageController _pageController = PageController(initialPage: initialPage);
 
     return Scaffold(
@@ -193,7 +204,7 @@ SizedBox(height: 10,),
            authProvider.selectedIndex == 0?
            Colors.black:Colors.white , 
            
-           fontWeight: FontWeight.bold,
+           fontWeight: FontWeight.w500,
            fontSize: 15
            
            ),
@@ -219,7 +230,8 @@ SizedBox(height: 10,),
             , borderRadius: BorderRadius.circular(50)
           ),
       
-      child: Center(child: Text(getLang(context)=="ar"?  "تسجيل دخول عميل الشركة":"Customer login"
+      child: Center(child: Text(getLang(context)=="ar"?
+        "تسجيل دخول عميل الشركة":"Customer login"
           
           , style: TextStyle(color: 
           
@@ -227,7 +239,7 @@ SizedBox(height: 10,),
            authProvider.selectedIndex == 1?
           Colors.black:Colors.white ,
           
-           fontWeight: FontWeight.bold,
+           fontWeight: FontWeight.w500,
            fontSize: 15
           
           ),

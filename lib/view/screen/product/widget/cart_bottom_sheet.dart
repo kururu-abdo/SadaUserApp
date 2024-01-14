@@ -43,8 +43,11 @@ class _CartBottomSheetState extends State<CartBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
+    //  WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
     Provider.of<ProductDetailsProvider>(context, listen: false).initData(widget.product!);
 
+
+    //  });
 
 
     return SafeArea(

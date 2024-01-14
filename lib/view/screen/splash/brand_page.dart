@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:eamar_user_app/localization/app_localization.dart';
 import 'package:eamar_user_app/provider/auth_provider.dart';
 import 'package:eamar_user_app/provider/localization_provider.dart';
@@ -22,6 +25,9 @@ class BrandPage extends StatefulWidget {
 class _BrandPageState extends State<BrandPage> {
   @override
   Widget build(BuildContext context) {
+
+
+   
     return  Scaffold(
     extendBodyBehindAppBar: true,
       backgroundColor: Colors.black,
@@ -104,7 +110,7 @@ Container(
   
   EdgeInsets.all(20),
   alignment: Alignment.topCenter,
-  height: MediaQuery.of(context).size.height*.80,
+  height: MediaQuery.of(context).size.height*.85,
 decoration: BoxDecoration(
   color: Color(
     0xFFf7a11f

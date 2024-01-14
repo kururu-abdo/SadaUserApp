@@ -1,3 +1,4 @@
+import 'package:eamar_user_app/view/basewidget/rating/bottomsheet_rating.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/data/model/response/product_model.dart';
 import 'package:eamar_user_app/helper/price_converter.dart';
@@ -89,55 +90,73 @@ class ProductTitleView extends StatelessWidget {
 
               GestureDetector(
                 onTap: (){
-                          final _dialog = RatingDialog(
-      initialRating: 1.0,
-      // your app's name?
-      title: Text(
-       getTranslated('whats_is_your_rate', context)!,
-        textAlign: TextAlign.center,
-        style: const TextStyle(
-          fontSize: 25,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      // Please share your opinion about us
-      message: Text(
-          getTranslated('plesase_share_opinion', context)!,
-        textAlign: TextAlign.center,
-        style: const TextStyle(fontSize: 15),
-      ),
-      // your app's logo?
-      // image: const FlutterLogo(size: 100),
-      submitButtonText: getTranslated('add_rating', context)!  ,
-      commentHint: 
-      getTranslated('please_comment', context)!
-      // 'let see you opinion'
-      
-      ,
-      onCancelled: () => print('cancelled'),
-      onSubmitted: (response) {
-        print('rating: ${response.rating}, comment: ${response.comment}');
-//
-
-//call api to send rate
 
 
+                    showModalBottomSheet(context: context,
+                isScrollControlled: true, 
+                
+                backgroundColor: Colors.transparent,
+  constraints: BoxConstraints(
+     maxWidth: MediaQuery.of(context).size.width,              
+  ),
+     builder: (_)=>  RatingBottmSheet(
+      ratingType: RatingType.Product,
+      onTap: (rate ,message)async{
 
-        // TODO: add your own logic
-        // if (response.rating < 3.0) {
-        //   // send their comments to your email or anywhere you wish
-        //   // ask the user to contact you instead of leaving a bad review
-        // } else {
-        //   // _rateAndReviewApp();
-        // }
       },
-    );
+     )
+            );  
 
-  showDialog(
-      context: context,
-      barrierDismissible: true, // set to false if you want to force a rating
-      builder: (context) => _dialog,
-    );
+
+//                           final _dialog = RatingDialog(
+//       initialRating: 1.0,
+//       // your app's name?
+//       title: Text(
+//        getTranslated('whats_is_your_rate', context)!,
+//         textAlign: TextAlign.center,
+//         style: const TextStyle(
+//           fontSize: 25,
+//           fontWeight: FontWeight.bold,
+//         ),
+//       ),
+//       // Please share your opinion about us
+//       message: Text(
+//           getTranslated('plesase_share_opinion', context)!,
+//         textAlign: TextAlign.center,
+//         style: const TextStyle(fontSize: 15),
+//       ),
+//       // your app's logo?
+//       // image: const FlutterLogo(size: 100),
+//       submitButtonText: getTranslated('add_rating', context)!  ,
+//       commentHint: 
+//       getTranslated('please_comment', context)!
+//       // 'let see you opinion'
+      
+//       ,
+//       onCancelled: () => print('cancelled'),
+//       onSubmitted: (response) {
+//         print('rating: ${response.rating}, comment: ${response.comment}');
+// //
+
+// //call api to send rate
+
+
+
+//         // TODO: add your own logic
+//         // if (response.rating < 3.0) {
+//         //   // send their comments to your email or anywhere you wish
+//         //   // ask the user to contact you instead of leaving a bad review
+//         // } else {
+//         //   // _rateAndReviewApp();
+//         // }
+//       },
+//     );
+
+//   showDialog(
+//       context: context,
+//       barrierDismissible: true, // set to false if you want to force a rating
+//       builder: (context) => _dialog,
+//     );
                 },
                 child: Row(children: [
                   Icon(Icons.star, color: Colors.orange,),

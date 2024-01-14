@@ -14,8 +14,16 @@ class SavedBillingAddressListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<ProfileProvider>(context, listen: false).initAddressList(context);
+
+ WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+ Provider.of<ProfileProvider>(context, listen: false).initAddressList(context);
     Provider.of<ProfileProvider>(context, listen: false).initAddressTypeList(context);
+  
+  
+ });
+
+   
+  
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => AddNewAddressScreen(isBilling: true))),

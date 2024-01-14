@@ -34,12 +34,15 @@ class _SelectLocationScreenState extends State<SelectLocationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (Provider.of<LocationProvider>(context).address != null) {
+  
+ WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+  if (Provider.of<LocationProvider>(context).address != null) {
       _locationController.text = '${Provider.of<LocationProvider>(context).address.name ?? ''}, '
           '${Provider.of<LocationProvider>(context).address.subAdministrativeArea ?? ''}, '
           '${Provider.of<LocationProvider>(context).address.isoCountryCode ?? ''}';
     }
 
+ });
     return Scaffold(
       body: SafeArea(
         child: Center(

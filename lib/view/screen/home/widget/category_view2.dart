@@ -13,6 +13,7 @@ import 'category_shimmer.dart';
 
 class CategoryView2 extends StatefulWidget {
   final bool isHomePage;
+  
   final bool isTablet;
 
   CategoryView2({required this.isHomePage , this.isTablet=false});
@@ -222,6 +223,8 @@ Column(
                          CategoryDetailsPage(
                           // isBrand: false,
                           category: widget.categories![index+startIndex],
+                          index:index+
+                        startItem
                           // id: widget.categories[index].id.toString(),
                           // name: widget.categories[index].name,
                         )));
@@ -301,7 +304,8 @@ Column(
             Navigator.push(context, MaterialPageRoute(builder: (_) =>
                          CategoryDetailsPage(
                           // isBrand: false,
-                          category: widget.categories![index+startItem],
+                          category: widget.categories![index+startItem],    index:index+
+                        startItem
                           // id: widget.categories[index].id.toString(),
                           // name: widget.categories[index].name,
                         )));
@@ -547,7 +551,8 @@ Column(
             Navigator.push(context, MaterialPageRoute(builder: (_) =>
                          CategoryDetailsPage(
                           // isBrand: false,
-                          category: widget.categories![index+startItem],
+                          category: widget.categories![index+startItem],    index:index+
+                        startItem
                           // id: widget.categories[index].id.toString(),
                           // name: widget.categories[index].name,
                         )));
@@ -629,7 +634,8 @@ Column(
             Navigator.push(context, MaterialPageRoute(builder: (_) =>
                          CategoryDetailsPage(
                           // isBrand: false,
-                          category: widget.categories![index+startIndex],
+                          category: widget.categories![index+startIndex],    index:index+
+                        startItem
                           // id: widget.categories[index].id.toString(),
                           // name: widget.categories[index].name,
                         )));

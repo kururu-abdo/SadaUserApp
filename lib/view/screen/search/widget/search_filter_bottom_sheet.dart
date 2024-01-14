@@ -45,6 +45,12 @@ class _SearchFilterBottomSheetState extends State<SearchFilterBottomSheet> {
 
                   Expanded(child: TextField(
                     keyboardType: TextInputType.number,
+onTapOutside: (event){
+
+ FocusScope.of(context).unfocus();
+},
+
+
                     textInputAction: TextInputAction.next,
                     onSubmitted: (_) => FocusScope.of(context).requestFocus(_lastFocus),
                     textAlign: TextAlign.center,
@@ -65,6 +71,9 @@ class _SearchFilterBottomSheetState extends State<SearchFilterBottomSheet> {
 
                   Expanded(child: Center(
                     child: TextField(
+                      onTapOutside: (event){
+                         FocusScope.of(context).unfocus();
+                      },
                       keyboardType: TextInputType.number,
                       textAlign: TextAlign.center,
                       controller: _lastPriceController,

@@ -98,8 +98,10 @@ await Provider.of<JobsProvider>(context, listen: false).getUserJobs( context ,
            }
         }
     }});
-
+WidgetsBinding.instance.addPostFrameCallback((_) {
       _loadData(context, false);
+
+});
 
       //  initPlatformState();
  }
@@ -130,7 +132,8 @@ await Provider.of<JobsProvider>(context, listen: false).getUserJobs( context ,
   @override
   Widget build(BuildContext context) {
 
-    bool isGuestMode = !Provider.of<AuthProvider>(context, listen: false).isLoggedIn();
+    bool isGuestMode = !Provider.of<AuthProvider>(context, listen: false)
+    .isLoggedIn();
 
 
      return Scaffold(
@@ -169,7 +172,13 @@ Navigator.pop(context);
                     backgroundColor: Theme.of(context).highlightColor,
                     title: 
                     
-                    isTablet(context)? Text('Jobs'):
+                    isTablet(context)? 
+                    
+                    Text(
+                      getLang(context)=="ar"? 
+                      "المهن":
+                      
+                      'Jobs'):
                     
                     Image.asset(Images.logo_with_name_image, height: isTablet(context)?  180: 100 ,scale: 1.2,),
                     actions: [
@@ -220,7 +229,10 @@ Navigator.pop(context);
                           child: InkWell(
                         onTap: () {
 showModalBottomSheet(context: context,
-                                         
+                                     isScrollControlled: true,   constraints: BoxConstraints(
+     maxWidth: MediaQuery.of(context).size.width,              
+  ),
+               
                                          
                                          shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(10.0)),

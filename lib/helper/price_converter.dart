@@ -5,14 +5,12 @@ import 'package:provider/provider.dart';
 class PriceConverter {
   static String convertPrice(BuildContext context, double? price, 
   {double? discount, String? discountType}) {
-    debugPrint(
-      
-      "ITEM NETPRICE  "+ price!.toString());
+   
     if(discount != null && discountType != null){
       if(discountType == 'amount' || discountType == 'flat') {
-        price = price - discount;
+        price = price! - discount;
       }else if(discountType == 'percent' || discountType == 'percentage') {
-        price = price - ((discount / 100) * price);
+        price = price! - ((discount / 100) * price);
       }
     }
     bool _singleCurrency = Provider.of<SplashProvider>(context, listen: false).configModel!.currencyModel == 'single_currency';
@@ -25,7 +23,7 @@ class PriceConverter {
     // '' : 
 
     Provider.of<SplashProvider>(context, listen: false).myCurrency!.symbol} '
-    '${price.toStringAsFixed(2)}';
+    '${price!.toStringAsFixed(2)}';
         // '${(_singleCurrency? price : price * 
         // Provider.of<SplashProvider>(context, listen: false).myCurrency!.exchangeRate!
 

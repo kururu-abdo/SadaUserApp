@@ -23,7 +23,11 @@ class OrderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isGuestMode = !Provider.of<AuthProvider>(context, listen: false).isLoggedIn();
+     bool isGuestMode = !Provider.of<AuthProvider>(context, listen: false).isLoggedIn();
+
+   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    
+
     if(isFirstTime) {
       if(!isGuestMode) {
         Provider.of<OrderProvider>(context, listen: false).initOrderList(context);
@@ -32,6 +36,9 @@ class OrderScreen extends StatelessWidget {
       isFirstTime = false;
     }
 
+   });
+   
+   
     return Scaffold(
       backgroundColor: ColorResources.getIconBg(context),
       body: Column(

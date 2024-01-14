@@ -9,6 +9,7 @@ class BrandItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // return SizedBox(); 
     return 
     
     LayoutBuilder(
@@ -66,29 +67,33 @@ return
         onTap!();
       },
       child: Container(
-    
+      //     padding: EdgeInsets.symmetric(
+      // horizontal: 10  , 
+      
+      // // vertical: 30
+      //     ),
         height: 200,
         width: 200,
         decoration: BoxDecoration(
           color: Color(0xFFffb239
-
-)
+      
+      )
         ), 
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
               height: 80, width: 80 ,
-    
+          
               decoration: BoxDecoration(
                 color: Colors.black  ,  
-    
+          
                 shape: BoxShape.circle
               ),
               child: Center(child: ImageIcon(AssetImage(icon!), color: Colors.white,size: 39,)),
             ) , 
             SizedBox(height: 10,) ,  
-    
+          
             Text(title! , style: TextStyle(
               color: Colors.black , fontWeight: FontWeight.bold
             ),)

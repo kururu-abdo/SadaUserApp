@@ -10,29 +10,45 @@ import 'package:eamar_user_app/view/basewidget/product_widget.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 
-class ProductView extends StatelessWidget {
+class ProductView extends StatefulWidget {
   final bool isHomePage;
   final ProductType productType;
   final ScrollController? scrollController;
   final String? sellerId;
   ProductView({required this.isHomePage, required this.productType, this.scrollController, this.sellerId});
 
+
+
+   
+
+  @override
+  State<ProductView> createState() => _ProductViewState();
+}
+
+class _ProductViewState extends State<ProductView> {
+
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<ProductProvider>().initMenuProducts(widget.productType);
+  }
   @override
   Widget build(BuildContext context) {
     int offset = 1;
-    scrollController?.addListener(() {
-      if(scrollController!.position.maxScrollExtent == scrollController!.position.pixels
+    widget.scrollController?.addListener(() {
+      if(widget.scrollController!.position.maxScrollExtent == widget.scrollController!.position.pixels
           && Provider.of<ProductProvider>(context, listen: false).latestProductList!.length != 0
           && !Provider.of<ProductProvider>(context, listen: false).filterIsLoading) {
         late int pageSize;
-        if(productType == ProductType.BEST_SELLING || 
-        productType == ProductType.TOP_PRODUCT ||
-         productType == ProductType.NEW_ARRIVAL ) {
+        if(widget.productType == ProductType.BEST_SELLING || 
+        widget.productType == ProductType.TOP_PRODUCT ||
+         widget.productType == ProductType.NEW_ARRIVAL ) {
           pageSize = (Provider.of<ProductProvider>(context, listen: false).latestPageSize!/10).ceil();
           offset = Provider.of<ProductProvider>(context, listen: false).lOffset;
         }
 
-        else if(productType == ProductType.SELLER_PRODUCT) {
+        else if(widget.productType == ProductType.SELLER_PRODUCT) {
           pageSize = (Provider.of<ProductProvider>(context, listen: false).sellerPageSize!/10).ceil();
           offset = Provider.of<ProductProvider>(context, listen: false).sellerOffset;
         }
@@ -44,8 +60,8 @@ class ProductView extends StatelessWidget {
           Provider.of<ProductProvider>(context, listen: false).showBottomLoader();
 
 
-          if(productType == ProductType.SELLER_PRODUCT) {
-            Provider.of<ProductProvider>(context, listen: false).initSellerProductList(sellerId!, offset, context);
+          if(widget.productType == ProductType.SELLER_PRODUCT) {
+            Provider.of<ProductProvider>(context, listen: false).initSellerProductList(widget.sellerId!, offset, context);
           }else{
             Provider.of<ProductProvider>(context, listen: false).getLatestProductList(offset, context);
           }
@@ -60,22 +76,27 @@ class ProductView extends StatelessWidget {
     return Consumer<ProductProvider>(
       builder: (context, prodProvider, child) {
         List<Product>? productList = [];
-        if(productType == ProductType.LATEST_PRODUCT) {
-          productList = prodProvider.lProductList;
+
+     
+        if(widget.productType == ProductType.LATEST_PRODUCT) {
+          // productList = prodProvider.lProductList;
+          productList = prodProvider.menuFilterProductList;
         }
-        else if(productType == ProductType.FEATURED_PRODUCT) {
+        else if(widget.productType == ProductType.FEATURED_PRODUCT) {
           productList = prodProvider.featuredProductList;
-        }else if(productType == ProductType.TOP_PRODUCT) {
+        }else if(widget.productType == ProductType.TOP_PRODUCT) {
           productList = prodProvider.latestProductList;
-        }else if(productType == ProductType.BEST_SELLING) {
+        }else if(widget.productType == ProductType.BEST_SELLING) {
           productList = prodProvider.latestProductList;
-        }else if(productType == ProductType.NEW_ARRIVAL) {
+        }else if(widget.productType == ProductType.NEW_ARRIVAL) {
           productList = prodProvider.latestProductList;
         }
-else if(productType == ProductType.DISCOUNTED_PRODUCT) {
-          productList = prodProvider.discountProducts;
+else if(widget.productType == ProductType.DISCOUNTED_PRODUCT) {
+
+   productList = prodProvider.menuFilterProductList;
+          // productList = prodProvider.discountProducts;
         }
-        else if(productType == ProductType.SELLER_PRODUCT) {
+        else if(widget.productType == ProductType.SELLER_PRODUCT) {
           productList = prodProvider.sellerProductList;
 
           print('==========>Product List ==${prodProvider.firstLoading}====>${productList.length}');
@@ -90,7 +111,7 @@ else if(productType == ProductType.DISCOUNTED_PRODUCT) {
 
            productList.length != 0 ?
            StaggeredGridView.countBuilder(
-            itemCount: isHomePage? productList.length>4?
+            itemCount: widget.isHomePage? productList.length>4?
             4:productList.length:productList.length,
             crossAxisCount:  2,
             padding: EdgeInsets.all(0),
@@ -102,7 +123,7 @@ else if(productType == ProductType.DISCOUNTED_PRODUCT) {
             },
           ) : NoInternetOrDataScreen(isNoInternet: false):
 
-           ProductShimmer(isHomePage: isHomePage ,isEnabled: prodProvider.firstLoading),
+           ProductShimmer(isHomePage: widget.isHomePage ,isEnabled: prodProvider.firstLoading),
 
           prodProvider.filterIsLoading ?
            Center(child: Padding(

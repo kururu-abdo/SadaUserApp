@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:eamar_user_app/localization/language_constrants.dart';
 import 'package:eamar_user_app/utill/color_resources.dart';
 import 'package:eamar_user_app/utill/countries.dart';
@@ -26,6 +28,10 @@ class _PhoneWidgetState extends State<PhoneWidget> {
 @override
 void initState() {
   super.initState();
+
+
+
+
   if(widget.initalNumber!= null){
 seperatePhoneAndDialCode();
 
@@ -51,7 +57,7 @@ seperatePhoneAndDialCode();
       var newPhoneNumber = widget.initalNumber!.substring(
         foundedCountry["dial_code"]!.length,
       );
-      debugPrint({dialCode, newPhoneNumber}.toString());
+      log({dialCode, newPhoneNumber}.toString());
 
       _selectedCountryCode= dialCode;
       widget.controller!.text = newPhoneNumber;
@@ -141,7 +147,11 @@ widget.label!=null
         
               validator: (value) {
                 if (value!.isEmpty) {
-                  return 'Please enter some text';
+                  return 
+                  getLang(context)=="ar"?
+                  "هذا الحقل مطلوب":
+                  
+                  'This field is required';
                 }
                 return null;
               },
@@ -172,7 +182,10 @@ widget.label!=null
         
                   
                   prefixIcon: countryDropDown,
-                  hintText: 'Phone Number',
+                  hintText: 
+                  getLang(context)=="ar"?
+                  "رقم الهاتف":
+                  'Phone Number',
                   labelText: ''),
             ),
           ),

@@ -6,6 +6,7 @@ import 'package:eamar_user_app/provider/auth_provider.dart';
 import 'package:eamar_user_app/utill/color_resources.dart';
 import 'package:eamar_user_app/utill/shake_widget.dart';
 import 'package:eamar_user_app/utill/sizes.dart';
+import 'package:eamar_user_app/view/basewidget/rating/bottomsheet_rating.dart';
 import 'package:eamar_user_app/view/screen/auth/auth_screen.dart';
 import 'package:eamar_user_app/view/screen/cart/widget/maintenance_captain_alert.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -144,71 +145,95 @@ fontSize:  isTablet(context)?  18: 15
 GestureDetector(
 
 onTap: (){
+ showModalBottomSheet(context: context,
+                isScrollControlled: true, 
+                
+                backgroundColor: Colors.transparent,
+  constraints: BoxConstraints(
+     maxWidth: MediaQuery.of(context).size.width,              
+  ),
+     builder: (_)=>  RatingBottmSheet(
+
+      ratingType: RatingType.Captain , 
+      
+      onTap: (rate , message)async{
 
 
+
+
+//rate here
+
+
+
+
+      }
+      ,
+     )
+            );    
+
             
-                                final _dialog = RatingDialog(
-                  initialRating: 1.0,
-                  // your app's name?
-                  title: Text(
-                    getLang(context)=="ar"?
-                    "تقييم كابتن الصيانة":
-                    'Rate Maintenance Captain'
+//                                 final _dialog = RatingDialog(
+//                   initialRating: 1.0,
+//                   // your app's name?
+//                   title: Text(
+//                     getLang(context)=="ar"?
+//                     "تقييم كابتن الصيانة":
+//                     'Rate Maintenance Captain'
                     
-                    ,
-                    textAlign: TextAlign.center,
-                    style:  TextStyle(
-              fontSize:  isTablet(context)?  30:25,
-              fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  // encourage your user to leave a high rating?
-                  message: Text(
-                    getLang(context)=="ar"?
-                    "شارك رأيك بخصوص  كابتن الصيانة":
-                    'Please share your opinion about Maintenance captain'
+//                     ,
+//                     textAlign: TextAlign.center,
+//                     style:  TextStyle(
+//               fontSize:  isTablet(context)?  30:25,
+//               fontWeight: FontWeight.bold,
+//                     ),
+//                   ),
+//                   // encourage your user to leave a high rating?
+//                   message: Text(
+//                     getLang(context)=="ar"?
+//                     "شارك رأيك بخصوص  كابتن الصيانة":
+//                     'Please share your opinion about Maintenance captain'
                     
-                    ,
-                    textAlign: TextAlign.center,
-                    style:  TextStyle(fontSize: isTablet(context)?  20: 15),
-                  ),
-                  // your app's logo?
-                  // image: const FlutterLogo(size: 100),
-                  submitButtonText:
+//                     ,
+//                     textAlign: TextAlign.center,
+//                     style:  TextStyle(fontSize: isTablet(context)?  20: 15),
+//                   ),
+//                   // your app's logo?
+//                   // image: const FlutterLogo(size: 100),
+//                   submitButtonText:
                   
-                                      getLang(context)=="ar"?
-"اضافة تقييم":
+//                                       getLang(context)=="ar"?
+// "اضافة تقييم":
                   
-                   'Add Rating',
-                  commentHint: 
-                                      getLang(context)=="ar"?
-"اكتب رأيك":
+//                    'Add Rating',
+//                   commentHint: 
+//                                       getLang(context)=="ar"?
+// "اكتب رأيك":
                   
-                  'let see you opinion',
-                  onCancelled: () => print('cancelled'),
-                  onSubmitted: (response) {
-                    print('rating: ${response.rating}, comment: ${response.comment}');
-            //
+//                   'let see you opinion',
+//                   onCancelled: () => print('cancelled'),
+//                   onSubmitted: (response) {
+//                     print('rating: ${response.rating}, comment: ${response.comment}');
+//             //
             
-            //call api to send rate
+//             //call api to send rate
             
             
             
-                    // TODO: add your own logic
-                    // if (response.rating < 3.0) {
-                    //   // send their comments to your email or anywhere you wish
-                    //   // ask the user to contact you instead of leaving a bad review
-                    // } else {
-                    //   // _rateAndReviewApp();
-                    // }
-                  },
-                );
+//                     // TODO: add your own logic
+//                     // if (response.rating < 3.0) {
+//                     //   // send their comments to your email or anywhere you wish
+//                     //   // ask the user to contact you instead of leaving a bad review
+//                     // } else {
+//                     //   // _rateAndReviewApp();
+//                     // }
+//                   },
+//                 );
             
-              showDialog(
-                  context: context,
-                  barrierDismissible: true, // set to false if you want to force a rating
-                  builder: (context) => _dialog,
-                );
+//               showDialog(
+//                   context: context,
+//                   barrierDismissible: true, // set to false if you want to force a rating
+//                   builder: (context) => _dialog,
+//                 );
 
 
 

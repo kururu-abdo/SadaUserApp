@@ -24,13 +24,15 @@ class InboxScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isFirstTime = true;
     bool isGuestMode = !Provider.of<AuthProvider>(context, listen: false).isLoggedIn();
-    if(isFirstTime) {
+   
+ WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+ if(isFirstTime) {
       if(!isGuestMode) {
         Provider.of<ChatProvider>(context, listen: false).initChatInfo(context);
       }
       isFirstTime = false;
     }
-
+ });
     return Scaffold(
       backgroundColor: ColorResources.getIconBg(context),
       body: Column(children: [

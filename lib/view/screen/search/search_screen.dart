@@ -1,7 +1,10 @@
 
+import 'dart:developer';
+
 import 'package:eamar_user_app/data/model/response/category.dart';
 import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:eamar_user_app/view/basewidget/textfield/dropdown_field.dart';
+import 'package:eamar_user_app/view/screen/search/widget/budget_search_bottomsheet.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/localization/language_constrants.dart';
@@ -22,9 +25,15 @@ class SearchScreen extends StatelessWidget {
     final GlobalKey<FormState> _vormKey =GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    Provider.of<SearchProvider>(context, listen: false).cleanSearchProduct();
+  
+WidgetsBinding.instance.addPostFrameCallback((_) {
+
+  Provider.of<SearchProvider>(context, listen: false).cleanSearchProduct();
     Provider.of<SearchProvider>(context, listen: false).initHistoryList();
 Provider.of<SearchProvider>(context, listen: false).getCategoryList(false ,context);
+
+
+});
     return SafeArea(
       child: Scaffold(
         backgroundColor: ColorResources.getIconBg(context),
@@ -61,8 +70,12 @@ Provider.of<SearchProvider>(context, listen: false).getCategoryList(false ,conte
 
                         Provider.of<SearchProvider>(context, listen: false).searchProduct(text, context);
                         Provider.of<SearchProvider>(context, listen: false).saveSearchAddress(text);
+                       
+                       
                         },
-                      onClearPressed: () => Provider.of<SearchProvider>(context, listen: false).cleanSearchProduct(),
+                      onClearPressed: () => 
+                      Provider.of<SearchProvider>(context, listen: false).
+                      cleanSearchProduct(),
                       ),
                     ),
                   ),
@@ -73,12 +86,22 @@ Provider.of<SearchProvider>(context, listen: false).getCategoryList(false ,conte
 
             Consumer<SearchProvider>(
               builder: (context, searchProvider, child) {
-                return !searchProvider.isClear ? searchProvider.searchProductList != null ?
+                return !searchProvider.isClear ? 
+                searchProvider.searchProductList != null ?
                 searchProvider.searchProductList!.length > 0 ?
-                Expanded(child: SearchProductWidget(products: searchProvider.searchProductList, isViewScrollable: true)) :
-                Expanded(child: NoInternetOrDataScreen(isNoInternet: false)) :
+                Expanded(child: SearchProductWidget(products: 
+                searchProvider.searchProductList, isViewScrollable: true)) 
+                
+                :
+                Expanded(child: NoInternetOrDataScreen(isNoInternet: false))
+                 :
                 Expanded(child: ProductShimmer(isHomePage: false,
-                    isEnabled: Provider.of<SearchProvider>(context).searchProductList == null)) :
+                    isEnabled: 
+                    Provider.of<SearchProvider>(context).searchProductList == null)
+                    )
+                    
+                    
+                     :
 //old code
 
 //                 Expanded(flex: 4,
@@ -173,17 +196,68 @@ Provider.of<SearchProvider>(context, listen: false).getCategoryList(false ,conte
 
 
 
+   
+
                 Expanded(
                   child: Container(
                     padding: EdgeInsets.all(Dimensions.PADDING_SIZE_LARGE),
                     child: 
                         Consumer<SearchProvider>(
-                          builder: (context, searchProvider, child) => ListView(
-                            children: [   Padding(
+                          builder: (context, searchProvider, child) => 
+                          
+                          ListView(
+                            children: [ 
+                              
+
+
+Row(
+  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  children: [
+    TextButton(onPressed: (){
+
+
+      showModalBottomSheet(context: context,
+                isScrollControlled: true, 
+                
+                backgroundColor: Colors.transparent,
+  constraints: BoxConstraints(
+     maxWidth: MediaQuery.of(context).size.width,              
+  ),
+                builder: (c) => SeachByBudgetBottomshet()
+                );
+    }, child: Text(
+      
+      getLang(context)=="ar"?
+      "البحث بالميزانية":
+      'Search by budget',
+    style: robotoBold.copyWith(
+
+                                               fontSize:     isTablet(context)? 20:null
+
+    )
+                                  
+    
+    )),
+
+Container(padding: EdgeInsets.symmetric(horizontal:Dimensions.PADDING_SIZE_DEFAULT,
+                                          vertical:Dimensions.PADDING_SIZE_LARGE ),
+
+)
+  ],
+) ,
+
+
+
+
+                                Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              child: 
+                              
+                              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(getTranslated('SEARCH_HISTORY', context)!, style: robotoBold.copyWith(
+                                  Text(getTranslated('SEARCH_HISTORY', context)!, 
+                                  
+                                  style: robotoBold.copyWith(
 
                                                fontSize:     isTablet(context)? 20:null
 
@@ -205,8 +279,21 @@ Provider.of<SearchProvider>(context, listen: false).getCategoryList(false ,conte
                                 ],
                               ),
                             ),
+                            
+                            
+                            
                               SizedBox(
-                                height: MediaQuery.of(context).size.height/4,
+                                height: 
+                                searchProvider.historyList.length*50 > 
+
+                                MediaQuery.of(context).size.height/4
+                                ?
+                                MediaQuery.of(context).size.height/4
+                                :
+                                 searchProvider.historyList.length*50 
+
+                                // MediaQuery.of(context).size.height/4
+                                ,
                                 child: StaggeredGridView.countBuilder(
                                   crossAxisCount: 2,
                                   physics: NeverScrollableScrollPhysics(),
@@ -248,272 +335,53 @@ Provider.of<SearchProvider>(context, listen: false).getCategoryList(false ,conte
 
 
 
-
-                            Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(getTranslated('search_by_budget', context)!, style: robotoBold
-                                
-                                .copyWith(
-                                  fontSize:                                                     isTablet(context)? 20:
-15
-                                )
-                                ),
-
-
-                                // InkWell(borderRadius: BorderRadius.circular(10),
-                                //     onTap: () => Provider.of<SearchProvider>(context, listen: false).clearSearchAddress(),
-                                //     child: Container(padding: EdgeInsets.symmetric(horizontal:Dimensions.PADDING_SIZE_DEFAULT,
-                                //         vertical:Dimensions.PADDING_SIZE_LARGE ),
-                                //         child: Text('X',
-                                //           style: titilliumRegular.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL,
-                                //               color: Theme.of(context).primaryColor),))
-                                //               )
-                              ],
-                            )),
-
-
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height/3.5,
-                              child: Form(
-                                key: _vormKey,
-                                child: ListView(children: [
+                                Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: 
                               
-                              
-                              
-                                   Container(
-                                       margin:
-                                                  EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
-                                                  bottom: Dimensions.MARGIN_SIZE_DEFAULT,
-                                                      right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL),
-                                                        child: CustomDropdown<Category>(
-                                                          
-                                  child: Text(
-                                  getTranslated('category', context)!,
-                                    style: titilliumRegular.copyWith(
-                                      fontSize:                                                     isTablet(context)? 20:
-null,
-fontWeight: FontWeight.bold,
-                                      
-                                      color: Theme.of(context).
-                                    hintColor),
-                                  ),
-                                  leadingIcon: true,
-                                  
-                                  onChange: (Category? value, int index)async {
+                              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
                                     
-                              searchProvider.setCategory( value!);
+                                    getLang(context)=="ar"?
+                                    "منتجات بحث عنها مؤخرا":"Latest search products"
+                                    , 
                                   
-                                    //fetch region cities
-                              
-                              //                          await     getNeighboursByCity(selectedCity!.id!).then((value) {
-                              // setState(() {
-                                      
-                              //                                 neighbours=value;
-                              
-                                    // });
-                              
-                                    // });
-                                  },
-                                  dropdownButtonStyle: DropdownButtonStyle(
-                                      width: double.infinity,
-                              
-                                    height: 59,
-                                    elevation: 0.0,
-                                    backgroundColor: Colors.white,
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    primaryColor: Theme.of(context).primaryColor,
-                                  ),
-                                  dropdownStyle: DropdownStyle(
-                                    borderRadius: BorderRadius.circular(6),
-                                    elevation: 0.0,
-                                    padding: EdgeInsets.all(0),
-                                  ),
-                                  items: 
-                              
-                                  searchProvider.categoryList
-                                      // .asMap()
-                                      // .entries
-                                      .map(
-                                        (item) => DropdownItem<Category>(
-                                          value: item,
-                                          
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                              
-                                              left: 18,right: 18 ,bottom: 18
-                                            ),
-                                            child: Text(item.name!,
-                                                style:
-                                                    TextStyle(color: Color(0xFF6F6E6E),
-                                                    fontSize: 12,fontWeight: 
-                                                    FontWeight.bold
-                                                    
-                                                    
-                                                    )),
-                                          ),
+                                  style: robotoBold.copyWith(
 
-                                        ),
-                                        
-                                      )
-                                      .toList(),
-                                      
-                                ),
-                                
-                                
-                                ),
-                                    
-                                   Container(
-                              
-                              
-                                     decoration: BoxDecoration(
-                                         boxShadow: [
-                                        BoxShadow(color: Colors.grey.withOpacity(0.2), 
-                                        spreadRadius: 1, blurRadius: 7, offset: Offset(0, 1)) // changes position of shadow
-                                      ],
-                                      ),
-                                      padding: EdgeInsets.only(bottom:MediaQuery.of(context).viewInsets.bottom),
-                                       margin:
-                                                  EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
-                                                  bottom: Dimensions.MARGIN_SIZE_DEFAULT,
-                                                      right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL),
-                                      child: TextFormField(
-                                                    keyboardType: TextInputType.number,
-                                                    textInputAction: TextInputAction.next,
-                                                    // onSubmitted: (_) => FocusScope.of(context).requestFocus(_lastFocus),
-                                                    // textAlign: TextAlign.center,
-                                                    maxLines: 1,
-                                                  
-                                                    // focusNode: _firstFocus,
-                                                    controller: _firstPriceController,
-                                                    style: 
-                                                    
-                                                    
-                                                    titilliumBold.copyWith(fontSize:
-                                                    
-                                                    isTablet(context)? 20:
-                                                    
-                                                    
-                                                     Dimensions.FONT_SIZE_SMALL),
-                                                    decoration: new InputDecoration(
-                                                      hintText: 
-                                                       getTranslated('budget_txt', context),
-                                                    
-                                    fillColor: Colors.white,
-                                    filled: true, 
-                                                      border: new OutlineInputBorder(
-                                                           borderSide: BorderSide.none
-                                                          // borderSide: new BorderSide(color: Theme.of(context).primaryColor)
-                                                          ),
-                                                          enabledBorder: 
-                                                          new OutlineInputBorder(
-                                borderSide: BorderSide.none
-                                                          )
-                                                          ),
+                                               fontSize:     isTablet(context)? 20:null
 
 
-                                                          validator: (str){
-
-if (str!.isEmpty) {
-  return getTranslated('amount_filed_required', context);
-}else {
-  return null;
-}
+                                  )),
 
 
-
-                                                          },
-                                                      ),
-                                    ),
-                                         InkWell(
-                                           onTap:     
-                                           
-                                           
-                               
-                              ()
-                              
-                              
-                              async{
-                              
-                              if (searchProvider.category ==null) {
-                                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(getTranslated('category_field_required', context)!),
-
-       backgroundColor: Colors.red));
-                              }else{
-                                 if (_vormKey.currentState!.validate()) {
-
-                                   FirebaseAnalytics.instance.logEvent(
-    name: "search_category",
-    parameters: {
-        "category_name":searchProvider.category!.name,
-        "date": DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now()),
-    },
-);
-
- FirebaseAnalytics.instance.logEvent(
-    name: "search_amount",
-    parameters: {
-        "amount":num.parse(_firstPriceController.text),
-        "date": DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now()),
-    },
-);
-                                await 
-                                searchProvider.
-                                filterByBudgetAndCategory(
-                                  searchProvider.category!, num.parse(_firstPriceController.text), context);
-                              }
-                              }
-                             
-                              
-                              },
-                                           child: Container(
-                                               margin:
-                                                             EdgeInsets.only(left: Dimensions.MARGIN_SIZE_DEFAULT,
-                                                             bottom: Dimensions.MARGIN_SIZE_DEFAULT,
-                                                                 right: Dimensions.MARGIN_SIZE_DEFAULT, top: Dimensions.MARGIN_SIZE_SMALL
-                                                                 ),
-                                               width: double.infinity,
-                                               height: 59,
-                                               //  width: double.infinity,
-                                         
-                                                             //                  margin:
-                                                             // EdgeInsets.only(bottom: Dimensions.MARGIN_SIZE_DEFAULT),
-                                               decoration: BoxDecoration(
-                                                 color: Theme.of(context).primaryColor,
-                                                 borderRadius: BorderRadius.circular(6),
-                                                 boxShadow: [
-                                                       BoxShadow(color: Colors.grey.withOpacity(0.2), spreadRadius: 1, blurRadius: 7, offset: Offset(0, 1)) // changes position of shadow
-                                                 ],
-                                         
-                                         
-                                               ),
-                                               
-                                               child: 
-                                               
-                                               
-                                               Center(
-                                                 
-                                                 child: Text(
-                                                    getTranslated('show_result_txt', context)! ,
-                                         
-                                                       style: TextStyle(
-                                                         fontWeight: FontWeight.w500,
-                                                         
-                                                         fontSize: 20 ,
-
-                                                         color: Theme.of(context).cardColor
-                                                       ),
-                                                 ),
-                                               ),
-                                               
-                                               
-                                               ),
-                                         )
-                              
-                                ]),
+                                  InkWell(borderRadius: BorderRadius.circular(10),
+                                      onTap: () => Provider.of<SearchProvider>(context, listen: false).clearSearchAddress(),
+                                      child: Container(padding: EdgeInsets.symmetric(horizontal:Dimensions.PADDING_SIZE_DEFAULT,
+                                          vertical:Dimensions.PADDING_SIZE_LARGE ),
+                                          child: Text(getTranslated('REMOVE', context)!,
+                                            style: titilliumRegular.copyWith(fontSize:
+                                            
+                                             isTablet(context)? 
+15:
+                                             Dimensions.FONT_SIZE_SMALL,
+                                                color: Theme.of(context).primaryColor),)))
+                                ],
                               ),
+                            ),
+                            
+                            GridView.count(
+                              crossAxisCount: 2,
+                              shrinkWrap: true,
+                              children: [
+
+
+                              ],
                             )
+
+
+                           
+                          
                             ]
                           ),
                         ),

@@ -1,6 +1,7 @@
 import 'package:eamar_user_app/localization/language_constrants.dart';
 import 'package:eamar_user_app/utill/color_resources.dart';
 import 'package:eamar_user_app/utill/custom_themes.dart';
+import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart';
@@ -143,7 +144,10 @@ class CustomTextField extends StatelessWidget {
         
                 ,
                 contentPadding: 
-                EdgeInsets.symmetric(vertical: 12.0, 
+                EdgeInsets.symmetric(vertical:
+                
+                   isTablet(context)? 18: 
+                 12.0, 
                 horizontal: 15),
                 isDense: true,
                 counterText: '',

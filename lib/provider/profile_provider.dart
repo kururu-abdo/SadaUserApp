@@ -133,12 +133,18 @@ class ProfileProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<String> getUserInfo(BuildContext context) async {
+  Future<String> getUserInfo(BuildContext context , {bool? isFromSplash=false}) async {
     String userID = '-1';
     ApiResponse apiResponse = await profileRepo!.getUserInfo();
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
-      _userInfoModel = UserInfoModel.fromJson(apiResponse.response!.data);
-      userID = _userInfoModel!.id !=null? _userInfoModel!.id.toString():'-1';
+      _userInfoModel = 
+      UserInfoModel.fromJson(apiResponse.response!.data);
+
+      
+      userID = _userInfoModel!.id !=null?
+
+
+       _userInfoModel!.id.toString():'-1';
 sharedPrefs.userName =  _userInfoModel!.fName!;
 
 
@@ -157,7 +163,12 @@ sharedPrefs.userName =  _userInfoModel!.fName!;
     
     
      else {
-      ApiChecker.checkApi(context, apiResponse);
+      if (isFromSplash!) {
+           ApiChecker.checkApi2(context, apiResponse);
+      }else {
+           ApiChecker.checkApi(context, apiResponse);
+      }
+   
     }
     notifyListeners();
     return userID;

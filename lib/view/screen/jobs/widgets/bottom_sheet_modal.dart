@@ -66,7 +66,7 @@ void initState() {
     return  Consumer<JobsProvider>(
       builder: (context , provider, child) {
         return new Container(
-                    height: 400.0,
+                    height: 500.0,
                     color: Colors.transparent, //could change this to Color(0xFF737373), 
                                //so you don't have to change MaterialApp canvasColor
                     child: new Container(

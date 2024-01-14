@@ -189,7 +189,9 @@ class AuthRepo {
     print('======Password====>$password');
     try {
       Response response = await dioClient!.post(
-          AppConstants.RESET_PASSWORD_URI, data: {"_method" : "put", "identity": identity.trim(), "otp": otp,"password": password, "confirm_password":confirmPassword});
+          AppConstants.RESET_PASSWORD_URI, data: {"_method" : "put",
+           "identity": identity.trim(), "otp": otp,"password":
+            password, "confirm_password":confirmPassword});
       return ApiResponse.withSuccess(response);
     } catch (e) {
       return ApiResponse.withError(ApiErrorHandler.getMessage(e));

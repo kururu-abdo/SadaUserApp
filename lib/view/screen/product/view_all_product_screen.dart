@@ -1,3 +1,6 @@
+import 'package:eamar_user_app/localization/language_constrants.dart';
+import 'package:eamar_user_app/utill/images.dart';
+import 'package:eamar_user_app/view/screen/search/widget/filter_category_products.dart';
 import 'package:flutter/material.dart';
 import 'package:eamar_user_app/helper/product_type.dart';
 
@@ -20,6 +23,33 @@ class AllProductScreen extends StatelessWidget {
       backgroundColor: ColorResources.getHomeBg(context),
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+
+        actions: [ 
+
+
+            InkWell(onTap: () => 
+              
+              showModalBottomSheet(context: context,
+                  isScrollControlled: true, 
+                  backgroundColor: Colors.transparent,
+    constraints: BoxConstraints(
+     maxWidth: MediaQuery.of(context).size.width,              
+  ),
+                  builder: (c) => FilterCategoryProductsBottomSheet(
+
+                    productType: productType,
+                  )
+                  ),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL,
+                        horizontal: Dimensions.PADDING_SIZE_SMALL),
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),),
+                    child: Image.asset(Images.dropdown, scale: 3,  color: Colors.white,),
+  
+  
+                  ),
+                ),
+        ],
         backgroundColor: Provider.of<ThemeProvider>(context).darkTheme ?
         Colors.black : Theme.of(context).primaryColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(
@@ -28,8 +58,16 @@ class AllProductScreen extends StatelessWidget {
             color: ColorResources.WHITE),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text(productType == ProductType.FEATURED_PRODUCT ?
-        'Featured Product':'Latest Product',
+        title: Text(productType == ProductType.DISCOUNTED_PRODUCT ?
+
+        getLang(context)=="ar"?"منتجات مخفضة":
+        'Discounted Product'
+        
+        
+        :
+         getLang(context)=="ar"?"منتجات اضيفت حديثا":
+        
+        'Latest Product',
             style: titilliumRegular.copyWith(fontSize: 20, color: ColorResources.WHITE)),
       ),
 
@@ -46,7 +84,9 @@ class AllProductScreen extends StatelessWidget {
 
                 child: Padding(
                   padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-                  child: ProductView(isHomePage: false , productType: productType, scrollController: _scrollController),
+                  child: ProductView(isHomePage: false ,
+                   productType: productType,
+                    scrollController: _scrollController),
                 ),
               ),
             ],

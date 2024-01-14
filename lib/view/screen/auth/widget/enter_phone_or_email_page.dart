@@ -3,6 +3,7 @@ import 'package:eamar_user_app/provider/phone_email_controller.dart';
 import 'package:eamar_user_app/view/basewidget/button/auth_button.dart';
 import 'package:eamar_user_app/view/basewidget/button/custom_button.dart';
 import 'package:eamar_user_app/view/screen/auth/widget/phone_widget.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -249,7 +250,16 @@ body: SafeArea(
             controller: emailController,
             validator: (value) {
               if (value!.isEmpty) {
-                return 'Please enter some text';
+                return 
+                 getLang(context)=="ar"?
+                 "هذا الحقل مطلوب":
+                'This field is required';
+              }
+              else if(!EmailValidator.validate(value.trim())){
+return 
+                 getLang(context)=="ar"?
+                 "البريد غير صالح":
+                'Email is Invalid';
               }
               return null;
             },
@@ -298,7 +308,8 @@ body: SafeArea(
   
       emailOrPhone
     );
-    Provider.of<PhoneEmailController>(context ,listen: false).setMethodd(emailOrPhone);
+    Provider.of<PhoneEmailController>(context ,listen: false).
+    setMethodd(emailOrPhone);
   Navigator.pop(context);
   
   
