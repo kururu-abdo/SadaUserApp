@@ -1,10 +1,12 @@
+import 'dart:developer';
+
 import 'package:eamar_user_app/utill/sizes.dart';
 import 'package:flutter/material.dart';
 
 class BrandItem extends StatelessWidget {
   final String? icon;
   final String? title;
-  final Function()? onTap;
+  final   Function()? onTap;
   const BrandItem({super.key, this.icon, this.title, this.onTap});
 
   @override
@@ -17,9 +19,12 @@ builder:(context, constraints) {
 if (isTablet(context)) {
 return  
     
-    GestureDetector(
+    InkWell(
       onTap: (){
-        onTap!();
+      
+           onTap!();
+        
+       
       },
       child: Container(
         padding: EdgeInsets.all(20),
@@ -64,7 +69,7 @@ return
     
     GestureDetector(
       onTap: (){
-        onTap!();
+         onTap!();
       },
       child: Container(
       //     padding: EdgeInsets.symmetric(

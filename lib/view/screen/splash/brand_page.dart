@@ -9,6 +9,7 @@ import 'package:eamar_user_app/view/screen/auth/auth_screen.dart';
 import 'package:eamar_user_app/view/screen/branches/branches.dart';
 import 'package:eamar_user_app/view/screen/dashboard/dashboard_screen.dart';
 import 'package:eamar_user_app/view/screen/languages/languages.dart';
+import 'package:eamar_user_app/view/screen/splash/index.dart';
 import 'package:eamar_user_app/view/screen/splash/widget/available_on.dart';
 import 'package:eamar_user_app/view/screen/splash/widget/brand_item.dart';
 import 'package:eamar_user_app/view/screen/splash/widget/social_link.dart';
@@ -126,7 +127,9 @@ decoration: BoxDecoration(
 child: Center(
   child:
   
-  isTablet(context)?ListView(
+  isTablet(context)?
+  
+  ListView(
     children: [  
 
 
@@ -194,7 +197,19 @@ child: Center(
        child: BrandItem(
         title:   AppLocalization.of(context)!.translate("contact_us"),
           icon: 'assets/images/whatsapp 2.png',
+          onTap: (){
+     
+          log('Love Suzan');
+           Navigator.of(context).push(
+          MaterialPageRoute(builder: (_){
+       
+            return  IndexPage();
+          })
+        );
+        },
        ),
+
+       
      )
   
     ],
@@ -276,8 +291,19 @@ child: Center(
      ) ,
      Center(
        child: BrandItem(
+      
         title:   AppLocalization.of(context)!.translate("contact_us"),
           icon: 'assets/images/whatsapp 2.png',
+            onTap: (){
+     
+          log('Love Suzan');
+           Navigator.of(context).push(
+          MaterialPageRoute(builder: (_){
+       
+            return  IndexPage();
+          })
+        );
+        },
        ),
      )
   

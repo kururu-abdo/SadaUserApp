@@ -46,7 +46,7 @@ class AuthButton extends StatelessWidget {
               borderRadius: 
               BorderRadius.circular(5)),
           child: 
-          isBuy? CircularProgressIndicator():
+          isBuy? CircularProgressIndicator.adaptive():
           
           
           Text(buttonText!,

@@ -36,7 +36,8 @@ class AuthProvider with ChangeNotifier {
   Future socialLogin(SocialLoginModel socialLogin, Function callback) async {
     _isLoading = true;
     notifyListeners();
-    ApiResponse apiResponse = await authRepo!.socialLogin(socialLogin);
+  try {
+      ApiResponse apiResponse = await authRepo!.socialLogin(socialLogin);
     _isLoading = false;
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       Map map = apiResponse.response!.data;
@@ -81,6 +82,10 @@ class AuthProvider with ChangeNotifier {
       callback(false, '', '',errorMessage);
       notifyListeners();
     }
+  } catch (e) {
+      callback(false, '', '',e.toString());
+      notifyListeners();
+  }
   }
 
 
@@ -151,6 +156,8 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
     ApiResponse apiResponse = await authRepo!.login(loginBody);
     _isLoading = false;
+
+    log("RESPONSE" + apiResponse.response!.data.toString());
     if (apiResponse.response != null && apiResponse.response!.statusCode == 200) {
       Map map = apiResponse.response!.data;
       String? temporaryToken = '';
@@ -162,26 +169,34 @@ class AuthProvider with ChangeNotifier {
         message = map["message"];
 
       }catch(e){
-
+_isLoading = false;
+    notifyListeners();
       }
       try{
         token = map["token"];
 
       }catch(e){
-
+_isLoading = false;
+    notifyListeners();
       }
       try{
         temporaryToken = map["temporary_token"];
 
       }catch(e){
-
+_isLoading = false;
+    notifyListeners();
       }
-
+try{
       if(token != null && token.isNotEmpty){
         authRepo!.saveUserToken(token);
         await authRepo!.updateToken();
       }
 
+}catch(e){
+  _isLoading = false;
+    notifyListeners();
+}
+log('No ISSUE');
       callback(true, token??'', temporaryToken??'', message??'');
       notifyListeners();
     } else {
@@ -197,12 +212,18 @@ class AuthProvider with ChangeNotifier {
       callback(false, '', '' , errorMessage);
       notifyListeners();
     }
+     _isLoading = false;
+    notifyListeners();
   }
 updateDeviceToken()async{
 try {
     await  authRepo!.updateToken();
 } catch (e) {
-  
+   _isLoading = false;
+   notifyListeners();
+}finally{
+   _isLoading = false;
+   notifyListeners();
 }
 }
   Future<void> updateToken(BuildContext context) async {

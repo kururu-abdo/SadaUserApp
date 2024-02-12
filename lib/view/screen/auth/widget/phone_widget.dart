@@ -2,10 +2,14 @@
 import 'dart:developer';
 
 import 'package:eamar_user_app/localization/language_constrants.dart';
+import 'package:eamar_user_app/provider/phone_provider.dart';
 import 'package:eamar_user_app/utill/color_resources.dart';
 import 'package:eamar_user_app/utill/countries.dart';
 import 'package:eamar_user_app/utill/sizes.dart';
+import 'package:eamar_user_app/view/basewidget/country_flags.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 class PhoneWidget extends StatefulWidget {
   final TextEditingController? controller;
@@ -23,6 +27,66 @@ final String? initalNumber;
 class _PhoneWidgetState extends State<PhoneWidget> {
   String? _selectedCountryCode;
   List<String> _countryCodes = ['+966', '+972' , '+967'];
+
+
+
+Widget _prefix(){
+   var provider =Provider.of<PhoneNumberProvider>(context);
+  return 
+  // SizedBox();
+  GestureDetector(
+    onTap: (){
+
+      showDialog(context: context, builder: (_)=>const 
+      CountryFlags());
+    },
+    child: Container(
+      child:  Row(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [ 
+      SvgPicture.asset(
+         provider.searchCountries.isNotEmpty?
+  provider.searchCountries[provider.selectedCountryIndex].flag!
+  
+  : provider.countries[provider.selectedCountryIndex].flag!, 
+
+  height: 20 ,width: 30,
+)
+    // Image.asset(
+    //   provider.searchCountries[provider.selectedCountryIndex].flag!
+      
+    //   // 'assets/images/ploand_flag.png'
+    //   )
+      
+      , 
+    const SizedBox(width: 1,),
+     Text(
+       provider.searchCountries.isNotEmpty?
+       provider.searchCountries[provider.selectedCountryIndex].countryCode!
+
+       :  provider.countries[provider.selectedCountryIndex].countryCode!
+      // '+62'
+      , 
+    
+    style: const TextStyle(
+    fontSize: 16, 
+    fontWeight: FontWeight.w500
+    ),
+    ) , 
+    
+    const SizedBox(width: 5,)
+    ,
+    const Icon(Icons.keyboard_arrow_down , 
+    
+    color:  Color(0xFF717E95),
+    )
+    ],
+    
+      ),
+    ),
+  );
+}
 
 
 @override
@@ -181,7 +245,7 @@ widget.label!=null
                  
         
                   
-                  prefixIcon: countryDropDown,
+                  prefixIcon: _prefix(),
                   hintText: 
                   getLang(context)=="ar"?
                   "رقم الهاتف":

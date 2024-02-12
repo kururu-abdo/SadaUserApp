@@ -43,7 +43,7 @@ int _selectedImage=0;
   }
 @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
     scaleStateController = PhotoViewScaleStateController();
 

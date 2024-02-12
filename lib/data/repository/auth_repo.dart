@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -88,7 +89,7 @@ class AuthRepo {
   // for  user token
   Future<void> saveUserToken(String token) async {
     dioClient!.updateHeader(token, null);
-
+log('UDPDTAE TOKEN '+  token.toString());
     try {
       await sharedPreferences!.setString(AppConstants.TOKEN, token);
     } catch (e) {

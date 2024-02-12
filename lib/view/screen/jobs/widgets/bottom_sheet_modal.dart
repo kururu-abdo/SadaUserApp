@@ -106,7 +106,7 @@ CustomDropdown<int>(
                     
                     ,
                   
-                  color: Theme.of(context).colorScheme.onPrimary,   ///TODO: change dopdown icon color
+                  color: Theme.of(context).colorScheme.onPrimary, 
                   ) ,
                                 onChange: (int value, int index)async {
                              

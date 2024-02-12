@@ -42,7 +42,7 @@ class _OffersScreenState extends State<OffersScreen> {
           
           
           Provider.of<BannerProvider>(context).footerBannerList==null?
-          Center(child: CircularProgressIndicator(),):
+          Center(child: CircularProgressIndicator.adaptive(),):
           
            ListView.builder(
             padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),

@@ -188,7 +188,7 @@ class _CustomDropdownState<T> extends State<CustomDropdown<T?>>
                         
                         ,
                       
-                      color: Theme.of(context).colorScheme.onPrimary,   ///TODO: change dopdown icon color
+                      color: Theme.of(context).colorScheme.onPrimary,   
                       ) ,
                     
                     ),

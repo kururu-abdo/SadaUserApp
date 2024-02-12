@@ -139,7 +139,7 @@ body: SafeArea(
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-      Checkbox(value:_selectOption==0 , onChanged: (value){
+      Checkbox.adaptive(value:_selectOption==0 , onChanged: (value){
       
       if(value!){
         _selectOption=0;

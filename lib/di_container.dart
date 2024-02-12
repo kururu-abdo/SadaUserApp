@@ -45,6 +45,7 @@ import 'package:eamar_user_app/provider/location_provider.dart';
 import 'package:eamar_user_app/provider/notification_provider.dart';
 import 'package:eamar_user_app/provider/onboarding_provider.dart';
 import 'package:eamar_user_app/provider/phone_email_controller.dart';
+import 'package:eamar_user_app/provider/phone_provider.dart';
 import 'package:eamar_user_app/provider/product_details_provider.dart';
 import 'package:eamar_user_app/provider/order_provider.dart';
 import 'package:eamar_user_app/provider/product_provider.dart';
@@ -105,6 +106,7 @@ Future<void> init() async {
   sl.registerFactory(() => CategoryProvider(categoryRepo: sl()));
     sl.registerFactory(() => JobsProvider(jobsRepo: sl()));
   sl.registerFactory(() => PhoneEmailController());
+    sl.registerFactory(() => PhoneNumberProvider());
 
   sl.registerFactory(() => HomeCategoryProductProvider(homeCategoryProductRepo: sl()));
   sl.registerFactory(() => TopSellerProvider(topSellerRepo: sl()));

@@ -473,7 +473,7 @@ else {
               // Text('Products');
               
                provider.isProductsLoading ? 
-               Center(child: CircularProgressIndicator(),):
+               Center(child: CircularProgressIndicator.adaptive(),):
               GridView.builder(
             gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,

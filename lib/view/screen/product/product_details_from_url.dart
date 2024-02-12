@@ -286,7 +286,7 @@ Provider.of<ProductDetailsProvider>(context).myProdutt!=null?
     ):
     
     Scaffold(
-      body: Center(child: CircularProgressIndicator(),),
+      body: Center(child: CircularProgressIndicator.adaptive(),),
     );
   }
 

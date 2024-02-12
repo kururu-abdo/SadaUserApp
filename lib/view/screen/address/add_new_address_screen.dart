@@ -403,7 +403,7 @@ true, null, context);
                                         child: Row(children: <Widget>[
                                           Row(
                                             children: [
-                                              Radio<Address>(
+                                              Radio<Address>.adaptive(
                                                 value: Address.shipping,
                                                 groupValue: _address,
                                                 onChanged: (Address? value) {
@@ -418,7 +418,7 @@ true, null, context);
                                         ),
                                           Row(
                                             children: [
-                                              Radio<Address>(
+                                              Radio<Address>.adaptive(
                                                 value: Address.billing,
                                                 groupValue: _address,
                                                 onChanged: (Address? value) {

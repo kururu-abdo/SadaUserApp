@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:eamar_user_app/data/datasource/remote/chache/app_path_provider.dart';
 import 'package:eamar_user_app/localization/language_constrants.dart';
 import 'package:eamar_user_app/provider/phone_email_controller.dart';
+import 'package:eamar_user_app/provider/phone_provider.dart';
 import 'package:eamar_user_app/utill/shared_prefs.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -147,6 +148,7 @@ AGConnectOptions(
       ChangeNotifierProvider(create: (context) => di.sl<TopSellerProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<FlashDealProvider>()),
             ChangeNotifierProvider(create: (context) => di.sl<JobsProvider>()),
+            ChangeNotifierProvider(create: (context) => di.sl<PhoneNumberProvider>()),
 
       ChangeNotifierProvider(create: (context) => di.sl<FeaturedDealProvider>()),
       ChangeNotifierProvider(create: (context) => di.sl<BrandProvider>()),

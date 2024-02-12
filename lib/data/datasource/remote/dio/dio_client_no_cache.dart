@@ -44,7 +44,9 @@ class DioClientNoCache {
   }
 
   void updateHeader(String? token, String? countryCode) {
-    token = token == null ? this.token! : token;
+ sharedPreferences.setString(AppConstants.TOKEN,token!);
+    this.token = token;
+
     countryCode = countryCode == null ? this.countryCode == 'US' ? 'en': this.countryCode!.toLowerCase(): countryCode == 'US' ? 'en' : countryCode.toLowerCase();
     this.token = token;
     this.countryCode = countryCode;
@@ -66,6 +68,8 @@ class DioClientNoCache {
 
 
     try {
+
+      log(token.toString()+"    "+"/api/v1/customer/info");
       var response = await dio!.get(
         uri,
         queryParameters: queryParameters,

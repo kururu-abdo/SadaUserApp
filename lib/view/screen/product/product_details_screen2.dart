@@ -337,7 +337,7 @@ Scaffold(
           
           
           
-//           //         // TODO: add your own logic
+//           
 //           //         // if (response.rating < 3.0) {
 //           //         //   // send their comments to your email or anywhere you wish
 //           //         //   // ask the user to contact you instead of leaving a bad review
@@ -431,7 +431,7 @@ Scaffold(
           
           
           
-//           //         // TODO: add your own logic
+//           //       
 //           //         // if (response.rating < 3.0) {
 //           //         //   // send their comments to your email or anywhere you wish
 //           //         //   // ask the user to contact you instead of leaving a bad review

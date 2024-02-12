@@ -35,7 +35,6 @@ with TickerProviderStateMixin {
 
   @override
   void initState() {
-    // TODO: implement initState
     // controller = TabController(
     //   length: TabsConfig.tabs.length,
     //   vsync: this,
@@ -53,7 +52,7 @@ with TickerProviderStateMixin {
       );
       setState(() {});
     } catch (on) {
-      print(on); // TODO: rem
+      print(on); 
     }
   }
   @override
@@ -458,7 +457,7 @@ else {
               // Text('Products');
               
                provider.isProductsLoading ? 
-               Center(child: CircularProgressIndicator(),):
+               Center(child: CircularProgressIndicator.adaptive(),):
               GridView.builder(
             gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,

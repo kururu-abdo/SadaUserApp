@@ -113,7 +113,7 @@ Consumer<CategoryProvider>(
   builder: (context ,provider ,child) {
     return     IconButton(onPressed: (){
 
-      ///TODO: show filter brand products
+   
       showModalBottomSheet(
           isScrollControlled: true,   constraints: BoxConstraints(
      maxWidth: MediaQuery.of(context).size.width,              

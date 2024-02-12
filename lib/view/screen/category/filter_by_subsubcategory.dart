@@ -65,7 +65,7 @@ class _FilterDialogUserState extends State<FilterDialogUser> {
                           
                           Text(e.text!),
                           const Spacer(),
-                         Checkbox(
+                         Checkbox.adaptive(
                             value: e.selected,
                             onChanged: (value) => setState(() {
                               e.subitems.forEach((element) =>

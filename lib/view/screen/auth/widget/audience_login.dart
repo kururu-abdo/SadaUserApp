@@ -143,7 +143,7 @@ loginBody.user_id =  _idController!.text.trim();
         }
       }
       else{
-                      Provider.of<AuthProvider>(context, listen: false).setUserType('user');
+        Provider.of<AuthProvider>(context, listen: false).setUserType('user');
 
         await Provider.of<ProfileProvider>(context, listen: false).getUserInfo(context);
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => DashBoardScreen()), (route) => false);

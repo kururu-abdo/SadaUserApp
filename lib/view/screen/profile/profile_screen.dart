@@ -162,9 +162,14 @@ String? phone;
 
 @override
   void initState() {
-    // TODO: implement initState
+   
     super.initState();
     // _initData();
+
+
+    ///TODO: add company account widget
+    ///company or foundation name
+    
   }
   _initData(){
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -200,8 +205,12 @@ Consumer<ProfileProvider>(
 Container(padding: EdgeInsets.only(top: 40, left: 15),
                   child: Row(children: [
                     CupertinoNavigationBarBackButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      color: Colors.white,),
+                      onPressed: () =>
+                       Navigator.of(context).pop(),
+                      color: Colors.white,
+                      
+                      
+                      ),
                     SizedBox(width: 10),
               
                     Text(getTranslated('PROFILE', context)!,

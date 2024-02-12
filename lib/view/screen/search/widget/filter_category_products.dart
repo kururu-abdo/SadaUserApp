@@ -206,7 +206,7 @@ class MyCheckBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CheckboxListTile(
+    return CheckboxListTile.adaptive(
       title: Text(title!, style: titilliumSemiBold.copyWith(fontSize: Dimensions.FONT_SIZE_SMALL)),
       checkColor: Theme.of(context).primaryColor,
       activeColor: Colors.transparent,

@@ -163,11 +163,12 @@ sharedPrefs.userName =  _userInfoModel!.fName!;
     
     
      else {
-      if (isFromSplash!) {
-           ApiChecker.checkApi2(context, apiResponse);
-      }else {
-           ApiChecker.checkApi(context, apiResponse);
-      }
+       ApiChecker.checkApi2(context, apiResponse);
+      // if (isFromSplash!) {
+      //      ApiChecker.checkApi2(context, apiResponse);
+      // }else {
+      //      ApiChecker.checkApi(context, apiResponse);
+      // }
    
     }
     notifyListeners();

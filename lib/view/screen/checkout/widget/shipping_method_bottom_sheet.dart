@@ -76,7 +76,7 @@ class _ShippingMethodBottomSheetState extends State<ShippingMethodBottomSheet> {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
 
-                      return RadioListTile(
+                      return RadioListTile.adaptive(
                         title: Text('${order.shippingList![widget.sellerIndex].shippingMethodList![index].title} (Duration: ${order.shippingList![widget.sellerIndex].shippingMethodList![index].duration}, Cost: ${
                             PriceConverter.convertPrice(context, order.shippingList![widget.sellerIndex].shippingMethodList![index].cost)})'),
                         value: index,

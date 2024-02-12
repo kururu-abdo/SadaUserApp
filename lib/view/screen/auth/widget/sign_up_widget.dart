@@ -95,7 +95,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
       //   ));
       // } 
       
-      else if (_emailController.text.isEmpty) {
+      else if (_phoneController.text.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(getTranslated('PHONE_MUST_BE_REQUIRED', context)!),
           backgroundColor: Colors.red,

@@ -695,8 +695,10 @@ itemId: categoryList[categoryViewState.category!].
 
 
   notifyListeners();
-getCategoryProducts(context, categoryViewState.itemId!);
 
+if (categoryViewState.itemId!=null) {
+    getCategoryProducts(context, categoryViewState.itemId!);
+  }
 }
 
 
@@ -1008,7 +1010,11 @@ itemId: categoryList[categoryViewState.category!].
 
 
   notifyListeners();
-getCategoryProducts(context, categoryViewState.itemId!);
+
+  if (categoryViewState.itemId!=null) {
+    getCategoryProducts(context, categoryViewState.itemId!);
+  }
+
 
 }
 
